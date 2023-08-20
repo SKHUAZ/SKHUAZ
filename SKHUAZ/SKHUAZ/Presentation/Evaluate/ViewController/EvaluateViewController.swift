@@ -14,10 +14,7 @@ final class EvaluateViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let tableView = UITableView().then {
-        $0.separatorStyle = .none
-        $0.register(EvaluateTableViewCell.self, forCellReuseIdentifier: "Cell")
-    }
+    private let evaluateListView = UITableView()
     
     // MARK: - Properties
     
@@ -37,9 +34,12 @@ final class EvaluateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUI()
         setLayout()
         setupData()
+        setDelegate()
+        setUITableView()
     }
 }
 
@@ -48,15 +48,21 @@ extension EvaluateViewController {
     // MARK: - UI Components Property
     
     private func setUI() {
-        view.addSubview(tableView)
-        tableView.dataSource = self
+        
+        evaluateListView.do {
+            $0.separatorStyle = .none
+            $0.register(EvaluateTableViewCell.self, forCellReuseIdentifier: "Cell")
+        }
     }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        
+        view.addSubview(evaluateListView)
+        
+        evaluateListView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
     }
     
@@ -64,18 +70,32 @@ extension EvaluateViewController {
     
     private func setupData() {
         reviewList = [review1, review2, review3, review4, review5]
-        tableView.reloadData()
+        evaluateListView.reloadData()
+    }
+    
+    private func setDelegate() {
+        evaluateListView.delegate = self // UITableViewDelegate를 설정해주어야 합니다.
+   }
+    
+    private func setUITableView() {
+        evaluateListView.dataSource = self
+        evaluateListView.tableHeaderView = EvaluateCustomHeaderView()
+
     }
 }
 
-extension EvaluateViewController: UITableViewDataSource {
+extension EvaluateViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 375
     }
     
-    private func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 15
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60 // 원하는 헤더 높이로 수정
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return EvaluateCustomHeaderView()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

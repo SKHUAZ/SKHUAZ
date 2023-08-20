@@ -12,11 +12,9 @@ import SnapKit
 
 class EvaluateCustomHeaderView: UITableViewHeaderFooterView {
     
-    // MARK: - Properties
-    
-    
     // MARK: - UI Components
     
+    private let searchBar = UISearchBar()
     
     // MARK: - Initializer
     
@@ -33,20 +31,29 @@ class EvaluateCustomHeaderView: UITableViewHeaderFooterView {
 
 extension EvaluateCustomHeaderView {
     
-    // MARK: - UI Components Property
-    
-    private func setUI(){
-    }
-    
-    
     // MARK: - Layout Helper
     
-    private func setLayout() {}
+    private func setLayout() {
+        
+        contentView.addSubview(searchBar)
+        
+        searchBar.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.bottom.equalToSuperview().inset(5)
+        }
+    }
     
-    // MARK: - Methods
+    // MARK: - UI Components Property
     
-    private func setAddTarget() {}
-    
-    // MARK: - @objc Methods
-    
+    private func setUI() {
+        contentView.backgroundColor = UIColor(hue: 0.55, saturation: 0.4, brightness: 0.9, alpha: 1.0)
+        
+        searchBar.do {
+            $0.tintColor = .black
+            $0.placeholder = "강의명 검색"
+            $0.backgroundImage = UIImage() // Clear background
+        }
+    }
 }
+

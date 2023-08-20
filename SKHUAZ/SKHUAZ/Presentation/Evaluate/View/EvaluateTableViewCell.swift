@@ -7,8 +7,8 @@
 
 import UIKit
 
-import SnapKit
 import Then
+import SnapKit
 
 class EvaluateTableViewCell: UITableViewCell {
     
