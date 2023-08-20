@@ -7,13 +7,10 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
 class EvaluateTableViewCell: UITableViewCell {
-    
-    // MARK: - Properties
-
     
     // MARK: - UI Components
     
@@ -22,21 +19,17 @@ class EvaluateTableViewCell: UITableViewCell {
     private let professorNameLabel = UILabel()
     private let courseYearLabel = UILabel()
     private let totalScoreLabel = UILabel()
-    
-    private let assessmentChartView = UIView()
-    private let courseOverallReviewView = UIView()
-    
+    private let testUIView = UIView()
     private let bottomStackView = UIStackView()
     private let authorNameLabel = UILabel()
     private let dateCreatedLabel = UILabel()
-
     
     // MARK: - Initializer
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setUI()
         setLayout()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
@@ -45,106 +38,101 @@ class EvaluateTableViewCell: UITableViewCell {
 }
 
 extension EvaluateTableViewCell {
-
-    // MARK: - UI Components Property
-
-    private func setUI(){
-        
-        topStackView.do {
-            $0.axis = .horizontal
-            $0.spacing = 7
-        }
-        
-        lectureNameLabel.do {
-            $0.text = "데이터베이스"
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.textColor = .black
-        }
-        
-        professorNameLabel.do {
-            $0.text = "홍은지"
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.textColor = .black
-        }
-        
-        courseYearLabel.do {
-            $0.text = "2023-1"
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.textColor = .black
-        }
-        
-        totalScoreLabel.do {
-            $0.text = "☆★★★★"
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.textColor = .black
-        }
-        
-        assessmentChartView.do {
-            $0.backgroundColor = .gray
-        }
-        
-        courseOverallReviewView.do {
-            $0.backgroundColor = .gray
-        }
-        
-        bottomStackView.do {
-            $0.axis = .horizontal
-            $0.spacing = 7
-        }
-        
-        authorNameLabel.do {
-            $0.text = "천성우"
-            $0.font = .boldSystemFont(ofSize: 10)
-            $0.textColor = .black
-        }
-        
-        dateCreatedLabel.do {
-            $0.text = "2023-08-17"
-            $0.font = .boldSystemFont(ofSize: 10)
-            $0.textColor = .black
-        }
-    }
     
+    // MARK: - Configure
+    
+    func configure(with review: EvaluateDataModel) {
+        lectureNameLabel.text = review.lectureNameLabel
+        professorNameLabel.text = review.professorNameLabel
+        courseYearLabel.text = review.courseYearLabel
+        totalScoreLabel.text = "\(review.totalScoreLabel)"
+        authorNameLabel.text = review.authorNameLabel
+        dateCreatedLabel.text = review.dateCreatedLabel
+    }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
         
-        topStackView.addArrangedSubviews(lectureNameLabel, professorNameLabel, courseYearLabel, totalScoreLabel)
+        contentView.addSubviews(topStackView, testUIView, totalScoreLabel
+                                ,bottomStackView)
+        topStackView.addArrangedSubviews(lectureNameLabel, professorNameLabel, courseYearLabel)
         bottomStackView.addArrangedSubviews(authorNameLabel, dateCreatedLabel)
-        contentView.addSubviews(topStackView, assessmentChartView, courseOverallReviewView, bottomStackView)
-        
+
         topStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(12)
-            $0.leading.trailing.equalToSuperview().inset(27)
-            $0.height.equalTo(40)
-        }
-        
-        lectureNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(13)
-            $0.leading.equalToSuperview().offset(7)
-        }
-        
-        professorNameLabel.snp.makeConstraints {
-            $0.top.equalTo(lectureNameLabel.snp.top)
-            $0.leading.equalTo(lectureNameLabel.snp.trailing).offset(15)
-        }
-        
-        courseYearLabel.snp.makeConstraints {
-            $0.top.equalTo(professorNameLabel.snp.top)
-            $0.leading.equalTo(professorNameLabel.snp.trailing).offset(15)
+            $0.top.equalToSuperview().offset(15)
+            $0.leading.equalToSuperview().offset(20)
         }
         
         totalScoreLabel.snp.makeConstraints {
-            $0.top.equalTo(courseYearLabel.snp.top)
-            $0.trailing.equalToSuperview().inset(9)
+            $0.top.equalTo(topStackView.snp.top)
+            $0.trailing.equalToSuperview().inset(20)
+        }
+
+      
+        testUIView.snp.makeConstraints {
+            $0.top.equalTo(topStackView.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(17)
+            $0.width.equalTo(340)
+            $0.height.equalTo(80)
+        }
+        
+        bottomStackView.snp.makeConstraints {
+            $0.top.equalTo(testUIView.snp.bottom).offset(10)
+            $0.leading.equalToSuperview().offset(20)
+            $0.bottom.equalToSuperview().inset(15)
         }
     }
     
-    // MARK: - Methods
+    // MARK: - UI Components Property
     
-    private func setAddTarget() {}
-    
-    // MARK: - @objc Methods
-    
+    private func setUI() {
+        
+        topStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 7
+            $0.distribution = .fillProportionally
+        }
+        
+        lectureNameLabel.do {
+            $0.font = .boldSystemFont(ofSize: 14)
+            $0.backgroundColor = .red
+        }
+        
+        professorNameLabel.do {
+            $0.font = .boldSystemFont(ofSize: 14)
+            $0.backgroundColor = .blue
+        }
+        
+        courseYearLabel.do {
+            $0.font = .boldSystemFont(ofSize: 14)
+            $0.backgroundColor = .green
+        }
+        
+        totalScoreLabel.do {
+            $0.font = .boldSystemFont(ofSize: 14)
+            $0.backgroundColor = .yellow
+        }
+        
+        testUIView.do {
+            $0.backgroundColor = .lightGray
+            $0.snp.makeConstraints { make in
+                make.width.equalTo(340)
+                make.height.equalTo(80)
+            }
+        }
+        
+        bottomStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 10
+        }
+        
+        authorNameLabel.do {
+            $0.font = .boldSystemFont(ofSize: 10)
+        }
+        
+        dateCreatedLabel.do {
+            $0.font = .boldSystemFont(ofSize: 10)
+        }
+    }
 }
