@@ -74,13 +74,12 @@ extension EvaluateTableViewCell {
             $0.top.equalTo(topStackView.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(17)
             $0.width.equalTo(340)
-            $0.height.equalTo(80)
+            $0.height.equalTo(166)
         }
         
         bottomStackView.snp.makeConstraints {
-            $0.top.equalTo(testUIView.snp.bottom).offset(10)
+            $0.top.equalTo(testUIView.snp.bottom).offset(15)
             $0.leading.equalToSuperview().offset(20)
-            $0.bottom.equalToSuperview().inset(15)
         }
     }
     
@@ -116,11 +115,7 @@ extension EvaluateTableViewCell {
         
         testUIView.do {
             $0.backgroundColor = .lightGray
-            $0.snp.makeConstraints { make in
-                make.width.equalTo(340)
-                make.height.equalTo(80)
-            }
-        }
+                }
         
         bottomStackView.do {
             $0.axis = .horizontal
