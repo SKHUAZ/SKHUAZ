@@ -39,17 +39,6 @@ class EvaluateTableViewCell: UITableViewCell {
 
 extension EvaluateTableViewCell {
     
-    // MARK: - Configure
-    
-    func configure(with review: EvaluateDataModel) {
-        lectureNameLabel.text = review.lectureNameLabel
-        professorNameLabel.text = review.professorNameLabel
-        courseYearLabel.text = review.courseYearLabel
-        totalScoreLabel.text = "\(review.totalScoreLabel)"
-        authorNameLabel.text = review.authorNameLabel
-        dateCreatedLabel.text = review.dateCreatedLabel
-    }
-    
     // MARK: - Layout Helper
     
     private func setLayout() {
@@ -129,5 +118,16 @@ extension EvaluateTableViewCell {
         dateCreatedLabel.do {
             $0.font = .boldSystemFont(ofSize: 10)
         }
+    }
+    
+    // MARK: - Configure
+    
+    func configure(with review: EvaluateDataModel) {
+        lectureNameLabel.text = review.lectureNameLabel
+        professorNameLabel.text = review.professorNameLabel
+        courseYearLabel.text = review.courseYearLabel
+        totalScoreLabel.text = "\(review.totalScoreLabel)"
+        authorNameLabel.text = review.authorNameLabel
+        dateCreatedLabel.text = review.dateCreatedLabel
     }
 }

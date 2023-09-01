@@ -10,6 +10,8 @@ import UIKit
 import Then
 import SnapKit
 
+    // MARK: - protocol 채택
+
 protocol EvaluateCustomHeaderViewDelegate: AnyObject {
     func optionButtonTapped(title: String)
 }
@@ -147,6 +149,8 @@ extension EvaluateCustomHeaderView {
         }
     }
     
+    // MARK: - Methods
+    
     private func setAddTarget() {
         optionSW.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
         optionCE.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
@@ -154,10 +158,11 @@ extension EvaluateCustomHeaderView {
         optionAI.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
     }
     
-    
+    // MARK: - @objc Methods
+
     @objc private func optionButtonTapped(_ sender: UIButton) {
         if let selectedOption = sender.currentTitle {
-            print("Selected Option: \(selectedOption)") // 확인용 출력
+            print("Selected Option: \(selectedOption)")
             delegate?.optionButtonTapped(title: selectedOption)
         }
     }
