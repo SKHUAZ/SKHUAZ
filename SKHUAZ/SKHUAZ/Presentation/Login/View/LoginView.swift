@@ -13,14 +13,20 @@ import Then
 final class LoginView: UIView {
     
     // MARK: - UI Components
+    
     private let logoLabel = UILabel()
     private let idTextField = UITextField()
     private let pwTextField = UITextField()
     private let logInButton = UIButton()
     private let signUpButton = UIButton()
     private let forgotButton = UIButton()
+    
     // MARK: - Properties
         
+    var signUpButtonHandler: (() -> Void)?
+    var forgotButtonnHandler: (() -> Void)?
+    var logInButtonnHandler: (() -> Void)?
+    
     // MARK: - Initializer
     
     override init(frame: CGRect) {
@@ -151,6 +157,6 @@ extension LoginView {
     // MARK: - @objc Methods
     @objc
     func pushSecondViewController() {
-
+        
     }
 }

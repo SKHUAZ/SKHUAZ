@@ -136,6 +136,7 @@
 		2539B95E2A8CA50400E939AA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				E3E83D4C2AA2097E0047C079 /* SignUp */,
 				E3546DD62A8DECD900ACFF3C /* Login */,
 				2539B9732A8CA5E500E939AA /* Base */,
 				2539B9722A8CA5E400E939AA /* TabBar */,
@@ -331,6 +332,29 @@
 				E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3E83D4C2AA2097E0047C079 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				E3E83D4E2AA209910047C079 /* View */,
+				E3E83D4D2AA209890047C079 /* ViewController */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		E3E83D4D2AA209890047C079 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3E83D4E2AA209910047C079 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

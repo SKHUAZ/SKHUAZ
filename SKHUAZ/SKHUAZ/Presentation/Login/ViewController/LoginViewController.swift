@@ -14,13 +14,12 @@ final class LoginViewController: UIViewController {
     // MARK: - UI Components
     
     private let rootView = LoginView()
-    
-    // MARK: - Properties
-        
+ 
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setButton()
     }
     
     override func loadView() {
@@ -30,17 +29,34 @@ final class LoginViewController: UIViewController {
 
 extension LoginViewController {
     
-    // MARK: - UI Components Property
+    //MARK: - @objc
     
-    private func setUI() {
-        view.backgroundColor = .white
+    @objc
+    private func setButton() {
+        rootView.signUpButtonHandler  = { [weak self] in
+            self?.signUpButtonDidTap()
+        }
+        rootView.logInButtonnHandler  = { [weak self] in
+            self?.logInButtonDidTap()
+        }
+        rootView.forgotButtonnHandler  = { [weak self] in
+            self?.forgotButtonDidTap()
+        }
     }
     
-    // MARK: - Layout Helper
-    
-    private func setLayout() {
-        // MARK: - Methods
-        
-        // MARK: - @objc Methods
+    @objc
+    private func signUpButtonDidTap() {
+
     }
+    
+    @objc
+    private func logInButtonDidTap() {
+
+    }
+    
+    @objc
+    private func forgotButtonDidTap() {
+
+    }
+    
 }
