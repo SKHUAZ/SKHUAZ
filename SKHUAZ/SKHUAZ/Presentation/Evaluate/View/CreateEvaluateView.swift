@@ -17,10 +17,13 @@ class CreateEvaluateView: UIView {
     
     // MARK: - UI Components
     
-    private let titleLabel = UILabel()
-    private let createContainer = UIView()
-    private let writerLabel = UILabel()
-    private let dateLabel = UILabel()
+    private let mainImage = UIView()
+    private let mainContainer = UIView()
+    private let topSpace = UIView()
+    private let topLabel = UILabel()
+    private let warringLabel = UILabel()
+    private let cancelButton = UIButton()
+    private let saveButton = UIButton()
     
     // MARK: - Initializer
     
@@ -40,6 +43,23 @@ extension CreateEvaluateView {
     
     private func setUI(){
         
+        mainContainer.do {
+            $0.layer.cornerRadius = 6
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.black.cgColor
+        }
+        
+        topSpace.do {
+            $0.backgroundColor = .black
+            $0.layer.cornerRadius = 6
+            $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
+        
+        topLabel.do {
+            $0.text = "강의평"
+            $0.textColor = .white
+            $0.font = .systemFont(ofSize: 16)
+        }
     }
     
     
