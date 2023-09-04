@@ -14,11 +14,11 @@ final class EvaluateViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let mainImage = UIView()
+    private let mainImage = UIImageView()
     private let titleLabel = UILabel()
     private let searchTextField = UITextField()
     private let evaluateListView = UITableView()
-    private let createButton = UIView()
+    private let createButton = UIButton()
     
     // MARK: - Properties
     
@@ -46,6 +46,7 @@ final class EvaluateViewController: UIViewController {
         setLayout()
         setupData()
         setDelegate()
+        addTarget()
         setUITableView()
     }
 }
@@ -57,6 +58,11 @@ extension EvaluateViewController {
     private func setUI() {
         
         view.backgroundColor = .white
+        
+        mainImage.do {
+            $0.contentMode = .scaleAspectFit
+            $0.image = Image.Logo3
+        }
         
         titleLabel.do {
             $0.text = "강의평"
@@ -80,7 +86,7 @@ extension EvaluateViewController {
         }
         
         createButton.do {
-            $0.backgroundColor = .black
+            $0.setImage(Image.CreateButton, for: .normal)
         }
     }
     
@@ -123,6 +129,12 @@ extension EvaluateViewController {
         }
     }
     
+    // MARK: - Add
+    
+    private func addTarget() {
+        createButton.addTarget(self, action: #selector(pushToCreateEvaluateView), for: .touchUpInside)
+    }
+    
     // MARK: - Methods
     
     private func setupData() {
@@ -140,6 +152,12 @@ extension EvaluateViewController {
     
     private func setUITableView() {
         evaluateListView.dataSource = self
+    }
+    @objc
+    private func pushToCreateEvaluateView() {
+        let vc = CreateEvaluateViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+        print("tq")
     }
     
     
