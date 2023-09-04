@@ -12,6 +12,10 @@ import SnapKit
 
 class EvaluateTableViewCell: UITableViewCell {
     
+    // MARK: - Property
+    
+    private var evaluatePoint: [Int] = [0, 0, 0 ,0]
+    
     // MARK: - UI Components
     private let cellContainer = UIView()
     private let mainContainer = UIView()
@@ -20,7 +24,7 @@ class EvaluateTableViewCell: UITableViewCell {
     private let evaluateTitle = UILabel()
     private let lectureNameLabel = UILabel()
     private let professorNameLabel = UILabel()
-    private let evaluateGraph = UIView()
+    private let evaluateGraph = CircleGraphView(frame: CGRect(x: 0, y: 0, width: 104, height: 104))
     
     // MARK: - Initializer
     
@@ -34,6 +38,8 @@ class EvaluateTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
 }
 
 extension EvaluateTableViewCell {
@@ -91,7 +97,8 @@ extension EvaluateTableViewCell {
         }
         
         evaluateGraph.do {
-            $0.backgroundColor = .gray
+            $0.lineWidth = 30
+            $0.backgroundColor = .white
         }
         
     }
@@ -163,5 +170,6 @@ extension EvaluateTableViewCell {
         lectureNameLabel.text = review.lectureNameLabel
         professorNameLabel.text = review.professorNameLabel
         subContainer.text = review.evaluate
+        evaluateGraph.numbers = [review.evaluatePoint1, review.evaluatePoint2, review.evaluatePoint3, review.evaluatePoint4]
     }
 }

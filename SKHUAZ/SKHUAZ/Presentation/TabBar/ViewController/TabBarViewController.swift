@@ -32,7 +32,7 @@ extension TabBarController {
     private func setTabBarItems() {
         
         tabs = [
-            LoginViewController(),
+            CreateEvaluateViewController(),
             EvaluateViewController()
         ]
         TabBarItemType.allCases.forEach {
