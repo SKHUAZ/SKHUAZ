@@ -13,16 +13,14 @@ import SnapKit
 class EvaluateTableViewCell: UITableViewCell {
     
     // MARK: - UI Components
-    
-    private let topStackView = UIStackView()
+    private let cellContainer = UIView()
+    private let mainContainer = UIView()
+    private let subContainer = PaddingLabel()
+    private let topSpace = UIView()
+    private let evaluateTitle = UILabel()
     private let lectureNameLabel = UILabel()
     private let professorNameLabel = UILabel()
-    private let courseYearLabel = UILabel()
-    private let totalScoreLabel = UILabel()
-    private let testUIView = UIView()
-    private let bottomStackView = UIStackView()
-    private let authorNameLabel = UILabel()
-    private let dateCreatedLabel = UILabel()
+    private let evaluateGraph = UIView()
     
     // MARK: - Initializer
     
@@ -30,6 +28,7 @@ class EvaluateTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setLayout()
         setUI()
+        selectedBackgroundView = UIView()
     }
     
     required init?(coder: NSCoder) {
@@ -39,95 +38,130 @@ class EvaluateTableViewCell: UITableViewCell {
 
 extension EvaluateTableViewCell {
     
-    // MARK: - Layout Helper
-    
-    private func setLayout() {
-        
-        contentView.addSubviews(topStackView, testUIView, totalScoreLabel
-                                ,bottomStackView)
-        topStackView.addArrangedSubviews(lectureNameLabel, professorNameLabel, courseYearLabel)
-        bottomStackView.addArrangedSubviews(authorNameLabel, dateCreatedLabel)
-
-        topStackView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(15)
-            $0.leading.equalToSuperview().offset(20)
-        }
-        
-        totalScoreLabel.snp.makeConstraints {
-            $0.top.equalTo(topStackView.snp.top)
-            $0.trailing.equalToSuperview().inset(20)
-        }
-
-      
-        testUIView.snp.makeConstraints {
-            $0.top.equalTo(topStackView.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(340)
-            $0.height.equalTo(166)
-        }
-        
-        bottomStackView.snp.makeConstraints {
-            $0.top.equalTo(testUIView.snp.bottom).offset(15)
-            $0.leading.equalToSuperview().offset(20)
-        }
-    }
-    
     // MARK: - UI Components Property
     
     private func setUI() {
         
-        topStackView.do {
-            $0.axis = .horizontal
-            $0.spacing = 7
-            $0.distribution = .fillProportionally
+        cellContainer.do {
+            $0.layer.cornerRadius = 6
+            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor.black.cgColor
+        }
+        
+        topSpace.do {
+            $0.backgroundColor = .black
+            $0.layer.cornerRadius = 6
+            $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
+        
+        mainContainer.do {
+            $0.layer.cornerRadius = 6
+            $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
+        }
+        
+        subContainer.do {
+            $0.font = .systemFont(ofSize: 8)
+            $0.numberOfLines = 6
+            $0.layer.cornerRadius = 6
+            $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
+            $0.topInset = 6
+            $0.rightInset = 9
+            $0.bottomInset = 6
+            $0.leftInset = 7
+        }
+        
+        evaluateGraph.do {
+            $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
+        }
+        
+        evaluateTitle.do {
+            $0.font = .systemFont(ofSize: 8)
+            $0.textColor = .white
+            $0.backgroundColor = .black
         }
         
         lectureNameLabel.do {
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.backgroundColor = .red
+            $0.font = .systemFont(ofSize: 8)
+            $0.textColor = .black
         }
         
         professorNameLabel.do {
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.backgroundColor = .blue
+            $0.font = .systemFont(ofSize: 8)
+            $0.textColor = .black
         }
         
-        courseYearLabel.do {
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.backgroundColor = .green
+        evaluateGraph.do {
+            $0.backgroundColor = .gray
         }
         
-        totalScoreLabel.do {
-            $0.font = .boldSystemFont(ofSize: 14)
-            $0.backgroundColor = .yellow
+    }
+    
+    // MARK: - Layout Helper
+    
+    private func setLayout() {
+        
+        contentView.addSubviews(cellContainer)
+        cellContainer.addSubviews(topSpace, mainContainer, subContainer,
+                                  evaluateGraph)
+        topSpace.addSubviews(evaluateTitle)
+        mainContainer.addSubviews(lectureNameLabel, professorNameLabel)
+        
+        cellContainer.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(16)
+            $0.leading.equalToSuperview().offset(36)
+            $0.width.equalTo(315)
+            $0.height.equalTo(147)
         }
         
-        testUIView.do {
-            $0.backgroundColor = .lightGray
-                }
-        
-        bottomStackView.do {
-            $0.axis = .horizontal
-            $0.spacing = 10
+        lectureNameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(8)
         }
         
-        authorNameLabel.do {
-            $0.font = .boldSystemFont(ofSize: 10)
+        professorNameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().inset(8)
         }
         
-        dateCreatedLabel.do {
-            $0.font = .boldSystemFont(ofSize: 10)
+        evaluateTitle.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(5)
+            $0.leading.equalToSuperview().offset(15)
         }
+        
+        topSpace.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(20)
+        }
+        
+        mainContainer.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalTo(topSpace.snp.bottom).offset(10)
+            $0.width.equalTo(150)
+            $0.height.equalTo(30)
+        }
+        
+        subContainer.snp.makeConstraints {
+            $0.top.equalTo(mainContainer.snp.bottom).offset(7)
+            $0.leading.equalToSuperview().offset(15)
+            $0.width.equalTo(150)
+            $0.height.equalTo(72)
+        }
+        
+        evaluateGraph.snp.makeConstraints {
+            $0.top.equalTo(topSpace.snp.bottom).offset(10)
+            $0.trailing.equalToSuperview().inset(19)
+            $0.width.height.equalTo(104)
+        }
+
     }
     
     // MARK: - Configure
     
     func configure(with review: EvaluateDataModel) {
+        evaluateTitle.text = "[\(review.courseYearLabel)]  \(review.title)"
         lectureNameLabel.text = review.lectureNameLabel
         professorNameLabel.text = review.professorNameLabel
-        courseYearLabel.text = review.courseYearLabel
-        totalScoreLabel.text = "\(review.totalScoreLabel)"
-        authorNameLabel.text = review.authorNameLabel
-        dateCreatedLabel.text = review.dateCreatedLabel
+        subContainer.text = review.evaluate
     }
 }
