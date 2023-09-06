@@ -115,10 +115,10 @@ extension CreateEvaluateViewController {
     }
 
     
-    private func setTapScreen() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
-        view.addGestureRecognizer(tapGestureRecognizer)
-    }
+//    private func setTapScreen() {
+//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
+//        view.addGestureRecognizer(tapGestureRecognizer)
+//    }
     
     private func setupKeyboardEvent() {
         NotificationCenter.default.addObserver(self,
@@ -155,10 +155,10 @@ extension CreateEvaluateViewController {
         }
     }
     
-    @objc
-    private func didTapScreen() {
-        view.endEditing(true)
-    }
+//    @objc
+//    private func didTapScreen() {
+//        view.endEditing(true)
+//    }
     
     @objc
     private func pushToEvaluateViewController() {

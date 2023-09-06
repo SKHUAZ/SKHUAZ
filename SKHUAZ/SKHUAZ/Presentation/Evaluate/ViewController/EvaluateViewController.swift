@@ -49,6 +49,7 @@ final class EvaluateViewController: UIViewController {
         setLayout()
         setupData()
         setDelegate()
+        setTapScreen()
         addTarget()
         setUITableView()
     }
