@@ -72,11 +72,9 @@ class CircleGraphView: UIView {
            return
        }
        
-       let total = numbers.reduce(0, +) // 배열의 총합을 계산합니다.
-       
-       // 각 요소를 총합으로 나누어 비율로 변환합니다.
+       let total = numbers.reduce(0, +)
        progressValues = numbers.map { CGFloat($0) / CGFloat(total) }
        
-       setNeedsDisplay() // 그래프를 다시 그리도록 업데이트 요청합니다.
+       setNeedsDisplay()
    }
 }
