@@ -19,9 +19,12 @@ final class EvaluateViewController: UIViewController {
     private let searchTextField = UITextField()
     private let evaluateListView = UITableView()
     private let createButton = UIButton()
+    private let wroteMeButton = UIButton()
     
     // MARK: - Properties
     
+    private var wroteMeButtonBottomConstraint: Constraint?
+    private var isMove: Bool = false
     var reviewList: [EvaluateDataModel] = []
     var filteredReviewList: [EvaluateDataModel] = []
     var isFiltering = false
@@ -41,7 +44,7 @@ final class EvaluateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
-
+        
         setUI()
         setLayout()
         setupData()
@@ -61,7 +64,7 @@ extension EvaluateViewController {
         
         mainImage.do {
             $0.contentMode = .scaleAspectFit
-            $0.image = Image.Logo3
+            $0.image = Image.Logo1
         }
         
         titleLabel.do {
@@ -74,7 +77,7 @@ extension EvaluateViewController {
             $0.placeholder = "검색어를 입력해주세요"
             $0.font = .systemFont(ofSize: 8)
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
-
+            
             $0.borderStyle = .roundedRect
             $0.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
         }
@@ -88,13 +91,17 @@ extension EvaluateViewController {
         createButton.do {
             $0.setImage(Image.CreateButton, for: .normal)
         }
+        
+        wroteMeButton.do {
+            $0.setImage(Image.WritingOff, for: .normal)
+        }
     }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
         view.addSubviews(mainImage, titleLabel,searchTextField,
-                         evaluateListView, createButton)
+                         evaluateListView, wroteMeButton, createButton)
         
         mainImage.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -112,13 +119,14 @@ extension EvaluateViewController {
         
         searchTextField.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(4)
-            $0.leading.equalToSuperview().offset(39)
-            $0.trailing.equalToSuperview().inset(39)
+            $0.leading.equalToSuperview().offset(30)
+            $0.trailing.equalToSuperview().inset(30)
             $0.height.equalTo(30)
         }
-
+        
         evaluateListView.snp.makeConstraints {
             $0.top.equalTo(searchTextField.snp.bottom).offset(10)
+        
             $0.leading.trailing.bottom.equalToSuperview()
         }
         
@@ -127,12 +135,20 @@ extension EvaluateViewController {
             $0.bottom.equalToSuperview().inset(104)
             $0.width.height.equalTo(56)
         }
+        
+        wroteMeButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(12)
+            self.wroteMeButtonBottomConstraint = $0.bottom.equalToSuperview().inset(104).constraint
+            $0.width.height.equalTo(56)
+        }
     }
     
     // MARK: - Add
     
     private func addTarget() {
-        createButton.addTarget(self, action: #selector(pushToCreateEvaluateView), for: .touchUpInside)
+
+        createButton.addTarget(self, action: #selector(movewroteMeButton), for: .touchUpInside)
+        wroteMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Methods
@@ -145,21 +161,38 @@ extension EvaluateViewController {
     
     private func setDelegate() {
         evaluateListView.delegate = self
-        if let headerView = evaluateListView.tableHeaderView as? EvaluateCustomHeaderView {
-            headerView.delegate = self
-        }
     }
     
     private func setUITableView() {
         evaluateListView.dataSource = self
     }
+    
     @objc
-    private func pushToCreateEvaluateView() {
-        let vc = CreateEvaluateViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
-        print("tq")
+    private func wroteMeButtonTapped() {
+        searchTextField.text = "천성우"
+        searchTextChanged()
     }
     
+    @objc
+    private func movewroteMeButton() {
+        isMove.toggle()
+        if isMove {
+            self.wroteMeButtonBottomConstraint?.update(inset: 168)
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+        else if !isMove {
+            let vc = CreateEvaluateViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+            self.wroteMeButtonBottomConstraint?.update(inset: 104)
+            UIView.animate(withDuration: 0.3) { [weak self] in
+                self?.view.layoutIfNeeded()
+            }
+        }
+        print(isMove)
+        
+    }
     
     @objc
     func searchTextChanged() {
@@ -171,12 +204,6 @@ extension EvaluateViewController {
             isFiltering = false
         }
         evaluateListView.reloadData()
-    }}
-
-extension EvaluateViewController: EvaluateCustomHeaderViewDelegate {
-    func optionButtonTapped(title: String) {
-        searchTextField.text = title
-        searchTextChanged()
     }
 }
 
