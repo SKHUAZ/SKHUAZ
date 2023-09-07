@@ -16,7 +16,7 @@ final class CreateEvaluateViewController: UIViewController {
     
     private let mainImage = UIImageView()
     private let evaluateView = CreateEvaluateView()
-    private let cancelButton = UIButton()
+    private let backButton = UIButton()
     private let saveButton = UIButton()
     
     // MARK: - Properties
@@ -29,8 +29,6 @@ final class CreateEvaluateViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
-        
-//        setNavigation()
         setupKeyboardEvent()
         setTapScreen()
         addTarget()
@@ -49,7 +47,7 @@ extension CreateEvaluateViewController {
             $0.image = Image.Logo1
         }
         
-        cancelButton.do {
+        backButton.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#000000").cgColor
             $0.layer.borderWidth = 1
@@ -73,7 +71,7 @@ extension CreateEvaluateViewController {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(mainImage, evaluateView, cancelButton, saveButton)
+        view.addSubviews(mainImage, evaluateView, backButton, saveButton)
         
         mainImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(47)
@@ -89,7 +87,7 @@ extension CreateEvaluateViewController {
             $0.width.equalTo(315)
         }
         
-        cancelButton.snp.makeConstraints {
+        backButton.snp.makeConstraints {
             $0.top.equalTo(evaluateView.snp.bottom).offset(25)
             $0.leading.equalToSuperview().offset(39)
             $0.width.equalTo(77)
@@ -111,14 +109,9 @@ extension CreateEvaluateViewController {
     // MARK: - Methods
     
     private func addTarget() {
-        cancelButton.addTarget(self, action: #selector(pushToEvaluateViewController), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(pushToEvaluateViewController), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(presnetToCreateEvaluateBottomSheetViewController), for: .touchUpInside)
     }
-
-    
-//    private func setTapScreen() {
-//        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
-//        view.addGestureRecognizer(tapGestureRecognizer)
-//    }
     
     private func setupKeyboardEvent() {
         NotificationCenter.default.addObserver(self,
@@ -155,13 +148,14 @@ extension CreateEvaluateViewController {
         }
     }
     
-//    @objc
-//    private func didTapScreen() {
-//        view.endEditing(true)
-//    }
-    
     @objc
     private func pushToEvaluateViewController() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    func presnetToCreateEvaluateBottomSheetViewController() {
+        let bottomSheetVC = CreateEvaluateBottomSheetViewController()
+        present(bottomSheetVC, animated: true, completion: nil)
     }
 }
