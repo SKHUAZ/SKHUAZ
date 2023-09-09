@@ -15,7 +15,7 @@ final class CreateEvaluateViewController: UIViewController {
     // MARK: - UI Components
     
     private let mainImage = UIImageView()
-    private let evaluateView = CreateEvaluateView()
+    private let evaluateView = EvaluateView(frame: .zero, evaluateType: .createEvalute)
     private let backButton = UIButton()
     private let saveButton = UIButton()
     
@@ -30,12 +30,13 @@ final class CreateEvaluateViewController: UIViewController {
         setUI()
         setLayout()
         setupKeyboardEvent()
-        setTapScreen()
+        setNavigation()
         addTarget()
+        self.hideKeyboardWhenTappedAround()
     }
 }
 
-extension CreateEvaluateViewController {
+extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewControllerDelegate {
     
     // MARK: - UI Components Property
     
@@ -49,19 +50,19 @@ extension CreateEvaluateViewController {
         
         backButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
+            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
             $0.layer.borderWidth = 1
             $0.backgroundColor = UIColor(hex: "#FFFFFF")
             $0.setTitle("목록", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+            $0.setTitleColor(UIColor(hex: "#ED7A7A"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 8)
         }
         
         saveButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#FFFFFF").cgColor
+            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
             $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#000000")
+            $0.backgroundColor = UIColor(hex: "#ED7A7A")
             $0.setTitle("저장", for: .normal)
             $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 8)
@@ -102,14 +103,16 @@ extension CreateEvaluateViewController {
         }
     }
     
-    private func setNavigation() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     // MARK: - Methods
     
+    private func setNavigation() {
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
     private func addTarget() {
-        backButton.addTarget(self, action: #selector(pushToEvaluateViewController), for: .touchUpInside)
+        backButton.addTarget(self, action: #selector(popToEvaluateViewController), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(presnetToCreateEvaluateBottomSheetViewController), for: .touchUpInside)
     }
     
@@ -123,6 +126,11 @@ extension CreateEvaluateViewController {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
 
+    }
+    
+    func didTapSaveButton(completion: @escaping () -> Void) {
+        self.navigationController?.popToRootViewController(animated: false)
+        completion()
     }
     
     // MARK: - @objc Methods
@@ -149,13 +157,15 @@ extension CreateEvaluateViewController {
     }
     
     @objc
-    private func pushToEvaluateViewController() {
+    private func popToEvaluateViewController() {
         self.navigationController?.popViewController(animated: true)
     }
     
     @objc
     func presnetToCreateEvaluateBottomSheetViewController() {
         let bottomSheetVC = CreateEvaluateBottomSheetViewController()
+        bottomSheetVC.delegate = self
         present(bottomSheetVC, animated: true, completion: nil)
     }
 }
+
