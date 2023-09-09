@@ -1,5 +1,5 @@
 //
-//  CreateEvaluateView.swift
+//  EvaluateView.swift
 //  SKHUAZ
 //
 //  Created by 천성우 on 2023/09/06.
@@ -11,10 +11,17 @@ import UIKit
 import Then
 import SnapKit
 
-class CreateEvaluateView: UIView {
+enum EvaluateViewType {
+    case createEvalute
+    case detailEvalute
+}
+
+
+class EvaluateView: UIView {
     
     // MARK: - Properties
     
+    private let evaluateType: EvaluateViewType
     private let placeholderTextView = "본문을 작성해주세요"
     private let placeholderColor = UIColor(hex: "#737373")
     let attributes: [NSAttributedString.Key: Any] = [
@@ -38,15 +45,16 @@ class CreateEvaluateView: UIView {
     private let secondLabel = UILabel()
     private let thirdLabel = UILabel()
     private let fourthLabel = UILabel()
-    private let firstTextField = UITextField()
-    private let secondTextField = UITextField()
-    private let thirdTextField = UITextField()
+    private let firstTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let secondTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let thirdTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
     private let fourthTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
     //UITextField()
     
     // MARK: - Initializer
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, evaluateType: EvaluateViewType) {
+        self.evaluateType = evaluateType
         super.init(frame: frame)
         
         setUI()
@@ -59,118 +67,196 @@ class CreateEvaluateView: UIView {
     }
 }
 
-extension CreateEvaluateView {
+extension EvaluateView {
     
     // MARK: - UI Components Property
     
     private func setUI(){
+        
+        switch evaluateType {
+        case .createEvalute:
+            
+            topLabel.do {
+                $0.text = "강의평"
+                $0.textColor = UIColor(hex: "#FFFFFF")
+                $0.font = .systemFont(ofSize: 16)
+            }
+            
+            guideWrite.do {
+                $0.text = "강의 평가 작성"
+                $0.textColor = UIColor(hex: "#737373")
+                $0.font = .systemFont(ofSize: 16)
+            }
+            
+            semesterView.do {
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+            }
+            
+            propeserView.do {
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+            }
+            
+            lectureView.do {
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+            }
+            
+            titleTextField.do {
+                $0.font = .systemFont(ofSize: 11)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.attributedPlaceholder = NSAttributedString(string: "제목을 입력해주세요", attributes: attributes)
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:8, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            evaluateView.do {
+                $0.text = placeholderTextView
+                $0.font = .systemFont(ofSize: 11)
+                $0.textColor = placeholderColor
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.textContainerInset = UIEdgeInsets(top: 9, left: 5, bottom: 0, right: 0)
+                $0.layer.cornerRadius = 6
+            }
+            
+            guidePoint.do {
+                $0.text = "강의 점수 평가"
+                $0.textColor = UIColor(hex: "#737373")
+                $0.font = .systemFont(ofSize: 16)
+            }
+            
+            firstTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+            
+            secondTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+            
+            thirdTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+            
+            fourthTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+            
+        case .detailEvalute:
+            
+            topLabel.do {
+                $0.text = "강의평 상세보기"
+                $0.textColor = UIColor(hex: "#FFFFFF")
+                $0.font = .systemFont(ofSize: 16)
+            }
+            
+            guideWrite.do {
+                $0.text = ""
+                $0.textColor = UIColor(hex: "#737373")
+                $0.font = .systemFont(ofSize: 16)
+            }
+            
+            semesterView.do {
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+            }
+            
+            propeserView.do {
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+            }
+            
+            lectureView.do {
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+            }
+            
+            
+            titleTextField.do {
+                $0.text = "서버 통신으로 받아올 데이터 입니다"
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.isEnabled = false
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:8, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            evaluateView.do {
+                $0.text = "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다"
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = UIColor(hex: "#000000")
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.textContainerInset = UIEdgeInsets(top: 9, left: 5, bottom: 0, right: 0)
+                $0.layer.cornerRadius = 6
+            }
+            
+            guidePoint.do {
+                $0.text = "강의 점수 평가"
+                $0.textColor = UIColor(hex: "#737373")
+                $0.font = .systemFont(ofSize: 16)
+            }
+            
+            firstTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+            
+            secondTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+            
+            thirdTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+            
+            fourthTextField.do {
+                $0.minimumValue = 0
+                $0.maximumValue = 100
+                $0.value = 50
+                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            }
+        }
+        
         containerView.do {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
-            $0.layer.borderWidth = 1
+            $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
         }
         
         topSpace.do {
-            $0.backgroundColor = .black
+            $0.backgroundColor = UIColor(hex: "#ED7A7A")
             $0.layer.cornerRadius = 6
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
         
-        topLabel.do {
-            $0.text = "강의평"
-            $0.textColor = UIColor(hex: "#FFFFFF")
-            $0.font = .systemFont(ofSize: 16)
-        }
-        
-        guideWrite.do {
-            $0.text = "강의 평가 작성"
-            $0.textColor = UIColor(hex: "#737373")
-            $0.font = .systemFont(ofSize: 16)
-        }
-        
-        semesterView.do {
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.layer.cornerRadius = 6
-        }
-        
-        propeserView.do {
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.layer.cornerRadius = 6
-        }
-        
-        lectureView.do {
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.layer.cornerRadius = 6
-        }
-        
-        titleTextField.do {
-            $0.font = .systemFont(ofSize: 8)
-            $0.textColor = .black
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.layer.cornerRadius = 6
-            $0.attributedPlaceholder = NSAttributedString(string: "제목을 입력해주세요", attributes: attributes)
-            let paddingView = UIView(frame:CGRect(x:0, y:0, width:8, height:$0.frame.height))
-            $0.leftViewMode = .always
-            $0.leftView = paddingView
-        }
-        
-        evaluateView.do {
-            $0.text = placeholderTextView
-            $0.font = .systemFont(ofSize: 8)
-            $0.textColor = placeholderColor
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.textContainerInset = UIEdgeInsets(top: 9, left: 5, bottom: 0, right: 0)
-            $0.layer.cornerRadius = 6
-        }
-        
-        guidePoint.do {
-            $0.text = "강의 점수 평가"
-            $0.textColor = UIColor(hex: "#737373")
-            $0.font = .systemFont(ofSize: 16)
-        }
-        
-        firstTextField.do {
-            $0.textColor = .black
-            $0.font = .systemFont(ofSize: 8)
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.layer.cornerRadius = 6
-            $0.attributedPlaceholder = NSAttributedString(string: "1 ~ 100 사이 입력", attributes: attributes)
-            $0.setLeftPaddingPoints(8)
-        }
-        
-        secondTextField.do {
-            $0.textColor = .black
-            $0.font = .systemFont(ofSize: 8)
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.layer.cornerRadius = 6
-            $0.attributedPlaceholder = NSAttributedString(string: "1 ~ 100 사이 입력", attributes: attributes)
-            $0.setLeftPaddingPoints(8)
-            
-        }
-        
-        thirdTextField.do {
-            $0.textColor = .black
-            $0.font = .systemFont(ofSize: 8)
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-            $0.layer.cornerRadius = 6
-            $0.attributedPlaceholder = NSAttributedString(string: "1 ~ 100 사이 입력", attributes: attributes)
-            $0.setLeftPaddingPoints(8)
-        }
-        
-        fourthTextField.do {
-//            $0.placeholder = "1 ~ 100 사이 입력"
-//            $0.textColor = .black
-//            $0.font = .systemFont(ofSize: 8)
-//            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-//            $0.layer.cornerRadius = 6
-//            $0.attributedPlaceholder = NSAttributedString(string: "1 ~ 100 사이 입력", attributes: attributes)
-//            $0.setLeftPaddingPoints(8)
-            $0.minimumValue = 0
-            $0.maximumValue = 100
-            $0.value = 50
-            $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-        }
+       
         
         firstLabel.do {
             $0.text = "{평가영역 1}"
@@ -344,7 +430,7 @@ extension CreateEvaluateView {
 }
 
 
-extension CreateEvaluateView: UITextViewDelegate {
+extension EvaluateView: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == placeholderColor {
