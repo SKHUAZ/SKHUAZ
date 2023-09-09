@@ -34,7 +34,16 @@
 		2539B99D2A8CA79200E939AA /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 2539B99C2A8CA79200E939AA /* Then */; };
 		2539B9A02A8CA79F00E939AA /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 2539B99F2A8CA79F00E939AA /* Alamofire */; };
 		9EC5E2D72A92525D0047E6E7 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2D62A92525D0047E6E7 /* RecommendDataModel.swift */; };
-		9EC5E2D92A9256370047E6E7 /* RecommendDetailDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2D82A9256370047E6E7 /* RecommendDetailDataModel.swift */; };
+		9EC5E2D92A9256370047E6E7 /* RecommendDM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2D82A9256370047E6E7 /* RecommendDM.swift */; };
+		9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */; };
+		9EC5E2DD2A9994E80047E6E7 /* UIStackView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DC2A9994E80047E6E7 /* UIStackView++.swift */; };
+		9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */; };
+		9EC5E2E12A99EBF40047E6E7 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2E02A99EBF40047E6E7 /* TestViewController.swift */; };
+		9ECFA93A2AA80D7E0060D12F /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA9392AA80D7E0060D12F /* UILabelPadding.swift */; };
+		9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */; };
+		9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */; };
+		9ECFA9442AAA48020060D12F /* CreateRecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA9432AAA48020060D12F /* CreateRecommendTableViewCell.swift */; };
+		9ECFA9462AAA52540060D12F /* CreateRecommendAfterBringView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA9452AAA52540060D12F /* CreateRecommendAfterBringView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,7 +73,16 @@
 		2539B9942A8CA73A00E939AA /* Literals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Literals.swift; sourceTree = "<group>"; };
 		2539B9962A8CA74900E939AA /* FontLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLevel.swift; sourceTree = "<group>"; };
 		9EC5E2D62A92525D0047E6E7 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
-		9EC5E2D82A9256370047E6E7 /* RecommendDetailDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDetailDataModel.swift; sourceTree = "<group>"; };
+		9EC5E2D82A9256370047E6E7 /* RecommendDM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDM.swift; sourceTree = "<group>"; };
+		9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
+		9EC5E2DC2A9994E80047E6E7 /* UIStackView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView++.swift"; sourceTree = "<group>"; };
+		9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
+		9EC5E2E02A99EBF40047E6E7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		9ECFA9392AA80D7E0060D12F /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
+		9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendVC.swift; sourceTree = "<group>"; };
+		9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendView.swift; sourceTree = "<group>"; };
+		9ECFA9432AAA48020060D12F /* CreateRecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendTableViewCell.swift; sourceTree = "<group>"; };
+		9ECFA9452AAA52540060D12F /* CreateRecommendAfterBringView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendAfterBringView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +250,7 @@
 		2539B9752A8CA60300E939AA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9EC5E2E02A99EBF40047E6E7 /* TestViewController.swift */,
 				2539B9782A8CA63D00E939AA /* BaseViewController.swift */,
 			);
 			path = ViewController;
@@ -293,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				2539B98E2A8CA70D00E939AA /* UIView++.swift */,
+				9EC5E2DC2A9994E80047E6E7 /* UIStackView++.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -301,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				2539B98C2A8CA6F000E939AA /* CustomClass.swift */,
+				9ECFA9392AA80D7E0060D12F /* UILabelPadding.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -319,7 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC5E2D62A92525D0047E6E7 /* RecommendDataModel.swift */,
-				9EC5E2D82A9256370047E6E7 /* RecommendDetailDataModel.swift */,
+				9EC5E2D82A9256370047E6E7 /* RecommendDM.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -327,6 +348,10 @@
 		9EC5E2D42A924BD40047E6E7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */,
+				9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */,
+				9ECFA9432AAA48020060D12F /* CreateRecommendTableViewCell.swift */,
+				9ECFA9452AAA52540060D12F /* CreateRecommendAfterBringView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -334,6 +359,8 @@
 		9EC5E2D52A924BE20047E6E7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */,
+				9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -420,7 +447,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EC5E2D92A9256370047E6E7 /* RecommendDetailDataModel.swift in Sources */,
+				9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */,
+				9EC5E2D92A9256370047E6E7 /* RecommendDM.swift in Sources */,
 				2539B98D2A8CA6F000E939AA /* CustomClass.swift in Sources */,
 				2539B9932A8CA73000E939AA /* Image.swift in Sources */,
 				2539B9672A8CA56700E939AA /* Model.swift in Sources */,
@@ -428,18 +456,26 @@
 				2539B9912A8CA72C00E939AA /* Color.swift in Sources */,
 				2539B9952A8CA73A00E939AA /* Literals.swift in Sources */,
 				2539B9792A8CA63D00E939AA /* BaseViewController.swift in Sources */,
+				9ECFA93A2AA80D7E0060D12F /* UILabelPadding.swift in Sources */,
+				9ECFA9442AAA48020060D12F /* CreateRecommendTableViewCell.swift in Sources */,
 				2539B97F2A8CA66F00E939AA /* TabBatViewController.swift in Sources */,
+				9EC5E2E12A99EBF40047E6E7 /* TestViewController.swift in Sources */,
 				9EC5E2D72A92525D0047E6E7 /* RecommendDataModel.swift in Sources */,
 				2539B9712A8CA5D100E939AA /* URLConst.swift in Sources */,
 				2539B9492A8CA48300E939AA /* AppDelegate.swift in Sources */,
 				2539B98F2A8CA70D00E939AA /* UIView++.swift in Sources */,
 				2539B96D2A8CA5BB00E939AA /* APIConst.swift in Sources */,
+				9EC5E2DD2A9994E80047E6E7 /* UIStackView++.swift in Sources */,
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
+				9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */,
+				9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */,
 				2539B96F2A8CA5C500E939AA /* GeneralResponse.swift in Sources */,
 				2539B9772A8CA61300E939AA /* BaseView.swift in Sources */,
 				2539B96B2A8CA5AC00E939AA /* APIService.swift in Sources */,
 				2539B9972A8CA74900E939AA /* FontLevel.swift in Sources */,
+				9ECFA9462AAA52540060D12F /* CreateRecommendAfterBringView.swift in Sources */,
 				2539B97D2A8CA65F00E939AA /* TabBarView.swift in Sources */,
+				9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */,
 				2539B9652A8CA56100E939AA /* DTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
