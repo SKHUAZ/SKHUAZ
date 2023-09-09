@@ -23,7 +23,7 @@ class TabBarController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 
@@ -32,7 +32,7 @@ extension TabBarController {
     private func setTabBarItems() {
         
         tabs = [
-            UIViewController()  ,
+            ViewController()  ,
             EvaluateViewController()
         ]
         TabBarItemType.allCases.forEach {
