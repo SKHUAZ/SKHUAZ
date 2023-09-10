@@ -28,6 +28,7 @@ final class CreateRecommendViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        addTarget()
     }
 }
 
@@ -44,23 +45,25 @@ extension CreateRecommendViewController {
         }
         
         listButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
-            $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#FFFFFF")
-            $0.setTitle("목록", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+//            $0.layer.cornerRadius = 6
+//            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
+//            $0.layer.borderWidth = 1
+//            $0.backgroundColor = UIColor(hex: "#FFFFFF")
+//            $0.setTitle("목록", for: .normal)
+//            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+//            $0.titleLabel?.font = .systemFont(ofSize: 8)
+            $0.setImage(Image.List, for: .normal)
         }
         
         saveButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#FFFFFF").cgColor
-            $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#000000")
-            $0.setTitle("저장", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+//            $0.layer.cornerRadius = 6
+//            $0.layer.borderColor = UIColor(hex: "#FFFFFF").cgColor
+//            $0.layer.borderWidth = 1
+//            $0.backgroundColor = UIColor(hex: "#000000")
+//            $0.setTitle("저장", for: .normal)
+//            $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+//            $0.titleLabel?.font = .systemFont(ofSize: 8)
+            $0.setImage(Image.Save, for: .normal)
         }
     }
     
@@ -70,7 +73,7 @@ extension CreateRecommendViewController {
         view.addSubviews(logoImage, recommendView, listButton, saveButton)
         
         logoImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(47)
+            $0.top.equalToSuperview().offset(60)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(168)
             $0.height.equalTo(43)
@@ -85,29 +88,29 @@ extension CreateRecommendViewController {
         
         listButton.snp.makeConstraints {
             $0.top.equalTo(recommendView.snp.bottom).offset(15)
-            $0.leading.equalToSuperview().offset(39)
-            $0.width.equalTo(77)
-            $0.height.equalTo(30)
+            $0.leading.equalToSuperview().offset(30)
+            $0.width.equalTo(40)
+            $0.height.equalTo(40)
         }
     
         saveButton.snp.makeConstraints {
             $0.top.equalTo(recommendView.snp.bottom).offset(15)
-            $0.trailing.equalToSuperview().inset(39)
-            $0.width.equalTo(77)
-            $0.height.equalTo(30)
+            $0.trailing.equalToSuperview().inset(30)
+            $0.width.equalTo(90)
+            $0.height.equalTo(40)
         }
     }
     
     // MARK: - Methods
     
     private func addTarget() {
-        listButton.addTarget(self, action: #selector(pushToEvaluateViewController), for: .touchUpInside)
+        listButton.addTarget(self, action: #selector(pushToRecommendViewController), for: .touchUpInside)
     }
     
     // MARK: - @objc Methods
     
     @objc
-    private func pushToEvaluateViewController() {
+    private func pushToRecommendViewController() {
         self.navigationController?.popViewController(animated: true)
     }
 }

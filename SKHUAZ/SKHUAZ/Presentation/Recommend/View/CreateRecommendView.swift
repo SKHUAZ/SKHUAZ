@@ -17,8 +17,6 @@ class CreateRecommendView: UIView {
     // MARK: - UI Components
     
     private let containerView = UIView()
-    private let topSpace = UIView()
-    private let topLabel = UILabel()
     private let pageName = UILabel()
     private let titleTextField = UITextView()
     private let contentTextField = UITextView()
@@ -45,34 +43,16 @@ extension CreateRecommendView {
     
     
     private func setUI(){
-        containerView.do {
-            $0.backgroundColor = .white
-            $0.layer.cornerRadius = 6
-            $0.layer.borderWidth = 1
-            $0.layer.borderWidth = 1
-        }
-        
-        topSpace.do {
-            $0.backgroundColor = .black
-            $0.layer.cornerRadius = 6
-            $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        }
-        
-        topLabel.do {
-            $0.text = "루트 추천"
-            $0.textColor = UIColor(hex: "#FFFFFF")
-            $0.font = .systemFont(ofSize: 16)
-        }
         
         pageName.do {
             $0.text = "루트 추천 작성"
             $0.textColor = UIColor(hex: "#737373")
-            $0.font = .systemFont(ofSize: 16)
+            $0.font = .systemFont(ofSize: 25)
         }
         
         titleTextField.do {
             $0.text = "제목을 입력해주세요"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 15)
             $0.textColor = UIColor(hex: "#737373")
             $0.backgroundColor = UIColor(hex: "#EFEFEF")
             $0.textContainerInset = UIEdgeInsets(top: 9, left: 5, bottom: 0, right: 0)
@@ -81,7 +61,7 @@ extension CreateRecommendView {
         
         contentTextField.do {
             $0.text = "본문을 작성해주세요"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 15)
             $0.textColor = UIColor(hex: "#737373")
             $0.backgroundColor = UIColor(hex: "#EFEFEF")
             $0.textContainerInset = UIEdgeInsets(top: 9, left: 5, bottom: 0, right: 0)
@@ -103,53 +83,33 @@ extension CreateRecommendView {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        containerView.addSubviews(topSpace, topLabel, pageName,
-                                  titleTextField, contentTextField, bringButton)
-        addSubviews(containerView)
-        
-        bringButton.snp.makeConstraints {
-            $0.top.equalTo(contentTextField.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(15)
-            $0.width.equalTo(283)
-            $0.height.equalTo(50)
-        }
-        
-        containerView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.width.equalTo(315)
-            $0.height.equalTo(640)
-        }
-        
-        topSpace.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(37)
-        }
-        
-        topLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(9)
-            $0.centerX.equalToSuperview()
-        }
+        addSubviews(pageName,
+                    titleTextField, contentTextField, bringButton)
         
         pageName.snp.makeConstraints {
-            $0.top.equalTo(topSpace.snp.bottom).offset(15)
-            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalToSuperview().offset(10)
+            $0.leading.equalToSuperview().offset(-12)
         }
         
         titleTextField.snp.makeConstraints {
-            $0.top.equalTo(pageName.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(283)
-            $0.height.equalTo(30)
+            $0.top.equalTo(pageName.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(345)
+            $0.height.equalTo(40)
         }
         
         contentTextField.snp.makeConstraints {
-            $0.top.equalTo(titleTextField.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(283)
-            $0.height.equalTo(200)
+            $0.top.equalTo(titleTextField.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(345)
+            $0.height.equalTo(220)
+        }
+        
+        bringButton.snp.makeConstraints {
+            $0.top.equalTo(contentTextField.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(345)
+            $0.height.equalTo(50)
         }
     }
     
