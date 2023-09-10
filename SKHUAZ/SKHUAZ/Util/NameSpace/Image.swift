@@ -18,4 +18,6 @@ public enum Image {
     static let CreateButton = UIImage(named: "CreateButton")
     static let WritingOff = UIImage(named: "WritingOff")
     static let WritingOn = UIImage(named: "WritingOn")
+    static let List = UIImage(named: "List")
+    static let Save = UIImage(named: "Save")
 }
