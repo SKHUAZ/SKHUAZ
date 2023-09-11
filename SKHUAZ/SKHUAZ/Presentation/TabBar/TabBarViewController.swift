@@ -42,7 +42,7 @@ extension TabBarController {
             UIViewController(), // 선수과목
             EvaluateViewController(), // 강의평
             UIViewController(), // 홈
-            UIViewController(), // 루트추천
+            RecommendViewController(), // 루트추천
             UIViewController() // 설정
         ]
         TabBarItemType.allCases.forEach {

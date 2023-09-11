@@ -182,7 +182,7 @@ extension RecommendTableViewCell {
     
     //MARK: - configure
     
-    func configure(with review: RecommendDetailDataModel) {
+    func configure(with review: RecommendDataModel) {
         recommendTitle.text = review.titleLabel
         titleLabel.text = review.titleLabel
         majorNameLabel.text = review.majorNameLabel
