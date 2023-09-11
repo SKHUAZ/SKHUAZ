@@ -60,11 +60,10 @@ extension AlertViewController {
             
         case .mainEvaluate:
             mainLabel.do {
-                $0.text = "{글제목}이\n저장이 완료되었습니다."
+                $0.text = "저장이 완료되었습니다."
                 $0.textAlignment = .center
                 $0.textColor = UIColor(hex: "#000000")
                 $0.font = .systemFont(ofSize: 15)
-                $0.numberOfLines = 2
             }
             checkButton.do {
                 $0.layer.cornerRadius = 6

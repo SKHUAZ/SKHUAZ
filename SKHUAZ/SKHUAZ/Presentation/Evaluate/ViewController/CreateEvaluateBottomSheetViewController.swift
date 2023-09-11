@@ -56,7 +56,7 @@ extension CreateEvaluateBottomSheetViewController {
         }
         
         titleLabel.do {
-            $0.text = "\(titleText)을\n저장하시겠습니까?"
+            $0.text = "저장하시겠습니까?"
             $0.textColor = UIColor(hex: "#000000")
             $0.numberOfLines = 2
             $0.font = .systemFont(ofSize: 15)
