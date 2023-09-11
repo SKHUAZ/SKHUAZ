@@ -26,6 +26,13 @@ public enum Image {
     static let edit = UIImage(named: "Edit")
     static let search = UIImage(named: "search")
 
-
+    
+    static let precedence = UIImage(named: "precedence")!
+    static let evaluate = UIImage(named: "evaluate")!
+    static let home = UIImage(named: "home")!
+    static let recommend = UIImage(named: "recommend")!
+    static let setting = UIImage(named: "setting")!
+    
+    
 
 }

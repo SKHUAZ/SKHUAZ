@@ -19,7 +19,6 @@
 		2539B9712A8CA5D100E939AA /* URLConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B9702A8CA5D100E939AA /* URLConst.swift */; };
 		2539B9772A8CA61300E939AA /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B9762A8CA61300E939AA /* BaseView.swift */; };
 		2539B9792A8CA63D00E939AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B9782A8CA63D00E939AA /* BaseViewController.swift */; };
-		2539B97D2A8CA65F00E939AA /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B97C2A8CA65F00E939AA /* TabBarView.swift */; };
 		2539B97F2A8CA66F00E939AA /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */; };
 		2539B9832A8CA6AD00E939AA /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2539B9822A8CA6AD00E939AA /* Image.xcassets */; };
 		2539B9852A8CA6B400E939AA /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2539B9842A8CA6B400E939AA /* Color.xcassets */; };
@@ -71,7 +70,6 @@
 		2539B9702A8CA5D100E939AA /* URLConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConst.swift; sourceTree = "<group>"; };
 		2539B9762A8CA61300E939AA /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2539B9782A8CA63D00E939AA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		2539B97C2A8CA65F00E939AA /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		2539B9822A8CA6AD00E939AA /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
 		2539B9842A8CA6B400E939AA /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
@@ -245,8 +243,8 @@
 		2539B9722A8CA5E400E939AA /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
-				2539B97B2A8CA65800E939AA /* View */,
-				2539B97A2A8CA65700E939AA /* ViewController */,
+				2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */,
+				2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -274,23 +272,6 @@
 				2539B9782A8CA63D00E939AA /* BaseViewController.swift */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		2539B97A2A8CA65700E939AA /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		2539B97B2A8CA65800E939AA /* View */ = {
-			isa = PBXGroup;
-			children = (
-				2539B97C2A8CA65F00E939AA /* TabBarView.swift */,
-				2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		2539B9802A8CA68000E939AA /* Font */ = {
@@ -539,7 +520,6 @@
 				258A71D82AA89BB4001E8A5B /* UIResponder++.swift in Sources */,
 				2539B9B62A8E531300E939AA /* EvaluateDataModel.swift in Sources */,
 				2539B9972A8CA74900E939AA /* FontLevel.swift in Sources */,
-				2539B97D2A8CA65F00E939AA /* TabBarView.swift in Sources */,
 				2539B9652A8CA56100E939AA /* DTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
