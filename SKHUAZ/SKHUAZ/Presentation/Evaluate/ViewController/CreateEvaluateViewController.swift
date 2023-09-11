@@ -16,6 +16,7 @@ final class CreateEvaluateViewController: UIViewController {
     
     private let mainImage = UIImageView()
     private let evaluateView = EvaluateView(frame: .zero, evaluateType: .createEvalute)
+    private let warringLabel = UILabel()
     private let backButton = UIButton()
     private let saveButton = UIButton()
     
@@ -48,65 +49,70 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             $0.image = Image.Logo1
         }
         
+        warringLabel.do {
+            $0.text = "평가 영역에 입력한 수의 합이 총 100이 되도록 작성해주세요."
+            $0.font = .systemFont(ofSize: 10)
+            $0.textColor = UIColor(hex: "#ED7A7A")
+        }
+        
         backButton.do {
+            $0.setImage(Image.vector, for: .normal)
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
+            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
             $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#FFFFFF")
-            $0.setTitle("목록", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#ED7A7A"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+//            $0.backgroundColor = UIColor(hex: "#FFFFFF")
+//            $0.setTitle("뒤로가기", for: .normal)
+//            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+//            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
         
         saveButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
-            $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#ED7A7A")
-            $0.setTitle("저장", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+            $0.setImage(Image.save, for: .normal)
         }
     }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(mainImage, evaluateView, backButton, saveButton)
+        view.addSubviews(mainImage, evaluateView, warringLabel, backButton, saveButton)
         
         mainImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(47)
-            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(35)
+            $0.leading.equalToSuperview().offset(19)
             $0.width.equalTo(168)
             $0.height.equalTo(43)
         }
         
         evaluateView.snp.makeConstraints {
-            $0.top.equalTo(mainImage.snp.bottom).offset(24)
+            $0.top.equalTo(mainImage.snp.bottom)
+            $0.leading.equalToSuperview()
+            $0.height.equalTo(690)
+            $0.width.equalTo(UIScreen.main.bounds.width)
+        }
+        
+        warringLabel.snp.makeConstraints {
+            $0.top.equalTo(evaluateView.snp.bottom).inset(10)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(640)
-            $0.width.equalTo(315)
         }
         
         backButton.snp.makeConstraints {
-            $0.top.equalTo(evaluateView.snp.bottom).offset(25)
-            $0.leading.equalToSuperview().offset(39)
-            $0.width.equalTo(77)
-            $0.height.equalTo(30)
+            $0.bottom.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(83)
+            $0.height.equalTo(39)
         }
     
         saveButton.snp.makeConstraints {
-            $0.top.equalTo(evaluateView.snp.bottom).offset(25)
-            $0.trailing.equalToSuperview().inset(39)
-            $0.width.equalTo(77)
-            $0.height.equalTo(30)
+            $0.bottom.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(83)
+            $0.height.equalTo(39)
         }
     }
     
     // MARK: - Methods
     
     private func setNavigation() {
-        
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
@@ -163,6 +169,7 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
     
     @objc
     func presnetToCreateEvaluateBottomSheetViewController() {
+//        print(evaluateView.evaluateView.text)
         let bottomSheetVC = CreateEvaluateBottomSheetViewController()
         bottomSheetVC.delegate = self
         present(bottomSheetVC, animated: true, completion: nil)

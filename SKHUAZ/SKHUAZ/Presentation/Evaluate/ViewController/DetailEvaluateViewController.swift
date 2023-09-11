@@ -71,31 +71,31 @@ extension DetailEvaluateViewController {
         view.addSubviews(mainImage, detailEvaluateView, backButton, saveButton)
         
         mainImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(47)
-            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(35)
+            $0.leading.equalToSuperview().offset(19)
             $0.width.equalTo(168)
             $0.height.equalTo(43)
         }
         
         detailEvaluateView.snp.makeConstraints {
-            $0.top.equalTo(mainImage.snp.bottom).offset(24)
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(mainImage.snp.bottom)
+            $0.leading.equalToSuperview()
             $0.height.equalTo(640)
-            $0.width.equalTo(315)
+            $0.width.equalTo(UIScreen.main.bounds.width)
         }
         
         backButton.snp.makeConstraints {
-            $0.top.equalTo(detailEvaluateView.snp.bottom).offset(25)
-            $0.leading.equalToSuperview().offset(39)
-            $0.width.equalTo(77)
-            $0.height.equalTo(30)
+            $0.bottom.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(83)
+            $0.height.equalTo(39)
         }
-        
+    
         saveButton.snp.makeConstraints {
-            $0.top.equalTo(detailEvaluateView.snp.bottom).offset(25)
-            $0.trailing.equalToSuperview().inset(39)
-            $0.width.equalTo(77)
-            $0.height.equalTo(30)
+            $0.bottom.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(83)
+            $0.height.equalTo(39)
         }
     }
     

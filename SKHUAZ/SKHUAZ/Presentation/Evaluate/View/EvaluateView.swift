@@ -27,17 +27,18 @@ class EvaluateView: UIView {
     let attributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: UIColor(hex: "#737373"),
     ]
+    // MARK: - Delegate Property
     
+    private var semesterDropdownMenu: CustomDropdownMenu?
+    private var propeserDropdownMenu: CustomDropdownMenu?
+    private var lectureDropdownMenu: CustomDropdownMenu?
     
     // MARK: - UI Components
     
-    private let containerView = UIView()
-    private let topSpace = UIView()
-    private let topLabel = UILabel()
     private let guideWrite = UILabel()
-    private let semesterView = UIView()
-    private let propeserView = UIView()
-    private let lectureView = UIView()
+    private var semesterButton = UIButton(type: .system)
+    private var propeserButton = UIButton(type: .system)
+    private var lectureButton = UIButton(type: .system)
     private let titleTextField = UITextField()
     private let evaluateView = UITextView()
     private let guidePoint = UILabel()
@@ -45,11 +46,10 @@ class EvaluateView: UIView {
     private let secondLabel = UILabel()
     private let thirdLabel = UILabel()
     private let fourthLabel = UILabel()
-    private let firstTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let secondTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let thirdTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let fourthTextField = UISlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    //UITextField()
+    private let firstSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let secondSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let thirdSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let fourthSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
     
     // MARK: - Initializer
     
@@ -60,6 +60,8 @@ class EvaluateView: UIView {
         setUI()
         setLayout()
         setDelegate()
+        setupDropdownMenus()
+        addTarget()
     }
     
     required init?(coder: NSCoder) {
@@ -67,7 +69,7 @@ class EvaluateView: UIView {
     }
 }
 
-extension EvaluateView {
+extension EvaluateView: DropdownMenuDelegate {
     
     // MARK: - UI Components Property
     
@@ -76,11 +78,6 @@ extension EvaluateView {
         switch evaluateType {
         case .createEvalute:
             
-            topLabel.do {
-                $0.text = "강의평"
-                $0.textColor = UIColor(hex: "#FFFFFF")
-                $0.font = .systemFont(ofSize: 16)
-            }
             
             guideWrite.do {
                 $0.text = "강의 평가 작성"
@@ -88,19 +85,31 @@ extension EvaluateView {
                 $0.font = .systemFont(ofSize: 16)
             }
             
-            semesterView.do {
+            semesterButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
+                $0.contentHorizontalAlignment = .left
+                $0.setTitleWithLeftPadding("학기를 선택해주세요", for: .normal, leftPadding: 13)
+                $0.setTitleColor(UIColor(hex: "#737373"), for: .normal)
+                $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
-            propeserView.do {
+            propeserButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
+                $0.contentHorizontalAlignment = .left
+                $0.setTitleWithLeftPadding("교수님을 선택해주세요", for: .normal, leftPadding: 13)
+                $0.setTitleColor(UIColor(hex: "#737373"), for: .normal)
+                $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
-            lectureView.do {
+            lectureButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
+                $0.contentHorizontalAlignment = .left
+                $0.setTitleWithLeftPadding("학기를 선택해주세요", for: .normal, leftPadding: 13)
+                $0.setTitleColor(UIColor(hex: "#737373"), for: .normal)
+                $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
             titleTextField.do {
@@ -109,9 +118,10 @@ extension EvaluateView {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.attributedPlaceholder = NSAttributedString(string: "제목을 입력해주세요", attributes: attributes)
-                let paddingView = UIView(frame:CGRect(x:0, y:0, width:8, height:$0.frame.height))
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
+                $0.returnKeyType = .done
             }
             
             evaluateView.do {
@@ -119,7 +129,7 @@ extension EvaluateView {
                 $0.font = .systemFont(ofSize: 11)
                 $0.textColor = placeholderColor
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
-                $0.textContainerInset = UIEdgeInsets(top: 9, left: 5, bottom: 0, right: 0)
+                $0.textContainerInset = UIEdgeInsets(top: 9, left: 8, bottom: 0, right: 0)
                 $0.layer.cornerRadius = 6
             }
             
@@ -129,61 +139,39 @@ extension EvaluateView {
                 $0.font = .systemFont(ofSize: 16)
             }
             
-            firstTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-            }
-            
-            secondTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-            }
-            
-            thirdTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-            }
-            
-            fourthTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
-            }
-            
         case .detailEvalute:
             
-            topLabel.do {
-                $0.text = "강의평 상세보기"
-                $0.textColor = UIColor(hex: "#FFFFFF")
-                $0.font = .systemFont(ofSize: 16)
-            }
-            
             guideWrite.do {
-                $0.text = ""
+                $0.text = "강의평 상세보기"
                 $0.textColor = UIColor(hex: "#737373")
                 $0.font = .systemFont(ofSize: 16)
             }
             
-            semesterView.do {
+            semesterButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
+                $0.contentHorizontalAlignment = .left
+                $0.setTitleWithLeftPadding("선택한 학기가 들어가 있어야합니다", for: .normal, leftPadding: 13)
+                $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+                $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
-            propeserView.do {
+            propeserButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
+                $0.contentHorizontalAlignment = .left
+                $0.setTitleWithLeftPadding("선택한 교수가 들어가 있어야합니다", for: .normal, leftPadding: 13)
+                $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+                $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
-            lectureView.do {
+            lectureButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
+                $0.contentHorizontalAlignment = .left
+                $0.setTitleWithLeftPadding("선택한 강의가 들어가야합니다", for: .normal, leftPadding: 13)
+                $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+                $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
             
@@ -194,9 +182,10 @@ extension EvaluateView {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.isEnabled = false
-                let paddingView = UIView(frame:CGRect(x:0, y:0, width:8, height:$0.frame.height))
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
+                $0.returnKeyType = .done
             }
             
             evaluateView.do {
@@ -204,7 +193,7 @@ extension EvaluateView {
                 $0.font = .systemFont(ofSize: 15)
                 $0.textColor = UIColor(hex: "#000000")
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
-                $0.textContainerInset = UIEdgeInsets(top: 9, left: 5, bottom: 0, right: 0)
+                $0.textContainerInset = UIEdgeInsets(top: 9, left: 8, bottom: 0, right: 0)
                 $0.layer.cornerRadius = 6
             }
             
@@ -214,71 +203,44 @@ extension EvaluateView {
                 $0.font = .systemFont(ofSize: 16)
             }
             
-            firstTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            firstSlider.do {
+                $0.isUserInteractionEnabled = false
             }
             
-            secondTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            secondSlider.do {
+                $0.isUserInteractionEnabled = false
             }
             
-            thirdTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            thirdSlider.do {
+                $0.isUserInteractionEnabled = false
             }
             
-            fourthTextField.do {
-                $0.minimumValue = 0
-                $0.maximumValue = 100
-                $0.value = 50
-                $0.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            fourthSlider.do {
+                $0.isUserInteractionEnabled = false
             }
         }
-        
-        containerView.do {
-            $0.backgroundColor = .white
-            $0.layer.cornerRadius = 6
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
-        }
-        
-        topSpace.do {
-            $0.backgroundColor = UIColor(hex: "#ED7A7A")
-            $0.layer.cornerRadius = 6
-            $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        }
-        
-       
         
         firstLabel.do {
             $0.text = "{평가영역 1}"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 13)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         secondLabel.do {
             $0.text = "{평가영역 2}"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 13)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         thirdLabel.do {
             $0.text = "{평가영역 3}"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 13)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         fourthLabel.do {
             $0.text = "{평가영역 4}"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 13)
             $0.textColor = UIColor(hex: "#000000")
         }
     }
@@ -287,131 +249,98 @@ extension EvaluateView {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        containerView.addSubviews(topSpace, topLabel, guideWrite,
-                                  semesterView, propeserView, lectureView,
-                                  titleTextField, evaluateView, guidePoint,
-                                  firstTextField, secondTextField, thirdTextField,
-                                  fourthTextField, firstLabel, secondLabel,
-                                  thirdLabel, fourthLabel)
-        addSubviews(containerView)
-        
-        containerView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.width.equalTo(315)
-            $0.height.equalTo(640)
-        }
-        
-        topSpace.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(37)
-        }
-        
-        topLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(9)
-            $0.centerX.equalToSuperview()
-        }
-        
+        addSubviews(guideWrite,
+                    semesterButton, propeserButton, lectureButton,
+                    titleTextField, evaluateView, guidePoint,
+                    firstSlider, secondSlider, thirdSlider,
+                    fourthSlider, firstLabel, secondLabel,
+                    thirdLabel, fourthLabel)
         guideWrite.snp.makeConstraints {
-            $0.top.equalTo(topSpace.snp.bottom).offset(15)
-            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(19)
         }
         
-        semesterView.snp.makeConstraints {
+        semesterButton.snp.makeConstraints {
             $0.top.equalTo(guideWrite.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(283)
-            $0.height.equalTo(30)
+            $0.leading.trailing.equalToSuperview().inset(19)
+            $0.height.equalTo(36)
         }
         
-        propeserView.snp.makeConstraints {
-            $0.top.equalTo(semesterView.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(283)
-            $0.height.equalTo(30)
+        propeserButton.snp.makeConstraints {
+            $0.top.equalTo(semesterButton.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(19)
+            $0.height.equalTo(36)
         }
         
-        lectureView.snp.makeConstraints {
-            $0.top.equalTo(propeserView.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(283)
-            $0.height.equalTo(30)
+        lectureButton.snp.makeConstraints {
+            $0.top.equalTo(propeserButton.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(19)
+            $0.height.equalTo(36)
         }
         
         titleTextField.snp.makeConstraints {
-            $0.top.equalTo(lectureView.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(283)
-            $0.height.equalTo(30)
+            $0.top.equalTo(lectureButton.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(19)
+            $0.height.equalTo(36)
         }
         
         evaluateView.snp.makeConstraints {
-            $0.top.equalTo(titleTextField.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(15)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(283)
-            $0.height.equalTo(200)
+            $0.top.equalTo(titleTextField.snp.bottom).offset(10)
+            $0.leading.trailing.equalToSuperview().inset(19)
+            $0.height.equalTo(243)
         }
         
         guidePoint.snp.makeConstraints {
-            $0.top.equalTo(evaluateView.snp.bottom).offset(8)
-            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalTo(evaluateView.snp.bottom).offset(19)
+            $0.leading.equalToSuperview().offset(19)
         }
         
-        firstTextField.snp.makeConstraints {
-            $0.top.equalTo(guidePoint.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(69)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(229)
-            $0.height.equalTo(30)
+        firstSlider.snp.makeConstraints {
+            $0.centerY.equalTo(firstLabel)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(268)
+            $0.height.equalTo(16)
         }
         
-        secondTextField.snp.makeConstraints {
-            $0.top.equalTo(firstTextField.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(69)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(229)
-            $0.height.equalTo(30)
+        secondSlider.snp.makeConstraints {
+            $0.centerY.equalTo(secondLabel)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(268)
+            $0.height.equalTo(16)
         }
         
-        thirdTextField.snp.makeConstraints {
-            $0.top.equalTo(secondTextField.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(69)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(229)
-            $0.height.equalTo(30)
+        thirdSlider.snp.makeConstraints {
+            $0.centerY.equalTo(thirdLabel)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(268)
+            $0.height.equalTo(16)
         }
         
-        fourthTextField.snp.makeConstraints {
-            $0.top.equalTo(thirdTextField.snp.bottom).offset(7)
-            $0.leading.equalToSuperview().offset(69)
-            $0.trailing.equalToSuperview().inset(17)
-            $0.width.equalTo(229)
-            $0.height.equalTo(30)
+        fourthSlider.snp.makeConstraints {
+            $0.centerY.equalTo(fourthLabel)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(268)
+            $0.height.equalTo(16)
         }
         
         firstLabel.snp.makeConstraints {
-            $0.top.equalTo(guidePoint.snp.bottom).offset(17)
-            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalTo(guidePoint.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().offset(19)
         }
         
         secondLabel.snp.makeConstraints {
-            $0.top.equalTo(firstLabel.snp.bottom).offset(27)
-            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalTo(firstLabel.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().offset(19)
         }
         
         thirdLabel.snp.makeConstraints {
-            $0.top.equalTo(secondLabel.snp.bottom).offset(27)
-            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalTo(secondLabel.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().offset(19)
         }
         
         fourthLabel.snp.makeConstraints {
-            $0.top.equalTo(thirdLabel.snp.bottom).offset(27)
-            $0.leading.equalToSuperview().offset(15)
+            $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().offset(19)
         }
     }
     
@@ -419,6 +348,94 @@ extension EvaluateView {
     
     private func setDelegate() {
         evaluateView.delegate = self
+        semesterButton.addTarget(self, action: #selector(testprint), for: .touchUpInside)
+    }
+    
+    private func setupDropdownMenus() {
+        let semesterOptions = ["2023-2", "2023-1", "2022-2", "2022-1"]
+        semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
+        semesterDropdownMenu?.delegate = self
+        
+        let propeserOptions = ["Professor A", "Professor B", "Professor C"]
+        propeserDropdownMenu = CustomDropdownMenu(options: propeserOptions, parentButton: propeserButton)
+        propeserDropdownMenu?.delegate = self
+        
+        let lectureOptions = ["Lecture A", "Lecture B", "Lecture C"]
+        lectureDropdownMenu = CustomDropdownMenu(options: lectureOptions, parentButton: lectureButton)
+        lectureDropdownMenu?.delegate = self
+    }
+    
+    private func addTarget() {
+        
+        switch evaluateType {
+        case .createEvalute:
+            semesterButton.addTarget(self, action: #selector(semesterButtonTapped), for: .touchUpInside)
+            propeserButton.addTarget(self, action: #selector(propeserButtonTapped), for: .touchUpInside)
+            lectureButton.addTarget(self, action: #selector(lectureButtonTapped), for: .touchUpInside)
+            firstSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            secondSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            thirdSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+            fourthSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
+        case .detailEvalute:
+            return print("상세보기 화면입니다")
+        }
+    }
+    
+    @objc private func semesterButtonTapped() {
+        if let menu = semesterDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(semesterButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(semesterButton)
+                }
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        propeserDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        
+    }
+    
+    @objc private func propeserButtonTapped() {
+        if let menu = propeserDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(propeserButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(propeserButton)
+                }
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        
+    }
+    
+    @objc private func lectureButtonTapped() {
+        if let menu = lectureDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(lectureButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(propeserButton)
+                }
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        propeserDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+    }
+    
+    func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
+        print("Selected Option for button:", option)
     }
     
     // MARK: - @objc Methods
@@ -427,8 +444,11 @@ extension EvaluateView {
         print("Slider value changed to \(sender.value)")
     }
     
+    @objc func testprint() {
+        print("눌리네요~")
+    }
+    
 }
-
 
 extension EvaluateView: UITextViewDelegate {
     
