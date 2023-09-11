@@ -128,7 +128,7 @@ extension CreateEvaluateBottomSheetViewController {
         print("저장버튼이 눌렸습니다")
         self.dismiss(animated: false) { [weak self] in
             self?.delegate?.didTapSaveButton() {
-                let customAlertVC = CustomAlertViewController()
+                let customAlertVC = AlertViewController(alertType: .mainEvaluate)
                 customAlertVC.modalPresentationStyle = .overFullScreen
                 UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
             }
