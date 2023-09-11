@@ -16,7 +16,6 @@ final class CreateEvaluateViewController: UIViewController {
     
     private let mainImage = UIImageView()
     private let evaluateView = EvaluateView(frame: .zero, evaluateType: .createEvalute)
-    private let warringLabel = UILabel()
     private let backButton = UIButton()
     private let saveButton = UIButton()
     
@@ -49,12 +48,6 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             $0.image = Image.Logo1
         }
         
-        warringLabel.do {
-            $0.text = "평가 영역에 입력한 수의 합이 총 100이 되도록 작성해주세요."
-            $0.font = .systemFont(ofSize: 10)
-            $0.textColor = UIColor(hex: "#ED7A7A")
-        }
-        
         backButton.do {
             $0.setImage(Image.vector, for: .normal)
             $0.layer.cornerRadius = 6
@@ -74,7 +67,7 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(mainImage, evaluateView, warringLabel, backButton, saveButton)
+        view.addSubviews(mainImage, evaluateView, backButton, saveButton)
         
         mainImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(35)
@@ -88,11 +81,6 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             $0.leading.equalToSuperview()
             $0.height.equalTo(690)
             $0.width.equalTo(UIScreen.main.bounds.width)
-        }
-        
-        warringLabel.snp.makeConstraints {
-            $0.top.equalTo(evaluateView.snp.bottom).inset(10)
-            $0.centerX.equalToSuperview()
         }
         
         backButton.snp.makeConstraints {
@@ -169,10 +157,29 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
     
     @objc
     func presnetToCreateEvaluateBottomSheetViewController() {
-//        print(evaluateView.evaluateView.text)
-        let bottomSheetVC = CreateEvaluateBottomSheetViewController()
-        bottomSheetVC.delegate = self
-        present(bottomSheetVC, animated: true, completion: nil)
+        
+        if (evaluateView.semesterButtonTitle == "학기를 선택해주세요" || evaluateView.propeserButtonTitle == "교수님을 선택해주세요" ||
+            evaluateView.lectureButtonTitle == "강의를 선택해주세요" || evaluateView.titleTextFieldText == nil ||
+            evaluateView.evaluateViewText == "본문을 작성해주세요") {
+            print("입려을 다 해주세요")
+            let customAlertVC = AlertViewController(alertType: .createEvaluate)
+            customAlertVC.modalPresentationStyle = .overFullScreen
+            UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        } else {
+            print("Semester Button Title : \(evaluateView.semesterButtonTitle ?? "")")
+            print("Propeser Button Title : \(evaluateView.propeserButtonTitle ?? "")")
+            print("Lecture Button Title : \(evaluateView.lectureButtonTitle ?? "")")
+            print("Title Text Field Text : \(evaluateView.titleTextFieldText ?? "")")
+            print("Evaluate View Text : \(evaluateView.evaluateViewText ?? "")")
+            
+            print("First Slider Value : \(evaluateView.firstSliderValue)")
+            print("Second Slider Value : \(evaluateView.secondSliderValue)")
+            print("Third Slider Value : \(evaluateView.thirdSliderValue)")
+            print("Fourth Slider Value : \(evaluateView.fourthSliderValue)")
+            let bottomSheetVC = CreateEvaluateBottomSheetViewController()
+            bottomSheetVC.delegate = self
+            present(bottomSheetVC, animated: true, completion: nil)
+        }
     }
 }
 

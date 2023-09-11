@@ -66,7 +66,7 @@ extension EvaluateViewController {
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
             $0.borderStyle = .roundedRect
             $0.clearButtonMode = .whileEditing
-            $0.returnKeyType = .done 
+            $0.returnKeyType = .done
         }
         
         tableView.do {
@@ -128,7 +128,7 @@ extension EvaluateViewController {
     // MARK: - Methods
 
     private func setupData() {
-        reviews = [review1, review2, review3, review4, review5, review6]
+        reviews = dataModels
         filteredReviews = reviews
     }
     
@@ -199,10 +199,10 @@ extension EvaluateViewController {
         
         filteredReviews = reviews.filter { review in
             return review.department.contains(searchText) ||
-            review.lectureNameLabel.contains(searchText) ||
+            review.lecture.contains(searchText) ||
             review.title.contains(searchText) ||
-            review.authorNameLabel.contains(searchText) ||
-            review.professorNameLabel.contains(searchText)
+            review.authorName.contains(searchText) ||
+            review.professor.contains(searchText)
         }
         
         tableView.reloadData()
@@ -244,12 +244,9 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     
-    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath){
+    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
         print("You selected cell #\(reviews[indexPath.row].title)")
         let detailVC = DetailEvaluateViewController()
-        // 필요한 경우 detailVC의 데이터를 설정할 수 있
-        // ex) detailVC.dataModel = dataModels[indexPath.row]
-        
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

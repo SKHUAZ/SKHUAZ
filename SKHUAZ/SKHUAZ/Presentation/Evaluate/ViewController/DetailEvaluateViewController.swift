@@ -29,10 +29,14 @@ class DetailEvaluateViewController: UIViewController {
         setLayout()
         self.hideKeyboardWhenTappedAround()
         addTarget()
+        if let evaluateView = detailEvaluateView as? EvaluateView {
+            evaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 60, secondPoint: 40, thirdPoint: 20, fourtPoint: 90)
+        }
     }
 }
 
 extension DetailEvaluateViewController {
+
     
     // MARK: - UI Components Property
     

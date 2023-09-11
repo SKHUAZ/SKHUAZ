@@ -27,17 +27,28 @@ class EvaluateView: UIView {
     let attributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: UIColor(hex: "#737373"),
     ]
+    
+    private var semesterButtonClosure: (() -> Void)?
+    private var professorButtomClosure: (() -> Void)?
+    private var lectureButtonClosure: (() -> Void)?
+    private var titleTextFieldClosure: (() -> Void)?
+    private var evaluateClosure: (() -> Void)?
+    private var firstSliderClosure: (() -> Void)?
+    private var secondSliderClosure: (() -> Void)?
+    private var thirdSliderClosure: (() -> Void)?
+    private var fourthSliderClosure: (() -> Void)?
+    
     // MARK: - Delegate Property
     
     private var semesterDropdownMenu: CustomDropdownMenu?
-    private var propeserDropdownMenu: CustomDropdownMenu?
+    private var professorDropdownMenu: CustomDropdownMenu?
     private var lectureDropdownMenu: CustomDropdownMenu?
     
     // MARK: - UI Components
     
     private let guideWrite = UILabel()
     private var semesterButton = UIButton(type: .system)
-    private var propeserButton = UIButton(type: .system)
+    private var professorButton = UIButton(type: .system)
     private var lectureButton = UIButton(type: .system)
     private let titleTextField = UITextField()
     private let evaluateView = UITextView()
@@ -50,6 +61,44 @@ class EvaluateView: UIView {
     private let secondSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
     private let thirdSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
     private let fourthSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    
+    // MARK: - Getter
+    
+    var semesterButtonTitle: String? {
+        return semesterButton.titleLabel?.text
+    }
+    
+    var propeserButtonTitle: String? {
+        return professorButton.titleLabel?.text
+    }
+    
+    var lectureButtonTitle: String? {
+        return lectureButton.titleLabel?.text
+    }
+    
+    var titleTextFieldText: String? {
+        return titleTextField.text
+    }
+    
+    var evaluateViewText: String? {
+        return evaluateView.text
+    }
+    
+    var firstSliderValue: Int {
+        return Int(firstSlider.value)
+    }
+    
+    var secondSliderValue: Int {
+        return Int(secondSlider.value)
+    }
+    
+    var thirdSliderValue: Int {
+        return Int(thirdSlider.value)
+    }
+    
+    var fourthSliderValue: Int {
+        return Int(fourthSlider.value)
+    }
     
     // MARK: - Initializer
     
@@ -94,7 +143,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
-            propeserButton.do {
+            professorButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.contentHorizontalAlignment = .left
@@ -151,16 +200,14 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.contentHorizontalAlignment = .left
-                $0.setTitleWithLeftPadding("선택한 학기가 들어가 있어야합니다", for: .normal, leftPadding: 13)
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
-            propeserButton.do {
+            professorButton.do {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.contentHorizontalAlignment = .left
-                $0.setTitleWithLeftPadding("선택한 교수가 들어가 있어야합니다", for: .normal, leftPadding: 13)
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
@@ -169,14 +216,12 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.contentHorizontalAlignment = .left
-                $0.setTitleWithLeftPadding("선택한 강의가 들어가야합니다", for: .normal, leftPadding: 13)
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
             
             
             titleTextField.do {
-                $0.text = "서버 통신으로 받아올 데이터 입니다"
                 $0.font = .systemFont(ofSize: 15)
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
@@ -189,12 +234,12 @@ extension EvaluateView: DropdownMenuDelegate {
             }
             
             evaluateView.do {
-                $0.text = "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다"
                 $0.font = .systemFont(ofSize: 15)
                 $0.textColor = UIColor(hex: "#000000")
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.textContainerInset = UIEdgeInsets(top: 9, left: 8, bottom: 0, right: 0)
                 $0.layer.cornerRadius = 6
+                $0.isEditable = false
             }
             
             guidePoint.do {
@@ -221,26 +266,26 @@ extension EvaluateView: DropdownMenuDelegate {
         }
         
         firstLabel.do {
-            $0.text = "{평가영역 1}"
-            $0.font = .systemFont(ofSize: 13)
+            $0.text = "과제"
+            $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         secondLabel.do {
-            $0.text = "{평가영역 2}"
-            $0.font = .systemFont(ofSize: 13)
+            $0.text = "실습"
+            $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         thirdLabel.do {
-            $0.text = "{평가영역 3}"
-            $0.font = .systemFont(ofSize: 13)
+            $0.text = "발표"
+            $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         fourthLabel.do {
-            $0.text = "{평가영역 4}"
-            $0.font = .systemFont(ofSize: 13)
+            $0.text = "팀플"
+            $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
     }
@@ -250,7 +295,7 @@ extension EvaluateView: DropdownMenuDelegate {
     
     private func setLayout() {
         addSubviews(guideWrite,
-                    semesterButton, propeserButton, lectureButton,
+                    semesterButton, professorButton, lectureButton,
                     titleTextField, evaluateView, guidePoint,
                     firstSlider, secondSlider, thirdSlider,
                     fourthSlider, firstLabel, secondLabel,
@@ -266,14 +311,14 @@ extension EvaluateView: DropdownMenuDelegate {
             $0.height.equalTo(36)
         }
         
-        propeserButton.snp.makeConstraints {
+        professorButton.snp.makeConstraints {
             $0.top.equalTo(semesterButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(19)
             $0.height.equalTo(36)
         }
         
         lectureButton.snp.makeConstraints {
-            $0.top.equalTo(propeserButton.snp.bottom).offset(10)
+            $0.top.equalTo(professorButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(19)
             $0.height.equalTo(36)
         }
@@ -325,22 +370,22 @@ extension EvaluateView: DropdownMenuDelegate {
         
         firstLabel.snp.makeConstraints {
             $0.top.equalTo(guidePoint.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(19)
+            $0.leading.equalToSuperview().offset(45)
         }
         
         secondLabel.snp.makeConstraints {
             $0.top.equalTo(firstLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(19)
+            $0.leading.equalToSuperview().offset(45)
         }
         
         thirdLabel.snp.makeConstraints {
             $0.top.equalTo(secondLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(19)
+            $0.leading.equalToSuperview().offset(45)
         }
         
         fourthLabel.snp.makeConstraints {
             $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(19)
+            $0.leading.equalToSuperview().offset(45)
         }
     }
     
@@ -357,8 +402,8 @@ extension EvaluateView: DropdownMenuDelegate {
         semesterDropdownMenu?.delegate = self
         
         let propeserOptions = ["Professor A", "Professor B", "Professor C"]
-        propeserDropdownMenu = CustomDropdownMenu(options: propeserOptions, parentButton: propeserButton)
-        propeserDropdownMenu?.delegate = self
+        professorDropdownMenu = CustomDropdownMenu(options: propeserOptions, parentButton: professorButton)
+        professorDropdownMenu?.delegate = self
         
         let lectureOptions = ["Lecture A", "Lecture B", "Lecture C"]
         lectureDropdownMenu = CustomDropdownMenu(options: lectureOptions, parentButton: lectureButton)
@@ -370,7 +415,7 @@ extension EvaluateView: DropdownMenuDelegate {
         switch evaluateType {
         case .createEvalute:
             semesterButton.addTarget(self, action: #selector(semesterButtonTapped), for: .touchUpInside)
-            propeserButton.addTarget(self, action: #selector(propeserButtonTapped), for: .touchUpInside)
+            professorButton.addTarget(self, action: #selector(propeserButtonTapped), for: .touchUpInside)
             lectureButton.addTarget(self, action: #selector(lectureButtonTapped), for: .touchUpInside)
             firstSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
             secondSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
@@ -394,19 +439,19 @@ extension EvaluateView: DropdownMenuDelegate {
                 menu.removeFromSuperview()
             }
         }
-        propeserDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         
     }
     
     @objc private func propeserButtonTapped() {
-        if let menu = propeserDropdownMenu {
+        if let menu = professorDropdownMenu {
             if menu.superview == nil {
                 addSubviews(menu)
                 
                 menu.snp.makeConstraints { make in
-                    make.top.equalTo(propeserButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(propeserButton)
+                    make.top.equalTo(professorButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(professorButton)
                 }
             } else {
                 menu.removeFromSuperview()
@@ -424,18 +469,42 @@ extension EvaluateView: DropdownMenuDelegate {
                 
                 menu.snp.makeConstraints { make in
                     make.top.equalTo(lectureButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(propeserButton)
+                    make.leading.trailing.equalTo(professorButton)
                 }
             } else {
                 menu.removeFromSuperview()
             }
         }
         semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        propeserDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
     }
     
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
         print("Selected Option for button:", option)
+    }
+    
+    func setDetailEvaluateView(semester: String, professor: String, lecture: String,
+                               title: String, evaluate: String, firstPoint: Int,
+                               secondPoint: Int, thirdPoint: Int, fourtPoint: Int) {
+        semesterButtonClosure?()
+        professorButtomClosure?()
+        lectureButtonClosure?()
+        titleTextFieldClosure?()
+        evaluateClosure?()
+        firstSliderClosure?()
+        secondSliderClosure?()
+        secondSliderClosure?()
+        thirdSliderClosure?()
+        fourthSliderClosure?()
+        semesterButton.setTitleWithLeftPadding(semester, for: .normal, leftPadding: 13)
+        professorButton.setTitleWithLeftPadding(professor, for: .normal, leftPadding: 13)
+        lectureButton.setTitleWithLeftPadding(lecture, for: .normal, leftPadding: 13)
+        titleTextField.text = title
+        evaluateView.text = evaluate
+        firstSlider.value = Float(firstPoint)
+        secondSlider.value = Float(secondPoint)
+        thirdSlider.value = Float(thirdPoint)
+        fourthSlider.value = Float(fourtPoint)
     }
     
     // MARK: - @objc Methods
