@@ -65,6 +65,8 @@ extension EvaluateViewController {
             $0.font = .systemFont(ofSize: 8)
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
             $0.borderStyle = .roundedRect
+            $0.clearButtonMode = .whileEditing
+            $0.returnKeyType = .done 
         }
         
         tableView.do {
@@ -73,7 +75,7 @@ extension EvaluateViewController {
         }
         
         createButton.do {
-            $0.setImage(Image.CreateButton, for: .normal)
+            $0.setImage(Image.createbutton, for: .normal)
         }
         
         wroteMeButton.do {
@@ -169,12 +171,14 @@ extension EvaluateViewController {
         isMove.toggle()
         if isMove {
             self.wroteMeButtonBottomConstraint?.update(inset: 168)
+            createButton.setImage(Image.edit, for: .normal)
             UIView.animate(withDuration: 0.3) { [weak self] in
                 self?.view.layoutIfNeeded()
             }
         }
         else if !isMove {
             let vc = CreateEvaluateViewController()
+            createButton.setImage(Image.createbutton, for: .normal)
             self.navigationController?.pushViewController(vc, animated: true)
             self.wroteMeButtonBottomConstraint?.update(inset: 104)
             UIView.animate(withDuration: 0.3) { [weak self] in
