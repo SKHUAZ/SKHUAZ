@@ -10,6 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol CreateEvaluateBottomSheetViewControllerDelegate: AnyObject {
+    func didTapSaveButton(completion: @escaping () -> Void)
+}
+
 final class CreateEvaluateBottomSheetViewController: UIViewController {
     
     // MARK: - UI Components
@@ -20,6 +24,7 @@ final class CreateEvaluateBottomSheetViewController: UIViewController {
     
     // MARK: - Properties
     
+    weak var delegate: CreateEvaluateViewController?
     private let titleText: String = "{글제목}"
     
     // MARK: - Initializer
@@ -60,19 +65,19 @@ extension CreateEvaluateBottomSheetViewController {
         
         cancelButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
+            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
             $0.layer.borderWidth = 1
             $0.backgroundColor = UIColor(hex: "#FFFFFF")
             $0.setTitle("취소", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+            $0.setTitleColor(UIColor(hex: "#ED7A7A"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
         }
         
         saveButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#FFFFFF").cgColor
+            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
             $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#000000")
+            $0.backgroundColor = UIColor(hex: "#ED7A7A")
             $0.setTitle("확인", for: .normal)
             $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
@@ -121,5 +126,12 @@ extension CreateEvaluateBottomSheetViewController {
     @objc
     private func saveEvaluate() {
         print("저장버튼이 눌렸습니다")
+        self.dismiss(animated: false) { [weak self] in
+            self?.delegate?.didTapSaveButton() {
+                let customAlertVC = CustomAlertViewController()
+                customAlertVC.modalPresentationStyle = .overFullScreen
+                UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+            }
+        }
     }
 }
