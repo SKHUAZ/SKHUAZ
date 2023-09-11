@@ -162,10 +162,10 @@ extension EvaluateTableViewCell {
     // MARK: - Configure
     
     func configure(with review: EvaluateDataModel) {
-        evaluateTitle.text = "[\(review.courseYearLabel)]  \(review.title)"
-        lectureNameLabel.text = review.lectureNameLabel
-        professorNameLabel.text = review.professorNameLabel
+        evaluateTitle.text = "[\(review.semester)]  \(review.title)"
+        lectureNameLabel.text = review.lecture
+        professorNameLabel.text = review.professor
         subContainer.text = review.evaluate
-        evaluateGraph.numbers = [review.evaluatePoint1, review.evaluatePoint2, review.evaluatePoint3, review.evaluatePoint4]
+        evaluateGraph.numbers = [review.firstPoint, review.secondPoint, review.thirdPoint, review.fourthPoint]
     }
 }
