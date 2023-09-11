@@ -53,7 +53,7 @@ extension LoginView {
             $0.textColor = .blue
             $0.textAlignment = .center
         }
-        
+
         idTextField.do {
             $0.attributedPlaceholder = NSAttributedString(string: "학번을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.appColor(.placeHolderColor)]) // Placeholder 텍스트 색상 설정
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)

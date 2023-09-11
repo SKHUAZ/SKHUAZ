@@ -36,6 +36,12 @@
 		E3546DDA2A8DF6EF00ACFF3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */; };
 		E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE42A8E15CC00ACFF3C /* LoginView.swift */; };
 		E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */; };
+		E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */; };
+		E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D512AA20B110047C079 /* SignUpViewController.swift */; };
+		E3E83D542AA20D330047C079 /* RepetitionCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D532AA20D330047C079 /* RepetitionCheckView.swift */; };
+		E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CF72AAAF91200325E7D /* RadioButton.swift */; };
+		E3EC5D002AAAFECB00325E7D /* RadioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CFF2AAAFECB00325E7D /* RadioViewController.swift */; };
+		E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +73,12 @@
 		E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3546DE42A8E15CC00ACFF3C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
+		E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		E3E83D512AA20B110047C079 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		E3E83D532AA20D330047C079 /* RepetitionCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepetitionCheckView.swift; sourceTree = "<group>"; };
+		E3EC5CF72AAAF91200325E7D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		E3EC5CFF2AAAFECB00325E7D /* RadioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioViewController.swift; sourceTree = "<group>"; };
+		E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonsStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +309,8 @@
 			isa = PBXGroup;
 			children = (
 				2539B98E2A8CA70D00E939AA /* UIView++.swift */,
+				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
+				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -312,8 +326,8 @@
 		E3546DD62A8DECD900ACFF3C /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				E3546DD82A8DECEC00ACFF3C /* ViewController */,
 				E3546DD72A8DECE600ACFF3C /* View */,
+				E3546DD82A8DECEC00ACFF3C /* ViewController */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -346,6 +360,7 @@
 		E3E83D4D2AA209890047C079 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E3E83D512AA20B110047C079 /* SignUpViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -353,6 +368,9 @@
 		E3E83D4E2AA209910047C079 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */,
+				E3E83D532AA20D330047C079 /* RepetitionCheckView.swift */,
+				E3EC5CFF2AAAFECB00325E7D /* RadioViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -444,7 +462,9 @@
 				E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */,
 				2539B9672A8CA56700E939AA /* Model.swift in Sources */,
 				2539B9872A8CA6BF00E939AA /* Font.swift in Sources */,
+				E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */,
 				2539B9912A8CA72C00E939AA /* Color.swift in Sources */,
+				E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */,
 				2539B9952A8CA73A00E939AA /* Literals.swift in Sources */,
 				2539B9792A8CA63D00E939AA /* BaseViewController.swift in Sources */,
 				2539B97F2A8CA66F00E939AA /* TabBatViewController.swift in Sources */,
@@ -456,8 +476,12 @@
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
 				2539B96F2A8CA5C500E939AA /* GeneralResponse.swift in Sources */,
 				E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */,
+				E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */,
 				2539B9772A8CA61300E939AA /* BaseView.swift in Sources */,
+				E3E83D542AA20D330047C079 /* RepetitionCheckView.swift in Sources */,
+				E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */,
 				2539B96B2A8CA5AC00E939AA /* APIService.swift in Sources */,
+				E3EC5D002AAAFECB00325E7D /* RadioViewController.swift in Sources */,
 				2539B9972A8CA74900E939AA /* FontLevel.swift in Sources */,
 				2539B97D2A8CA65F00E939AA /* TabBarView.swift in Sources */,
 				2539B9652A8CA56100E939AA /* DTO.swift in Sources */,
