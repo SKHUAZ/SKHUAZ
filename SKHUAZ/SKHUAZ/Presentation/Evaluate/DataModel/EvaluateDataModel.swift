@@ -8,50 +8,81 @@
 import Foundation
 
 struct EvaluateDataModel {
+    var semester: String
+    var professor: String
+    var lecture: String
     var title: String
-    var department: String
-    var lectureNameLabel: String
-    var professorNameLabel: String
-    var courseYearLabel: String
-    var totalScoreLabel: Int
-    var authorNameLabel: String
-    var dateCreatedLabel: String
     var evaluate: String
-    var evaluatePoint1: Int
-    var evaluatePoint2: Int
-    var evaluatePoint3: Int
-    var evaluatePoint4: Int
+    var firstPoint: Int
+    var secondPoint: Int
+    var thirdPoint: Int
+    var fourthPoint: Int
+    var department: String
+    var authorName: String
 }
 
-let review1 = EvaluateDataModel(title: "리뷰 1", department: "소프트웨어공학", lectureNameLabel: "자바 프로그래밍",
-                                professorNameLabel: "문성현", courseYearLabel: "2023-1", totalScoreLabel: 4,
-                                authorNameLabel: "김철수", dateCreatedLabel: "2023-08-17", evaluate: "콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.",
-                                evaluatePoint1: 4, evaluatePoint2: 3, evaluatePoint3: 1,
-                                evaluatePoint4: 5)
-let review2 = EvaluateDataModel(title: "리뷰 2", department: "소프트웨어공학", lectureNameLabel: "데이터베이스",
-                                professorNameLabel: "홍은지", courseYearLabel: "2023-1", totalScoreLabel: 5,
-                                authorNameLabel: "박지민", dateCreatedLabel: "2023-08-18", evaluate: "콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.",
-                                evaluatePoint1: 1, evaluatePoint2: 4, evaluatePoint3: 5,
-                                evaluatePoint4: 2)
-let review3 = EvaluateDataModel(title: "리뷰 3", department: "소프트웨어공학", lectureNameLabel: "알고리즘",
-                                professorNameLabel: "노은하", courseYearLabel: "2022-2", totalScoreLabel: 3,
-                                authorNameLabel: "이영호", dateCreatedLabel: "2023-08-19", evaluate: "콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.",
-                                evaluatePoint1: 5, evaluatePoint2: 2, evaluatePoint3: 3,
-                                evaluatePoint4: 1)
-let review4 = EvaluateDataModel(title: "리뷰 4", department: "소프트웨어공학", lectureNameLabel: "자료구조",
-                                professorNameLabel: "노은하", courseYearLabel: "2023-1", totalScoreLabel: 4,
-                                authorNameLabel: "홍길동", dateCreatedLabel: "2023-08-20", evaluate: "콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.",
-                                evaluatePoint1: 4, evaluatePoint2: 3, evaluatePoint3: 1,
-                                evaluatePoint4: 5)
-let review5 = EvaluateDataModel(title: "리뷰 5", department: "소프트웨어공학", lectureNameLabel: "모바일프로그래밍",
-                                professorNameLabel: "이승진", courseYearLabel: "2022-1", totalScoreLabel: 5,
-                                authorNameLabel: "정재민", dateCreatedLabel: "2023-08-21", evaluate: "콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.",
-                                evaluatePoint1: 2, evaluatePoint2: 4, evaluatePoint3: 2,
-                                evaluatePoint4: 3)
-let review6 = EvaluateDataModel(title: "리뷰 6", department: "정보통신공학", lectureNameLabel: "리눅스 시스템",
-                                professorNameLabel: "박정식", courseYearLabel: "2023-1", totalScoreLabel: 3,
-                                authorNameLabel: "천성우", dateCreatedLabel: "2023-07-23", evaluate: "콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.콘텐츠 내용 노출. 길면 말줄임표 처리가 필요합니다.",
-                                evaluatePoint1: 1, evaluatePoint2: 5, evaluatePoint3: 4,
-                                evaluatePoint4: 5)
+let dataModels: [EvaluateDataModel] = [
+    EvaluateDataModel(semester: "2023-2", professor: "이승진", lecture: "프론트엔드개발",
+              title: "프엔별로 안 어려움",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "소프트웨어공학과", authorName: "천성우"),
+    EvaluateDataModel(semester: "2023-1", professor: "이승진", lecture: "모바일프로그래밍",
+              title: "코틀린 안 해서 아쉽다",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "소프트웨어공학과", authorName: "박신영"),
+    EvaluateDataModel(semester: "2023-1", professor: "노은하", lecture: "자료구조",
+              title: "자료구조 엄..",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "소프트웨어공학", authorName: "허지영"),
+    EvaluateDataModel(semester: "2023-1", professor: "노은하", lecture: "알고리즘",
+              title: "자바로 해서 조금 아쉽다",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "소프트웨어공학", authorName: "문인호"),
+    EvaluateDataModel(semester: "2023-1", professor: "문성현", lecture: "고급자바프로그래밍",
+              title: "퇴근하고싶다",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "소프트웨어공학", authorName: "윤다혜"),
+    EvaluateDataModel(semester: "2022-1", professor: "정인철", lecture: "컴퓨터 구조",
+              title: "컴구 어렵다",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "정보통신공학", authorName: "한종수"),
+    EvaluateDataModel(semester: "2022-1", professor: "정인철", lecture: "컴퓨터 구조",
+              title: "진짜 인철좌..",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "정보통신공학", authorName: "천성우"),
+    EvaluateDataModel(semester: "2022-1", professor: "이하규", lecture: "C++프로그래밍",
+              title: "C+씨뿔..",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "정보통신공학", authorName: "박신영"),
+    EvaluateDataModel(semester: "2023-1", professor: "문성현", lecture: "회사원",
+              title: "퇴근하고싶다 허지영.ver",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "소프트웨어공학", authorName: "허지영"),
+    EvaluateDataModel(semester: "2023-1", professor: "정인철", lecture: "디지털회로실험",
+              title: "디회실 너무 어렵더라",
+              evaluate: "서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다서버 통신으로 받아올 데이터 입니다",
+              firstPoint: Int.random(in: 1...10), secondPoint: Int.random(in: 1...10),
+              thirdPoint: Int.random(in: 1...10), fourthPoint: Int.random(in: 1...10),
+              department: "정보통신공학", authorName: "문인호")
+]
 
-var reviewList: [EvaluateDataModel] = [review1, review2, review3, review4, review5, review6]
+
+var reviewList: [EvaluateDataModel] = dataModels

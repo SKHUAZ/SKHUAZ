@@ -9,13 +9,13 @@ import UIKit
 
 extension UIViewController {
     
-    func setTapScreen() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapScreen))
-        view.addGestureRecognizer(tapGestureRecognizer)
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
-    @objc
-    private func didTapScreen() {
+    @objc func dismissKeyboard() {
         view.endEditing(true)
     }
 }

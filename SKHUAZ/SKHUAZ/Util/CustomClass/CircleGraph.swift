@@ -55,11 +55,11 @@ class CircleGraphView: UIView {
        case 0:
            return UIColor(hex: "#EFEFEF")
        case 1:
-           return UIColor(hex: "#81666D")
+           return UIColor(hex: "#FFB6B6")
        case 2:
-           return UIColor(hex: "#C0ACB1")
+           return UIColor(hex: "#FFE2E2")
        case 3:
-           return UIColor(hex: "#483232")
+           return UIColor(hex: "#E98383")
        default:
            return .clear
       }

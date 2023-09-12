@@ -31,8 +31,8 @@ final class RecommendViewController: UIViewController {
 
     private var wroteMeButtonBottomConstraint: Constraint? //글쓰기 버튼 바텀 움직임 제약조건
     private var isMove: Bool = false //글쓰기 버튼 클릭 여부 확인 위함
-    var reviewList: [RecommendDetailDataModel] = []
-    var filteredReviewList: [RecommendDetailDataModel] = []
+    var reviewList: [RecommendDataModel] = []
+    var filteredReviewList: [RecommendDataModel] = []
     var isFiltering = false
     
     // MARK: - View Life Cycle
@@ -83,7 +83,7 @@ extension RecommendViewController {
         }
         
         createButton.do {
-            $0.setImage(Image.CreateButton, for: .normal)
+            $0.setImage(Image.createbutton, for: .normal)
         }
         
         wroteMeButton.do {
@@ -150,7 +150,7 @@ extension RecommendViewController {
     
     private func setupData() {
 //        reviewList = [rdReview1, rdReview2, rdReview3, rdReview4]
-        reviewList = [rdReview1, rdReview2, rdReview3]
+        reviewList = [recommendReview1, recommendReview2, recommendReview3, recommendReview4]
         recommendListView.reloadData()
     }
     
