@@ -51,7 +51,7 @@ extension EvaluateTableViewCell {
         }
         
         topSpace.do {
-            $0.backgroundColor = UIColor(hex: "#ED7A7A")
+            $0.backgroundColor = UIColor(hex: "#9AC1D1")
             $0.layer.cornerRadius = 6
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }

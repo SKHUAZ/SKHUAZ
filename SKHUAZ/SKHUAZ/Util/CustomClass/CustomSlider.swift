@@ -35,7 +35,7 @@ class CustomSlider: UISlider {
         minimumValue = 0
         maximumValue = 100
         value = 50
-        thumbTintColor = UIColor(hex: "#ED7A7A")
+        thumbTintColor = UIColor(hex: "#9AC1D1")
         minimumTrackTintColor = UIColor(hex: "#000000")
         maximumTrackTintColor = UIColor(hex: "000000")
         let trackImage = Image.line

@@ -59,6 +59,6 @@ extension TabBarController {
         tabBar.layer.shadowOpacity = 0.2
         tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         tabBar.layer.shadowRadius = 0.7
-        tabBar.tintColor = UIColor(hex: "#ED7A7A")
+        tabBar.tintColor = UIColor(hex: "#9AC1D1")
     }
 }
