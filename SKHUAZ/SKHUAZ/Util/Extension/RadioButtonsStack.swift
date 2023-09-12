@@ -8,12 +8,32 @@
 import UIKit
 
 protocol RadioButtonsStackDelegate: AnyObject {
-    func radioButtonStack(_ radioButtonStack: RadioButtonsStack, didSelectValue value: String?)
+    func radioButtonStack(_ radioButtonStack: RadioButtonsStack, didSelectValue value: String?, inGroup group: Int)
 }
 
 class RadioButtonsStack: UIView {
     
     weak var delegate: RadioButtonsStackDelegate?
+    
+    var groupId: Int
+    
+    init(groupId: Int) {
+            self.groupId = groupId // 그룹 식별 변수 초기화
+            super.init(frame: .zero)
+            setup()
+        }
+    
+    required init() {
+        super.init()
+    }
+    
+
+    func radioButtonView(_ radioButtonView: RadioButtonView, didSelect isSelected: Bool, labelText: String) {
+        if isSelected {
+            let selectedValue = labelText
+            delegate?.radioButtonStack(self, didSelectValue: selectedValue, inGroup: groupId) // 그룹 식별 변수 전달
+        }
+    }
 
     private let stackView: UIStackView = {
         let view = UIStackView()
@@ -38,6 +58,7 @@ class RadioButtonsStack: UIView {
         super.init(coder: coder)
         setup()
     }
+    
 
     private func setup() {
         addSubview(stackView)
@@ -65,18 +86,18 @@ class RadioButtonsStack: UIView {
             radioViews.append(radioView)
         }
     }
-    
-    func radioButtonStack(_ radioButtonStack: RadioButtonView, didSelect isSelected: Bool, labelText: String) {
-            if isSelected {
-                let selectedValue = labelText
-                delegate?.radioButtonStack(self, didSelectValue: selectedValue)
-            }
-        }
 
     @objc private func radioSelected(_ sender: RadioButton?) {
         guard let sender else { return }
         selectedIndex = sender.tag
-        
+        print("\(sender.tag)")
+        var desiredTag = sender.tag
+        if let radioButtonView = radioViews.first(where: { $0.radioButton.tag == desiredTag }) {
+            let labelText = radioButtonView.label.text ?? ""
+            print("Label Text: \(labelText)")
+        } else {
+            print("RadioButtonView with tag \(desiredTag) not found.")
+        }
         radioViews.forEach {
             $0.select($0.radioButton.tag == sender.tag)
         }
@@ -127,8 +148,7 @@ class RadioButtonsStack: UIView {
                 stackView.topAnchor.constraint(equalTo: topAnchor),
                 stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//                radioButton.widthAnchor.constraint(equalToConstant: 30)
+                stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
             ])
         }
 
