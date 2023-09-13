@@ -7,19 +7,28 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, DataTransferDelegate  {
+class SignUpViewController: UIViewController, SendStringData {
+    func sendData(mydata: String, groupId: Int) {
+        if groupId == 1 {
+            firstValue = mydata
+        }
+        else {
+            secondValue = mydata
+        }
+    }
     
-    func sendData(_ data: String) {
+    
+    func sendData(mydata data: String) {
             print("Received data: \(data)")
         }
+    var firstValue: String?
+    var secondValue: String?
     
     private let rootView = SignUpView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let senderVC = RadioButtonsStack()
-        senderVC.delegate = self
+
     }
     
     override func loadView() {

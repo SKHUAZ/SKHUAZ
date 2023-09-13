@@ -3,37 +3,16 @@
 //  SKHUAZ
 //
 //  Created by 문인호 on 2023/09/10.
-//
 
 import UIKit
 
-protocol RadioButtonsStackDelegate: AnyObject {
-    func radioButtonStack(_ radioButtonStack: RadioButtonsStack, didSelectValue value: String?, inGroup group: Int)
+protocol SendStringData: AnyObject {
+    func sendData(mydata: String, groupId: Int)
 }
 
 class RadioButtonsStack: UIView {
     
-    weak var delegate: RadioButtonsStackDelegate?
-    
-    var groupId: Int
-    
-    init(groupId: Int) {
-            self.groupId = groupId // 그룹 식별 변수 초기화
-            super.init(frame: .zero)
-            setup()
-        }
-    
-    required init() {
-        super.init()
-    }
-    
-
-    func radioButtonView(_ radioButtonView: RadioButtonView, didSelect isSelected: Bool, labelText: String) {
-        if isSelected {
-            let selectedValue = labelText
-            delegate?.radioButtonStack(self, didSelectValue: selectedValue, inGroup: groupId) // 그룹 식별 변수 전달
-        }
-    }
+    weak var delegate: SendStringData?
 
     private let stackView: UIStackView = {
         let view = UIStackView()
@@ -48,17 +27,23 @@ class RadioButtonsStack: UIView {
     private var radioViews = [RadioButtonView]()
 
     var selectedIndex: Int?
+    var groupId: Int?
 
     init() {
         super.init(frame: .zero)
         setup()
     }
+    
+    init(groupId: Int) {
+            self.groupId = groupId // 그룹 식별 변수 초기화
+            super.init(frame: .zero)
+            setup()
+        }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
-    
 
     private func setup() {
         addSubview(stackView)
@@ -73,7 +58,6 @@ class RadioButtonsStack: UIView {
     func set(_ options: [String]) {
         radioViews.removeAll()
         stackView.removeAllArrangedSubviews()
-        
         for (index, text) in options.enumerated() {
             let radioView: RadioButtonView = {
                 let view = RadioButtonView()
@@ -90,16 +74,14 @@ class RadioButtonsStack: UIView {
     @objc private func radioSelected(_ sender: RadioButton?) {
         guard let sender else { return }
         selectedIndex = sender.tag
-        print("\(sender.tag)")
         var desiredTag = sender.tag
         if let radioButtonView = radioViews.first(where: { $0.radioButton.tag == desiredTag }) {
             let labelText = radioButtonView.label.text ?? ""
             print("Label Text: \(labelText)")
-        } else {
-            print("RadioButtonView with tag \(desiredTag) not found.")
-        }
-        radioViews.forEach {
-            $0.select($0.radioButton.tag == sender.tag)
+            delegate?.sendData(mydata: labelText, groupId: groupId ?? 0)
+            radioViews.forEach {
+                $0.select($0.radioButton.tag == sender.tag)
+            }
         }
     }
 
@@ -148,7 +130,8 @@ class RadioButtonsStack: UIView {
                 stackView.topAnchor.constraint(equalTo: topAnchor),
                 stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                stackView.trailingAnchor.constraint(equalTo: trailingAnchor)
+                stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+//                radioButton.widthAnchor.constraint(equalToConstant: 30)
             ])
         }
 
@@ -172,3 +155,4 @@ extension UIStackView {
         removedSubviews.forEach({ $0.removeFromSuperview() })
     }
 }
+
