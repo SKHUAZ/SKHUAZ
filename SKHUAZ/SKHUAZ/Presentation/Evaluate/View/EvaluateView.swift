@@ -156,7 +156,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.contentHorizontalAlignment = .left
-                $0.setTitleWithLeftPadding("학기를 선택해주세요", for: .normal, leftPadding: 13)
+                $0.setTitleWithLeftPadding("강의를 선택해주세요", for: .normal, leftPadding: 13)
                 $0.setTitleColor(UIColor(hex: "#737373"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
