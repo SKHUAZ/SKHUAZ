@@ -12,27 +12,25 @@ import Then
 
 final class RecommendViewController: UIViewController {
     
-    private var currentPage = 0 {
-            didSet {
-                recommendListView.reloadData()
-            }
-        }
-    
     // MARK: - UI Components
     private let logoImage = UIImageView()
     private let recommendTitleLabel = UILabel()
     private let searchTextField = UITextField()
     private let recommendListView = UITableView()
+    private let pageNationView = RecommendCustomPagenationView()
+    
     private let createButton = UIButton()
-    private let wroteMeButton = UIButton()
-    var pageControl: UIPageControl!
+    private let writeByMeButton = UIButton()
+    
+//    private let testView = TestView()
+
     
     // MARK: - Properties
 
     private var wroteMeButtonBottomConstraint: Constraint? //글쓰기 버튼 바텀 움직임 제약조건
     private var isMove: Bool = false //글쓰기 버튼 클릭 여부 확인 위함
-    var reviewList: [RecommendDetailDataModel] = []
-    var filteredReviewList: [RecommendDetailDataModel] = []
+    var reviewList: [RecommendDataModel] = []
+    var filteredReviewList: [RecommendDataModel] = []
     var isFiltering = false
     
     // MARK: - View Life Cycle
@@ -46,7 +44,10 @@ final class RecommendViewController: UIViewController {
         setDelegate()
         setUITableView()
         addTarget()
+        setupKeyboardEvent()
+//        setTapScreen()
     }
+        
 }
 
 //RecommendViewController 의 확장기능들
@@ -79,15 +80,16 @@ extension RecommendViewController {
         recommendListView.do {
             $0.separatorStyle = .none
             $0.register(RecommendTableViewCell.self, forCellReuseIdentifier: "Cell")
-            $0.isScrollEnabled = true
+//            $0.isScrollEnabled = true
         }
+        
         
         createButton.do {
-            $0.setImage(Image.CreateButton, for: .normal)
+            $0.setImage(Image.createbutton, for: .normal)
         }
         
-        wroteMeButton.do {
-            $0.setImage(Image.WritingOff, for: .normal)
+        writeByMeButton.do {
+            $0.setImage(Image.WriteByMe, for: .normal)
         }
     }
     
@@ -96,7 +98,7 @@ extension RecommendViewController {
     private func setLayout() {
         
         view.addSubviews(logoImage, recommendTitleLabel,searchTextField,
-                         recommendListView, wroteMeButton, createButton)
+                         recommendListView, writeByMeButton, createButton)
         
         logoImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(60)
@@ -112,16 +114,16 @@ extension RecommendViewController {
         
         searchTextField.snp.makeConstraints {
             $0.top.equalTo(recommendTitleLabel.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(30)
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(30)
-            $0.width.equalTo(313)
+            $0.width.equalTo(335)
         }
         
         recommendListView.snp.makeConstraints {
             $0.top.equalTo(searchTextField.snp.bottom).offset(15)
             $0.bottom.equalToSuperview()
-            $0.leading.equalToSuperview().inset(-7)
-            $0.width.equalTo(360)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(380)
         }
         
         createButton.snp.makeConstraints {
@@ -130,27 +132,24 @@ extension RecommendViewController {
             $0.width.height.equalTo(56)
         }
         
-        wroteMeButton.snp.makeConstraints {
+        writeByMeButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
             self.wroteMeButtonBottomConstraint = $0.bottom.equalToSuperview().inset(90).constraint
             $0.width.height.equalTo(56)
         }
-        
     }
     
     // MARK: - Add
     
     private func addTarget() {
-
         createButton.addTarget(self, action: #selector(movewroteMeButton), for: .touchUpInside)
-        wroteMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for: .touchUpInside)
+                writeByMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for: .touchUpInside)
     }
     
     // MARK: - Methods
     
     private func setupData() {
-//        reviewList = [rdReview1, rdReview2, rdReview3, rdReview4]
-        reviewList = [rdReview1, rdReview2, rdReview3]
+        reviewList = [recommendReview1, recommendReview2, recommendReview3]
         recommendListView.reloadData()
     }
     
@@ -181,7 +180,7 @@ extension RecommendViewController {
         else if !isMove {
             let vc = CreateRecommendViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-            self.wroteMeButtonBottomConstraint?.update(inset: 104)
+            self.wroteMeButtonBottomConstraint?.update(inset: 90)
             UIView.animate(withDuration: 0.3) { [weak self] in
                 self?.view.layoutIfNeeded()
             }
@@ -205,14 +204,11 @@ extension RecommendViewController {
 extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 180
+        return 160
     }
     
     //RecommendTableView 스크롤 막기
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pageIndex = round(recommendListView.contentOffset.y / recommendListView.frame.height)
-        pageControl?.currentPage = Int(pageIndex)
-        
         if scrollView == recommendListView {
             scrollView.contentOffset = .zero
         }
@@ -230,5 +226,45 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: review)
         
         return cell
+    }
+    
+    private func setupKeyboardEvent() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+
+    }
+    
+    // MARK: - @objc Methods
+    
+    @objc
+    private func keyboardWillShow(_ sender: Notification) {
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let currentTextField = UIResponder.currentResponder as? UITextField else { return }
+        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
+        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+        
+        if textFieldBottomY > keyboardTopY {
+            let keyboardOverlap = textFieldBottomY - keyboardTopY
+            view.frame.origin.y = -keyboardOverlap - 40
+        }
+    }
+    
+    @objc
+    private func keyboardWillHide(_ sender: Notification) {
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
+    
+    @objc
+    private func pushToRecommendViewController() {
+        self.navigationController?.popViewController(animated: true)
     }
 }

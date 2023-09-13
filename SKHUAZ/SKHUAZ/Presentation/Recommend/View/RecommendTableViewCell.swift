@@ -16,10 +16,8 @@ class RecommendTableViewCell: UITableViewCell {
     private let recommendListContainer = UIView()
     private let mainContainer = UIView() //루트추천 본문 컨테이너
     private let topSpace = UIView()
-    
-    private let rightContainer1 = UILabel()
-    private let rightContainer2 = UILabel()
-    private let rightContainer3 = UILabel()
+    private let recommendSubListView = UITableView()
+        
     private let recommendContent = UILabel()
     private let recommendTitle = UILabel()
     
@@ -28,6 +26,7 @@ class RecommendTableViewCell: UITableViewCell {
     private let titleLabel = UILabel()
     private let majorNameLabel = UILabel()
     private let creationDateLabel = UILabel()
+    var reviewList: [RecommendDataModel] = []
     
     // MARK: - Initializer
     
@@ -35,6 +34,9 @@ class RecommendTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setLayout()
         setUI()
+//        setupData()
+//        setDelegate()
+//        setUITableView()
         selectedBackgroundView = UIView()
     }
     
@@ -50,6 +52,11 @@ extension RecommendTableViewCell {
         
     private func setUI() {
         
+        recommendSubListView.do {
+            $0.separatorStyle = .none
+            $0.register(RecommendTableViewCell.self, forCellReuseIdentifier: "Cell")
+        }
+        
         recommendListContainer.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
@@ -63,22 +70,6 @@ extension RecommendTableViewCell {
         }
         
         mainContainer.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
-        }
-        
-        // 이것도 테이블뷰로 간단하게 할 수 있을듯
-        rightContainer1.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
-        }
-        
-        rightContainer2.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
-        }
-        
-        rightContainer3.do {
             $0.layer.cornerRadius = 6
             $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
         }
@@ -107,20 +98,18 @@ extension RecommendTableViewCell {
 
         
         contentView.addSubviews(recommendListContainer)
-        recommendListContainer.addSubviews(topSpace, mainContainer, rightContainer1, rightContainer2, rightContainer3)
+        recommendListContainer.addSubviews(topSpace, mainContainer, recommendSubListView)
         
         topSpace.addSubviews(recommendTitle)
         
         mainContainer.addSubview(recommendContent)
-        rightContainer1.addSubview(majorNameLabel)
-        rightContainer2.addSubview(majorNameLabel)
-        rightContainer3.addSubview(majorNameLabel)
+        recommendSubListView.addSubview(majorNameLabel)
         
         
         recommendListContainer.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.leading.equalToSuperview().offset(36)
-            $0.width.equalTo(315)
+            $0.top.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(335)
             $0.height.equalTo(147)
         }
         
@@ -136,31 +125,17 @@ extension RecommendTableViewCell {
         }
         
         mainContainer.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(15)
+            $0.leading.equalToSuperview().offset(10)
             $0.top.equalTo(topSpace.snp.bottom).offset(10)
-            $0.width.equalTo(150)
+            $0.width.equalTo(168)
             $0.height.equalTo(105)
         }
         
-        rightContainer1.snp.makeConstraints {
-            $0.top.equalTo(topSpace.snp.bottom).offset(10)
-            $0.trailing.equalToSuperview().inset(15)
-            $0.width.equalTo(130)
-            $0.height.equalTo(28)
-        }
-        
-        rightContainer2.snp.makeConstraints {
-            $0.top.equalTo(rightContainer1.snp.bottom).offset(10)
-            $0.trailing.equalToSuperview().inset(15)
-            $0.width.equalTo(130)
-            $0.height.equalTo(28)
-        }
-        
-        rightContainer3.snp.makeConstraints {
-            $0.top.equalTo(rightContainer2.snp.bottom).offset(10)
-            $0.trailing.equalToSuperview().inset(15)
-            $0.width.equalTo(130)
-            $0.height.equalTo(28)
+        recommendSubListView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(30)
+            $0.bottom.equalToSuperview()
+            $0.leading.equalTo(mainContainer.snp.trailing).offset(10)
+            $0.width.equalTo(150)
         }
         
         recommendContent.snp.makeConstraints {
@@ -172,17 +147,24 @@ extension RecommendTableViewCell {
             $0.top.equalToSuperview().offset(5)
             $0.leading.equalToSuperview().offset(8)
         }
-        
-//        content.snp.makeConstraints {
-//            $0.top.equalTo(topSpace.snp.bottom).offset(10)
-//            $0.trailing.equalToSuperview().inset(19)
-//            $0.width.height.equalTo(104)
-//        }
+    }
+    
+    private func setupData() {
+        reviewList = [recommendReview1, recommendReview2, recommendReview3]
+        recommendSubListView.reloadData()
+    }
+    
+    private func setDelegate() {
+        recommendSubListView.delegate = self
+    }
+    
+    private func setUITableView() {
+        recommendSubListView.dataSource = self
     }
     
     //MARK: - configure
     
-    func configure(with review: RecommendDetailDataModel) {
+    func configure(with review: RecommendDataModel) {
         recommendTitle.text = review.titleLabel
         titleLabel.text = review.titleLabel
         majorNameLabel.text = review.majorNameLabel
@@ -190,10 +172,26 @@ extension RecommendTableViewCell {
         courseYear.text = review.courseYearLabel
         recommendContent.text = review.contentLabel
     }
-    
-//    //MARK: - make LectureBox
-//    func lectureBox() {
-//
-//    }
         
+}
+
+extension RecommendTableViewCell: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160
+    }
+
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return reviewList.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! RecommendSubTableViewCell
+        let review = reviewList[indexPath.row]
+        
+        cell.configure(with: review)
+        
+        return cell
+    }
 }

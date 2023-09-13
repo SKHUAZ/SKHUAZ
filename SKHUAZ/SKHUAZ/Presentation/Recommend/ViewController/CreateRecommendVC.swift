@@ -105,6 +105,7 @@ extension CreateRecommendViewController {
     
     private func addTarget() {
         listButton.addTarget(self, action: #selector(pushToRecommendViewController), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(pushToRecommendViewController), for: .touchUpInside)
     }
     
     // MARK: - @objc Methods
