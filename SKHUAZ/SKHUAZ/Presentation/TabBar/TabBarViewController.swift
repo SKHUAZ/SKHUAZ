@@ -19,21 +19,31 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         setTabBarUI()
         setTabBarItems()
+        setFirstViewContoller()
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
 }
 
 extension TabBarController {
     
+    private func setFirstViewContoller() {
+        if let evaluateIndex = tabs.firstIndex(where: { $0 is EvaluateViewController }) {
+              selectedIndex = evaluateIndex
+          } // 지금은 강의평 화면을 기본 셋팅화면으로 설정
+    }
+    
     private func setTabBarItems() {
-        
         tabs = [
-            UIViewController()  ,
-            EvaluateViewController()
+            UIViewController(), // 선수과목
+            EvaluateViewController(), // 강의평
+            UIViewController(), // 홈
+            RecommendViewController(), // 루트추천
+            UIViewController() // 설정
         ]
         TabBarItemType.allCases.forEach {
             let tabBarItem = $0.setTabBarItem()
@@ -44,11 +54,11 @@ extension TabBarController {
     }
     
     private func setTabBarUI() {
-        tabBar.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
+        tabBar.backgroundColor = UIColor(hex: "#FFFFFF")
         tabBar.layer.masksToBounds = false
         tabBar.layer.shadowOpacity = 0.2
         tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         tabBar.layer.shadowRadius = 0.7
-        tabBar.tintColor = .blue
+        tabBar.tintColor = UIColor(hex: "#ED7A7A")
     }
 }

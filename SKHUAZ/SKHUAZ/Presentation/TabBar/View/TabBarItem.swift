@@ -11,6 +11,7 @@ import UIKit
 enum TabBarItemType: Int, CaseIterable {
     case home
     case myPage
+    case recommend
 }
 
 extension TabBarItemType {
@@ -21,6 +22,8 @@ extension TabBarItemType {
             return "홈"
         case .myPage:
             return "마이페이지"
+        case .recommend:
+            return "루트 추천"
         }
     }
 

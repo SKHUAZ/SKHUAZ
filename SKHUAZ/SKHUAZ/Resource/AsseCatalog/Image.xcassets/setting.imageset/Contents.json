@@ -1,22 +1,19 @@
 {
   "images" : [
     {
-<<<<<<< HEAD
-      "filename" : "Save.png",
+      "filename" : "Frame 5.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "Frame 5@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "Frame 5@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
-=======
-      "filename" : "KakaoTalk_Photo_2023-09-11-12-56-21.png",
-      "idiom" : "universal"
->>>>>>> 33a7bfd6fab551ba71c66f77f193f489da02ee11
     }
   ],
   "info" : {

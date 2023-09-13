@@ -13,9 +13,7 @@ import SnapKit
 class EvaluateTableViewCell: UITableViewCell {
     
     // MARK: - Property
-    
-    private var evaluatePoint: [Int] = [0, 0, 0 ,0]
-    
+        
     // MARK: - UI Components
     private let cellContainer = UIView()
     private let mainContainer = UIView()
@@ -38,8 +36,6 @@ class EvaluateTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }
 
 extension EvaluateTableViewCell {
@@ -51,11 +47,11 @@ extension EvaluateTableViewCell {
         cellContainer.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.black.cgColor
+            $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
         }
         
         topSpace.do {
-            $0.backgroundColor = .black
+            $0.backgroundColor = UIColor(hex: "#ED7A7A")
             $0.layer.cornerRadius = 6
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
@@ -83,7 +79,7 @@ extension EvaluateTableViewCell {
         evaluateTitle.do {
             $0.font = .systemFont(ofSize: 8)
             $0.textColor = .white
-            $0.backgroundColor = .black
+//            $0.backgroundColor = UIColor(hex: "#9AC1D1")
         }
         
         lectureNameLabel.do {
@@ -166,10 +162,10 @@ extension EvaluateTableViewCell {
     // MARK: - Configure
     
     func configure(with review: EvaluateDataModel) {
-        evaluateTitle.text = "[\(review.courseYearLabel)]  \(review.title)"
-        lectureNameLabel.text = review.lectureNameLabel
-        professorNameLabel.text = review.professorNameLabel
+        evaluateTitle.text = "[\(review.semester)]  \(review.title)"
+        lectureNameLabel.text = review.lecture
+        professorNameLabel.text = review.professor
         subContainer.text = review.evaluate
-        evaluateGraph.numbers = [review.evaluatePoint1, review.evaluatePoint2, review.evaluatePoint3, review.evaluatePoint4]
+        evaluateGraph.numbers = [review.firstPoint, review.secondPoint, review.thirdPoint, review.fourthPoint]
     }
 }
