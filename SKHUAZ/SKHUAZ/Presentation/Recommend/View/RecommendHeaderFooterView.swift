@@ -52,7 +52,7 @@ extension RecommendCustomPagenationView {
         contentView.backgroundColor = UIColor(hue: 0.55, saturation: 0.4, brightness: 0.9, alpha: 1.0)
 
         leftArrowButton.do {
-            $0.setImage(Image.List, for: .normal)
+            $0.setImage(Image.list, for: .normal)
         }
     }
 }

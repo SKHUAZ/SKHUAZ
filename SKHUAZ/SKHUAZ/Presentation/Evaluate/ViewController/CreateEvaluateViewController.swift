@@ -53,10 +53,10 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#000000").cgColor
             $0.layer.borderWidth = 1
-//            $0.backgroundColor = UIColor(hex: "#FFFFFF")
-//            $0.setTitle("뒤로가기", for: .normal)
-//            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
-//            $0.titleLabel?.font = .systemFont(ofSize: 13)
+            //            $0.backgroundColor = UIColor(hex: "#FFFFFF")
+            //            $0.setTitle("뒤로가기", for: .normal)
+            //            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+            //            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
         
         saveButton.do {
@@ -89,7 +89,7 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             $0.width.equalTo(83)
             $0.height.equalTo(39)
         }
-    
+        
         saveButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
@@ -109,12 +109,7 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
         backButton.addTarget(self, action: #selector(popToEvaluateViewController), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(presnetToCreateEvaluateBottomSheetViewController), for: .touchUpInside)
     }
-    // MARK: - Methods
     
-        private func addTarget() {
-            cancelButton.addTarget(self, action: #selector(pushToRecommendViewController), for: .touchUpInside)
-        }
-
     
     private func setupKeyboardEvent() {
         NotificationCenter.default.addObserver(self,
@@ -125,7 +120,7 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
                                                selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
-
+        
     }
     
     func didTapSaveButton(completion: @escaping () -> Void) {
@@ -157,9 +152,7 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
     }
     
     @objc
-    private func pushToRecommendViewController() {
     private func popToEvaluateViewController() {
-    private func pushToRecommendViewController() {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -190,4 +183,3 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
         }
     }
 }
-

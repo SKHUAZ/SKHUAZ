@@ -89,7 +89,7 @@ extension RecommendViewController {
         }
         
         writeByMeButton.do {
-            $0.setImage(Image.WriteByMe, for: .normal)
+            $0.setImage(Image.WritingOff, for: .normal)
         }
     }
     

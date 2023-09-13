@@ -52,7 +52,7 @@ extension CreateRecommendViewController {
 //            $0.setTitle("목록", for: .normal)
 //            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
 //            $0.titleLabel?.font = .systemFont(ofSize: 8)
-            $0.setImage(Image.List, for: .normal)
+            $0.setImage(Image.list, for: .normal)
         }
         
         saveButton.do {
@@ -63,7 +63,7 @@ extension CreateRecommendViewController {
 //            $0.setTitle("저장", for: .normal)
 //            $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
 //            $0.titleLabel?.font = .systemFont(ofSize: 8)
-            $0.setImage(Image.Save, for: .normal)
+            $0.setImage(Image.save, for: .normal)
         }
     }
     
