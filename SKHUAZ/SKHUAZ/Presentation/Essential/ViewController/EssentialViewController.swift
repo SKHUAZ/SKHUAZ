@@ -14,14 +14,13 @@ final class EssentialViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let listButton = UIButton()
-    private let titleLabel = UILabel()
     private let essentialView = EssentialView()
-    private let leftButton = UIButton()
-    private let rightButton = UIButton()
-    private let saveButton = UIButton()
+    private let sideMenu = EssentialSideView()
     
     // MARK: - Properties
+    
+    private var isMenuOpen = false
+    
     
     // MARK: - Initializer
     
@@ -31,6 +30,19 @@ final class EssentialViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setAddTarget()
+        
+        essentialView.listButton.addTarget(self, action: #selector(toggleMenu), for: .touchUpInside)
+        sideMenu.isHidden = true
+        
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(toggleMenu))
+        swipeRightGesture.direction = .right
+        view.addGestureRecognizer(swipeRightGesture)
+        
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action:#selector(toggleMenu))
+        swipeLeftGesture.direction = .left
+        view.addGestureRecognizer(swipeLeftGesture)
+        
     }
 }
 
@@ -41,32 +53,7 @@ extension EssentialViewController {
     private func setUI() {
         view.backgroundColor = UIColor(hex: "#FFFFFF")
         
-        listButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
-            $0.layer.borderWidth = 1
-        }
-        
-        titleLabel.do {
-            $0.text = "선수과목제도 확인"
-            $0.textColor = UIColor(hex: "#000000")
-            $0.font = .systemFont(ofSize: 20)
-        }
-        
-        leftButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
-            $0.layer.borderWidth = 1
-        }
-        
-        saveButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
-            $0.layer.borderWidth = 1
-        }
-        
-        rightButton.do {
-            $0.layer.cornerRadius = 6
+        sideMenu.do {
             $0.layer.borderColor = UIColor(hex: "#000000").cgColor
             $0.layer.borderWidth = 1
         }
@@ -75,47 +62,58 @@ extension EssentialViewController {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(listButton, titleLabel, essentialView, leftButton, saveButton, rightButton)
-        
-        listButton.snp.makeConstraints {
-            $0.top.equalTo(additionalSafeAreaInsets).offset(60)
-            $0.leading.equalToSuperview().offset(22)
-            $0.width.height.equalTo(23)
-        }
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(additionalSafeAreaInsets).offset(60)
-            $0.centerX.equalToSuperview()
-        }
+        view.addSubviews(essentialView, sideMenu)
         
         essentialView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(18)
-            $0.leading.trailing.equalToSuperview().inset(22)
-            $0.height.equalTo(600)
+            $0.edges.equalToSuperview()
         }
-        
-        leftButton.snp.makeConstraints {
-            $0.top.equalTo(essentialView.snp.bottom).offset(9)
-            $0.leading.equalToSuperview().offset(89)
-            $0.width.height.equalTo(39)
-        }
-        
-        saveButton.snp.makeConstraints {
-            $0.top.equalTo(essentialView.snp.bottom).offset(9)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(83)
-            $0.height.equalTo(39)
-        }
-        
-        rightButton.snp.makeConstraints {
-            $0.top.equalTo(essentialView.snp.bottom).offset(9)
-            $0.trailing.equalToSuperview().inset(89)
-            $0.width.height.equalTo(39)
-        }
-        
     }
     
     // MARK: - Methods
     
-    // MARK: - @objc Methods
+    private func setAddTarget() {
+    }
+    
+    @objc func toggleMenu() {
+        if !isMenuOpen {
+            view.addSubviews(sideMenu)
+            sideMenu.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
+                guard let self = self else { return }
+                self.sideMenu.snp.makeConstraints {
+                    $0.top.leading.bottom.equalToSuperview()
+                    $0.width.equalTo(145)
+                }
+                self.essentialView.snp.remakeConstraints { (make) in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top:0, left:145, bottom :0 , right :0))
+                }
+                
+                self.view.layoutIfNeeded()
+                self.isMenuOpen.toggle()
+            }
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
+                guard let self = self else { return }
+                self.essentialView.snp.remakeConstraints{ (make) in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top :0 , left :0 , bottom :0 , right :0))
+                }
+                self.sideMenu.removeFromSuperview()
+                self.view.layoutIfNeeded()
+                isMenuOpen.toggle()
+            }
+        }
+    }
+    
+    func setupSideMenuLayout() {
+        sideMenu.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            sideMenu.topAnchor.constraint(equalTo:view.topAnchor),
+            sideMenu.bottomAnchor.constraint(equalTo:view.bottomAnchor),
+            sideMenu.widthAnchor.constraint(equalToConstant :145),
+            sideMenu.leadingAnchor.constraint(equalTo:view.leadingAnchor , constant :-145)
+        ])
+    }
 }
+
+
