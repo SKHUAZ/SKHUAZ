@@ -92,13 +92,13 @@ extension EssentialView {
         lectureTitle.do {
             $0.text = "C++ 프로그래밍"
             $0.textColor = UIColor(hex: "#000000")
-            $0.font = .systemFont(ofSize: 13)
+            $0.font = .systemFont(ofSize: 11)
         }
         
         lectureProfessor.do {
             $0.text = "임충규"
             $0.textColor = UIColor(hex: "#000000")
-            $0.font = .systemFont(ofSize: 13)
+            $0.font = .systemFont(ofSize: 11)
         }
         
         leftButton.do {
