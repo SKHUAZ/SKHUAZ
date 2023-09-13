@@ -101,7 +101,7 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
     // MARK: - Methods
     
     private func setNavigation() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
