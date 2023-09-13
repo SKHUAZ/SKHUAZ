@@ -10,7 +10,22 @@ protocol SendStringData: AnyObject {
     func sendData(mydata: String, groupId: Int)
 }
 
-class RadioButtonsStack: UIView {
+class RadioButtonsStack: UIView, SendStringData {
+    
+    var firstValue: String?
+    var secondValue: String?
+    
+    func sendData(mydata: String, groupId: Int) {
+        if groupId == 1 {
+            firstValue = mydata
+            print("\(firstValue)")
+        }
+        else {
+            secondValue = mydata
+            print("\(secondValue)")
+
+        }
+    }
     
     weak var delegate: SendStringData?
 
@@ -28,22 +43,26 @@ class RadioButtonsStack: UIView {
 
     var selectedIndex: Int?
     var groupId: Int?
-
-    init() {
-        super.init(frame: .zero)
-        setup()
-    }
+//
+//    init() {
+//        super.init(frame: .zero)
+//        setup()
+//    }
     
     init(groupId: Int) {
             self.groupId = groupId // 그룹 식별 변수 초기화
             super.init(frame: .zero)
             setup()
         }
-
+    
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
+    //
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        setup()
+//    }
 
     private func setup() {
         addSubview(stackView)

@@ -274,6 +274,8 @@
 			children = (
 				2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */,
 				2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */,
+				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
+				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -345,8 +347,6 @@
 			isa = PBXGroup;
 			children = (
 				2539B98E2A8CA70D00E939AA /* UIView++.swift */,
-				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
-				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
 				2539B9B72A8E57EF00E939AA /* UIStackView++.swift */,
 				258A71D72AA89BB4001E8A5B /* UIResponder++.swift */,
 				258A71DB2AA8AFC6001E8A5B /* UIViewController++.swift */,

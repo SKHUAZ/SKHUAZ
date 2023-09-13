@@ -51,59 +51,59 @@
 //        }
 //    }
 //}
-
-import UIKit
-
-class RadioViewController: UIViewController {
-
-    let radioButtonsStack: RadioButtonsStack = {
-        let stack = RadioButtonsStack()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }()
-
-    let resultLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Selected Value: None"
-        return label
-    }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.white
-
-        // Add the RadioButtonsStack to the view
-        view.addSubview(radioButtonsStack)
-        view.addSubview(resultLabel)
-
-        // Configure constraints for the RadioButtonsStack
-        NSLayoutConstraint.activate([
-            radioButtonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            radioButtonsStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            radioButtonsStack.widthAnchor.constraint(equalToConstant: 300), // Adjust the width as needed
-        ])
-
-        // Configure constraints for the resultLabel
-        NSLayoutConstraint.activate([
-            resultLabel.topAnchor.constraint(equalTo: radioButtonsStack.bottomAnchor, constant: 20), // Adjust the spacing as needed
-            resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
-
-        // Set options for the RadioButtonsStack
-        let options = ["Option 1", "Option 2", "Option 3"]
-        radioButtonsStack.set(options)
-        
-        // Set the delegate for the RadioButtonsStack
-    }
-
-    // Implement the delegate method to update the resultLabel text
-    func radioButtonStack(_ radioButtonStack: RadioButtonsStack, didSelectValue value: String?) {
-        // Handle the selected value here
-        if let selectedValue = value {
-            resultLabel.text = "Selected Value: \(selectedValue)"
-        } else {
-            resultLabel.text = "Selected Value: None"
-        }
-    }
-}
+//
+//import UIKit
+//
+//class RadioViewController: UIViewController {
+//
+//    let radioButtonsStack: RadioButtonsStack = {
+//        let stack = RadioButtonsStack(groupId: <#Int#>)
+//        stack.translatesAutoresizingMaskIntoConstraints = false
+//        return stack
+//    }()
+//
+//    let resultLabel: UILabel = {
+//        let label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.text = "Selected Value: None"
+//        return label
+//    }()
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        view.backgroundColor = UIColor.white
+//
+//        // Add the RadioButtonsStack to the view
+//        view.addSubview(radioButtonsStack)
+//        view.addSubview(resultLabel)
+//
+//        // Configure constraints for the RadioButtonsStack
+//        NSLayoutConstraint.activate([
+//            radioButtonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            radioButtonsStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            radioButtonsStack.widthAnchor.constraint(equalToConstant: 300), // Adjust the width as needed
+//        ])
+//
+//        // Configure constraints for the resultLabel
+//        NSLayoutConstraint.activate([
+//            resultLabel.topAnchor.constraint(equalTo: radioButtonsStack.bottomAnchor, constant: 20), // Adjust the spacing as needed
+//            resultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//        ])
+//
+//        // Set options for the RadioButtonsStack
+//        let options = ["Option 1", "Option 2", "Option 3"]
+//        radioButtonsStack.set(options)
+//        
+//        // Set the delegate for the RadioButtonsStack
+//    }
+//
+//    // Implement the delegate method to update the resultLabel text
+//    func radioButtonStack(_ radioButtonStack: RadioButtonsStack, didSelectValue value: String?) {
+//        // Handle the selected value here
+//        if let selectedValue = value {
+//            resultLabel.text = "Selected Value: \(selectedValue)"
+//        } else {
+//            resultLabel.text = "Selected Value: None"
+//        }
+//    }
+//}

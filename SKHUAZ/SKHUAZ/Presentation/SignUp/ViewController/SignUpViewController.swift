@@ -7,22 +7,19 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController, SendStringData {
-    func sendData(mydata: String, groupId: Int) {
-        if groupId == 1 {
-            firstValue = mydata
-        }
-        else {
-            secondValue = mydata
-        }
-    }
+class SignUpViewController: UIViewController {
+//    func sendData(mydata: String, groupId: Int) {
+//        if groupId == 1 {
+//            firstValue = mydata
+//        }
+//        else {
+//            secondValue = mydata
+//        }
+//    }
     
     
-    func sendData(mydata data: String) {
-            print("Received data: \(data)")
-        }
-    var firstValue: String?
-    var secondValue: String?
+//    var firstValue: String?
+//    var secondValue: String?
     
     private let rootView = SignUpView()
     
