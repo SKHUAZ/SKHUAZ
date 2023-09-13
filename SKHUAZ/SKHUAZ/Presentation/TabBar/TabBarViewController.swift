@@ -39,7 +39,7 @@ extension TabBarController {
     
     private func setTabBarItems() {
         tabs = [
-            UIViewController(), // 선수과목
+            EssentialViewController(), // 선수과목
             EvaluateViewController(), // 강의평
             UIViewController(), // 홈
             RecommendViewController(), // 루트추천
