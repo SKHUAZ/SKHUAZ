@@ -46,6 +46,8 @@
 		25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */; };
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
 		25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */; };
+		25D46EFA2AB07E84008FA088 /* EssentialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF92AB07E84008FA088 /* EssentialView.swift */; };
+		25D46EFC2AB07E8C008FA088 /* EssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */; };
 		25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */; };
 		25FA1D852AA61BEC0044B38F /* CircleGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D842AA61BEC0044B38F /* CircleGraph.swift */; };
 		25FA1D892AA80A290044B38F /* EvaluateTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */; };
@@ -101,6 +103,8 @@
 		25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
+		25D46EF92AB07E84008FA088 /* EssentialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialView.swift; sourceTree = "<group>"; };
+		25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialViewController.swift; sourceTree = "<group>"; };
 		25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
 		25FA1D842AA61BEC0044B38F /* CircleGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleGraph.swift; sourceTree = "<group>"; };
 		25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateTextFieldView.swift; sourceTree = "<group>"; };
@@ -185,6 +189,7 @@
 		2539B95E2A8CA50400E939AA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				25D46EF62AB07E5C008FA088 /* Essential */,
 				9EC5E2D22A924BB40047E6E7 /* Recommend */,
 				E3546DD62A8DECD900ACFF3C /* Login */,
 				2539B9A62A8E47D700E939AA /* Evaluate */,
@@ -392,6 +397,31 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
+		25D46EF62AB07E5C008FA088 /* Essential */ = {
+			isa = PBXGroup;
+			children = (
+				25D46EF82AB07E6E008FA088 /* View */,
+				25D46EF72AB07E6D008FA088 /* ViewController */,
+			);
+			path = Essential;
+			sourceTree = "<group>";
+		};
+		25D46EF72AB07E6D008FA088 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		25D46EF82AB07E6E008FA088 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				25D46EF92AB07E84008FA088 /* EssentialView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		9EC5E2D22A924BB40047E6E7 /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
@@ -552,6 +582,7 @@
 				25FA1D8D2AA820090044B38F /* CreateEvaluateViewController.swift in Sources */,
 				25FA1D852AA61BEC0044B38F /* CircleGraph.swift in Sources */,
 				2539B9792A8CA63D00E939AA /* BaseViewController.swift in Sources */,
+				25D46EFC2AB07E8C008FA088 /* EssentialViewController.swift in Sources */,
 				2539B97F2A8CA66F00E939AA /* TabBarViewController.swift in Sources */,
 				258A71DC2AA8AFC6001E8A5B /* UIViewController++.swift in Sources */,
 				2539B9B82A8E57EF00E939AA /* UIStackView++.swift in Sources */,
@@ -570,6 +601,7 @@
 				258A71E82AA9B7FA001E8A5B /* AlertViewController.swift in Sources */,
 				2539B9AC2A8E499E00E939AA /* EvaluateViewController.swift in Sources */,
 				9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */,
+				25D46EFA2AB07E84008FA088 /* EssentialView.swift in Sources */,
 				9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */,
 				2539B96F2A8CA5C500E939AA /* GeneralResponse.swift in Sources */,
 				E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */,

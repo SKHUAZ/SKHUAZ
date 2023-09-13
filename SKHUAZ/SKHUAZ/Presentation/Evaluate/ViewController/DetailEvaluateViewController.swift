@@ -50,22 +50,22 @@ extension DetailEvaluateViewController {
         
         backButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
+            $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
             $0.layer.borderWidth = 1
             $0.backgroundColor = UIColor(hex: "#FFFFFF")
             $0.setTitle("목록", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+            $0.setTitleColor(UIColor(hex: "#9AC1D1"), for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
         
         saveButton.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#FFFFFF").cgColor
             $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#000000")
-            $0.setTitle("아마삭제", for: .normal)
+            $0.backgroundColor = UIColor(hex: "#9AC1D1")
+            $0.setTitle("삭제", for: .normal)
             $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
     }
     
