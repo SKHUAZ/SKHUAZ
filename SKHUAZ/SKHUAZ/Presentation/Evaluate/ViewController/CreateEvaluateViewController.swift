@@ -53,10 +53,6 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#000000").cgColor
             $0.layer.borderWidth = 1
-//            $0.backgroundColor = UIColor(hex: "#FFFFFF")
-//            $0.setTitle("뒤로가기", for: .normal)
-//            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
-//            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
         
         saveButton.do {

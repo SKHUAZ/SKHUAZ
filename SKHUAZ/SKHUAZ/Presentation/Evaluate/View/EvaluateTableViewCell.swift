@@ -78,7 +78,7 @@ extension EvaluateTableViewCell {
         
         evaluateTitle.do {
             $0.font = .systemFont(ofSize: 8)
-            $0.textColor = .white
+            $0.textColor = UIColor(hex: "#FFFFFF")
 //            $0.backgroundColor = UIColor(hex: "#9AC1D1")
         }
         

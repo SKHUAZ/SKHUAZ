@@ -128,7 +128,7 @@ extension EvaluateViewController {
     // MARK: - Methods
 
     private func setupData() {
-        reviews = dataModels
+        reviews = evaluateDataModels
         filteredReviews = reviews
     }
     

@@ -13,9 +13,6 @@ import SnapKit
 
 class EssentialView: UIView {
     
-    // MARK: - Properties
-    
-    
     // MARK: - UI Components
     
     let listButton = UIButton()
@@ -25,13 +22,16 @@ class EssentialView: UIView {
     private let mainContainer = UIView()
     private let mainTitleSpace = UIView()
     private let mainTitleLabel = UILabel()
-    private let lectureContainer = UIView()
-    private let lectureTitle = UILabel()
-    private let lectureProfessor = UILabel()
-    
+    private let lectureContainer = UIStackView()
     private let leftButton = UIButton()
     private let rightButton = UIButton()
     private let saveButton = UIButton()
+    
+    // MARK: - Properties
+    
+    private var essentialDataModel: [EssentialDataModel] = []
+    private var selectedLectures: [EssentialDataModel] = []
+
     
     // MARK: - Initializer
     
@@ -41,6 +41,9 @@ class EssentialView: UIView {
         setUI()
         setLayout()
         setAddTarget()
+        
+        loadEssentialData()
+        renderLectureButtons()
     }
     
     required init?(coder: NSCoder) {
@@ -85,20 +88,8 @@ extension EssentialView {
         }
         
         lectureContainer.do {
-            $0.layer.cornerRadius = 6
-            $0.backgroundColor = UIColor(hex: "#EFEFEF")
-        }
-        
-        lectureTitle.do {
-            $0.text = "C++ 프로그래밍"
-            $0.textColor = UIColor(hex: "#000000")
-            $0.font = .systemFont(ofSize: 11)
-        }
-        
-        lectureProfessor.do {
-            $0.text = "임충규"
-            $0.textColor = UIColor(hex: "#000000")
-            $0.font = .systemFont(ofSize: 11)
+            $0.axis = .vertical
+            $0.spacing = 10
         }
         
         leftButton.do {
@@ -125,17 +116,6 @@ extension EssentialView {
         addSubviews(listButton, titleLabel, mainContainer, leftButton, rightButton, saveButton)
         mainContainer.addSubviews(mainTitleSpace, lectureContainer)
         mainTitleSpace.addSubviews(mainTitleLabel)
-        lectureContainer.addSubviews(lectureTitle, lectureProfessor)
-        
-        lectureTitle.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(11)
-            $0.leading.equalToSuperview().offset(18)
-        }
-        
-        lectureProfessor.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(11)
-            $0.trailing.equalToSuperview().inset(18)
-        }
         
         mainTitleLabel.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
@@ -147,9 +127,8 @@ extension EssentialView {
         }
         
         lectureContainer.snp.makeConstraints {
-            $0.top.equalTo(mainTitleLabel.snp.bottom).offset(29)
+            $0.top.equalTo(mainTitleSpace.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(10)
-            $0.height.equalTo(38)
         }
         
         listButton.snp.makeConstraints {
@@ -193,17 +172,46 @@ extension EssentialView {
     // MARK: - Methods
     
     private func setAddTarget() {
-
         listButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
         leftButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
         rightButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
     }
     
+    private func loadEssentialData() {
+        essentialDataModel = essentialDataModels
+    }
+    
+    private func renderLectureButtons() {
+        lectureContainer.subviews.forEach { $0.removeFromSuperview() }
+        
+        for dataModel in essentialDataModel {
+            let lectureButton = LectureButton(lectureName: dataModel.lectureName, professorName: dataModel.professorName)
+            
+            lectureContainer.addArrangedSubview(lectureButton)
+            
+            lectureButton.snp.makeConstraints { make in
+                make.height.equalTo(38)
+            }
+        }
+    }
+    
     // MARK: - @objc Methods
     
     @objc
-    private func buttonTap() {
-        print("버튼이 눌린다")
-    }
+     private func buttonTap(_ sender: UIButton) {
+         if sender == saveButton {
+             print("Selected Lectures:")
+             for lecture in selectedLectures {
+                 print("Lecture Name:", lecture.lectureName)
+                 print("Professor Name:", lecture.professorName)
+                 print("---")
+             }
+             print("Save button tapped!")
+             
+         } else {
+             print("Other button tapped!")
+             
+         }
+     }
 }

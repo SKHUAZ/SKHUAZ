@@ -21,7 +21,7 @@ struct EvaluateDataModel {
     var authorName: String
 }
 
-let dataModels: [EvaluateDataModel] = [
+let evaluateDataModels: [EvaluateDataModel] = [
     EvaluateDataModel(semester: "2023-2", professor: "이승진", lecture: "프론트엔드개발",
                       title: "프엔별로 안 어려움",
                       evaluate: "프론트엔드개발 교수님이 처음에 겁 주시는 거 치곤 그렇게 어렵지 않았음. 약간 그 때 겁 줘가지고 빠지는 사람 많은데 존버한 다음 수업자료 보고 열심히만 하면 될 듯",
@@ -85,4 +85,4 @@ let dataModels: [EvaluateDataModel] = [
 ]
 
 
-var reviewList: [EvaluateDataModel] = dataModels
+var reviewList: [EvaluateDataModel] = evaluateDataModels
