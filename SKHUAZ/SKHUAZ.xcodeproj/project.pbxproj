@@ -43,6 +43,8 @@
 		258A71E82AA9B7FA001E8A5B /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258A71E72AA9B7FA001E8A5B /* AlertViewController.swift */; };
 		258A71EA2AAADDEF001E8A5B /* DetailEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258A71E92AAADDEF001E8A5B /* DetailEvaluateViewController.swift */; };
 		259435D12AB15E2F00B03EBF /* EssentialSideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D02AB15E2F00B03EBF /* EssentialSideView.swift */; };
+		259435D42AB2DA3E00B03EBF /* EssentialDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D32AB2DA3E00B03EBF /* EssentialDataModel.swift */; };
+		259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D52AB2DD8B00B03EBF /* LectureButton.swift */; };
 		25D46EE32AAEACCA008FA088 /* CustomDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE22AAEACCA008FA088 /* CustomDropdownMenu.swift */; };
 		25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */; };
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
@@ -101,6 +103,8 @@
 		258A71E72AA9B7FA001E8A5B /* AlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
 		258A71E92AAADDEF001E8A5B /* DetailEvaluateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEvaluateViewController.swift; sourceTree = "<group>"; };
 		259435D02AB15E2F00B03EBF /* EssentialSideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialSideView.swift; sourceTree = "<group>"; };
+		259435D32AB2DA3E00B03EBF /* EssentialDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialDataModel.swift; sourceTree = "<group>"; };
+		259435D52AB2DD8B00B03EBF /* LectureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureButton.swift; sourceTree = "<group>"; };
 		25D46EE22AAEACCA008FA088 /* CustomDropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropdownMenu.swift; sourceTree = "<group>"; };
 		25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
@@ -356,6 +360,7 @@
 				25FA1D842AA61BEC0044B38F /* CircleGraph.swift */,
 				25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */,
 				25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */,
+				259435D52AB2DD8B00B03EBF /* LectureButton.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -399,9 +404,18 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
+		259435D22AB2DA2900B03EBF /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				259435D32AB2DA3E00B03EBF /* EssentialDataModel.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
 		25D46EF62AB07E5C008FA088 /* Essential */ = {
 			isa = PBXGroup;
 			children = (
+				259435D22AB2DA2900B03EBF /* DataModel */,
 				25D46EF82AB07E6E008FA088 /* View */,
 				25D46EF72AB07E6D008FA088 /* ViewController */,
 			);
@@ -579,7 +593,9 @@
 				2539B9872A8CA6BF00E939AA /* Font.swift in Sources */,
 				2539B9912A8CA72C00E939AA /* Color.swift in Sources */,
 				25D46EE32AAEACCA008FA088 /* CustomDropdownMenu.swift in Sources */,
+				259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */,
 				258A71EA2AAADDEF001E8A5B /* DetailEvaluateViewController.swift in Sources */,
+				259435D42AB2DA3E00B03EBF /* EssentialDataModel.swift in Sources */,
 				2539B9952A8CA73A00E939AA /* Literals.swift in Sources */,
 				25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */,
 				25FA1D8D2AA820090044B38F /* CreateEvaluateViewController.swift in Sources */,
