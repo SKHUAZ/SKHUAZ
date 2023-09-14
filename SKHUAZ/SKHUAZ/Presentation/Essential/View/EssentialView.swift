@@ -16,7 +16,7 @@ class EssentialView: UIView {
     // MARK: - UI Components
     
     let listButton = UIButton()
-
+    
     private let titleLabel = UILabel()
     
     private let mainContainer = UIView()
@@ -31,7 +31,7 @@ class EssentialView: UIView {
     
     private var essentialDataModel: [EssentialDataModel] = []
     private var selectedLectures: [EssentialDataModel] = []
-
+    
     
     // MARK: - Initializer
     
@@ -172,10 +172,9 @@ extension EssentialView {
     // MARK: - Methods
     
     private func setAddTarget() {
-        listButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
-        leftButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
-        rightButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+//        leftButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+//        rightButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
     }
     
     private func loadEssentialData() {
@@ -199,19 +198,17 @@ extension EssentialView {
     // MARK: - @objc Methods
     
     @objc
-     private func buttonTap(_ sender: UIButton) {
-         if sender == saveButton {
-             print("Selected Lectures:")
-             for lecture in selectedLectures {
-                 print("Lecture Name:", lecture.lectureName)
-                 print("Professor Name:", lecture.professorName)
-                 print("---")
-             }
-             print("Save button tapped!")
-             
-         } else {
-             print("Other button tapped!")
-             
-         }
-     }
+    private func buttonTap(_ sender: UIButton) {
+        if sender == saveButton {
+            // 선택한 강의 정보 출력
+            for lectureButton in lectureContainer.subviews.compactMap({ $0 as? LectureButton }) {
+                if lectureButton.isSelected {
+                    print("Selected Lecture: \(lectureButton.lectureName), Professor: \(lectureButton.professorName)")
+                }
+            }
+        } else {
+            print("Save button tapped!")
+        }
+    }
+
 }

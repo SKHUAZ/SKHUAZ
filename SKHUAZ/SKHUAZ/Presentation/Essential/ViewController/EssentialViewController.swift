@@ -75,33 +75,35 @@ extension EssentialViewController {
     }
     
     @objc func toggleMenu() {
-        if !isMenuOpen {
-            view.addSubviews(sideMenu)
-            sideMenu.isHidden = false
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
-                guard let self = self else { return }
-                self.sideMenu.snp.makeConstraints {
-                    $0.top.leading.bottom.equalToSuperview()
-                    $0.width.equalTo(145)
-                }
-                self.essentialView.snp.remakeConstraints { (make) in
-                    make.edges.equalToSuperview().inset(UIEdgeInsets(top:0, left:145, bottom :0 , right :0))
-                }
-                
-                self.view.layoutIfNeeded()
-                self.isMenuOpen.toggle()
-            }
-        } else {
-            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
-                guard let self = self else { return }
-                self.essentialView.snp.remakeConstraints{ (make) in
-                    make.edges.equalToSuperview().inset(UIEdgeInsets(top :0 , left :0 , bottom :0 , right :0))
-                }
-                self.sideMenu.removeFromSuperview()
-                self.view.layoutIfNeeded()
-                isMenuOpen.toggle()
-            }
-        }
+        let bottomSheetVC = EssentialBottomSheetViewController()
+        present(bottomSheetVC, animated: true, completion: nil)
+//        if !isMenuOpen {
+//            view.addSubviews(sideMenu)
+//            sideMenu.isHidden = false
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
+//                guard let self = self else { return }
+//                self.sideMenu.snp.makeConstraints {
+//                    $0.top.leading.bottom.equalToSuperview()
+//                    $0.width.equalTo(145)
+//                }
+//                self.essentialView.snp.remakeConstraints { (make) in
+//                    make.edges.equalToSuperview().inset(UIEdgeInsets(top:0, left:145, bottom :0 , right :0))
+//                }
+//
+//                self.view.layoutIfNeeded()
+//                self.isMenuOpen.toggle()
+//            }
+//        } else {
+//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
+//                guard let self = self else { return }
+//                self.essentialView.snp.remakeConstraints{ (make) in
+//                    make.edges.equalToSuperview().inset(UIEdgeInsets(top :0 , left :0 , bottom :0 , right :0))
+//                }
+//                self.sideMenu.removeFromSuperview()
+//                self.view.layoutIfNeeded()
+//                isMenuOpen.toggle()
+//            }
+//        }
     }
     
     func setupSideMenuLayout() {

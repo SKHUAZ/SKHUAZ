@@ -45,6 +45,7 @@
 		259435D12AB15E2F00B03EBF /* EssentialSideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D02AB15E2F00B03EBF /* EssentialSideView.swift */; };
 		259435D42AB2DA3E00B03EBF /* EssentialDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D32AB2DA3E00B03EBF /* EssentialDataModel.swift */; };
 		259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D52AB2DD8B00B03EBF /* LectureButton.swift */; };
+		259435D82AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */; };
 		25D46EE32AAEACCA008FA088 /* CustomDropdownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE22AAEACCA008FA088 /* CustomDropdownMenu.swift */; };
 		25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */; };
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
@@ -105,6 +106,7 @@
 		259435D02AB15E2F00B03EBF /* EssentialSideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialSideView.swift; sourceTree = "<group>"; };
 		259435D32AB2DA3E00B03EBF /* EssentialDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialDataModel.swift; sourceTree = "<group>"; };
 		259435D52AB2DD8B00B03EBF /* LectureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureButton.swift; sourceTree = "<group>"; };
+		259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialBottomSheetViewController.swift; sourceTree = "<group>"; };
 		25D46EE22AAEACCA008FA088 /* CustomDropdownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropdownMenu.swift; sourceTree = "<group>"; };
 		25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */,
+				259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -634,6 +637,7 @@
 				2539B9972A8CA74900E939AA /* FontLevel.swift in Sources */,
 				9ECFA9462AAA52540060D12F /* CreateRecommendAfterBringView.swift in Sources */,
 				9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */,
+				259435D82AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift in Sources */,
 				2539B9652A8CA56100E939AA /* DTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,6 +26,7 @@ class LectureButton: UIButton {
     var professorName: String {
         return professorNameLabel.text ?? ""
     }
+
     
     // MARK: - Initializer
     
