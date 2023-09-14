@@ -11,15 +11,6 @@ import UIKit
 import Then
 import SnapKit
 
-enum SemesterType {
-    case sophomoreSpring
-    case sophomoreFall
-    case juniorSpring
-    case juniorFall
-    case seniorSpring
-    case seniorFall
-}
-
 class EssentialSideView: UIView {
     
     // MARK: - Properties
