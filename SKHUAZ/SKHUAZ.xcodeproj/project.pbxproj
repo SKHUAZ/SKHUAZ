@@ -274,8 +274,6 @@
 			children = (
 				2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */,
 				2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */,
-				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
-				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -360,6 +358,8 @@
 			isa = PBXGroup;
 			children = (
 				25D46EE22AAEACCA008FA088 /* CustomDropdownMenu.swift */,
+				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
+				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
 				25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */,
 				25FA1D842AA61BEC0044B38F /* CircleGraph.swift */,
 				25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */,
