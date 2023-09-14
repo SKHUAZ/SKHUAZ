@@ -22,10 +22,6 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
                 print("\(secondValue)")
             }
         }
-    
-        private var semesterButtonClosure: (() -> Void)?
-        private var mainMajorButtonClosure: (() -> Void)?
-        private var subMajorButtonClosure: (() -> Void)?
 
         // MARK: - Delegate Property
     
@@ -74,6 +70,9 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
     
         // MARK: - Properties
 
+        private var semesterButtonClosure: (() -> Void)?
+        private var mainMajorButtonClosure: (() -> Void)?
+        private var subMajorButtonClosure: (() -> Void)?
         var signUpButtonHandler: (() -> Void)?
         var forgotButtonnHandler: (() -> Void)?
         var logInButtonnHandler: (() -> Void)?
@@ -426,11 +425,11 @@ extension SignUpView {
         semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
         semesterDropdownMenu?.delegate = self
         
-        let mainMajorOptions = ["컴퓨터공학과", "소프트웨어공학과", "정보통신공학과", "인공지능학과"]
+        let mainMajorOptions = ["컴퓨터공학", "소프트웨어공학", "정보통신공학", "인공지능"]
         mainMajorDropdownMenu = CustomDropdownMenu(options: mainMajorOptions, parentButton: mainMajorButton)
         mainMajorDropdownMenu?.delegate = self
         
-        let subMajorOptions = ["컴퓨터공학과", "소프트웨어공학과", "정보통신공학과", "인공지능학과"]
+        let subMajorOptions = ["컴퓨터공학", "소프트웨어공학", "정보통신공학", "인공지능"]
         subMajorDropdownMenu = CustomDropdownMenu(options: subMajorOptions, parentButton: subMajorButton)
         subMajorDropdownMenu?.delegate = self
     }
