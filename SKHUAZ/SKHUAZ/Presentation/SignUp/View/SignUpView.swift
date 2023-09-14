@@ -20,14 +20,13 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
             else {
                 secondValue = mydata
                 print("\(secondValue)")
-
             }
         }
+    
         private var semesterButtonClosure: (() -> Void)?
         private var mainMajorButtonClosure: (() -> Void)?
         private var subMajorButtonClosure: (() -> Void)?
 
-        
         // MARK: - Delegate Property
     
         private var semesterDropdownMenu: CustomDropdownMenu?
@@ -42,7 +41,7 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         
         // MARK: - UI Components
 
-        private let logoLabel = UILabel()
+        private let mainImage = UIImageView()
         private let nameTextField = UITextField()
         private let nicknameTextField = UITextField()
         private let nicknameCheckButton = UIButton()
@@ -63,15 +62,16 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
 
         // MARK: - Getter
     
-        var semesterButtonTitle: String? {
-            return semesterButton.titleLabel?.text
+            var semesterButtonTitle: String? {
+                return semesterButton.titleLabel?.text
         }
-        var mainMajorButtonTitle: String? {
-        return mainMajorButton.titleLabel?.text
-    }
-        var subMajorButtonTitle: String? {
-        return subMajorButton.titleLabel?.text
-    }
+            var mainMajorButtonTitle: String? {
+                return mainMajorButton.titleLabel?.text
+        }
+            var subMajorButtonTitle: String? {
+                return subMajorButton.titleLabel?.text
+        }
+    
         // MARK: - Properties
 
         var signUpButtonHandler: (() -> Void)?
@@ -84,6 +84,8 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
             super.init(frame: frame)
             setUI()
             setLayout()
+            setupDropdownMenus()
+            addTarget()
         }
 
         required init?(coder: NSCoder) {
@@ -98,11 +100,9 @@ extension SignUpView {
     private func setUI() {
         self.backgroundColor = .white
 
-        logoLabel.do {
-            $0.text = "SKHUAZ"
-            $0.font = .systemFont(ofSize: 16)
-            $0.textColor = .blue
-            $0.textAlignment = .center
+        mainImage.do {
+            $0.contentMode = .scaleAspectFit
+            $0.image = Image.Logo1
         }
 
         nameTextField.do {
@@ -289,10 +289,10 @@ extension SignUpView {
 
     private func setLayout() {
         
-        addSubviews(logoLabel, nameTextField, nicknameTextField, nicknameCheckButton, studentIDTextField, studentIDCheckButton,pwTextField,
+        addSubviews(mainImage, nameTextField, nicknameTextField, nicknameCheckButton, studentIDTextField, studentIDCheckButton,pwTextField,
                     pwReTextField, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, mainMajorButton, subMajorButton, signUpButton)
 
-        logoLabel.snp.makeConstraints {
+        mainImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(45)
             $0.width.equalTo(234)
             $0.height.equalTo(60)
@@ -300,7 +300,7 @@ extension SignUpView {
         }
 
         nameTextField.snp.makeConstraints {
-            $0.top.equalTo(logoLabel.snp.bottom).offset(25)
+            $0.top.equalTo(mainImage.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
             $0.leading.equalToSuperview().inset(28)
@@ -356,7 +356,7 @@ extension SignUpView {
         }
         
         semesterButton.snp.makeConstraints {
-            $0.top.equalTo(pwReTextField.snp.bottom).offset(48)
+            $0.centerY.equalTo(semesterLabel.snp.top)
             $0.leading.equalTo(semesterLabel.snp.trailing).offset(12)
             $0.trailing.equalToSuperview().inset(29)
             $0.width.equalTo(262)
@@ -394,14 +394,14 @@ extension SignUpView {
         mainMajorButton.snp.makeConstraints {
             $0.top.equalTo(majorLabel.snp.bottom).offset(37)
             $0.leading.equalToSuperview().inset(28)
-            $0.width.equalTo(300)
+            $0.width.equalTo(140)
             $0.height.equalTo(50)
         }
 
         subMajorButton.snp.makeConstraints {
             $0.top.equalTo(majorLabel.snp.bottom).offset(37)
             $0.trailing.equalToSuperview().inset(29)
-            $0.width.equalTo(300)
+            $0.width.equalTo(140)
             $0.height.equalTo(50)
         }
 
@@ -420,7 +420,7 @@ extension SignUpView {
     func handleOptionSelected(_ option: String) {
         print("Selected option: \(option)")
     }
-
+    
     private func setupDropdownMenus() {
         let semesterOptions = ["1학기", "2학기", "3학기", "4학기", "5학기", "6학기", "7학기", "8학기"]
         semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
@@ -430,7 +430,7 @@ extension SignUpView {
         mainMajorDropdownMenu = CustomDropdownMenu(options: mainMajorOptions, parentButton: mainMajorButton)
         mainMajorDropdownMenu?.delegate = self
         
-        let subMajorOptions = ["Lecture A", "Lecture B", "Lecture C"]
+        let subMajorOptions = ["컴퓨터공학과", "소프트웨어공학과", "정보통신공학과", "인공지능학과"]
         subMajorDropdownMenu = CustomDropdownMenu(options: subMajorOptions, parentButton: subMajorButton)
         subMajorDropdownMenu?.delegate = self
     }
@@ -440,6 +440,25 @@ extension SignUpView {
             semesterButton.addTarget(self, action: #selector(semesterButtonTapped), for: .touchUpInside)
             mainMajorButton.addTarget(self, action: #selector(mainMajorButtonTapped), for: .touchUpInside)
             subMajorButton.addTarget(self, action: #selector(subMajorButtonTapped), for: .touchUpInside)
+        }
+    
+    func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
+        print("Selected Option for button:", option)
+    }
+    
+    // MARK: - @objc Methods
+
+    @objc
+    func pushSecondViewController() {
+
+    }
+
+    @objc func testprint() {
+        print("눌리네요~")
+    }
+    
+    @objc func showSelectBox() {
+            // 이 메서드는 버튼을 누를 때 UIMenu가 표시됩니다.
         }
     
     @objc private func semesterButtonTapped() {
@@ -494,42 +513,4 @@ extension SignUpView {
         semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         mainMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
     }
-    
-    func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
-        print("Selected Option for button:", option)
-    }
-    
-    func setupSelectBox(_ selectButton: UIButton) {
-            // 옵션들을 나타내는 UIMenu 생성
-            let option1 = UIAction(title: "Option 1", image: nil) { _ in
-                self.handleOptionSelected("Option 1")
-            }
-
-            let option2 = UIAction(title: "Option 2", image: nil) { _ in
-                self.handleOptionSelected("Option 2")
-            }
-
-            let menu = UIMenu(title: "Select an Option", children: [option1, option2])
-
-            // 버튼 생성
-            let selectButton = UIButton(type: .system)
-            selectButton.setTitle("Select", for: .normal)
-            selectButton.addTarget(self, action: #selector(showSelectBox), for: .touchUpInside)
-            selectButton.frame = CGRect(x: 50, y: 50, width: 100, height: 40)
-
-            // UIMenu와 버튼 연결
-            selectButton.showsMenuAsPrimaryAction = true
-            selectButton.menu = menu
-        }
-
-    // MARK: - @objc Methods
-
-    @objc
-    func pushSecondViewController() {
-
-    }
-
-    @objc func showSelectBox() {
-            // 이 메서드는 버튼을 누를 때 UIMenu가 표시됩니다.
-        }
 }
