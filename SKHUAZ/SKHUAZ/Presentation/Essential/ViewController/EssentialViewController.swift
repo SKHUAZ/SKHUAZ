@@ -30,18 +30,8 @@ final class EssentialViewController: UIViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+        setSwipe()
         setAddTarget()
-        
-//        essentialView.listButton.addTarget(self, action: #selector(openSideMenu), for: .touchUpInside)
-        sideMenu.isHidden = true
-        
-        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(openSideMenu))
-        swipeRightGesture.direction = .right
-        view.addGestureRecognizer(swipeRightGesture)
-        
-        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action:#selector(openSideMenu))
-        swipeLeftGesture.direction = .left
-        view.addGestureRecognizer(swipeLeftGesture)
         
     }
 }
@@ -56,6 +46,7 @@ extension EssentialViewController {
         sideMenu.do {
             $0.layer.borderColor = UIColor(hex: "#000000").cgColor
             $0.layer.borderWidth = 1
+            $0.isHidden = true
         }
     }
     
@@ -74,6 +65,26 @@ extension EssentialViewController {
     private func setAddTarget() {
         essentialView.listButtonHandler = { [weak self] in
             self?.openSideMenu()
+        }
+    }
+    
+    private func setSwipe() {
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(openSideMenu))
+        swipeRightGesture.direction = .right
+        view.addGestureRecognizer(swipeRightGesture)
+        
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action:#selector(openSideMenu))
+        swipeLeftGesture.direction = .left
+        view.addGestureRecognizer(swipeLeftGesture)
+    }
+    
+    private func setupSideMenuLayout() {
+        view.addSubviews(sideMenu)
+        
+        sideMenu.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().inset(145)
+            $0.width.equalTo(145)
         }
     }
     
@@ -106,16 +117,6 @@ extension EssentialViewController {
                 self.view.layoutIfNeeded()
                 isMenuOpen.toggle()
             }
-        }
-    }
-    
-    func setupSideMenuLayout() {
-        view.addSubviews(sideMenu)
-        
-        sideMenu.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.leading.equalToSuperview().inset(145)
-            $0.width.equalTo(145)
         }
     }
 }
