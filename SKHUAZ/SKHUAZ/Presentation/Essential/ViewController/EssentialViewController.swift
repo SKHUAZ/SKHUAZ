@@ -32,14 +32,14 @@ final class EssentialViewController: UIViewController {
         setLayout()
         setAddTarget()
         
-        essentialView.listButton.addTarget(self, action: #selector(toggleMenu), for: .touchUpInside)
+//        essentialView.listButton.addTarget(self, action: #selector(openSideMenu), for: .touchUpInside)
         sideMenu.isHidden = true
         
-        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(toggleMenu))
+        let swipeRightGesture = UISwipeGestureRecognizer(target: self, action: #selector(openSideMenu))
         swipeRightGesture.direction = .right
         view.addGestureRecognizer(swipeRightGesture)
         
-        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action:#selector(toggleMenu))
+        let swipeLeftGesture = UISwipeGestureRecognizer(target: self, action:#selector(openSideMenu))
         swipeLeftGesture.direction = .left
         view.addGestureRecognizer(swipeLeftGesture)
         
@@ -72,49 +72,51 @@ extension EssentialViewController {
     // MARK: - Methods
     
     private func setAddTarget() {
+        essentialView.listButtonHandler = { [weak self] in
+            self?.openSideMenu()
+        }
     }
     
-    @objc func toggleMenu() {
-        let bottomSheetVC = EssentialBottomSheetViewController()
-        present(bottomSheetVC, animated: true, completion: nil)
-//        if !isMenuOpen {
-//            view.addSubviews(sideMenu)
-//            sideMenu.isHidden = false
-//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
-//                guard let self = self else { return }
-//                self.sideMenu.snp.makeConstraints {
-//                    $0.top.leading.bottom.equalToSuperview()
-//                    $0.width.equalTo(145)
-//                }
-//                self.essentialView.snp.remakeConstraints { (make) in
-//                    make.edges.equalToSuperview().inset(UIEdgeInsets(top:0, left:145, bottom :0 , right :0))
-//                }
-//
-//                self.view.layoutIfNeeded()
-//                self.isMenuOpen.toggle()
-//            }
-//        } else {
-//            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
-//                guard let self = self else { return }
-//                self.essentialView.snp.remakeConstraints{ (make) in
-//                    make.edges.equalToSuperview().inset(UIEdgeInsets(top :0 , left :0 , bottom :0 , right :0))
-//                }
-//                self.sideMenu.removeFromSuperview()
-//                self.view.layoutIfNeeded()
-//                isMenuOpen.toggle()
-//            }
-//        }
+    @objc func openSideMenu() {
+        if !isMenuOpen {
+            view.addSubviews(sideMenu)
+            sideMenu.isHidden = false
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
+                guard let self = self else { return }
+                self.sideMenu.snp.makeConstraints {
+                    $0.top.leading.bottom.equalToSuperview()
+                    $0.width.equalTo(145)
+                }
+                self.essentialView.snp.remakeConstraints { (make) in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top:0, left:145, bottom :0 , right :0))
+                }
+
+                self.view.layoutIfNeeded()
+                self.isMenuOpen.toggle()
+            }
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8,
+                           initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
+                guard let self = self else { return }
+                self.essentialView.snp.remakeConstraints{ (make) in
+                    make.edges.equalToSuperview().inset(UIEdgeInsets(top :0 , left :0 , bottom :0 , right :0))
+                }
+                self.sideMenu.removeFromSuperview()
+                self.view.layoutIfNeeded()
+                isMenuOpen.toggle()
+            }
+        }
     }
     
     func setupSideMenuLayout() {
-        sideMenu.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubviews(sideMenu)
         
-        NSLayoutConstraint.activate([
-            sideMenu.topAnchor.constraint(equalTo:view.topAnchor),
-            sideMenu.bottomAnchor.constraint(equalTo:view.bottomAnchor),
-            sideMenu.widthAnchor.constraint(equalToConstant :145),
-            sideMenu.leadingAnchor.constraint(equalTo:view.leadingAnchor , constant :-145)
-        ])
+        sideMenu.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview()
+            $0.leading.equalToSuperview().inset(145)
+            $0.width.equalTo(145)
+        }
     }
 }
 
