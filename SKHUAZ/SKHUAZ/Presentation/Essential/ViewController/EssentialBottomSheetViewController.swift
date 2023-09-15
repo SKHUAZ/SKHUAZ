@@ -87,8 +87,8 @@ extension EssentialBottomSheetViewController {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(107)
-            $0.leading.trailing.equalToSuperview().inset(90)
-            $0.width.equalTo(220)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(203)
         }
         
         cancelButton.snp.makeConstraints {
