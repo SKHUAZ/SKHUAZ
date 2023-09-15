@@ -15,7 +15,7 @@ class EssentialView: UIView {
     
     // MARK: - UI Components
     
-    let listButton = UIButton()
+    private let listButton = UIButton()
     
     private let titleLabel = UILabel()
     
@@ -29,8 +29,10 @@ class EssentialView: UIView {
     
     // MARK: - Properties
     
-    private var essentialDataModel: [EssentialDataModel] = []
+    var listButtonHandler: (() -> Void)?
+    private var essentialDataModel: [[EssentialDataModel]] = []
     private var selectedLectures: [EssentialDataModel] = []
+    private var currentIndex: Int = 0 // 현재 표시 중인 배열의 인덱스
     
     
     // MARK: - Initializer
@@ -43,7 +45,7 @@ class EssentialView: UIView {
         setAddTarget()
         
         loadEssentialData()
-        renderLectureButtons()
+        renderLectureButtons(forIndex: 0)
     }
     
     required init?(coder: NSCoder) {
@@ -172,28 +174,32 @@ extension EssentialView {
     // MARK: - Methods
     
     private func setAddTarget() {
+        listButton.addTarget(self, action: #selector(openSideMenu), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
-//        leftButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
-//        rightButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
+        leftButton.addTarget(self, action: #selector(buttonTap), for: .touchUpInside)
     }
     
     private func loadEssentialData() {
         essentialDataModel = essentialDataModels
     }
     
-    private func renderLectureButtons() {
+    private func renderLectureButtons(forIndex index: Int) {
         lectureContainer.subviews.forEach { $0.removeFromSuperview() }
-        
-        for dataModel in essentialDataModel {
+
+        let dataModels = essentialDataModels[index] // 현재 인덱스에 해당하는 배열 가져오기
+
+        for dataModel in dataModels {
             let lectureButton = LectureButton(lectureName: dataModel.lectureName, professorName: dataModel.professorName)
-            
+
             lectureContainer.addArrangedSubview(lectureButton)
-            
+
             lectureButton.snp.makeConstraints { make in
                 make.height.equalTo(38)
             }
         }
     }
+
     
     // MARK: - @objc Methods
     
@@ -206,9 +212,27 @@ extension EssentialView {
                     print("Selected Lecture: \(lectureButton.lectureName), Professor: \(lectureButton.professorName)")
                 }
             }
-        } else {
-            print("Save button tapped!")
+        } else if sender == rightButton {
+            print("다음 배열의 데이터가 표시됩니다")
+            // 다음 배열의 데이터 표시
+            currentIndex += 1
+            if currentIndex >= essentialDataModels.count {
+                currentIndex = 0 // 인덱스가 배열 길이를 넘어갈 경우 처음 배열로 돌아갑니다.
+            }
+            renderLectureButtons(forIndex: currentIndex)
+        } else if sender == leftButton {
+            // 이전 배열의 데이터 표시
+            print("이전 배열의 데이터가 표시됩니다")
+            currentIndex -= 1
+            if currentIndex < 0 {
+                currentIndex = essentialDataModels.count - 1 // 인덱스가 음수일 경우 마지막 배열로 돌아갑니다.
+            }
+            renderLectureButtons(forIndex: currentIndex)
         }
     }
-
+    
+    @objc
+    private func openSideMenu() {
+        listButtonHandler?()
+    }
 }
