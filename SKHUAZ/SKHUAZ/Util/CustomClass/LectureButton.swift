@@ -101,5 +101,6 @@ class LectureButton: UIButton {
     private func buttonTapped() {
         isSelected.toggle()
         backgroundColor = isSelected ? UIColor(hex: "#9AC1D1") : UIColor(hex: "#EFEFEF")
+//        layer.borderColor = isSelected ? UIColor(hex: "#9AC1D1").cgColor : UIColor(hex: "#EFEFEF").cgColor
     }
 }
