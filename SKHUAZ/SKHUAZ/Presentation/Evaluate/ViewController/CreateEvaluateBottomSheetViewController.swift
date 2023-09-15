@@ -130,7 +130,11 @@ extension CreateEvaluateBottomSheetViewController {
             self?.delegate?.didTapSaveButton() {
                 let customAlertVC = AlertViewController(alertType: .mainEvaluate)
                 customAlertVC.modalPresentationStyle = .overFullScreen
-                UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let mainWindow = windowScene.windows.first {
+                    mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+                }
+
             }
         }
     }
