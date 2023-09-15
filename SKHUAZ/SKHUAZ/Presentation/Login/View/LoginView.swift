@@ -13,14 +13,20 @@ import Then
 final class LoginView: UIView {
     
     // MARK: - UI Components
+    
     private let logoLabel = UILabel()
     private let idTextField = UITextField()
     private let pwTextField = UITextField()
     private let logInButton = UIButton()
     private let signUpButton = UIButton()
     private let forgotButton = UIButton()
+    
     // MARK: - Properties
         
+    var signUpButtonHandler: (() -> Void)?
+    var forgotButtonnHandler: (() -> Void)?
+    var logInButtonnHandler: (() -> Void)?
+    
     // MARK: - Initializer
     
     override init(frame: CGRect) {
@@ -47,7 +53,7 @@ extension LoginView {
             $0.textColor = .blue
             $0.textAlignment = .center
         }
-        
+
         idTextField.do {
             $0.attributedPlaceholder = NSAttributedString(string: "학번을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.appColor(.placeHolderColor)]) // Placeholder 텍스트 색상 설정
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
@@ -151,6 +157,6 @@ extension LoginView {
     // MARK: - @objc Methods
     @objc
     func pushSecondViewController() {
-
+        
     }
 }
