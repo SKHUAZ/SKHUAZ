@@ -62,9 +62,7 @@
 		E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */; };
 		E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */; };
 		E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D512AA20B110047C079 /* SignUpViewController.swift */; };
-		E3E83D542AA20D330047C079 /* RepetitionCheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D532AA20D330047C079 /* RepetitionCheckView.swift */; };
 		E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CF72AAAF91200325E7D /* RadioButton.swift */; };
-		E3EC5D002AAAFECB00325E7D /* RadioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CFF2AAAFECB00325E7D /* RadioViewController.swift */; };
 		E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */; };
 /* End PBXBuildFile section */
 
@@ -124,9 +122,7 @@
 		E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
 		E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		E3E83D512AA20B110047C079 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		E3E83D532AA20D330047C079 /* RepetitionCheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepetitionCheckView.swift; sourceTree = "<group>"; };
 		E3EC5CF72AAAF91200325E7D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
-		E3EC5CFF2AAAFECB00325E7D /* RadioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioViewController.swift; sourceTree = "<group>"; };
 		E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonsStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -491,8 +487,6 @@
 			isa = PBXGroup;
 			children = (
 				E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */,
-				E3E83D532AA20D330047C079 /* RepetitionCheckView.swift */,
-				E3EC5CFF2AAAFECB00325E7D /* RadioViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -619,10 +613,8 @@
 				E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */,
 				E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */,
 				2539B9772A8CA61300E939AA /* BaseView.swift in Sources */,
-				E3E83D542AA20D330047C079 /* RepetitionCheckView.swift in Sources */,
 				E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */,
 				2539B96B2A8CA5AC00E939AA /* APIService.swift in Sources */,
-				E3EC5D002AAAFECB00325E7D /* RadioViewController.swift in Sources */,
 				25FA1D8F2AA821B40044B38F /* EvaluateView.swift in Sources */,
 				258A71DE2AA98EDB001E8A5B /* CreateEvaluateBottomSheetViewController.swift in Sources */,
 				258A71D82AA89BB4001E8A5B /* UIResponder++.swift in Sources */,

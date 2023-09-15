@@ -10,6 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
+enum MajorType {
+    case nonMajor
+    case mainSubMajor
+    case doubleMajor
+}
+
 final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
 
         func sendData(mydata: String, groupId: Int) {
@@ -54,7 +60,6 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private var mainMajorButton = UIButton(type: .system)
         private var subMajorButton = UIButton(type: .system)
         private let signUpButton = UIButton()
-        private let testView = RepetitionCheckView(placeholder: "닉네임을 입력해주세요", buttonTilte: "중복확인")
 
         // MARK: - Getter
     
@@ -153,7 +158,7 @@ extension SignUpView {
                         .font: UIFont.systemFont(ofSize: 14), // 원하는 폰트 크기로 설정
                         .foregroundColor: UIColor.appColor(.placeHolderColor) // 원하는 폰트 색상 설정
                     ]
-            $0.attributedPlaceholder = NSAttributedString(string: "학번을 입력해주세요 * ", attributes: attributes)
+            $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력해주세요 * ", attributes: attributes)
             $0.font = .systemFont(ofSize:14)
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
@@ -277,11 +282,6 @@ extension SignUpView {
                          action: #selector(pushSecondViewController),
                          for: .touchUpInside)
         }
-//        testView.do {
-//            $0.backButton.addTarget(self,
-//                                    action: #selector(pushSecondViewController),
-//                                    for: .touchUpInside)
-//        }
     }
 
     // MARK: - Layout Helper

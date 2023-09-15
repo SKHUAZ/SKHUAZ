@@ -6,6 +6,9 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
 protocol SendStringData: AnyObject {
     func sendData(mydata: String, groupId: Int)
 }
@@ -23,7 +26,6 @@ class RadioButtonsStack: UIView, SendStringData {
         else {
             secondValue = mydata
             print("\(secondValue)")
-
         }
     }
     
@@ -43,12 +45,7 @@ class RadioButtonsStack: UIView, SendStringData {
 
     var selectedIndex: Int?
     var groupId: Int?
-//
-//    init() {
-//        super.init(frame: .zero)
-//        setup()
-//    }
-    
+
     init(groupId: Int) {
             self.groupId = groupId // 그룹 식별 변수 초기화
             super.init(frame: .zero)
@@ -58,11 +55,6 @@ class RadioButtonsStack: UIView, SendStringData {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    //
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        setup()
-//    }
 
     private func setup() {
         addSubview(stackView)
@@ -149,9 +141,7 @@ class RadioButtonsStack: UIView, SendStringData {
                 stackView.topAnchor.constraint(equalTo: topAnchor),
                 stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
                 stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-//                radioButton.widthAnchor.constraint(equalToConstant: 30)
-            ])
+                stackView.trailingAnchor.constraint(equalTo: trailingAnchor)])
         }
 
         func set(_ text: String) {
@@ -163,15 +153,3 @@ class RadioButtonsStack: UIView, SendStringData {
         }
     }
 }
-
-extension UIStackView {
-    func removeAllArrangedSubviews() {
-        let removedSubviews = arrangedSubviews.reduce([]) { (allSubviews, subview) -> [UIView] in
-            self.removeArrangedSubview(subview)
-            return allSubviews + [subview]
-        }
-        NSLayoutConstraint.deactivate(removedSubviews.flatMap({ $0.constraints }))
-        removedSubviews.forEach({ $0.removeFromSuperview() })
-    }
-}
-

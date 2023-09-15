@@ -6,6 +6,9 @@
 //
 import UIKit
 
+import SnapKit
+import Then
+
 class RadioButton: UIControl {
     
     var unselectedBackgroundColor: UIColor = .white {
@@ -69,20 +72,21 @@ class RadioButton: UIControl {
     
         updateState()
 
-        NSLayoutConstraint.activate([
-            checkedView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            checkedView.widthAnchor.constraint(equalToConstant: checkedViewSize),
-            checkedView.heightAnchor.constraint(equalToConstant: checkedViewSize),
-            
-            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            contentView.topAnchor.constraint(equalTo: topAnchor),
-            contentView.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
-            contentView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor),
-            contentView.widthAnchor.constraint(equalToConstant: size),
-            contentView.heightAnchor.constraint(equalToConstant: size)
-        ])
-        
+        contentView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.trailing.lessThanOrEqualToSuperview()
+            $0.bottom.lessThanOrEqualToSuperview()
+            $0.width.equalTo(size)
+            $0.height.equalTo(size)
+            $0.center.equalToSuperview()
+        }
+
+        checkedView.snp.makeConstraints {
+            $0.width.equalTo(checkedViewSize)
+            $0.height.equalTo(checkedViewSize)
+            $0.center.equalTo(contentView)
+        }
     }
 
     private func updateState() {
