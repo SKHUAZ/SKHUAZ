@@ -66,6 +66,10 @@
 		E3546DDA2A8DF6EF00ACFF3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */; };
 		E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE42A8E15CC00ACFF3C /* LoginView.swift */; };
 		E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */; };
+		E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */; };
+		E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D512AA20B110047C079 /* SignUpViewController.swift */; };
+		E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CF72AAAF91200325E7D /* RadioButton.swift */; };
+		E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +132,10 @@
 		E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3546DE42A8E15CC00ACFF3C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
+		E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		E3E83D512AA20B110047C079 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		E3EC5CF72AAAF91200325E7D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonsStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +207,7 @@
 			children = (
 				25D46EF62AB07E5C008FA088 /* Essential */,
 				9EC5E2D22A924BB40047E6E7 /* Recommend */,
+				E3E83D4C2AA2097E0047C079 /* SignUp */,
 				E3546DD62A8DECD900ACFF3C /* Login */,
 				2539B9A62A8E47D700E939AA /* Evaluate */,
 				2539B9732A8CA5E500E939AA /* Base */,
@@ -358,6 +367,8 @@
 			isa = PBXGroup;
 			children = (
 				25D46EE22AAEACCA008FA088 /* CustomDropdownMenu.swift */,
+				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
+				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
 				25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */,
 				25FA1D842AA61BEC0044B38F /* CircleGraph.swift */,
 				25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */,
@@ -483,8 +494,8 @@
 		E3546DD62A8DECD900ACFF3C /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				E3546DD82A8DECEC00ACFF3C /* ViewController */,
 				E3546DD72A8DECE600ACFF3C /* View */,
+				E3546DD82A8DECEC00ACFF3C /* ViewController */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -503,6 +514,31 @@
 				E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3E83D4C2AA2097E0047C079 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				E3E83D4E2AA209910047C079 /* View */,
+				E3E83D4D2AA209890047C079 /* ViewController */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		E3E83D4D2AA209890047C079 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E3E83D512AA20B110047C079 /* SignUpViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E3E83D4E2AA209910047C079 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -594,7 +630,10 @@
 				25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */,
 				2539B9672A8CA56700E939AA /* Model.swift in Sources */,
 				2539B9872A8CA6BF00E939AA /* Font.swift in Sources */,
+				E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */,
 				2539B9912A8CA72C00E939AA /* Color.swift in Sources */,
+				E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */,
+				258A71EA2AAADDEF001E8A5B /* DetailEvaluateViewController.swift in Sources */,
 				25D46EE32AAEACCA008FA088 /* CustomDropdownMenu.swift in Sources */,
 				259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */,
 				258A71EA2AAADDEF001E8A5B /* DetailEvaluateViewController.swift in Sources */,
@@ -628,7 +667,9 @@
 				9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */,
 				2539B96F2A8CA5C500E939AA /* GeneralResponse.swift in Sources */,
 				E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */,
+				E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */,
 				2539B9772A8CA61300E939AA /* BaseView.swift in Sources */,
+				E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */,
 				2539B96B2A8CA5AC00E939AA /* APIService.swift in Sources */,
 				25FA1D8F2AA821B40044B38F /* EvaluateView.swift in Sources */,
 				258A71DE2AA98EDB001E8A5B /* CreateEvaluateBottomSheetViewController.swift in Sources */,
