@@ -20,6 +20,23 @@ struct EvaluateDataModel {
     var department: String
     var authorName: String
 }
+//"evaluationId": 1,
+//        "teamPlay": 5,
+//        "task": 1,
+//        "practice": 3,
+//        "presentation": 4,
+//        "title": "천성우시11름",
+//        "review": "ㅇㅇㅇ",
+//        "email": "gjwldud0719@naver.com",
+//        "lecture": {
+//            "lectureId": 1,
+//            "deptName": "IT",
+//            "lecName": "C 프로그래밍",
+//            "profName": "김덕봉",
+//            "semester": 1
+//        }
+
+
 
 let evaluateDataModels: [EvaluateDataModel] = [
     EvaluateDataModel(semester: "2023-2", professor: "이승진", lecture: "프론트엔드개발",

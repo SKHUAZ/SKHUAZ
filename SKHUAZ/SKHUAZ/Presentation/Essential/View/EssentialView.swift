@@ -64,9 +64,8 @@ extension EssentialView {
     private func setUI(){
         
         listButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
-            $0.layer.borderWidth = 1
+            $0.setImage(Image.list, for: .normal)
+
         }
         
         titleLabel.do {
@@ -119,9 +118,8 @@ extension EssentialView {
         }
         
         leftButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
-            $0.layer.borderWidth = 1
+            $0.setImage(Image.leftButton, for: .normal)
+
         }
         
         saveButton.do {
@@ -129,9 +127,7 @@ extension EssentialView {
         }
         
         rightButton.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
-            $0.layer.borderWidth = 1
+            $0.setImage(Image.rightButton, for: .normal)
         }
     }
     
@@ -154,7 +150,7 @@ extension EssentialView {
 //            $0.centerY.equalToSuperview()
 //            $0.leading.equalToSuperview().offset(18)
 //        }
-//        
+//
 //        essentialLectureLabel.snp.makeConstraints {
 //            $0.leading.equalTo(mainLectureLabel.snp.trailing).offset(18)
 //            $0.top.equalTo(mainLectureLabel.snp.top)
