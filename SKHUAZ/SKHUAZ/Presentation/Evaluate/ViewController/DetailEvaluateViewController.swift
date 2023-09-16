@@ -82,7 +82,7 @@ extension DetailEvaluateViewController {
         }
         
         detailEvaluateView.snp.makeConstraints {
-            $0.top.equalTo(mainImage.snp.bottom)
+            $0.top.equalTo(mainImage.snp.bottom).offset(15)
             $0.leading.equalToSuperview()
             $0.height.equalTo(640)
             $0.width.equalTo(UIScreen.main.bounds.width)

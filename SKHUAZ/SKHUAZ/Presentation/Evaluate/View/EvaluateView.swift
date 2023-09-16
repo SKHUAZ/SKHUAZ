@@ -306,7 +306,7 @@ extension EvaluateView: DropdownMenuDelegate {
         }
         
         semesterButton.snp.makeConstraints {
-            $0.top.equalTo(guideWrite.snp.bottom).offset(7)
+            $0.top.equalTo(guideWrite.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview().inset(19)
             $0.height.equalTo(36)
         }
