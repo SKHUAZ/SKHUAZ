@@ -33,6 +33,7 @@ public enum Image {
     static let recommend = UIImage(named: "recommend")!
     static let setting = UIImage(named: "setting")!
     
-    
+    static let leftButton = UIImage(named: "leftButton")
+    static let rightButton = UIImage(named: "rightButton")
 
 }
