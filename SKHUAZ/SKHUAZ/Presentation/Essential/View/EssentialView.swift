@@ -19,6 +19,10 @@ class EssentialView: UIView {
     
     private let titleLabel = UILabel()
     
+    private let mainLectureLabel = UILabel()
+    private let essentialLectureLabel = UILabel()
+    private let professorNameLabel = UILabel()
+    
     private let mainContainer = UIView()
     private let mainTitleSpace = UIView()
     private let mainTitleLabel = UILabel()
@@ -71,6 +75,26 @@ extension EssentialView {
             $0.font = .systemFont(ofSize: 20)
         }
         
+        mainLectureLabel.do {
+            $0.text = "강의명"
+            $0.textColor = UIColor(hex: "#000000")
+            $0.font = .systemFont(ofSize: 13)
+        }
+        
+        essentialLectureLabel.do {
+            $0.text = "선수과목"
+            $0.textColor = UIColor(hex: "#000000")
+            $0.font = .systemFont(ofSize: 13)
+        }
+        
+        professorNameLabel.do {
+            $0.text = "교수"
+            $0.textColor = UIColor(hex: "#000000")
+            $0.font = .systemFont(ofSize: 13)
+        }
+        
+        
+        
         mainContainer.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
@@ -117,12 +141,30 @@ extension EssentialView {
     private func setLayout() {
         addSubviews(listButton, titleLabel, mainContainer, leftButton, rightButton, saveButton)
         mainContainer.addSubviews(mainTitleSpace, lectureContainer)
-        mainTitleSpace.addSubviews(mainTitleLabel)
+        mainTitleSpace.addSubviews(
+//            mainLectureLabel, essentialLectureLabel, professorNameLabel
+            mainTitleLabel
+        )
         
         mainTitleLabel.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()
         }
         
+//        mainLectureLabel.snp.makeConstraints {
+//            $0.centerY.equalToSuperview()
+//            $0.leading.equalToSuperview().offset(18)
+//        }
+//        
+//        essentialLectureLabel.snp.makeConstraints {
+//            $0.leading.equalTo(mainLectureLabel.snp.trailing).offset(18)
+//            $0.top.equalTo(mainLectureLabel.snp.top)
+//        }
+//
+//        professorNameLabel.snp.makeConstraints {
+//            $0.trailing.equalToSuperview().inset(18)
+//            $0.top.equalTo(mainLectureLabel.snp.top)
+//        }
+
         mainTitleSpace.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
             $0.height.equalTo(37)
