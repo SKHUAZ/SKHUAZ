@@ -64,6 +64,9 @@
 		E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D512AA20B110047C079 /* SignUpViewController.swift */; };
 		E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CF72AAAF91200325E7D /* RadioButton.swift */; };
 		E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */; };
+		E3EC5D072AB421E300325E7D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D062AB421E300325E7D /* SettingView.swift */; };
+		E3EC5D092AB421F600325E7D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D082AB421F600325E7D /* SettingViewController.swift */; };
+		E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -124,6 +127,9 @@
 		E3E83D512AA20B110047C079 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E3EC5CF72AAAF91200325E7D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonsStack.swift; sourceTree = "<group>"; };
+		E3EC5D062AB421E300325E7D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		E3EC5D082AB421F600325E7D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +199,7 @@
 		2539B95E2A8CA50400E939AA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				E3EC5D032AB421B700325E7D /* Setting */,
 				9EC5E2D22A924BB40047E6E7 /* Recommend */,
 				E3E83D4C2AA2097E0047C079 /* SignUp */,
 				E3546DD62A8DECD900ACFF3C /* Login */,
@@ -491,6 +498,32 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		E3EC5D032AB421B700325E7D /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E3EC5D052AB421CF00325E7D /* ViewController */,
+				E3EC5D042AB421C800325E7D /* View */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		E3EC5D042AB421C800325E7D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3EC5D062AB421E300325E7D /* SettingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3EC5D052AB421CF00325E7D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E3EC5D082AB421F600325E7D /* SettingViewController.swift */,
+				E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -576,12 +609,14 @@
 				9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */,
 				2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */,
 				2539B9932A8CA73000E939AA /* Image.swift in Sources */,
+				E3EC5D092AB421F600325E7D /* SettingViewController.swift in Sources */,
 				E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */,
 				25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */,
 				2539B9672A8CA56700E939AA /* Model.swift in Sources */,
 				2539B9872A8CA6BF00E939AA /* Font.swift in Sources */,
 				E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */,
 				2539B9912A8CA72C00E939AA /* Color.swift in Sources */,
+				E3EC5D072AB421E300325E7D /* SettingView.swift in Sources */,
 				E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */,
 				258A71EA2AAADDEF001E8A5B /* DetailEvaluateViewController.swift in Sources */,
 				25D46EE32AAEACCA008FA088 /* CustomDropdownMenu.swift in Sources */,
@@ -604,6 +639,7 @@
 				258A71DA2AA89C1D001E8A5B /* UITextField++.swift in Sources */,
 				2539B98F2A8CA70D00E939AA /* UIView++.swift in Sources */,
 				2539B96D2A8CA5BB00E939AA /* APIConst.swift in Sources */,
+				E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */,
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
 				258A71E82AA9B7FA001E8A5B /* AlertViewController.swift in Sources */,
 				2539B9AC2A8E499E00E939AA /* EvaluateViewController.swift in Sources */,

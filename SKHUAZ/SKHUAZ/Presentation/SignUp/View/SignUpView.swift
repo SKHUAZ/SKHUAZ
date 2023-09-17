@@ -10,12 +10,6 @@ import UIKit
 import SnapKit
 import Then
 
-enum MajorType {
-    case nonMajor
-    case mainSubMajor
-    case doubleMajor
-}
-
 final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
 
         func sendData(mydata: String, groupId: Int) {
@@ -282,6 +276,11 @@ extension SignUpView {
                          action: #selector(pushSecondViewController),
                          for: .touchUpInside)
         }
+//        testView.do {
+//            $0.backButton.addTarget(self,
+//                                    action: #selector(pushSecondViewController),
+//                                    for: .touchUpInside)
+//        }
     }
 
     // MARK: - Layout Helper

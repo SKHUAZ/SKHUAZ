@@ -41,7 +41,7 @@ extension TabBarController {
         tabs = [
             UIViewController(), // 선수과목
             EvaluateViewController(), // 강의평
-            UIViewController(), // 홈
+            SettingViewController(), // 홈
             RecommendViewController(), // 루트추천
             UIViewController() // 설정
         ]
