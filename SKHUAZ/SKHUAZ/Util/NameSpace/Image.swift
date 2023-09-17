@@ -35,5 +35,5 @@ public enum Image {
     
     static let leftButton = UIImage(named: "leftButton")
     static let rightButton = UIImage(named: "rightButton")
-
+    static let openMenu = UIImage(named: "open")
 }
