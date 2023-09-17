@@ -202,6 +202,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.contentHorizontalAlignment = .left
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                $0.isEnabled = false
             }
             
             professorButton.do {
@@ -210,6 +211,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.contentHorizontalAlignment = .left
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                $0.isEnabled = false
             }
             
             lectureButton.do {
@@ -218,6 +220,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.contentHorizontalAlignment = .left
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                $0.isEnabled = false
             }
             
             
@@ -300,6 +303,7 @@ extension EvaluateView: DropdownMenuDelegate {
                     firstSlider, secondSlider, thirdSlider,
                     fourthSlider, firstLabel, secondLabel,
                     thirdLabel, fourthLabel)
+        
         guideWrite.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(19)

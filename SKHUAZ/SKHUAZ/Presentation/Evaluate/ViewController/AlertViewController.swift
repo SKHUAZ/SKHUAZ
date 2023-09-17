@@ -13,6 +13,8 @@ import Then
 enum CustomAlertType {
     case mainEvaluate
     case createEvaluate
+    case unSelectSemester
+    case unSelectProfessor
 }
 
 final class AlertViewController: UIViewController {
@@ -78,6 +80,44 @@ extension AlertViewController {
         case .createEvaluate:
             mainLabel.do {
                 $0.text = "강의평 작성하기를\n모두 입력해주세요"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+        
+        case .unSelectSemester:
+            mainLabel.do {
+                $0.text = "학기를 먼저\n선택해 주세요"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
+        case .unSelectProfessor:
+            mainLabel.do {
+                $0.text = "교수님 성함을\n먼저 선택해 주세요"
                 $0.textAlignment = .center
                 $0.textColor = UIColor(hex: "#000000")
                 $0.font = .systemFont(ofSize: 15)
