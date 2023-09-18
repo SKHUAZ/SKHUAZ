@@ -26,7 +26,6 @@ class CustomDropdownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
         super.init(frame: .zero)
         self.options = options
         self.parentButton = parentButton
-        
         setupTableView()
     }
     
@@ -38,12 +37,13 @@ class CustomDropdownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
+        tableView.showsVerticalScrollIndicator = false
+
         addSubview(tableView)
         
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(options.count * 44)
+            $0.height.equalTo(176)
             //            make.width.equalTo(353) --> 이거 사용할 때 버튼 자체의 width를 체크해야함
         }
     }
@@ -71,4 +71,5 @@ class CustomDropdownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
         parentButton?.setTitleColor(UIColor(hex: "#000000"), for: .normal)
         removeFromSuperview()
     }
+    
 }

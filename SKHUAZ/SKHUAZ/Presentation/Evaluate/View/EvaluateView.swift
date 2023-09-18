@@ -16,7 +16,6 @@ enum EvaluateViewType {
     case detailEvalute
 }
 
-
 class EvaluateView: UIView {
     
     // MARK: - Properties
@@ -109,8 +108,8 @@ class EvaluateView: UIView {
         setUI()
         setLayout()
         setDelegate()
-        setupDropdownMenus()
         addTarget()
+        print("UIView")
     }
     
     required init?(coder: NSCoder) {
@@ -126,7 +125,6 @@ extension EvaluateView: DropdownMenuDelegate {
         
         switch evaluateType {
         case .createEvalute:
-            
             
             guideWrite.do {
                 $0.text = "강의 평가 작성"
@@ -315,20 +313,20 @@ extension EvaluateView: DropdownMenuDelegate {
             $0.height.equalTo(36)
         }
         
-        professorButton.snp.makeConstraints {
+        lectureButton.snp.makeConstraints {
             $0.top.equalTo(semesterButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(19)
             $0.height.equalTo(36)
         }
         
-        lectureButton.snp.makeConstraints {
-            $0.top.equalTo(professorButton.snp.bottom).offset(10)
+        professorButton.snp.makeConstraints {
+            $0.top.equalTo(lectureButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(19)
             $0.height.equalTo(36)
         }
         
         titleTextField.snp.makeConstraints {
-            $0.top.equalTo(lectureButton.snp.bottom).offset(10)
+            $0.top.equalTo(professorButton.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(19)
             $0.height.equalTo(36)
         }
@@ -397,21 +395,6 @@ extension EvaluateView: DropdownMenuDelegate {
     
     private func setDelegate() {
         evaluateView.delegate = self
-        semesterButton.addTarget(self, action: #selector(testprint), for: .touchUpInside)
-    }
-    
-    private func setupDropdownMenus() {
-        let semesterOptions = ["2023-2", "2023-1", "2022-2", "2022-1"]
-        semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
-        semesterDropdownMenu?.delegate = self
-        
-        let propeserOptions = ["Professor A", "Professor B", "Professor C"]
-        professorDropdownMenu = CustomDropdownMenu(options: propeserOptions, parentButton: professorButton)
-        professorDropdownMenu?.delegate = self
-        
-        let lectureOptions = ["Lecture A", "Lecture B", "Lecture C"]
-        lectureDropdownMenu = CustomDropdownMenu(options: lectureOptions, parentButton: lectureButton)
-        lectureDropdownMenu?.delegate = self
     }
     
     private func addTarget() {
@@ -419,8 +402,8 @@ extension EvaluateView: DropdownMenuDelegate {
         switch evaluateType {
         case .createEvalute:
             semesterButton.addTarget(self, action: #selector(semesterButtonTapped), for: .touchUpInside)
-            professorButton.addTarget(self, action: #selector(propeserButtonTapped), for: .touchUpInside)
-            lectureButton.addTarget(self, action: #selector(lectureButtonTapped), for: .touchUpInside)
+            lectureButton.addTarget(self, action: #selector(openAlertSemesterWarning), for: .touchUpInside)
+            professorButton.addTarget(self, action: #selector(openAlertLectureWarning), for: .touchUpInside)
             firstSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
             secondSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
             thirdSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
@@ -430,61 +413,39 @@ extension EvaluateView: DropdownMenuDelegate {
         }
     }
     
-    @objc private func semesterButtonTapped() {
-        if let menu = semesterDropdownMenu {
-            if menu.superview == nil {
-                addSubviews(menu)
-                
-                menu.snp.makeConstraints { make in
-                    make.top.equalTo(semesterButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(semesterButton)
-                }
-            } else {
-                menu.removeFromSuperview()
-            }
-        }
-        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        
+    func setDropDownSemesterMenus(semesterOptions: [String]) {
+        semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
+        semesterDropdownMenu?.delegate = self
     }
     
-    @objc private func propeserButtonTapped() {
-        if let menu = professorDropdownMenu {
-            if menu.superview == nil {
-                addSubviews(menu)
-                
-                menu.snp.makeConstraints { make in
-                    make.top.equalTo(professorButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(professorButton)
-                }
-            } else {
-                menu.removeFromSuperview()
-            }
-        }
-        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        
+    func setDropDownProfessorMenu(profeserOptions: [String]) {
+        professorDropdownMenu = CustomDropdownMenu(options: profeserOptions, parentButton: professorButton)
+        professorDropdownMenu?.delegate = self
     }
     
-    @objc private func lectureButtonTapped() {
-        if let menu = lectureDropdownMenu {
-            if menu.superview == nil {
-                addSubviews(menu)
-                
-                menu.snp.makeConstraints { make in
-                    make.top.equalTo(lectureButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(professorButton)
-                }
-            } else {
-                menu.removeFromSuperview()
-            }
-        }
-        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+    func setDropDownLectureMenu(lectureOptions: [String]) {
+        lectureDropdownMenu = CustomDropdownMenu(options: lectureOptions, parentButton: lectureButton)
+        lectureDropdownMenu?.delegate = self
     }
+    
     
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
-        print("Selected Option for button:", option)
+        if button == semesterButton {
+            print("선택한 학기")
+            NotificationCenter.default.post(name: NSNotification.Name("SemesterTitleChanged"), object: self, userInfo: ["newTitle": option])
+            self.lectureButton.removeTarget(self, action: #selector(openAlertSemesterWarning), for: .touchUpInside)
+            self.lectureButton.addTarget(self, action: #selector(lectureButtonTapped), for: .touchUpInside)
+        }
+        else if button == lectureButton {
+            print("선택한 강의")
+            NotificationCenter.default.post(name: NSNotification.Name("LectureTitleChanged"), object: self, userInfo: ["newTitle": option])
+            self.professorButton.removeTarget(self, action: #selector(openAlertLectureWarning), for: .touchUpInside)
+            self.professorButton.addTarget(self, action: #selector(professorButtonTapped), for: .touchUpInside)
+        }
+        else if button == professorButton {
+            print("선택한 교수")
+            NotificationCenter.default.post(name: NSNotification.Name("ProfessorTitleChanged"), object: self, userInfo: ["newTitle": option])
+        }
     }
     
     func setDetailEvaluateView(semester: String, professor: String, lecture: String,
@@ -513,14 +474,79 @@ extension EvaluateView: DropdownMenuDelegate {
     
     // MARK: - @objc Methods
     
+    @objc
+    private func semesterButtonTapped() {
+        if let menu = semesterDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(semesterButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(semesterButton)
+                }
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        
+    }
+    
+    @objc
+    private func professorButtonTapped() {
+        if let menu = professorDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(professorButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(professorButton)
+                }
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        
+    }
+    
+    @objc
+    private func lectureButtonTapped() {
+        if let menu = lectureDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(lectureButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(professorButton)
+                }
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+    }
+    
+    @objc
+    private func openAlertSemesterWarning() {
+        let customAlertVC = AlertViewController(alertType: .unSelectSemester)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+    }
+    
+    @objc
+    private func openAlertLectureWarning() {
+        let customAlertVC = AlertViewController(alertType: .unSelectLecture)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+    }
+        
     @objc func sliderValueChanged(_ sender: UISlider) {
         print("Slider value changed to \(sender.value)")
     }
-    
-    @objc func testprint() {
-        print("눌리네요~")
-    }
-    
 }
 
 extension EvaluateView: UITextViewDelegate {
@@ -546,3 +572,4 @@ extension EvaluateView: UITextViewDelegate {
         }
     }
 }
+
