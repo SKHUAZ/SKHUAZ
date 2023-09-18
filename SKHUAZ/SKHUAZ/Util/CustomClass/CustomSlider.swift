@@ -32,9 +32,9 @@ class CustomSlider: UISlider {
     // MARK: - UI Components Property
     
     private func setUI() {
-        minimumValue = 0
-        maximumValue = 100
-        value = 50
+        minimumValue = 1
+        maximumValue = 5
+        value = 3
         thumbTintColor = UIColor(hex: "#9AC1D1")
         minimumTrackTintColor = UIColor(hex: "#000000")
         maximumTrackTintColor = UIColor(hex: "000000")
