@@ -134,7 +134,6 @@ extension CreateEvaluateBottomSheetViewController {
                    let mainWindow = windowScene.windows.first {
                     mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
                 }
-
             }
         }
     }

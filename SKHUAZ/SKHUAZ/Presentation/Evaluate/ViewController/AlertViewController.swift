@@ -14,7 +14,7 @@ enum CustomAlertType {
     case mainEvaluate
     case createEvaluate
     case unSelectSemester
-    case unSelectProfessor
+    case unSelectLecture
 }
 
 final class AlertViewController: UIViewController {
@@ -115,9 +115,9 @@ extension AlertViewController {
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
             
-        case .unSelectProfessor:
+        case .unSelectLecture:
             mainLabel.do {
-                $0.text = "교수님 성함을\n먼저 선택해 주세요"
+                $0.text = "강의를 먼저\n선택해 주세요"
                 $0.textAlignment = .center
                 $0.textColor = UIColor(hex: "#000000")
                 $0.font = .systemFont(ofSize: 15)

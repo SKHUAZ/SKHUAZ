@@ -87,7 +87,8 @@ extension EvaluateViewController {
 
     private func setLayout() {
         
-        view.addSubviews(mainLogo, titleLabel, searchTextField, tableView, wroteMeButton, createButton)
+        view.addSubviews(mainLogo, titleLabel, searchTextField,
+                         tableView, wroteMeButton, createButton)
         
         mainLogo.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(47)
