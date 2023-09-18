@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class SettingViewController: UIViewController {
+final class SettingViewController: UIViewController, SettingViewDelegate {
+    func editProfileButtonTapped() {
+        let secondViewController = EditProfileViewController()
+        secondViewController.modalPresentationStyle = .fullScreen
+        self.present(secondViewController, animated: true)
+    }
+    
     
     // MARK: - UI Components
     
@@ -19,7 +25,7 @@ final class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        rootView.delegate = self
     }
     
     override func loadView() {
@@ -33,9 +39,7 @@ extension SettingViewController {
     
     // MARK: - Layout Helper
     
-    
     // MARK: - Methods
-
     
     // MARK: - @objc Methods
 }

@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol SettingViewDelegate: AnyObject {
+    func editProfileButtonTapped()
+    // 다른 버튼 액션을 추가할 수 있습니다.
+}
+
 class SettingView: UIView {
+    
+    weak var delegate: SettingViewDelegate?
 
     // MARK: - UI Components
     
@@ -148,20 +155,18 @@ extension SettingView {
         
         editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
     }
-    func presentToEditProfileViewController() {
-            
-            let secondViewController = EditProfileViewController()
-            secondViewController.modalPresentationStyle = .fullScreen
-            self.present(secondViewController, animated: true)
-            }
-    
+//    func presentToEditProfileViewController() {
+//
+//            let secondViewController = EditProfileViewController()
+//            secondViewController.modalPresentationStyle = .fullScreen
+//            self.present(secondViewController, animated: true)
+//            }
+//    
     // MARK: - @objc Methods
     
-    @objc
-        func editProfileButtonTapped() {
-            
-            presentToEditProfileViewController()
-        }
+    @objc func editProfileButtonTapped() {
+        delegate?.editProfileButtonTapped()
+    }
 
     @objc
     func pushSecondViewController() {
