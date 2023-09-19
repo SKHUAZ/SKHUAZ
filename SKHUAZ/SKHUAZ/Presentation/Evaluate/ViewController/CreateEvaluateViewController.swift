@@ -21,10 +21,9 @@ final class CreateEvaluateViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var semesterOptions: [String] = ["1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
+    private var semesterOptions: [String] = ["23 - 1학기", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
+    private var lectureOptions: [String] = ["C 프로그래밍", "이산수학", "Python 프로그래밍", "데이터베이스", "사물인터넷 기초", "Java 프로그래밍", "논리회로설계", "웹 개발 입문", "데이터기초수학", "전공탐색세미나 (컴퓨터공학전공)", "전공탐색세미나 (소프트웨어공학전공)", "전공탐색세미나 (인공지능전공)"]
     private var profeserOptions: [String] = ["1", "1", "1", "1", "1"]
-    private var lectureOptions: [String] = ["1", "1", "1", "1", "1"]
-    
     
     // MARK: - Initializer
     
@@ -83,8 +82,6 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
         
         evaluateView.do {
             $0.setDropDownSemesterMenus(semesterOptions: semesterOptions)
-//            $0.setDropDownLectureMenu(lectureOptions: lectureOptions)
-//            $0.setDropDownProfessorMenu(profeserOptions: profeserOptions)
         }
     }
     

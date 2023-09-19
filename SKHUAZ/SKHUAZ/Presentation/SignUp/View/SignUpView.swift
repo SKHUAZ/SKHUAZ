@@ -31,9 +31,9 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
 
         // MARK: - Delegate Property
     
-        private var semesterDropdownMenu: CustomDropdownMenu?
-        private var mainMajorDropdownMenu: CustomDropdownMenu?
-        private var subMajorDropdownMenu: CustomDropdownMenu?
+        private var semesterDropdownMenu: CustomDropdownMenuSearch?
+        private var mainMajorDropdownMenu: CustomDropdownMenuSearch?
+        private var subMajorDropdownMenu: CustomDropdownMenuSearch?
 
 
         weak var delegate: SendStringData?
@@ -422,15 +422,15 @@ extension SignUpView {
     
     private func setupDropdownMenus() {
         let semesterOptions = ["1학기", "2학기", "3학기", "4학기", "5학기", "6학기", "7학기", "8학기"]
-        semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
+        semesterDropdownMenu = CustomDropdownMenuSearch(options: semesterOptions, parentButton: semesterButton)
         semesterDropdownMenu?.delegate = self
         
         let mainMajorOptions = ["컴퓨터공학", "소프트웨어공학", "정보통신공학", "인공지능"]
-        mainMajorDropdownMenu = CustomDropdownMenu(options: mainMajorOptions, parentButton: mainMajorButton)
+        mainMajorDropdownMenu = CustomDropdownMenuSearch(options: mainMajorOptions, parentButton: mainMajorButton)
         mainMajorDropdownMenu?.delegate = self
         
         let subMajorOptions = ["컴퓨터공학", "소프트웨어공학", "정보통신공학", "인공지능"]
-        subMajorDropdownMenu = CustomDropdownMenu(options: subMajorOptions, parentButton: subMajorButton)
+        subMajorDropdownMenu = CustomDropdownMenuSearch(options: subMajorOptions, parentButton: subMajorButton)
         subMajorDropdownMenu?.delegate = self
     }
     

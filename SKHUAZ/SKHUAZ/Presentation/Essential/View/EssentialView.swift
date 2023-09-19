@@ -93,7 +93,6 @@ extension EssentialView {
         }
         
         
-        
         mainContainer.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
@@ -226,7 +225,7 @@ extension EssentialView {
         lectureContainer.subviews.forEach { $0.removeFromSuperview() }
 
         let dataModels = essentialDataModels[index] // 현재 인덱스에 해당하는 배열 가져오기
-
+        
         for dataModel in dataModels {
             let lectureButton = LectureButton(lectureName: dataModel.lectureName, professorName: dataModel.professorName)
 

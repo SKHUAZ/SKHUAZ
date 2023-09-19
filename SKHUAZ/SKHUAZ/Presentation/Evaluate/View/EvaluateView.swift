@@ -18,6 +18,24 @@ enum EvaluateViewType {
 
 class EvaluateView: UIView {
     
+    // MARK: - UI Components
+    
+    private let guideWrite = UILabel()
+    private var semesterButton = UIButton(type: .system)
+    private var professorButton = UIButton(type: .system)
+    private var lectureButton = UIButton(type: .system)
+    private let titleTextField = UITextField()
+    private let evaluateView = UITextView()
+    private let guidePoint = UILabel()
+    private let firstLabel = UILabel()
+    private let secondLabel = UILabel()
+    private let thirdLabel = UILabel()
+    private let fourthLabel = UILabel()
+    private let firstSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let secondSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let thirdSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let fourthSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    
     // MARK: - Properties
     
     private let evaluateType: EvaluateViewType
@@ -37,29 +55,14 @@ class EvaluateView: UIView {
     private var thirdSliderClosure: (() -> Void)?
     private var fourthSliderClosure: (() -> Void)?
     
+    private var filteredLectureOptions: [String] = []
+    private var lectureOption: [String] = []
+    
     // MARK: - Delegate Property
     
-    private var semesterDropdownMenu: CustomDropdownMenu?
-    private var professorDropdownMenu: CustomDropdownMenu?
-    private var lectureDropdownMenu: CustomDropdownMenu?
-    
-    // MARK: - UI Components
-    
-    private let guideWrite = UILabel()
-    private var semesterButton = UIButton(type: .system)
-    private var professorButton = UIButton(type: .system)
-    private var lectureButton = UIButton(type: .system)
-    private let titleTextField = UITextField()
-    private let evaluateView = UITextView()
-    private let guidePoint = UILabel()
-    private let firstLabel = UILabel()
-    private let secondLabel = UILabel()
-    private let thirdLabel = UILabel()
-    private let fourthLabel = UILabel()
-    private let firstSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let secondSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let thirdSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let fourthSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private var semesterDropdownMenu: CustomDropdownMenuSearch?
+    private var professorDropdownMenu: CustomDropdownMenuSearch?
+    private var lectureDropdownMenu: CustomDropdownMenuSearch?
     
     // MARK: - Getter
     
@@ -295,99 +298,199 @@ extension EvaluateView: DropdownMenuDelegate {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        addSubviews(guideWrite,
-                    semesterButton, professorButton, lectureButton,
-                    titleTextField, evaluateView, guidePoint,
-                    firstSlider, secondSlider, thirdSlider,
-                    fourthSlider, firstLabel, secondLabel,
-                    thirdLabel, fourthLabel)
         
-        guideWrite.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(19)
-        }
-        
-        semesterButton.snp.makeConstraints {
-            $0.top.equalTo(guideWrite.snp.bottom).offset(20)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        lectureButton.snp.makeConstraints {
-            $0.top.equalTo(semesterButton.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        professorButton.snp.makeConstraints {
-            $0.top.equalTo(lectureButton.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        titleTextField.snp.makeConstraints {
-            $0.top.equalTo(professorButton.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        evaluateView.snp.makeConstraints {
-            $0.top.equalTo(titleTextField.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(243)
-        }
-        
-        guidePoint.snp.makeConstraints {
-            $0.top.equalTo(evaluateView.snp.bottom).offset(19)
-            $0.leading.equalToSuperview().offset(19)
-        }
-        
-        firstSlider.snp.makeConstraints {
-            $0.centerY.equalTo(firstLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        secondSlider.snp.makeConstraints {
-            $0.centerY.equalTo(secondLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        thirdSlider.snp.makeConstraints {
-            $0.centerY.equalTo(thirdLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        fourthSlider.snp.makeConstraints {
-            $0.centerY.equalTo(fourthLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        firstLabel.snp.makeConstraints {
-            $0.top.equalTo(guidePoint.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(45)
-        }
-        
-        secondLabel.snp.makeConstraints {
-            $0.top.equalTo(firstLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(45)
-        }
-        
-        thirdLabel.snp.makeConstraints {
-            $0.top.equalTo(secondLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(45)
-        }
-        
-        fourthLabel.snp.makeConstraints {
-            $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(45)
+        switch evaluateType {
+        case .createEvalute:
+            addSubviews(guideWrite,
+                        semesterButton, professorButton, lectureButton,
+                        titleTextField, evaluateView, guidePoint,
+                        firstSlider, secondSlider, thirdSlider,
+                        fourthSlider, firstLabel, secondLabel,
+                        thirdLabel, fourthLabel)
+            
+            guideWrite.snp.makeConstraints {
+                $0.top.equalToSuperview()
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            semesterButton.snp.makeConstraints {
+                $0.top.equalTo(guideWrite.snp.bottom).offset(20)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            lectureButton.snp.makeConstraints {
+                $0.top.equalTo(semesterButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            professorButton.snp.makeConstraints {
+                $0.top.equalTo(lectureButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            titleTextField.snp.makeConstraints {
+                $0.top.equalTo(professorButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            evaluateView.snp.makeConstraints {
+                $0.top.equalTo(titleTextField.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(243)
+            }
+            
+            guidePoint.snp.makeConstraints {
+                $0.top.equalTo(evaluateView.snp.bottom).offset(19)
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            firstSlider.snp.makeConstraints {
+                $0.centerY.equalTo(firstLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            secondSlider.snp.makeConstraints {
+                $0.centerY.equalTo(secondLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            thirdSlider.snp.makeConstraints {
+                $0.centerY.equalTo(thirdLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            fourthSlider.snp.makeConstraints {
+                $0.centerY.equalTo(fourthLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            firstLabel.snp.makeConstraints {
+                $0.top.equalTo(guidePoint.snp.bottom).offset(20)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            secondLabel.snp.makeConstraints {
+                $0.top.equalTo(firstLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            thirdLabel.snp.makeConstraints {
+                $0.top.equalTo(secondLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            fourthLabel.snp.makeConstraints {
+                $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+        case .detailEvalute:
+            addSubviews(guideWrite,
+                        semesterButton, professorButton, lectureButton,
+                        titleTextField, evaluateView, guidePoint,
+                        firstSlider, secondSlider, thirdSlider,
+                        fourthSlider, firstLabel, secondLabel,
+                        thirdLabel, fourthLabel)
+            
+            guideWrite.snp.makeConstraints {
+                $0.top.equalToSuperview()
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            semesterButton.snp.makeConstraints {
+                $0.top.equalTo(guideWrite.snp.bottom).offset(20)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            lectureButton.snp.makeConstraints {
+                $0.top.equalTo(semesterButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            professorButton.snp.makeConstraints {
+                $0.top.equalTo(lectureButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            titleTextField.snp.makeConstraints {
+                $0.top.equalTo(professorButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            evaluateView.snp.makeConstraints {
+                $0.top.equalTo(titleTextField.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(243)
+            }
+            
+            guidePoint.snp.makeConstraints {
+                $0.top.equalTo(evaluateView.snp.bottom).offset(19)
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            firstSlider.snp.makeConstraints {
+                $0.centerY.equalTo(firstLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            secondSlider.snp.makeConstraints {
+                $0.centerY.equalTo(secondLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            thirdSlider.snp.makeConstraints {
+                $0.centerY.equalTo(thirdLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            fourthSlider.snp.makeConstraints {
+                $0.centerY.equalTo(fourthLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            firstLabel.snp.makeConstraints {
+                $0.top.equalTo(guidePoint.snp.bottom).offset(20)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            secondLabel.snp.makeConstraints {
+                $0.top.equalTo(firstLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            thirdLabel.snp.makeConstraints {
+                $0.top.equalTo(secondLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            fourthLabel.snp.makeConstraints {
+                $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
         }
     }
     
@@ -414,17 +517,17 @@ extension EvaluateView: DropdownMenuDelegate {
     }
     
     func setDropDownSemesterMenus(semesterOptions: [String]) {
-        semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
+        semesterDropdownMenu = CustomDropdownMenuSearch(options: semesterOptions, parentButton: semesterButton)
         semesterDropdownMenu?.delegate = self
     }
     
     func setDropDownProfessorMenu(profeserOptions: [String]) {
-        professorDropdownMenu = CustomDropdownMenu(options: profeserOptions, parentButton: professorButton)
+        professorDropdownMenu = CustomDropdownMenuSearch(options: profeserOptions, parentButton: professorButton)
         professorDropdownMenu?.delegate = self
     }
     
     func setDropDownLectureMenu(lectureOptions: [String]) {
-        lectureDropdownMenu = CustomDropdownMenu(options: lectureOptions, parentButton: lectureButton)
+        lectureDropdownMenu = CustomDropdownMenuSearch(options: lectureOptions, parentButton: lectureButton)
         lectureDropdownMenu?.delegate = self
     }
     
@@ -484,6 +587,7 @@ extension EvaluateView: DropdownMenuDelegate {
                     make.top.equalTo(semesterButton.snp.bottom).offset(8)
                     make.leading.trailing.equalTo(semesterButton)
                 }
+                menu.showDropdown()
             } else {
                 menu.removeFromSuperview()
             }
@@ -503,6 +607,7 @@ extension EvaluateView: DropdownMenuDelegate {
                     make.top.equalTo(professorButton.snp.bottom).offset(8)
                     make.leading.trailing.equalTo(professorButton)
                 }
+                menu.showDropdown()
             } else {
                 menu.removeFromSuperview()
             }
@@ -522,6 +627,7 @@ extension EvaluateView: DropdownMenuDelegate {
                     make.top.equalTo(lectureButton.snp.bottom).offset(8)
                     make.leading.trailing.equalTo(professorButton)
                 }
+                menu.showDropdown()
             } else {
                 menu.removeFromSuperview()
             }
