@@ -1,8 +1,8 @@
 //
-//  SignUpView.swift
+//  EditProfileView.swift
 //  SKHUAZ
 //
-//  Created by 문인호 on 2023/09/01.
+//  Created by 문인호 on 2023/09/19.
 //
 
 import UIKit
@@ -10,109 +10,80 @@ import UIKit
 import SnapKit
 import Then
 
-protocol SignUpViewDelegate: AnyObject {
-    func nicknameCheckButtonTapped()
-    func emailCheckButtonTapped()
-    func signUpButtonTapped()
-    
-}
+class EditProfileView: UIView, DropdownMenuDelegate{
 
-enum SignUpViewType {
-    case mainSubType
-    case nonSelectType
-    case doubleType
-}
-final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
+    // MARK: - Delegate Property
 
-        func sendData(mydata: String, groupId: Int) {
-            if groupId == 1 {
-                firstValue = mydata
-                print("first value =\(firstValue)")
-            }
-            else {
-                secondValue = mydata
-                print("second value =\(secondValue)")
-            }
-        }
+    private var semesterDropdownMenu: CustomDropdownMenuView?
+    private var mainMajorDropdownMenu: CustomDropdownMenuView?
+    private var subMajorDropdownMenu: CustomDropdownMenuView?
 
-        // MARK: - Delegate Property
-    
-        private var semesterDropdownMenu: CustomDropdownMenuView?
-        private var mainMajorDropdownMenu: CustomDropdownMenuView?
-        private var subMajorDropdownMenu: CustomDropdownMenuView?
+    // MARK: - UI Components
 
+    private let profileImage = UIImageView()
+    private let nameTextField = UITextField()
+    private let nicknameTextField = UITextField()
+    private let nicknameCheckButton = UIButton()
+    private let semesterLabel = UILabel()
+    private var semesterButton = UIButton(type: .system)
+    private let graduateLabel = UILabel()
+    private let graduateRadioButton = RadioButtonsStack(groupId: 1)
+    private let majorLabel = UILabel()
+    private let majorRadioButton = RadioButtonsStack(groupId: 2)
+    private var mainMajorButton = UIButton(type: .system)
+    private var subMajorButton = UIButton(type: .system)
+    private let saveButton = UIButton()
 
-        weak var delegate: SendStringData?
+    // MARK: - Getter
 
-        var firstValue: String?
-        var secondValue: String?
-        
-        // MARK: - UI Components
-
-        private let mainImage = UIImageView()
-        private let nameTextField = UITextField()
-        private let nicknameTextField = UITextField()
-        private let nicknameCheckButton = UIButton()
-        private let emailTextField = UITextField()
-        private let emailCheckButton = UIButton()
-        private let pwTextField = UITextField()
-        private let pwReTextField = UITextField()
-        private let semesterLabel = UILabel()
-        private var semesterButton = UIButton(type: .system)
-        private let graduateLabel = UILabel()
-        private let graduateRadioButton = RadioButtonsStack(groupId: 1)
-        private let majorLabel = UILabel()
-        private let majorRadioButton = RadioButtonsStack(groupId: 2)
-        private var mainMajorButton = UIButton(type: .system)
-        private var subMajorButton = UIButton(type: .system)
-        private let signUpButton = UIButton()
-
-        // MARK: - Getter
-    
-            var semesterButtonTitle: String? {
-                return semesterButton.titleLabel?.text
-        }
-            var mainMajorButtonTitle: String? {
-                return mainMajorButton.titleLabel?.text
-        }
-            var subMajorButtonTitle: String? {
-                return subMajorButton.titleLabel?.text
-        }
-    
-        // MARK: - Properties
-
-        private var semesterButtonClosure: (() -> Void)?
-        private var mainMajorButtonClosure: (() -> Void)?
-        private var subMajorButtonClosure: (() -> Void)?
-        var signUpButtonHandler: (() -> Void)?
-        var forgotButtonnHandler: (() -> Void)?
-        var logInButtonnHandler: (() -> Void)?
-
-        // MARK: - Initializer
-
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setUI()
-            setLayout()
-            setupDropdownMenus()
-            addTarget()
-        }
-
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+        var semesterButtonTitle: String? {
+            return semesterButton.titleLabel?.text
+    }
+        var mainMajorButtonTitle: String? {
+            return mainMajorButton.titleLabel?.text
+    }
+        var subMajorButtonTitle: String? {
+            return subMajorButton.titleLabel?.text
     }
 
-extension SignUpView {
+    // MARK: - Properties
+
+    private var semesterButtonClosure: (() -> Void)?
+    private var mainMajorButtonClosure: (() -> Void)?
+    private var subMajorButtonClosure: (() -> Void)?
+    var signUpButtonHandler: (() -> Void)?
+    var forgotButtonnHandler: (() -> Void)?
+    var logInButtonnHandler: (() -> Void)?
+
+    // MARK: - Initializer
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+        setLayout()
+        setupDropdownMenus()
+        addTarget()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension EditProfileView {
     
     // MARK: - UI Components Property
     
     private func setUI() {
         self.backgroundColor = .white
         
-        mainImage.do {
-            $0.contentMode = .scaleAspectFit
+        profileImage.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.contentMode = .scaleAspectFill
+            $0.frame = CGRect(x: 0, y: 0, width: 162, height: 162)
             $0.image = Image.Logo1
+            $0.clipsToBounds = true
+            $0.layer.cornerRadius = 100
         }
         
         nameTextField.do {
@@ -157,66 +128,6 @@ extension SignUpView {
             $0.addTarget(self,
                          action: #selector(pushSecondViewController),
                          for: .touchUpInside)
-        }
-        
-        emailTextField.do {
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 14), // 원하는 폰트 크기로 설정
-                .foregroundColor: UIColor.appColor(.placeHolderColor) // 원하는 폰트 색상 설정
-            ]
-            $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력해주세요 * ", attributes: attributes)
-            $0.font = .systemFont(ofSize:14)
-            $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
-            $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
-            $0.clearButtonMode = .whileEditing
-            $0.layer.borderWidth = 1
-            $0.layer.cornerRadius = 5
-            $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
-            $0.leftViewMode = .always
-        }
-        
-        emailCheckButton.do {
-            $0.setTitle("중복확인", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 14)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.cornerRadius = 6
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.black.cgColor
-            $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
-                         for: .touchUpInside)
-        }
-        
-        pwTextField.do {
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 14), // 원하는 폰트 크기로 설정
-                .foregroundColor: UIColor.appColor(.placeHolderColor) // 원하는 폰트 색상 설정
-            ]
-            $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요 * ", attributes: attributes)
-            $0.font = .systemFont(ofSize:14)
-            $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
-            $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
-            $0.clearButtonMode = .whileEditing
-            $0.layer.borderWidth = 1
-            $0.layer.cornerRadius = 5
-            $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
-            $0.leftViewMode = .always
-        }
-        
-        pwReTextField.do {
-            let attributes: [NSAttributedString.Key: Any] = [
-                .font: UIFont.systemFont(ofSize: 14), // 원하는 폰트 크기로 설정
-                .foregroundColor: UIColor.appColor(.placeHolderColor) // 원하는 폰트 색상 설정
-            ]
-            $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 한번 더 입력해주세요 * ", attributes: attributes)
-            $0.font = .systemFont(ofSize:14)
-            $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
-            $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
-            $0.clearButtonMode = .whileEditing
-            $0.layer.borderWidth = 1
-            $0.layer.cornerRadius = 5
-            $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
-            $0.leftViewMode = .always
         }
         
         semesterLabel.do {
@@ -276,8 +187,8 @@ extension SignUpView {
             $0.setTitleColor(UIColor(hex: "#737373"), for: .normal)
             $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         }
-        signUpButton.do {
-            $0.setTitle("회원가입", for: .normal)
+        saveButton.do {
+            $0.setTitle("저장", for: .normal)
             $0.layer.backgroundColor = UIColor.black.cgColor
             $0.titleLabel?.font = .systemFont(ofSize: 15)
             $0.layer.cornerRadius = 6
@@ -294,18 +205,15 @@ extension SignUpView {
     
     private func setLayout() {
         
-        addSubviews(mainImage, nameTextField, nicknameTextField, nicknameCheckButton, emailTextField, emailCheckButton,pwTextField,
-                    pwReTextField, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, mainMajorButton, subMajorButton, signUpButton)
+        addSubviews(profileImage, nameTextField, nicknameTextField, nicknameCheckButton, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, mainMajorButton, subMajorButton, saveButton)
         
-        mainImage.snp.makeConstraints {
+        profileImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(45)
-            $0.width.equalTo(234)
-            $0.height.equalTo(60)
             $0.centerX.equalToSuperview()
         }
         
         nameTextField.snp.makeConstraints {
-            $0.top.equalTo(mainImage.snp.bottom).offset(25)
+            $0.top.equalTo(profileImage.snp.bottom).offset(25)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
             $0.leading.equalToSuperview().inset(28)
@@ -325,37 +233,9 @@ extension SignUpView {
             $0.width.equalTo(113)
             $0.height.equalTo(50)
         }
-        
-        emailTextField.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField.snp.bottom).offset(32)
-            $0.leading.equalToSuperview().inset(28)
-            $0.height.equalTo(50)
-        }
-        
-        emailCheckButton.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField.snp.bottom).offset(32)
-            $0.leading.equalTo(emailTextField.snp.trailing).offset(9)
-            $0.trailing.equalToSuperview().inset(29)
-            $0.width.equalTo(113)
-            $0.height.equalTo(50)
-        }
-        
-        pwTextField.snp.makeConstraints {
-            $0.top.equalTo(emailTextField.snp.bottom).offset(13)
-            $0.leading.equalToSuperview().inset(28)
-            $0.trailing.equalToSuperview().inset(29)
-            $0.height.equalTo(50)
-        }
-        
-        pwReTextField.snp.makeConstraints {
-            $0.top.equalTo(pwTextField.snp.bottom).offset(13)
-            $0.leading.equalToSuperview().inset(28)
-            $0.trailing.equalToSuperview().inset(29)
-            $0.height.equalTo(50)
-        }
-        
+
         semesterLabel.snp.makeConstraints {
-            $0.top.equalTo(pwReTextField.snp.bottom).offset(48)
+            $0.top.equalTo(nicknameTextField.snp.bottom).offset(48)
             $0.leading.equalToSuperview().offset(28)
             $0.height.equalTo(17)
         }
@@ -410,7 +290,7 @@ extension SignUpView {
             $0.height.equalTo(50)
         }
         
-        signUpButton.snp.makeConstraints {
+        saveButton.snp.makeConstraints {
             $0.top.equalTo(subMajorButton.snp.bottom).offset(32)
             $0.leading.equalToSuperview().inset(28)
             $0.trailing.equalToSuperview().inset(29)
@@ -447,16 +327,15 @@ extension SignUpView {
         subMajorButton.addTarget(self, action: #selector(subMajorButtonTapped), for: .touchUpInside)
     }
     
-        func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
-            print("Selected Option for button:", option)
-        }
+    func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
+        print("Selected Option for button is:", option)
+    }
     
     // MARK: - @objc Methods
     
     @objc
     func pushSecondViewController() {
-        print("\(firstValue)")
-        print("\(secondValue)")
+        
     }
     
     @objc func testprint() {
@@ -473,7 +352,7 @@ extension SignUpView {
                 addSubviews(menu)
                 
                 menu.snp.makeConstraints { make in
-                    make.bottom.equalTo(semesterButton.snp.top).offset(8)
+                    make.top.equalTo(semesterButton.snp.bottom).offset(8)
                     make.leading.trailing.equalTo(semesterButton)
                 }
             } else {
@@ -491,7 +370,7 @@ extension SignUpView {
                 addSubviews(menu)
                 
                 menu.snp.makeConstraints { make in
-                    make.bottom.equalTo(mainMajorButton.snp.top).offset(8)
+                    make.top.equalTo(mainMajorButton.snp.bottom).offset(8)
                     make.leading.trailing.equalTo(mainMajorButton)
                 }
             } else {
@@ -509,7 +388,7 @@ extension SignUpView {
                 addSubviews(menu)
                 
                 menu.snp.makeConstraints { make in
-                    make.bottom.equalTo(subMajorButton.snp.top).offset(8)
+                    make.top.equalTo(subMajorButton.snp.bottom).offset(8)
                     make.leading.trailing.equalTo(subMajorButton)
                 }
             } else {
@@ -518,8 +397,5 @@ extension SignUpView {
         }
         semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         mainMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-    }
-    @objc
-    func presentToEmailAuthBottomSheetViewController() {
     }
 }

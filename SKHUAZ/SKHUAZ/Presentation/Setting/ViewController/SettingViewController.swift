@@ -8,12 +8,6 @@
 import UIKit
 
 final class SettingViewController: UIViewController, SettingViewDelegate {
-    func editProfileButtonTapped() {
-        let secondViewController = EditProfileViewController()
-        secondViewController.modalPresentationStyle = .fullScreen
-        self.present(secondViewController, animated: true)
-    }
-    
     
     // MARK: - UI Components
     
@@ -40,6 +34,12 @@ extension SettingViewController {
     // MARK: - Layout Helper
     
     // MARK: - Methods
+    
+    func editProfileButtonTapped() {
+        let secondViewController = EditProfileViewController()
+        secondViewController.modalPresentationStyle = .fullScreen
+        self.present(secondViewController, animated: true)
+    }
     
     // MARK: - @objc Methods
 }

@@ -40,9 +40,9 @@ class EvaluateView: UIView {
     
     // MARK: - Delegate Property
     
-    private var semesterDropdownMenu: CustomDropdownMenu?
-    private var professorDropdownMenu: CustomDropdownMenu?
-    private var lectureDropdownMenu: CustomDropdownMenu?
+    private var semesterDropdownMenu: CustomDropdownMenuView?
+    private var professorDropdownMenu: CustomDropdownMenuView?
+    private var lectureDropdownMenu: CustomDropdownMenuView?
     
     // MARK: - UI Components
     
@@ -398,15 +398,15 @@ extension EvaluateView: DropdownMenuDelegate {
     
     private func setupDropdownMenus() {
         let semesterOptions = ["2023-2", "2023-1", "2022-2", "2022-1"]
-        semesterDropdownMenu = CustomDropdownMenu(options: semesterOptions, parentButton: semesterButton)
+        semesterDropdownMenu = CustomDropdownMenuView(options: semesterOptions, parentButton: semesterButton)
         semesterDropdownMenu?.delegate = self
         
         let propeserOptions = ["Professor A", "Professor B", "Professor C"]
-        professorDropdownMenu = CustomDropdownMenu(options: propeserOptions, parentButton: professorButton)
+        professorDropdownMenu = CustomDropdownMenuView(options: propeserOptions, parentButton: professorButton)
         professorDropdownMenu?.delegate = self
         
         let lectureOptions = ["Lecture A", "Lecture B", "Lecture C"]
-        lectureDropdownMenu = CustomDropdownMenu(options: lectureOptions, parentButton: lectureButton)
+        lectureDropdownMenu = CustomDropdownMenuView(options: lectureOptions, parentButton: lectureButton)
         lectureDropdownMenu?.delegate = self
     }
     

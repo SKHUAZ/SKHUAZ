@@ -7,9 +7,11 @@
 
 import UIKit
 
+import SnapKit
+import Then
+
 protocol SettingViewDelegate: AnyObject {
     func editProfileButtonTapped()
-    // 다른 버튼 액션을 추가할 수 있습니다.
 }
 
 class SettingView: UIView {
@@ -59,22 +61,6 @@ extension SettingView {
             $0.layer.borderWidth = 2
             $0.layer.borderColor = UIColor.black.cgColor
         }
-        setAlarmButton.do {
-            $0.setTitle("알림설정", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 14)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.cornerRadius = 5
-            $0.layer.borderWidth = 2
-            $0.layer.borderColor = UIColor.black.cgColor
-        }
-        setModeButton.do {
-            $0.setTitle("모드설정", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 15)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.cornerRadius = 5
-            $0.layer.borderWidth = 2
-            $0.layer.borderColor = UIColor.black.cgColor
-        }
         ruleButton.do {
             $0.setTitle("이용규칙", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
@@ -84,7 +70,7 @@ extension SettingView {
             $0.layer.borderColor = UIColor.black.cgColor
         }
         signOutButton.do {
-            $0.setTitle("회원탈퇴", for: .normal)
+            $0.setTitle("로그아웃", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.cornerRadius = 5
@@ -102,7 +88,7 @@ extension SettingView {
 
     private func setLayout() {
         
-        addSubviews(mainImage, editProfileButton, setAlarmButton, setModeButton, ruleButton, signOutButton, rightLabel)
+        addSubviews(mainImage, editProfileButton, ruleButton, signOutButton, rightLabel)
         
         mainImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(45)
@@ -115,37 +101,25 @@ extension SettingView {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
-            $0.bottom.equalTo(setAlarmButton.snp.top).offset(-32)
+            $0.bottom.equalTo(ruleButton.snp.top).offset(-40)
         }
-        setAlarmButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(27)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(setModeButton.snp.top).offset(-32)
-            $0.height.equalTo(53)
-        }
-        setModeButton.snp.makeConstraints {
+        ruleButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
         }
-        ruleButton.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(27)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(53)
-            $0.top.equalTo(setModeButton.snp.bottom).offset(32)
-        }
         signOutButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
-            $0.top.equalTo(ruleButton.snp.bottom).offset(32)
+            $0.top.equalTo(ruleButton.snp.bottom).offset(40)
         }
         rightLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
-            $0.top.equalTo(signOutButton.snp.bottom).offset(32)
+            $0.top.equalTo(signOutButton.snp.bottom).offset(40)
         }
     }
     
@@ -155,21 +129,10 @@ extension SettingView {
         
         editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
     }
-//    func presentToEditProfileViewController() {
-//
-//            let secondViewController = EditProfileViewController()
-//            secondViewController.modalPresentationStyle = .fullScreen
-//            self.present(secondViewController, animated: true)
-//            }
-//    
+
     // MARK: - @objc Methods
     
     @objc func editProfileButtonTapped() {
         delegate?.editProfileButtonTapped()
-    }
-
-    @objc
-    func pushSecondViewController() {
-
     }
 }

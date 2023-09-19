@@ -7,10 +7,33 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController {
+final class EditProfileViewController: UIViewController {
+    
+    // MARK: - UI Components
+    
+    private let rootView = EditProfileView()
+
+    // MARK: - Properties
+        
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+//        rootView.delegate = self
     }
+    
+    override func loadView() {
+        self.view = rootView
+    }
+}
+
+extension SettingViewController {
+    
+    // MARK: - UI Components Property
+    
+    // MARK: - Layout Helper
+    
+    // MARK: - Methods
+
+    // MARK: - @objc Methods
 }
