@@ -22,27 +22,25 @@ enum SignUpViewType {
     case nonSelectType
     case doubleType
 }
+
 final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
 
-        func sendData(mydata: String, groupId: Int) {
-            if groupId == 1 {
+    func sendData(mydata: String, groupId: Int) {
+        if groupId == 1{
                 firstValue = mydata
-                print("first value =\(firstValue)")
+                print("first value =\(firstValue!)")
             }
             else {
                 secondValue = mydata
-                print("second value =\(secondValue)")
+                print("second value =\(secondValue!)")
             }
         }
-
         // MARK: - Delegate Property
     
         private var semesterDropdownMenu: CustomDropdownMenuView?
         private var mainMajorDropdownMenu: CustomDropdownMenuView?
         private var subMajorDropdownMenu: CustomDropdownMenuView?
 
-
-        weak var delegate: SendStringData?
 
         var firstValue: String?
         var secondValue: String?
@@ -96,6 +94,8 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
             setLayout()
             setupDropdownMenus()
             addTarget()
+            graduateRadioButton.delegate = self
+            majorRadioButton.delegate = self
         }
 
         required init?(coder: NSCoder) {
@@ -305,7 +305,7 @@ extension SignUpView {
         }
         
         nameTextField.snp.makeConstraints {
-            $0.top.equalTo(mainImage.snp.bottom).offset(25)
+            $0.top.equalTo(mainImage.snp.bottom).offset(23)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
             $0.leading.equalToSuperview().inset(28)
@@ -341,7 +341,7 @@ extension SignUpView {
         }
         
         pwTextField.snp.makeConstraints {
-            $0.top.equalTo(emailTextField.snp.bottom).offset(13)
+            $0.top.equalTo(emailTextField.snp.bottom).offset(23 )
             $0.leading.equalToSuperview().inset(28)
             $0.trailing.equalToSuperview().inset(29)
             $0.height.equalTo(50)
