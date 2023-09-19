@@ -51,7 +51,7 @@ extension EvaluateTableViewCell {
         }
         
         topSpace.do {
-            $0.backgroundColor = UIColor(hex: "#ED7A7A")
+            $0.backgroundColor = UIColor(hex: "#9AC1D1")
             $0.layer.cornerRadius = 6
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
@@ -78,7 +78,7 @@ extension EvaluateTableViewCell {
         
         evaluateTitle.do {
             $0.font = .systemFont(ofSize: 8)
-            $0.textColor = .white
+            $0.textColor = UIColor(hex: "#FFFFFF")
 //            $0.backgroundColor = UIColor(hex: "#9AC1D1")
         }
         

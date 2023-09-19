@@ -11,9 +11,9 @@ public enum Image {
     
     // MARK: - MainLogo
     
-    static let Logo1 = UIImage(named: "SKHUAZ*1")
+    static let Logo1 = UIImage(named: "SKHUAZ")
     static let Logo2 = UIImage(named: "SKHUAZ")
-    static let Logo3 = UIImage(named: "SKHUAZ*3")
+    static let Logo3 = UIImage(named: "SKHUAZ")
     
     static let createbutton = UIImage(named: "CreateButton")
     static let WritingOff = UIImage(named: "WritingOff")
@@ -33,6 +33,7 @@ public enum Image {
     static let recommend = UIImage(named: "recommend")!
     static let setting = UIImage(named: "setting")!
     
-    
-
+    static let leftButton = UIImage(named: "leftButton")
+    static let rightButton = UIImage(named: "rightButton")
+    static let openMenu = UIImage(named: "open")
 }

@@ -25,7 +25,7 @@ class TabBarController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
 }
 
@@ -39,7 +39,7 @@ extension TabBarController {
     
     private func setTabBarItems() {
         tabs = [
-            UIViewController(), // 선수과목
+            EssentialViewController(), // 선수과목
             EvaluateViewController(), // 강의평
             UIViewController(), // 홈
             RecommendViewController(), // 루트추천
@@ -59,6 +59,6 @@ extension TabBarController {
         tabBar.layer.shadowOpacity = 0.2
         tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
         tabBar.layer.shadowRadius = 0.7
-        tabBar.tintColor = UIColor(hex: "#ED7A7A")
+        tabBar.tintColor = UIColor(hex: "#9AC1D1")
     }
 }
