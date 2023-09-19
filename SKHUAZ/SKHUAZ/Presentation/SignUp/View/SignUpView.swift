@@ -16,7 +16,7 @@ enum MajorType {
     case doubleMajor
 }
 
-final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
+final class SignUpView: UIView, SendStringData, DropdownMenuSearchDelegate {
 
         func sendData(mydata: String, groupId: Int) {
             if groupId == 1 {

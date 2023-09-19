@@ -10,13 +10,13 @@ import UIKit
 import Then
 import SnapKit
 
-protocol DropdownMenuDelegate: AnyObject {
+protocol DropdownMenuSearchDelegate: AnyObject {
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton)
 }
 
 class CustomDropdownMenuSearch: UIView, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
-    weak var delegate: DropdownMenuDelegate?
+    weak var delegate: DropdownMenuSearchDelegate?
 
     private var options: [String] = []
     private var filteredOptions: [String] = [] // 검색된 옵션을 저장할 배열
@@ -29,24 +29,31 @@ class CustomDropdownMenuSearch: UIView, UITableViewDataSource, UITableViewDelega
         super.init(frame: .zero)
         self.options = options
         self.parentButton = parentButton
-        setupUI()
+        setUI()
+        setLayout()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func setupUI() {
-        // 검색 바 설정
-        searchBar.delegate = self
-        searchBar.placeholder = "검색"
-        addSubview(searchBar)
-
-        // 테이블 뷰 설정
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        addSubview(tableView)
+    private func setUI() {
+        
+        searchBar.do {
+            $0.delegate = self
+            $0.placeholder = "검색"
+        }
+        
+        tableView.do {
+            $0.dataSource = self
+            $0.delegate = self
+            $0.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+            $0.showsVerticalScrollIndicator = false
+        }
+    }
+    
+    private func setLayout() {
+        addSubviews(searchBar, tableView)
 
         searchBar.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()

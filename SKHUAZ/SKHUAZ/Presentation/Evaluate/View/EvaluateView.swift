@@ -120,7 +120,7 @@ class EvaluateView: UIView {
     }
 }
 
-extension EvaluateView: DropdownMenuDelegate {
+extension EvaluateView: DropdownMenuSearchDelegate {
     
     // MARK: - UI Components Property
     
