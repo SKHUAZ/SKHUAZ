@@ -14,7 +14,6 @@ protocol SignUpViewDelegate: AnyObject {
     func nicknameCheckButtonTapped()
     func emailCheckButtonTapped()
     func signUpButtonTapped()
-    
 }
 
 enum SignUpViewType {
@@ -36,7 +35,8 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
             }
         }
         // MARK: - Delegate Property
-    
+        
+    weak var delegate : SignUpViewDelegate?
         private var semesterDropdownMenu: CustomDropdownMenuView?
         private var mainMajorDropdownMenu: CustomDropdownMenuView?
         private var subMajorDropdownMenu: CustomDropdownMenuView?
@@ -66,7 +66,15 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private let signUpButton = UIButton()
 
         // MARK: - Getter
-    
+        var nameTextFieldText: String? {
+            return nameTextField.text
+        }
+        var nicknameTextFieldText: String? {
+            return nicknameTextField.text
+        }
+        var emailTextFieldText: String? {
+            return emailTextField.text
+        }
             var semesterButtonTitle: String? {
                 return semesterButton.titleLabel?.text
         }
@@ -154,9 +162,6 @@ extension SignUpView {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.black.cgColor
-            $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
-                         for: .touchUpInside)
         }
         
         emailTextField.do {
@@ -182,9 +187,6 @@ extension SignUpView {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.black.cgColor
-            $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
-                         for: .touchUpInside)
         }
         
         pwTextField.do {
@@ -284,9 +286,6 @@ extension SignUpView {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.black.cgColor
             $0.setTitleColor(.white, for: .normal)
-            $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
-                         for: .touchUpInside)
         }
     }
     
@@ -442,9 +441,12 @@ extension SignUpView {
     
     private func addTarget() {
         
+        nicknameCheckButton.addTarget(self, action: #selector(nicknameCheckButtonTapped), for: .touchUpInside)
+        emailCheckButton.addTarget(self, action: #selector(emailCheckButtonTapped), for: .touchUpInside)
         semesterButton.addTarget(self, action: #selector(semesterButtonTapped), for: .touchUpInside)
         mainMajorButton.addTarget(self, action: #selector(mainMajorButtonTapped), for: .touchUpInside)
         subMajorButton.addTarget(self, action: #selector(subMajorButtonTapped), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
     
         func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
@@ -452,7 +454,18 @@ extension SignUpView {
         }
     
     // MARK: - @objc Methods
-    
+    @objc
+    func nicknameCheckButtonTapped() {
+        self.delegate?.nicknameCheckButtonTapped()
+    }
+    @objc
+    func emailCheckButtonTapped() {
+        self.delegate?.emailCheckButtonTapped()
+    }
+    @objc
+    func signUpButtonTapped() {
+        self.delegate?.signUpButtonTapped()
+    }
     @objc
     func pushSecondViewController() {
         print("\(firstValue)")
@@ -518,8 +531,5 @@ extension SignUpView {
         }
         semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         mainMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-    }
-    @objc
-    func presentToEmailAuthBottomSheetViewController() {
     }
 }

@@ -68,6 +68,7 @@
 		E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */; };
 		E3EC5D0F2AB96AB700325E7D /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D0E2AB96AB700325E7D /* EditProfileView.swift */; };
 		E3EC5D132AB996D700325E7D /* CustomDropDownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D122AB996D700325E7D /* CustomDropDownMenuView.swift */; };
+		E3EC5D152ABAE23300325E7D /* CreateEmailAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D142ABAE23300325E7D /* CreateEmailAuthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +133,7 @@
 		E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		E3EC5D0E2AB96AB700325E7D /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		E3EC5D122AB996D700325E7D /* CustomDropDownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownMenuView.swift; sourceTree = "<group>"; };
+		E3EC5D142ABAE23300325E7D /* CreateEmailAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmailAuthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -488,6 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E83D512AA20B110047C079 /* SignUpViewController.swift */,
+				E3EC5D142ABAE23300325E7D /* CreateEmailAuthViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -653,6 +656,7 @@
 				E3EC5D132AB996D700325E7D /* CustomDropDownMenuView.swift in Sources */,
 				E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */,
 				2539B9772A8CA61300E939AA /* BaseView.swift in Sources */,
+				E3EC5D152ABAE23300325E7D /* CreateEmailAuthViewController.swift in Sources */,
 				E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */,
 				2539B96B2A8CA5AC00E939AA /* APIService.swift in Sources */,
 				25FA1D8F2AA821B40044B38F /* EvaluateView.swift in Sources */,
