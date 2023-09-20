@@ -53,13 +53,13 @@ class CircleGraphView: UIView {
    private func colorForIndex(_ index:Int) -> UIColor {
        switch index {
        case 0:
-           return UIColor(hex: "#EFEFEF")
+           return UIColor(hex: "#0C276A")
        case 1:
-           return UIColor(hex: "#FFB6B6")
+           return UIColor(hex: "#4678C6")
        case 2:
-           return UIColor(hex: "#FFE2E2")
+           return UIColor(hex: "#DAE1E9")
        case 3:
-           return UIColor(hex: "#E98383")
+           return UIColor(hex: "#ACC3E5")
        default:
            return .clear
       }

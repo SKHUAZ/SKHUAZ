@@ -1,8 +1,8 @@
 //
-//  CreateEvaluateBottomSheetViewController.swift
+//  EssentialBottomSheetViewController.swift
 //  SKHUAZ
 //
-//  Created by 천성우 on 2023/09/07.
+//  Created by 천성우 on 2023/09/14.
 //
 
 import UIKit
@@ -10,11 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-protocol CreateEvaluateBottomSheetViewControllerDelegate: AnyObject {
-    func didTapSaveButton(completion: @escaping () -> Void)
-}
-
-final class CreateEvaluateBottomSheetViewController: UIViewController {
+final class EssentialBottomSheetViewController: UIViewController {
     
     // MARK: - UI Components
     
@@ -39,7 +35,7 @@ final class CreateEvaluateBottomSheetViewController: UIViewController {
     }
 }
 
-extension CreateEvaluateBottomSheetViewController {
+extension EssentialBottomSheetViewController {
     
     // MARK: - UI Components Property
     
@@ -56,7 +52,7 @@ extension CreateEvaluateBottomSheetViewController {
         }
         
         titleLabel.do {
-            $0.text = "저장하시겠습니까?"
+            $0.text = "{학기} 선택을 마치고\n{다음학기}로 넘어가시겠습니까?"
             $0.textColor = UIColor(hex: "#000000")
             $0.numberOfLines = 2
             $0.font = .systemFont(ofSize: 15)
@@ -91,7 +87,8 @@ extension CreateEvaluateBottomSheetViewController {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(107)
-            $0.leading.trailing.equalToSuperview().inset(137)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(203)
         }
         
         cancelButton.snp.makeConstraints {
@@ -126,15 +123,5 @@ extension CreateEvaluateBottomSheetViewController {
     @objc
     private func saveEvaluate() {
         print("저장버튼이 눌렸습니다")
-        self.dismiss(animated: false) { [weak self] in
-            self?.delegate?.didTapSaveButton() {
-                let customAlertVC = AlertViewController(alertType: .mainEvaluate)
-                customAlertVC.modalPresentationStyle = .overFullScreen
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let mainWindow = windowScene.windows.first {
-                    mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
-                }
-            }
-        }
     }
 }

@@ -16,8 +16,25 @@ enum EvaluateViewType {
     case detailEvalute
 }
 
-
 class EvaluateView: UIView {
+    
+    // MARK: - UI Components
+    
+    private let guideWrite = UILabel()
+    private var semesterButton = UIButton(type: .system)
+    private var professorButton = UIButton(type: .system)
+    private var lectureButton = UIButton(type: .system)
+    private let titleTextField = UITextField()
+    private let evaluateView = UITextView()
+    private let guidePoint = UILabel()
+    private let firstLabel = UILabel()
+    private let secondLabel = UILabel()
+    private let thirdLabel = UILabel()
+    private let fourthLabel = UILabel()
+    private let firstSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let secondSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let thirdSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private let fourthSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
     
     // MARK: - Properties
     
@@ -38,29 +55,14 @@ class EvaluateView: UIView {
     private var thirdSliderClosure: (() -> Void)?
     private var fourthSliderClosure: (() -> Void)?
     
+    private var filteredLectureOptions: [String] = []
+    private var lectureOption: [String] = []
+    
     // MARK: - Delegate Property
     
-    private var semesterDropdownMenu: CustomDropdownMenuView?
-    private var professorDropdownMenu: CustomDropdownMenuView?
-    private var lectureDropdownMenu: CustomDropdownMenuView?
-    
-    // MARK: - UI Components
-    
-    private let guideWrite = UILabel()
-    private var semesterButton = UIButton(type: .system)
-    private var professorButton = UIButton(type: .system)
-    private var lectureButton = UIButton(type: .system)
-    private let titleTextField = UITextField()
-    private let evaluateView = UITextView()
-    private let guidePoint = UILabel()
-    private let firstLabel = UILabel()
-    private let secondLabel = UILabel()
-    private let thirdLabel = UILabel()
-    private let fourthLabel = UILabel()
-    private let firstSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let secondSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let thirdSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
-    private let fourthSlider = CustomSlider(frame: CGRect(x: 0, y: 0, width: 229, height: 30))
+    private var semesterDropdownMenu: CustomDropdownMenuSearch?
+    private var professorDropdownMenu: CustomDropdownMenuSearch?
+    private var lectureDropdownMenu: CustomDropdownMenuSearch?
     
     // MARK: - Getter
     
@@ -109,8 +111,8 @@ class EvaluateView: UIView {
         setUI()
         setLayout()
         setDelegate()
-        setupDropdownMenus()
         addTarget()
+        print("UIView")
     }
     
     required init?(coder: NSCoder) {
@@ -118,7 +120,7 @@ class EvaluateView: UIView {
     }
 }
 
-extension EvaluateView: DropdownMenuDelegate {
+extension EvaluateView: DropdownMenuSearchDelegate {
     
     // MARK: - UI Components Property
     
@@ -126,7 +128,6 @@ extension EvaluateView: DropdownMenuDelegate {
         
         switch evaluateType {
         case .createEvalute:
-            
             
             guideWrite.do {
                 $0.text = "강의 평가 작성"
@@ -156,7 +157,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
                 $0.contentHorizontalAlignment = .left
-                $0.setTitleWithLeftPadding("학기를 선택해주세요", for: .normal, leftPadding: 13)
+                $0.setTitleWithLeftPadding("강의를 선택해주세요", for: .normal, leftPadding: 13)
                 $0.setTitleColor(UIColor(hex: "#737373"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
             }
@@ -202,6 +203,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.contentHorizontalAlignment = .left
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                $0.isEnabled = false
             }
             
             professorButton.do {
@@ -210,6 +212,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.contentHorizontalAlignment = .left
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                $0.isEnabled = false
             }
             
             lectureButton.do {
@@ -218,6 +221,7 @@ extension EvaluateView: DropdownMenuDelegate {
                 $0.contentHorizontalAlignment = .left
                 $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
                 $0.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+                $0.isEnabled = false
             }
             
             
@@ -294,98 +298,199 @@ extension EvaluateView: DropdownMenuDelegate {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        addSubviews(guideWrite,
-                    semesterButton, professorButton, lectureButton,
-                    titleTextField, evaluateView, guidePoint,
-                    firstSlider, secondSlider, thirdSlider,
-                    fourthSlider, firstLabel, secondLabel,
-                    thirdLabel, fourthLabel)
-        guideWrite.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview().offset(19)
-        }
         
-        semesterButton.snp.makeConstraints {
-            $0.top.equalTo(guideWrite.snp.bottom).offset(7)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        professorButton.snp.makeConstraints {
-            $0.top.equalTo(semesterButton.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        lectureButton.snp.makeConstraints {
-            $0.top.equalTo(professorButton.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        titleTextField.snp.makeConstraints {
-            $0.top.equalTo(lectureButton.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(36)
-        }
-        
-        evaluateView.snp.makeConstraints {
-            $0.top.equalTo(titleTextField.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(19)
-            $0.height.equalTo(243)
-        }
-        
-        guidePoint.snp.makeConstraints {
-            $0.top.equalTo(evaluateView.snp.bottom).offset(19)
-            $0.leading.equalToSuperview().offset(19)
-        }
-        
-        firstSlider.snp.makeConstraints {
-            $0.centerY.equalTo(firstLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        secondSlider.snp.makeConstraints {
-            $0.centerY.equalTo(secondLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        thirdSlider.snp.makeConstraints {
-            $0.centerY.equalTo(thirdLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        fourthSlider.snp.makeConstraints {
-            $0.centerY.equalTo(fourthLabel)
-            $0.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(268)
-            $0.height.equalTo(16)
-        }
-        
-        firstLabel.snp.makeConstraints {
-            $0.top.equalTo(guidePoint.snp.bottom).offset(20)
-            $0.leading.equalToSuperview().offset(45)
-        }
-        
-        secondLabel.snp.makeConstraints {
-            $0.top.equalTo(firstLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(45)
-        }
-        
-        thirdLabel.snp.makeConstraints {
-            $0.top.equalTo(secondLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(45)
-        }
-        
-        fourthLabel.snp.makeConstraints {
-            $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
-            $0.leading.equalToSuperview().offset(45)
+        switch evaluateType {
+        case .createEvalute:
+            addSubviews(guideWrite,
+                        semesterButton, professorButton, lectureButton,
+                        titleTextField, evaluateView, guidePoint,
+                        firstSlider, secondSlider, thirdSlider,
+                        fourthSlider, firstLabel, secondLabel,
+                        thirdLabel, fourthLabel)
+            
+            guideWrite.snp.makeConstraints {
+                $0.top.equalToSuperview()
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            semesterButton.snp.makeConstraints {
+                $0.top.equalTo(guideWrite.snp.bottom).offset(20)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            lectureButton.snp.makeConstraints {
+                $0.top.equalTo(semesterButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            professorButton.snp.makeConstraints {
+                $0.top.equalTo(lectureButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            titleTextField.snp.makeConstraints {
+                $0.top.equalTo(professorButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            evaluateView.snp.makeConstraints {
+                $0.top.equalTo(titleTextField.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(243)
+            }
+            
+            guidePoint.snp.makeConstraints {
+                $0.top.equalTo(evaluateView.snp.bottom).offset(19)
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            firstSlider.snp.makeConstraints {
+                $0.centerY.equalTo(firstLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            secondSlider.snp.makeConstraints {
+                $0.centerY.equalTo(secondLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            thirdSlider.snp.makeConstraints {
+                $0.centerY.equalTo(thirdLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            fourthSlider.snp.makeConstraints {
+                $0.centerY.equalTo(fourthLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            firstLabel.snp.makeConstraints {
+                $0.top.equalTo(guidePoint.snp.bottom).offset(20)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            secondLabel.snp.makeConstraints {
+                $0.top.equalTo(firstLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            thirdLabel.snp.makeConstraints {
+                $0.top.equalTo(secondLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            fourthLabel.snp.makeConstraints {
+                $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+        case .detailEvalute:
+            addSubviews(guideWrite,
+                        semesterButton, professorButton, lectureButton,
+                        titleTextField, evaluateView, guidePoint,
+                        firstSlider, secondSlider, thirdSlider,
+                        fourthSlider, firstLabel, secondLabel,
+                        thirdLabel, fourthLabel)
+            
+            guideWrite.snp.makeConstraints {
+                $0.top.equalToSuperview()
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            semesterButton.snp.makeConstraints {
+                $0.top.equalTo(guideWrite.snp.bottom).offset(20)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            lectureButton.snp.makeConstraints {
+                $0.top.equalTo(semesterButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            professorButton.snp.makeConstraints {
+                $0.top.equalTo(lectureButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            titleTextField.snp.makeConstraints {
+                $0.top.equalTo(professorButton.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(36)
+            }
+            
+            evaluateView.snp.makeConstraints {
+                $0.top.equalTo(titleTextField.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview().inset(19)
+                $0.height.equalTo(243)
+            }
+            
+            guidePoint.snp.makeConstraints {
+                $0.top.equalTo(evaluateView.snp.bottom).offset(19)
+                $0.leading.equalToSuperview().offset(19)
+            }
+            
+            firstSlider.snp.makeConstraints {
+                $0.centerY.equalTo(firstLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            secondSlider.snp.makeConstraints {
+                $0.centerY.equalTo(secondLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            thirdSlider.snp.makeConstraints {
+                $0.centerY.equalTo(thirdLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            fourthSlider.snp.makeConstraints {
+                $0.centerY.equalTo(fourthLabel)
+                $0.trailing.equalToSuperview().inset(20)
+                $0.width.equalTo(268)
+                $0.height.equalTo(16)
+            }
+            
+            firstLabel.snp.makeConstraints {
+                $0.top.equalTo(guidePoint.snp.bottom).offset(20)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            secondLabel.snp.makeConstraints {
+                $0.top.equalTo(firstLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            thirdLabel.snp.makeConstraints {
+                $0.top.equalTo(secondLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
+            
+            fourthLabel.snp.makeConstraints {
+                $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().offset(45)
+            }
         }
     }
     
@@ -393,21 +498,6 @@ extension EvaluateView: DropdownMenuDelegate {
     
     private func setDelegate() {
         evaluateView.delegate = self
-        semesterButton.addTarget(self, action: #selector(testprint), for: .touchUpInside)
-    }
-    
-    private func setupDropdownMenus() {
-        let semesterOptions = ["2023-2", "2023-1", "2022-2", "2022-1"]
-        semesterDropdownMenu = CustomDropdownMenuView(options: semesterOptions, parentButton: semesterButton)
-        semesterDropdownMenu?.delegate = self
-        
-        let propeserOptions = ["Professor A", "Professor B", "Professor C"]
-        professorDropdownMenu = CustomDropdownMenuView(options: propeserOptions, parentButton: professorButton)
-        professorDropdownMenu?.delegate = self
-        
-        let lectureOptions = ["Lecture A", "Lecture B", "Lecture C"]
-        lectureDropdownMenu = CustomDropdownMenuView(options: lectureOptions, parentButton: lectureButton)
-        lectureDropdownMenu?.delegate = self
     }
     
     private func addTarget() {
@@ -415,8 +505,8 @@ extension EvaluateView: DropdownMenuDelegate {
         switch evaluateType {
         case .createEvalute:
             semesterButton.addTarget(self, action: #selector(semesterButtonTapped), for: .touchUpInside)
-            professorButton.addTarget(self, action: #selector(propeserButtonTapped), for: .touchUpInside)
-            lectureButton.addTarget(self, action: #selector(lectureButtonTapped), for: .touchUpInside)
+            lectureButton.addTarget(self, action: #selector(openAlertSemesterWarning), for: .touchUpInside)
+            professorButton.addTarget(self, action: #selector(openAlertLectureWarning), for: .touchUpInside)
             firstSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
             secondSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
             thirdSlider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
@@ -426,61 +516,39 @@ extension EvaluateView: DropdownMenuDelegate {
         }
     }
     
-    @objc private func semesterButtonTapped() {
-        if let menu = semesterDropdownMenu {
-            if menu.superview == nil {
-                addSubviews(menu)
-                
-                menu.snp.makeConstraints { make in
-                    make.top.equalTo(semesterButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(semesterButton)
-                }
-            } else {
-                menu.removeFromSuperview()
-            }
-        }
-        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        
+    func setDropDownSemesterMenus(semesterOptions: [String]) {
+        semesterDropdownMenu = CustomDropdownMenuSearch(options: semesterOptions, parentButton: semesterButton)
+        semesterDropdownMenu?.delegate = self
     }
     
-    @objc private func propeserButtonTapped() {
-        if let menu = professorDropdownMenu {
-            if menu.superview == nil {
-                addSubviews(menu)
-                
-                menu.snp.makeConstraints { make in
-                    make.top.equalTo(professorButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(professorButton)
-                }
-            } else {
-                menu.removeFromSuperview()
-            }
-        }
-        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        
+    func setDropDownProfessorMenu(profeserOptions: [String]) {
+        professorDropdownMenu = CustomDropdownMenuSearch(options: profeserOptions, parentButton: professorButton)
+        professorDropdownMenu?.delegate = self
     }
     
-    @objc private func lectureButtonTapped() {
-        if let menu = lectureDropdownMenu {
-            if menu.superview == nil {
-                addSubviews(menu)
-                
-                menu.snp.makeConstraints { make in
-                    make.top.equalTo(lectureButton.snp.bottom).offset(8)
-                    make.leading.trailing.equalTo(professorButton)
-                }
-            } else {
-                menu.removeFromSuperview()
-            }
-        }
-        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+    func setDropDownLectureMenu(lectureOptions: [String]) {
+        lectureDropdownMenu = CustomDropdownMenuSearch(options: lectureOptions, parentButton: lectureButton)
+        lectureDropdownMenu?.delegate = self
     }
+    
     
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
-        print("Selected Option for button:", option)
+        if button == semesterButton {
+            print("선택한 학기")
+            NotificationCenter.default.post(name: NSNotification.Name("SemesterTitleChanged"), object: self, userInfo: ["newTitle": option])
+            self.lectureButton.removeTarget(self, action: #selector(openAlertSemesterWarning), for: .touchUpInside)
+            self.lectureButton.addTarget(self, action: #selector(lectureButtonTapped), for: .touchUpInside)
+        }
+        else if button == lectureButton {
+            print("선택한 강의")
+            NotificationCenter.default.post(name: NSNotification.Name("LectureTitleChanged"), object: self, userInfo: ["newTitle": option])
+            self.professorButton.removeTarget(self, action: #selector(openAlertLectureWarning), for: .touchUpInside)
+            self.professorButton.addTarget(self, action: #selector(professorButtonTapped), for: .touchUpInside)
+        }
+        else if button == professorButton {
+            print("선택한 교수")
+            NotificationCenter.default.post(name: NSNotification.Name("ProfessorTitleChanged"), object: self, userInfo: ["newTitle": option])
+        }
     }
     
     func setDetailEvaluateView(semester: String, professor: String, lecture: String,
@@ -509,14 +577,82 @@ extension EvaluateView: DropdownMenuDelegate {
     
     // MARK: - @objc Methods
     
+    @objc
+    private func semesterButtonTapped() {
+        if let menu = semesterDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(semesterButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(semesterButton)
+                }
+                menu.showDropdown()
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        
+    }
+    
+    @objc
+    private func professorButtonTapped() {
+        if let menu = professorDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(professorButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(professorButton)
+                }
+                menu.showDropdown()
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        lectureDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        
+    }
+    
+    @objc
+    private func lectureButtonTapped() {
+        if let menu = lectureDropdownMenu {
+            if menu.superview == nil {
+                addSubviews(menu)
+                
+                menu.snp.makeConstraints { make in
+                    make.top.equalTo(lectureButton.snp.bottom).offset(8)
+                    make.leading.trailing.equalTo(professorButton)
+                }
+                menu.showDropdown()
+            } else {
+                menu.removeFromSuperview()
+            }
+        }
+        semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+        professorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+    }
+    
+    @objc
+    private func openAlertSemesterWarning() {
+        let customAlertVC = AlertViewController(alertType: .unSelectSemester)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+    }
+    
+    @objc
+    private func openAlertLectureWarning() {
+        let customAlertVC = AlertViewController(alertType: .unSelectLecture)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+    }
+        
     @objc func sliderValueChanged(_ sender: UISlider) {
         print("Slider value changed to \(sender.value)")
     }
-    
-    @objc func testprint() {
-        print("눌리네요~")
-    }
-    
 }
 
 extension EvaluateView: UITextViewDelegate {
@@ -542,3 +678,4 @@ extension EvaluateView: UITextViewDelegate {
         }
     }
 }
+

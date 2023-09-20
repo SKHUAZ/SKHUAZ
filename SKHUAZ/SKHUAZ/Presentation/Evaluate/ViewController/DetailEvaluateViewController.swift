@@ -29,9 +29,8 @@ class DetailEvaluateViewController: UIViewController {
         setLayout()
         self.hideKeyboardWhenTappedAround()
         addTarget()
-        if let evaluateView = detailEvaluateView as? EvaluateView {
-            evaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 60, secondPoint: 40, thirdPoint: 20, fourtPoint: 90)
-        }
+        detailEvaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 1, secondPoint: 3, thirdPoint: 4, fourtPoint: 5)
+
     }
 }
 
@@ -50,22 +49,22 @@ extension DetailEvaluateViewController {
         
         backButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#000000").cgColor
+            $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
             $0.layer.borderWidth = 1
             $0.backgroundColor = UIColor(hex: "#FFFFFF")
             $0.setTitle("목록", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+            $0.setTitleColor(UIColor(hex: "#9AC1D1"), for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
         
         saveButton.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#FFFFFF").cgColor
             $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#000000")
-            $0.setTitle("아마삭제", for: .normal)
+            $0.backgroundColor = UIColor(hex: "#9AC1D1")
+            $0.setTitle("삭제", for: .normal)
             $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 8)
+            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
     }
     

@@ -87,7 +87,8 @@ extension EvaluateViewController {
 
     private func setLayout() {
         
-        view.addSubviews(mainLogo, titleLabel, searchTextField, tableView, wroteMeButton, createButton)
+        view.addSubviews(mainLogo, titleLabel, searchTextField,
+                         tableView, wroteMeButton, createButton)
         
         mainLogo.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(47)
@@ -107,9 +108,9 @@ extension EvaluateViewController {
             $0.height.equalTo(30)
         }
         
-        tableView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(searchTextField.snp.bottom).offset(16)
-            make.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(searchTextField.snp.bottom).offset(16)
+            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         createButton.snp.makeConstraints {
@@ -128,7 +129,7 @@ extension EvaluateViewController {
     // MARK: - Methods
 
     private func setupData() {
-        reviews = dataModels
+        reviews = evaluateDataModels
         filteredReviews = reviews
     }
     
@@ -141,7 +142,6 @@ extension EvaluateViewController {
         tableView.delegate = self
         tableView.dataSource = self
         searchTextField.delegate = self
-
     }
     
     private func addTarget() {
