@@ -9,10 +9,6 @@
     import SnapKit
     import Then
 
-//    protocol CreateEmailAuthViewControllerDelegate: AnyObject {
-//        func didTapSaveButton(completion: @escaping () -> Void)
-//    }
-
     final class CreateEmailAuthViewController: UIViewController {
         
         // MARK: - UI Components
@@ -24,7 +20,6 @@
         
         // MARK: - Properties
         
-//        weak var delegate: CreateEmailAuthViewControllerDelegate?
         private let titleText: String = "{글제목}"
         
         // MARK: - Initializer

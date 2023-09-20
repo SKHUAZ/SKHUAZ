@@ -13,32 +13,24 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
 //                bottomSheetVC.delegate = self
         present(bottomSheetVC, animated: true, completion: nil)
     }
-    
+        
     func emailCheckButtonTapped() {
-//                let customAlertVC = AlertViewController(alertType: .createEvaluate)
-//                customAlertVC.modalPresentationStyle = .overFullScreen
-//                UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
-//            } else {
-//                print("Semester Button Title : \(evaluateView.semesterButtonTitle ?? "")")
-//                print("Propeser Button Title : \(evaluateView.propeserButtonTitle ?? "")")
-//                print("Lecture Button Title : \(evaluateView.lectureButtonTitle ?? "")")
-//                print("Title Text Field Text : \(evaluateView.titleTextFieldText ?? "")")
-//                print("Evaluate View Text : \(evaluateView.evaluateViewText ?? "")")
-//
-//                print("First Slider Value : \(evaluateView.firstSliderValue)")
-//                print("Second Slider Value : \(evaluateView.secondSliderValue)")
-//                print("Third Slider Value : \(evaluateView.thirdSliderValue)")
-//                print("Fourth Slider Value : \(evaluateView.fourthSliderValue)")
-                let bottomSheetVC = CreateEmailAuthViewController()
-//                bottomSheetVC.delegate = self
-                present(bottomSheetVC, animated: true, completion: nil)
+        if let email = rootView.emailTextFieldText {
+                    if checkEmail(str: email) {
+                        // 입력값이 유효한 이메일 주소일 경우
+                        let bottomSheetVC = CreateEmailAuthViewController()
+                        present(bottomSheetVC, animated: true, completion: nil)
+                    }
+                    else {
+                        // 입력값이 유효하지 않은 이메일 주소일 경우
+//                        resultLabel.text = "유효하지 않은 이메일 주소입니다."
+//                        resultLabel.textColor = .red
+                    }
+                }
             }
-//        }
-//    }
     
     func signUpButtonTapped() {
         let bottomSheetVC = CreateEmailAuthViewController()
-//                bottomSheetVC.delegate = self
         present(bottomSheetVC, animated: true, completion: nil)
     }
     
@@ -61,6 +53,12 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
     }
     
     // MARK: - Methods
+    
+    /// 이메일의 참/부정 요소를 평가하는 함수
+    func checkEmail(str: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@office.skhu.ac.kr"
+        return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with:str)
+    }
     
     private func setupKeyboardEvent() {
         NotificationCenter.default.addObserver(self,
