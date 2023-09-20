@@ -70,6 +70,12 @@
 		E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D512AA20B110047C079 /* SignUpViewController.swift */; };
 		E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CF72AAAF91200325E7D /* RadioButton.swift */; };
 		E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */; };
+		E3EC5D072AB421E300325E7D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D062AB421E300325E7D /* SettingView.swift */; };
+		E3EC5D092AB421F600325E7D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D082AB421F600325E7D /* SettingViewController.swift */; };
+		E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */; };
+		E3EC5D0F2AB96AB700325E7D /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D0E2AB96AB700325E7D /* EditProfileView.swift */; };
+		E3EC5D132AB996D700325E7D /* CustomDropDownMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D122AB996D700325E7D /* CustomDropDownMenuView.swift */; };
+		E3EC5D152ABAE23300325E7D /* CreateEmailAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5D142ABAE23300325E7D /* CreateEmailAuthViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +142,12 @@
 		E3E83D512AA20B110047C079 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E3EC5CF72AAAF91200325E7D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonsStack.swift; sourceTree = "<group>"; };
+		E3EC5D062AB421E300325E7D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		E3EC5D082AB421F600325E7D /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		E3EC5D0E2AB96AB700325E7D /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		E3EC5D122AB996D700325E7D /* CustomDropDownMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDownMenuView.swift; sourceTree = "<group>"; };
+		E3EC5D142ABAE23300325E7D /* CreateEmailAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmailAuthViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +217,7 @@
 		2539B95E2A8CA50400E939AA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				E3EC5D032AB421B700325E7D /* Setting */,
 				25D46EF62AB07E5C008FA088 /* Essential */,
 				9EC5E2D22A924BB40047E6E7 /* Recommend */,
 				E3E83D4C2AA2097E0047C079 /* SignUp */,
@@ -367,6 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
+				E3EC5D122AB996D700325E7D /* CustomDropDownMenuView.swift */,
 				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
 				25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */,
 				25FA1D842AA61BEC0044B38F /* CircleGraph.swift */,
@@ -529,6 +543,7 @@
 			isa = PBXGroup;
 			children = (
 				E3E83D512AA20B110047C079 /* SignUpViewController.swift */,
+				E3EC5D142ABAE23300325E7D /* CreateEmailAuthViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -539,6 +554,33 @@
 				E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E3EC5D032AB421B700325E7D /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E3EC5D052AB421CF00325E7D /* ViewController */,
+				E3EC5D042AB421C800325E7D /* View */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		E3EC5D042AB421C800325E7D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E3EC5D062AB421E300325E7D /* SettingView.swift */,
+				E3EC5D0E2AB96AB700325E7D /* EditProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E3EC5D052AB421CF00325E7D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E3EC5D082AB421F600325E7D /* SettingViewController.swift */,
+				E3EC5D0C2AB6C23D00325E7D /* EditProfileViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -626,6 +668,7 @@
 				9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */,
 				2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */,
 				2539B9932A8CA73000E939AA /* Image.swift in Sources */,
+				E3EC5D092AB421F600325E7D /* SettingViewController.swift in Sources */,
 				E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */,
 				25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */,
 				2539B9672A8CA56700E939AA /* Model.swift in Sources */,
@@ -633,6 +676,7 @@
 				2539B9872A8CA6BF00E939AA /* Font.swift in Sources */,
 				E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */,
 				2539B9912A8CA72C00E939AA /* Color.swift in Sources */,
+				E3EC5D072AB421E300325E7D /* SettingView.swift in Sources */,
 				E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */,
 				259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */,
 				259435D42AB2DA3E00B03EBF /* EssentialDataModel.swift in Sources */,
@@ -657,8 +701,10 @@
 				258A71DA2AA89C1D001E8A5B /* UITextField++.swift in Sources */,
 				2539B98F2A8CA70D00E939AA /* UIView++.swift in Sources */,
 				2539B96D2A8CA5BB00E939AA /* APIConst.swift in Sources */,
+				E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */,
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
 				258A71E82AA9B7FA001E8A5B /* AlertViewController.swift in Sources */,
+				E3EC5D0F2AB96AB700325E7D /* EditProfileView.swift in Sources */,
 				2539B9AC2A8E499E00E939AA /* EvaluateViewController.swift in Sources */,
 				251214662AB995EA005B8F43 /* CustomDropdownMenuSearch.swift in Sources */,
 				9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */,
@@ -666,8 +712,10 @@
 				9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */,
 				2539B96F2A8CA5C500E939AA /* GeneralResponse.swift in Sources */,
 				E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */,
+				E3EC5D132AB996D700325E7D /* CustomDropDownMenuView.swift in Sources */,
 				E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */,
 				2539B9772A8CA61300E939AA /* BaseView.swift in Sources */,
+				E3EC5D152ABAE23300325E7D /* CreateEmailAuthViewController.swift in Sources */,
 				E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */,
 				2539B96B2A8CA5AC00E939AA /* APIService.swift in Sources */,
 				25FA1D8F2AA821B40044B38F /* EvaluateView.swift in Sources */,

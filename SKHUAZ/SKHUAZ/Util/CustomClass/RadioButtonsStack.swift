@@ -13,24 +13,10 @@ protocol SendStringData: AnyObject {
     func sendData(mydata: String, groupId: Int)
 }
 
-class RadioButtonsStack: UIView, SendStringData {
-    
-    var firstValue: String?
-    var secondValue: String?
-    
-    func sendData(mydata: String, groupId: Int) {
-        if groupId == 1 {
-            firstValue = mydata
-            print("\(firstValue)")
-        }
-        else {
-            secondValue = mydata
-            print("\(secondValue)")
-        }
-    }
+class RadioButtonsStack: UIView {
     
     weak var delegate: SendStringData?
-
+    
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -89,7 +75,7 @@ class RadioButtonsStack: UIView, SendStringData {
         if let radioButtonView = radioViews.first(where: { $0.radioButton.tag == desiredTag }) {
             let labelText = radioButtonView.label.text ?? ""
             print("Label Text: \(labelText)")
-            delegate?.sendData(mydata: labelText, groupId: groupId ?? 0)
+            self.delegate?.sendData(mydata: labelText, groupId: groupId ?? 0)
             radioViews.forEach {
                 $0.select($0.radioButton.tag == sender.tag)
             }

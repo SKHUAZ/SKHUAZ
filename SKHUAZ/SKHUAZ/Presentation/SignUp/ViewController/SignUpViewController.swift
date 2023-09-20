@@ -7,7 +7,32 @@
 
 import UIKit
 
-final class SignUpViewController: UIViewController {
+final class SignUpViewController: UIViewController, SignUpViewDelegate {
+    func nicknameCheckButtonTapped() {
+        let bottomSheetVC = CreateEmailAuthViewController()
+        present(bottomSheetVC, animated: true, completion: nil)
+    }
+        
+    func emailCheckButtonTapped() {
+        if let email = rootView.emailTextFieldText {
+                    if checkEmail(str: email) {
+                        // 입력값이 유효한 이메일 주소일 경우
+                        let bottomSheetVC = CreateEmailAuthViewController()
+                        present(bottomSheetVC, animated: true, completion: nil)
+                    }
+                    else {
+                        // 입력값이 유효하지 않은 이메일 주소일 경우
+//                        resultLabel.text = "유효하지 않은 이메일 주소입니다."
+//                        resultLabel.textColor = .red
+                    }
+                }
+            }
+    
+    func signUpButtonTapped() {
+        let bottomSheetVC = CreateEmailAuthViewController()
+        present(bottomSheetVC, animated: true, completion: nil)
+    }
+    
 
     // MARK: - UI Components
     
@@ -23,9 +48,16 @@ final class SignUpViewController: UIViewController {
     
     override func loadView() {
         self.view = rootView
+        rootView.delegate = self
     }
     
     // MARK: - Methods
+    
+    /// 이메일의 참/부정 요소를 평가하는 함수
+    func checkEmail(str: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@office.skhu.ac.kr"
+        return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with:str)
+    }
     
     private func setupKeyboardEvent() {
         NotificationCenter.default.addObserver(self,
