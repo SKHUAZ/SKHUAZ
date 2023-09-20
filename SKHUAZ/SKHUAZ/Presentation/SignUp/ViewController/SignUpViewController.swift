@@ -10,7 +10,6 @@ import UIKit
 final class SignUpViewController: UIViewController, SignUpViewDelegate {
     func nicknameCheckButtonTapped() {
         let bottomSheetVC = CreateEmailAuthViewController()
-//                bottomSheetVC.delegate = self
         present(bottomSheetVC, animated: true, completion: nil)
     }
         

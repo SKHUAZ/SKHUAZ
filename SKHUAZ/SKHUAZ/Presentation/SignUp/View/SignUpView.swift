@@ -45,6 +45,7 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         var firstValue: String?
         var secondValue: String?
         
+        
         // MARK: - UI Components
 
         private let mainImage = UIImageView()
@@ -421,6 +422,12 @@ extension SignUpView {
     
     // MARK: - Methods
     
+    /// 이메일의 참/부정 요소를 평가하는 함수
+    func checkEmail(str: String) -> Bool {
+        let emailRegex = "[A-Z0-9a-z._%+-]+@office.skhu.ac.kr"
+        return  NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with:str)
+    }
+    
     func handleOptionSelected(_ option: String) {
         print("Selected option: \(option)")
     }
@@ -460,7 +467,17 @@ extension SignUpView {
     }
     @objc
     func emailCheckButtonTapped() {
-        self.delegate?.emailCheckButtonTapped()
+        if let email = emailTextField.text {
+            if checkEmail(str: email) {
+                // 입력값이 유효한 이메일 주소일 경우
+                self.delegate?.emailCheckButtonTapped()
+            }
+            else {
+                // 입력값이 유효하지 않은 이메일 주소일 경우
+                //                        resultLabel.text = "유효하지 않은 이메일 주소입니다."
+                //                        resultLabel.textColor = .red
+            }
+        }
     }
     @objc
     func signUpButtonTapped() {
@@ -495,7 +512,6 @@ extension SignUpView {
         }
         mainMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         subMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
-        
     }
     
     @objc private func mainMajorButtonTapped() {

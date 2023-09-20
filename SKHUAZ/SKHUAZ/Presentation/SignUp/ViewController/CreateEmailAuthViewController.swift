@@ -19,9 +19,7 @@
         private let saveButton = UIButton()
         
         // MARK: - Properties
-        
-        private let titleText: String = "{글제목}"
-        
+                
         // MARK: - Initializer
         
         // MARK: - View Life Cycle
