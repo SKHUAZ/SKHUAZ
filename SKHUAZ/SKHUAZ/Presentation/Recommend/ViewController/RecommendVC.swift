@@ -13,27 +13,28 @@ import Then
 final class RecommendViewController: UIViewController {
     
     // MARK: - UI Components
+    
     private let logoImage = UIImageView()
     private let recommendTitleLabel = UILabel()
     private let searchTextField = UITextField()
     private let recommendListView = UITableView()
-    private let pageNationView = RecommendCustomPagenationView()
     
     private let createButton = UIButton()
     private let writeByMeButton = UIButton()
+    private var filteredReviews: [RecommendDataModel]!
+    var reviews: [RecommendDataModel]!
     
-//    private let testView = TestView()
-
+    
     
     // MARK: - Properties
 
     private var wroteMeButtonBottomConstraint: Constraint? //글쓰기 버튼 바텀 움직임 제약조건
-    private var isMove: Bool = false //글쓰기 버튼 클릭 여부 확인 위함
+    private var isMove: Bool = false //글쓰기 버튼 클릭 여부 확인
+    private var isTouch: Bool = false
     var reviewList: [RecommendDataModel] = []
     var filteredReviewList: [RecommendDataModel] = []
     var isFiltering = false
     
-    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,12 +43,10 @@ final class RecommendViewController: UIViewController {
         setLayout()
         setupData()
         setDelegate()
-        setUITableView()
         addTarget()
         setupKeyboardEvent()
-//        setTapScreen()
+        self.hideKeyboardWhenTappedAround()
     }
-        
 }
 
 //RecommendViewController 의 확장기능들
@@ -66,23 +65,32 @@ extension RecommendViewController {
         recommendTitleLabel.do {
             $0.text = "루트추천"
             $0.textColor = .black
-            $0.font = .systemFont(ofSize: 20)
+            $0.font = .systemFont(ofSize: 16)
         }
         
+//        searchTextField.do {
+//            $0.placeholder = "제목 혹은 강의명을 입력해주세요"
+//            $0.font = .systemFont(ofSize: 8)
+//            $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
+//            $0.borderStyle = .roundedRect
+//            $0.clearButtonMode = .whileEditing
+//            $0.returnKeyType = .done
+//        }
         searchTextField.do {
             $0.placeholder = "제목 혹은 강의명을 입력해주세요"
-            $0.font = .systemFont(ofSize: 12)
+            $0.font = .systemFont(ofSize: 8)
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
-            
             $0.borderStyle = .roundedRect
-            $0.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+            $0.clearButtonMode = .whileEditing
+            $0.returnKeyType = .done
         }
+        
+        
         recommendListView.do {
             $0.separatorStyle = .none
             $0.register(RecommendTableViewCell.self, forCellReuseIdentifier: "Cell")
-//            $0.isScrollEnabled = true
+            $0.showsVerticalScrollIndicator = false
         }
-        
         
         createButton.do {
             $0.setImage(Image.createbutton, for: .normal)
@@ -101,22 +109,22 @@ extension RecommendViewController {
                          recommendListView, writeByMeButton, createButton)
         
         logoImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(60)
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(47)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(168)
             $0.height.equalTo(43)
+            $0.width.equalTo(168)
         }
         
         recommendTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(35)
+            $0.top.equalTo(logoImage.snp.bottom)
             $0.centerX.equalToSuperview()
         }
         
         searchTextField.snp.makeConstraints {
-            $0.top.equalTo(recommendTitleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(recommendTitleLabel.snp.bottom).offset(4)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(30)
-            $0.width.equalTo(335)
+            $0.width.equalTo(315)
         }
         
         recommendListView.snp.makeConstraints {
@@ -128,13 +136,13 @@ extension RecommendViewController {
         
         createButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(90)
+            $0.bottom.equalToSuperview().inset(104)
             $0.width.height.equalTo(56)
         }
         
         writeByMeButton.snp.makeConstraints {
             $0.trailing.equalToSuperview().inset(12)
-            self.wroteMeButtonBottomConstraint = $0.bottom.equalToSuperview().inset(90).constraint
+            self.wroteMeButtonBottomConstraint = $0.bottom.equalToSuperview().inset(104).constraint
             $0.width.height.equalTo(56)
         }
     }
@@ -143,29 +151,42 @@ extension RecommendViewController {
     
     private func addTarget() {
         createButton.addTarget(self, action: #selector(movewroteMeButton), for: .touchUpInside)
-                writeByMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for: .touchUpInside)
+        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+        writeByMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for:.touchUpInside)
     }
     
     // MARK: - Methods
     
     private func setupData() {
-        reviewList = [recommendReview1, recommendReview2, recommendReview3]
+        reviewList = [recommendReview1, recommendReview2, recommendReview3, recommendReview4, recommendReview5, recommendReview6, recommendReview7]
         recommendListView.reloadData()
+        reviews = recommendList
+        filteredReviews = reviews
     }
     
     private func setDelegate() {
         recommendListView.delegate = self
+        recommendListView.dataSource = self
+        searchTextField.delegate = self
     }
     
-    private func setUITableView() {
-        recommendListView.dataSource = self
-    }
+//    private func setUITableView() {
+//
+//    }
     
     //내가 쓴 글 눌렀을 때 검색창에 본 계정주의 닉네임을 검색하여 내 글이 나오도록 함.
     @objc
     private func wroteMeButtonTapped() {
-        searchTextField.text = "박신영"
-        searchTextChanged()
+        isTouch.toggle()
+        if isTouch {
+            writeByMeButton.setImage(Image.WritingOn, for: .normal)
+            searchTextField.text = "박신영"
+            searchTextChanged()
+        } else {
+            writeByMeButton.setImage(Image.WritingOff, for: .normal)
+            searchTextField.text = ""
+            searchTextChanged()
+        }
     }
     
     @objc
@@ -180,7 +201,7 @@ extension RecommendViewController {
         else if !isMove {
             let vc = CreateRecommendViewController()
             self.navigationController?.pushViewController(vc, animated: true)
-            self.wroteMeButtonBottomConstraint?.update(inset: 90)
+            self.wroteMeButtonBottomConstraint?.update(inset: 104)
             UIView.animate(withDuration: 0.3) { [weak self] in
                 self?.view.layoutIfNeeded()
             }
@@ -188,15 +209,23 @@ extension RecommendViewController {
         print(isMove)
     }
 
-    @objc func searchTextChanged() {
-        if let searchText = searchTextField.text?.lowercased(), !searchText.isEmpty {
-            filteredReviewList = reviewList.filter { ($0.nickNameLabel.lowercased().contains(searchText) || $0.titleLabel.lowercased().contains(searchText))
-            }
-            isFiltering = true
-        } else {
-            filteredReviewList = reviewList
-            isFiltering = false
+    @objc
+    private func searchTextChanged() {
+        
+        guard let searchText = searchTextField.text, !searchText.isEmpty else {
+            filteredReviews = reviews
+            recommendListView.reloadData()
+            return
         }
+        
+        filteredReviews = reviews.filter { review in
+            return review.majorNameLabel.contains(searchText) ||
+            review.lectureNameLabel.contains(searchText) ||
+            review.titleLabel.contains(searchText) ||
+            review.authorNameLabel.contains(searchText) ||
+            review.professorNameLabel.contains(searchText)
+        }
+        
         recommendListView.reloadData()
     }
 }
@@ -208,11 +237,11 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     //RecommendTableView 스크롤 막기
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == recommendListView {
-            scrollView.contentOffset = .zero
-        }
-    }
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        if scrollView == recommendListView {
+//            scrollView.contentOffset = .zero
+//        }
+//    }
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -237,8 +266,15 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
                                                selector: #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
-
     }
+    
+    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
+//        print("You selected cell #\(reviews[indexPath.row].titleLabel)")
+        print(reviews)
+        let detailVC = DetailRecommendViewController()
+        self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+    
     
     // MARK: - @objc Methods
     
@@ -266,5 +302,21 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
     @objc
     private func pushToRecommendViewController() {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+
+extension RecommendViewController: UITextFieldDelegate{
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
+    }
+        
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        recommendListView.isUserInteractionEnabled = false
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        recommendListView.isUserInteractionEnabled = true
     }
 }
