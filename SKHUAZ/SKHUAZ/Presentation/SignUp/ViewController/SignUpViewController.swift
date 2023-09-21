@@ -29,8 +29,19 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
             }
     
     func signUpButtonTapped() {
-        let bottomSheetVC = CreateEmailAuthViewController()
-        present(bottomSheetVC, animated: true, completion: nil)
+//        let bottomSheetVC = CreateEmailAuthViewController()
+//        present(bottomSheetVC, animated: true, completion: nil)
+        print("first Value: \(rootView.firstValueReturn)")
+        print("second Value: \(rootView.secondValueReturn)")
+        print("name Value: \(rootView.nameTextFieldText)")
+        print("email Value: \(rootView.emailTextFieldText)")
+        print("nickname Value: \(rootView.nicknameTextFieldText)")
+        print("nickname Value: \(rootView.nicknameTextFieldText)")
+        print("semester Value: \(rootView.semesterButtonTitle)")
+        print("mainMajor Value: \(rootView.mainMajorButtonTitle)")
+        print("subMajor Value: \(rootView.subMajorButtonTitle)")
+
+
     }
     
 
