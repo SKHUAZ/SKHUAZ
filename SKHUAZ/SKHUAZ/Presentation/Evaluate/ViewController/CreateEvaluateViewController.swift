@@ -21,6 +21,10 @@ final class CreateEvaluateViewController: UIViewController {
     
     // MARK: - Properties
     
+    private var semesterOptions: [String] = ["23 - 1학기", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
+    private var lectureOptions: [String] = ["C 프로그래밍", "이산수학", "Python 프로그래밍", "데이터베이스", "사물인터넷 기초", "Java 프로그래밍", "논리회로설계", "웹 개발 입문", "데이터기초수학", "전공탐색세미나 (컴퓨터공학전공)", "전공탐색세미나 (소프트웨어공학전공)", "전공탐색세미나 (인공지능전공)"]
+    private var profeserOptions: [String] = ["1", "1", "1", "1", "1"]
+    
     // MARK: - Initializer
     
     // MARK: - View Life Cycle
@@ -32,12 +36,29 @@ final class CreateEvaluateViewController: UIViewController {
         setupKeyboardEvent()
         setNavigation()
         addTarget()
+        setDelagate()
         self.hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(semesterTitleChanged(_:)), name: NSNotification.Name("SemesterTitleChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(lectureTitleChanged(_:)), name: NSNotification.Name("LectureTitleChanged"), object: nil)
     }
 }
 
 extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewControllerDelegate {
+    @objc
+    private func semesterTitleChanged(_ notification: Notification) {
+        if let newTitle = notification.userInfo?["newTitle"] as? String {
+            print("\(newTitle)를 서버에 넣어야합니다 이건 선택한 학기입니다")
+            evaluateView.setDropDownLectureMenu(lectureOptions: lectureOptions)
+        }
+    }
     
+    @objc
+    private func lectureTitleChanged(_ notification: Notification) {
+        if let newTitle = notification.userInfo?["newTitle"] as? String {
+            print("\(newTitle)을 서버에 넣어야합니다 이건 선택한 강의입니다")
+            evaluateView.setDropDownProfessorMenu(profeserOptions: profeserOptions)
+        }
+    }
     // MARK: - UI Components Property
     
     private func setUI() {
@@ -53,14 +74,14 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#000000").cgColor
             $0.layer.borderWidth = 1
-            //            $0.backgroundColor = UIColor(hex: "#FFFFFF")
-            //            $0.setTitle("뒤로가기", for: .normal)
-            //            $0.setTitleColor(UIColor(hex: "#000000"), for: .normal)
-            //            $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
         
         saveButton.do {
             $0.setImage(Image.save, for: .normal)
+        }
+        
+        evaluateView.do {
+            $0.setDropDownSemesterMenus(semesterOptions: semesterOptions)
         }
     }
     
@@ -98,10 +119,13 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
         }
     }
     
+    private func setDelagate(){
+    }
+    
     // MARK: - Methods
     
     private func setNavigation() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
     
@@ -165,7 +189,11 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             print("입려을 다 해주세요")
             let customAlertVC = AlertViewController(alertType: .createEvaluate)
             customAlertVC.modalPresentationStyle = .overFullScreen
-            UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let mainWindow = windowScene.windows.first {
+                mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+            }
+
         } else {
             print("Semester Button Title : \(evaluateView.semesterButtonTitle ?? "")")
             print("Propeser Button Title : \(evaluateView.propeserButtonTitle ?? "")")
@@ -183,4 +211,3 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
         }
     }
 }
-

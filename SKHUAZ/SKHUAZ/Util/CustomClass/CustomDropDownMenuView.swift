@@ -1,8 +1,8 @@
 //
-//  CustomDropdownMenu.swift
+//  CustomDropDownMenuView.swift
 //  SKHUAZ
 //
-//  Created by 천성우 on 2023/09/11.
+//  Created by 문인호 on 2023/09/19.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ protocol DropdownMenuDelegate: AnyObject {
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton)
 }
 
-class CustomDropdownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
+class CustomDropdownMenuView: UIView, UITableViewDataSource, UITableViewDelegate {
     
     weak var delegate: DropdownMenuDelegate?
     
@@ -44,7 +44,7 @@ class CustomDropdownMenu: UIView, UITableViewDataSource, UITableViewDelegate {
         tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
             $0.height.equalTo(options.count * 44)
-            //            make.width.equalTo(353) --> 이거 사용할 때 버튼 자체의 width를 체크해야함
+            //            make.width.equalTo(353) —> 이거 사용할 때 버튼 자체의 width를 체크해야함
         }
     }
 

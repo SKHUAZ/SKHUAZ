@@ -65,19 +65,19 @@ extension CreateRecommendBottomSheetViewController {
         
         saveViewCancelButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
+            $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
             $0.layer.borderWidth = 1
             $0.backgroundColor = UIColor(hex: "#FFFFFF")
             $0.setTitle("취소", for: .normal)
-            $0.setTitleColor(UIColor(hex: "#ED7A7A"), for: .normal)
+            $0.setTitleColor(UIColor(hex: "#9AC1D1"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
         }
         
         saveViewSaveButton.do {
             $0.layer.cornerRadius = 6
-            $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
+            $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
             $0.layer.borderWidth = 1
-            $0.backgroundColor = UIColor(hex: "#ED7A7A")
+            $0.backgroundColor = UIColor(hex: "#9AC1D1")
             $0.setTitle("확인", for: .normal)
             $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
@@ -128,9 +128,12 @@ extension CreateRecommendBottomSheetViewController {
         print("저장버튼이 눌렸습니다")
         self.dismiss(animated: false) { [weak self] in
             self?.delegate?.didTapSaveButton() {
-                let customAlertVC = AlertViewController(alertType: .saveCompleteRootView)
+                let customAlertVC = AlertViewController(alertType: .mainEvaluate)
                 customAlertVC.modalPresentationStyle = .overFullScreen
-                UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let mainWindow = windowScene.windows.first {
+                    mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+                }
             }
         }
     }

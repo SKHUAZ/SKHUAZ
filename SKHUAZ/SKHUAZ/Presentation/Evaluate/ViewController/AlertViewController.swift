@@ -13,7 +13,8 @@ import Then
 enum CustomAlertType {
     case mainEvaluate
     case createEvaluate
-    case saveCompleteRootView
+    case unSelectSemester
+    case unSelectLecture
 }
 
 final class AlertViewController: UIViewController {
@@ -59,7 +60,7 @@ extension AlertViewController {
         
         switch alertType {
         
-        case .saveCompleteRootView:
+        case .mainEvaluate:
             mainLabel.do {
                 $0.text = "저장이 완료되었습니다."
                 $0.textAlignment = .center
@@ -85,9 +86,9 @@ extension AlertViewController {
             }
             checkButton.do {
                 $0.layer.cornerRadius = 6
-                $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
                 $0.layer.borderWidth = 1
-                $0.backgroundColor = UIColor(hex: "#ED7A7A")
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
                 $0.setTitle("확인", for: .normal)
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
@@ -104,9 +105,47 @@ extension AlertViewController {
             
             checkButton.do {
                 $0.layer.cornerRadius = 6
-                $0.layer.borderColor = UIColor(hex: "#000000").cgColor
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
                 $0.layer.borderWidth = 1
-                $0.backgroundColor = UIColor(hex: "#000000")
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+        
+        case .unSelectSemester:
+            mainLabel.do {
+                $0.text = "학기를 먼저\n선택해 주세요"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
+        case .unSelectLecture:
+            mainLabel.do {
+                $0.text = "강의를 먼저\n선택해 주세요"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
                 $0.setTitle("확인", for: .normal)
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
