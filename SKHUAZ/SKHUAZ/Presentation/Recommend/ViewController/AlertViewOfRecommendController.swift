@@ -1,8 +1,8 @@
 //
-//  Cus.swift
+//  AlertViewOfRecommendController.swift
 //  SKHUAZ
 //
-//  Created by 천성우 on 2023/09/07.
+//  Created by 박신영 on 2023/09/17.
 //
 
 import UIKit
@@ -10,13 +10,12 @@ import UIKit
 import SnapKit
 import Then
 
-enum CustomAlertType {
-    case mainEvaluate
-    case createEvaluate
-    case saveCompleteRootView
+enum RecommendAlertType {
+    case saveCompleteCreateRootView
+    case notEnteredCreateRootView
 }
 
-final class AlertViewController: UIViewController {
+final class AlertViewOfRecommendController: UIViewController {
     
     // MARK: - UI Components
     
@@ -26,7 +25,7 @@ final class AlertViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let alertType: CustomAlertType
+    private let alertType: RecommendAlertType
     
     // MARK: - View Life Cycle
     
@@ -39,7 +38,7 @@ final class AlertViewController: UIViewController {
     
     // MARK: - Initializer
     
-    init(alertType: CustomAlertType) {
+    init(alertType: RecommendAlertType) {
         self.alertType = alertType
         super.init(nibName: nil, bundle: nil)
     }
@@ -49,7 +48,7 @@ final class AlertViewController: UIViewController {
     }
 }
 
-extension AlertViewController {
+extension AlertViewOfRecommendController {
     
     // MARK: - UI Components Property
     
@@ -59,7 +58,7 @@ extension AlertViewController {
         
         switch alertType {
         
-        case .saveCompleteRootView:
+        case .saveCompleteCreateRootView:
             mainLabel.do {
                 $0.text = "저장이 완료되었습니다."
                 $0.textAlignment = .center
@@ -76,24 +75,7 @@ extension AlertViewController {
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
             
-        case .mainEvaluate:
-            mainLabel.do {
-                $0.text = "저장이 완료되었습니다."
-                $0.textAlignment = .center
-                $0.textColor = UIColor(hex: "#000000")
-                $0.font = .systemFont(ofSize: 15)
-            }
-            checkButton.do {
-                $0.layer.cornerRadius = 6
-                $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
-                $0.layer.borderWidth = 1
-                $0.backgroundColor = UIColor(hex: "#ED7A7A")
-                $0.setTitle("확인", for: .normal)
-                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
-                $0.titleLabel?.font = .systemFont(ofSize: 15)
-            }
-            
-        case .createEvaluate:
+        case .notEnteredCreateRootView:
             mainLabel.do {
                 $0.text = "강의평 작성하기를\n모두 입력해주세요"
                 $0.textAlignment = .center
@@ -112,7 +94,6 @@ extension AlertViewController {
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
         }
-        
         
         alertView.do {
             $0.backgroundColor = .white
@@ -166,4 +147,5 @@ extension AlertViewController {
         print("바보")
     }
 }
+
 
