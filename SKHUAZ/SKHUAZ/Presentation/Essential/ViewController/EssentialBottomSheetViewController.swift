@@ -123,5 +123,18 @@ extension EssentialBottomSheetViewController {
     @objc
     private func saveEvaluate() {
         print("저장버튼이 눌렸습니다")
+<<<<<<<< HEAD:SKHUAZ/SKHUAZ/Presentation/Essential/ViewController/EssentialBottomSheetViewController.swift
+========
+        self.dismiss(animated: false) { [weak self] in
+            self?.delegate?.didTapSaveButton() {
+                let customAlertVC = AlertViewController(alertType: .mainEvaluate)
+                customAlertVC.modalPresentationStyle = .overFullScreen
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let mainWindow = windowScene.windows.first {
+                    mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+                }
+            }
+        }
+>>>>>>>> ba4c3eff28518834b8df3f3dabb7d23ce1f57edb:SKHUAZ/SKHUAZ/Presentation/Evaluate/ViewController/CreateEvaluateBottomSheetViewController.swift
     }
 }
