@@ -16,12 +16,6 @@ protocol SignUpViewDelegate: AnyObject {
     func signUpButtonTapped()
 }
 
-enum SignUpViewType {
-    case mainSubType
-    case nonSelectType
-    case doubleType
-}
-
 final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
 
     func sendData(mydata: String, groupId: Int) {
@@ -29,10 +23,35 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
                 firstValue = mydata
                 print("first value =\(firstValue!)")
             }
-            else {
-                secondValue = mydata
-                print("second value =\(secondValue!)")
+        else {
+            secondValue = mydata
+            print("second value =\(secondValue!)")
+            if secondValue == nil {
+                mainMajorButton.removeFromSuperview()
+                subMajorButton.removeFromSuperview()
             }
+            else if secondValue == "전공 미선택"{
+                mainMajorButton.removeFromSuperview()
+                subMajorButton.removeFromSuperview()
+            }
+            else {
+                addSubviews(mainMajorButton, subMajorButton)
+                
+                mainMajorButton.snp.makeConstraints {
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(37)
+                    $0.leading.equalToSuperview().inset(28)
+                    $0.width.equalTo(140)
+                    $0.height.equalTo(50)
+                }
+                
+                subMajorButton.snp.makeConstraints {
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(37)
+                    $0.trailing.equalToSuperview().inset(29)
+                    $0.width.equalTo(140)
+                    $0.height.equalTo(50)
+                }
+            }
+        }
         }
         // MARK: - Delegate Property
         
@@ -42,8 +61,8 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private var subMajorDropdownMenu: CustomDropdownMenuView?
 
 
-        var firstValue: String?
-        var secondValue: String?
+        private var firstValue: String?
+        private var secondValue: String?
         
         
         // MARK: - UI Components
@@ -67,6 +86,12 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private let signUpButton = UIButton()
 
         // MARK: - Getter
+        var firstValueReturn: String? {
+            return firstValue
+        }
+        var secondValueReturn: String? {
+            return secondValue
+        }
         var nameTextFieldText: String? {
             return nameTextField.text
         }
@@ -396,22 +421,22 @@ extension SignUpView {
             $0.height.equalTo(17)
         }
         
-        mainMajorButton.snp.makeConstraints {
-            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
-            $0.leading.equalToSuperview().inset(28)
-            $0.width.equalTo(140)
-            $0.height.equalTo(50)
-        }
-        
-        subMajorButton.snp.makeConstraints {
-            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
-            $0.trailing.equalToSuperview().inset(29)
-            $0.width.equalTo(140)
-            $0.height.equalTo(50)
-        }
+//        mainMajorButton.snp.makeConstraints {
+//            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
+//            $0.leading.equalToSuperview().inset(28)
+//            $0.width.equalTo(140)
+//            $0.height.equalTo(50)
+//        }
+//
+//        subMajorButton.snp.makeConstraints {
+//            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
+//            $0.trailing.equalToSuperview().inset(29)
+//            $0.width.equalTo(140)
+//            $0.height.equalTo(50)
+//        }
         
         signUpButton.snp.makeConstraints {
-            $0.top.equalTo(subMajorButton.snp.bottom).offset(32)
+            $0.top.equalTo(majorRadioButton.snp.bottom).offset(120)
             $0.leading.equalToSuperview().inset(28)
             $0.trailing.equalToSuperview().inset(29)
             $0.height.equalTo(50)
