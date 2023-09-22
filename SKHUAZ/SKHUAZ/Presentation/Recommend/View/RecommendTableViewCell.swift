@@ -16,18 +16,24 @@ class RecommendTableViewCell: UITableViewCell {
     private let recommendListContainer = UIView()
     private let mainContainer = UIView() //루트추천 본문 컨테이너
     private let topSpace = UIView()
+    private let lectureContainer1 = UIView()
+    private let lectureContainer2 = UIView()
+    private let lectureContainer3 = UIView()
     
-    private let rightContainer1 = UILabel()
-    private let rightContainer2 = UILabel()
-    private let rightContainer3 = UILabel()
+    private let recommendSubListView = UITableView()
+        
     private let recommendContent = UILabel()
     private let recommendTitle = UILabel()
     
     private let nickname = UILabel()
-    private let courseYear = UILabel()
+//    private let courseYear = UILabel()
     private let titleLabel = UILabel()
+    private let lectureNameLabel = UILabel()
     private let majorNameLabel = UILabel()
+    private let majorNameLabel2 = UILabel()
+    private let majorNameLabel3 = UILabel()
     private let creationDateLabel = UILabel()
+//    var reviewList: [RecommendDataModel] = []
     
     // MARK: - Initializer
     
@@ -50,14 +56,19 @@ extension RecommendTableViewCell {
         
     private func setUI() {
         
+        recommendSubListView.do {
+            $0.separatorStyle = .none
+            $0.register(RecommendTableViewCell.self, forCellReuseIdentifier: "Cell")
+        }
+        
         recommendListContainer.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.black.cgColor
+            $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
         }
         
         topSpace.do {
-            $0.backgroundColor = .black
+            $0.backgroundColor = UIColor(hex: "#9AC1D1")
             $0.layer.cornerRadius = 6
             $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         }
@@ -67,31 +78,47 @@ extension RecommendTableViewCell {
             $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
         }
         
-        // 이것도 테이블뷰로 간단하게 할 수 있을듯
-        rightContainer1.do {
+        lectureContainer1.do {
             $0.layer.cornerRadius = 6
             $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
         }
         
-        rightContainer2.do {
+        lectureContainer2.do {
             $0.layer.cornerRadius = 6
             $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
         }
         
-        rightContainer3.do {
+        lectureContainer3.do {
             $0.layer.cornerRadius = 6
             $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
         }
         
         recommendTitle.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 10)
             $0.textColor = .white
-            $0.backgroundColor = .black
+        }
+        
+        creationDateLabel.do {
+            $0.font = .systemFont(ofSize: 10)
+            $0.textColor = .white
         }
 
         majorNameLabel.do {
             $0.font = .systemFont(ofSize: 8)
             $0.textColor = .black
+            $0.text = "자바프로그래밍"
+        }
+        
+        majorNameLabel2.do {
+            $0.font = .systemFont(ofSize: 8)
+            $0.textColor = .black
+            $0.text = "자료구조"
+        }
+        
+        majorNameLabel3.do {
+            $0.font = .systemFont(ofSize: 8)
+            $0.textColor = .black
+            $0.text = "알고리즘"
         }
         
         recommendContent.do {
@@ -107,93 +134,103 @@ extension RecommendTableViewCell {
 
         
         contentView.addSubviews(recommendListContainer)
-        recommendListContainer.addSubviews(topSpace, mainContainer, rightContainer1, rightContainer2, rightContainer3)
-        
-        topSpace.addSubviews(recommendTitle)
+        recommendListContainer.addSubviews(topSpace, mainContainer, lectureContainer1, lectureContainer2, lectureContainer3)
+        topSpace.addSubviews(recommendTitle, creationDateLabel)
         
         mainContainer.addSubview(recommendContent)
-        rightContainer1.addSubview(majorNameLabel)
-        rightContainer2.addSubview(majorNameLabel)
-        rightContainer3.addSubview(majorNameLabel)
+        lectureContainer1.addSubview(majorNameLabel)
+        lectureContainer2.addSubview(majorNameLabel2)
+        lectureContainer3.addSubview(majorNameLabel3)
         
         
         recommendListContainer.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(16)
-            $0.leading.equalToSuperview().offset(36)
+            $0.top.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
             $0.width.equalTo(315)
             $0.height.equalTo(147)
         }
         
         recommendTitle.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(5)
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(creationDateLabel.snp.trailing).offset(5)
+        }
+        creationDateLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().offset(15)
         }
         
         topSpace.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(20)
+            $0.height.equalTo(24)
         }
         
         mainContainer.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(15)
+            $0.leading.equalToSuperview().offset(10)
             $0.top.equalTo(topSpace.snp.bottom).offset(10)
-            $0.width.equalTo(150)
+            $0.width.equalTo(168)
             $0.height.equalTo(105)
         }
         
-        rightContainer1.snp.makeConstraints {
-            $0.top.equalTo(topSpace.snp.bottom).offset(10)
-            $0.trailing.equalToSuperview().inset(15)
-            $0.width.equalTo(130)
-            $0.height.equalTo(28)
-        }
-        
-        rightContainer2.snp.makeConstraints {
-            $0.top.equalTo(rightContainer1.snp.bottom).offset(10)
-            $0.trailing.equalToSuperview().inset(15)
-            $0.width.equalTo(130)
-            $0.height.equalTo(28)
-        }
-        
-        rightContainer3.snp.makeConstraints {
-            $0.top.equalTo(rightContainer2.snp.bottom).offset(10)
-            $0.trailing.equalToSuperview().inset(15)
-            $0.width.equalTo(130)
-            $0.height.equalTo(28)
-        }
+//        recommendSubListView.snp.makeConstraints {
+//            $0.top.equalToSuperview().offset(30)
+//            $0.bottom.equalToSuperview()
+//            $0.leading.equalTo(mainContainer.snp.trailing).offset(10)
+//            $0.width.equalTo(100)
+//        }
         
         recommendContent.snp.makeConstraints {
             $0.top.equalToSuperview().offset(5)
             $0.leading.equalToSuperview().offset(8)
         }
         
-        majorNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(5)
-            $0.leading.equalToSuperview().offset(8)
+        lectureContainer1.snp.makeConstraints {
+            $0.top.equalTo(topSpace.snp.bottom).offset(10)
+            $0.trailing.equalToSuperview().inset(12)
+            $0.width.equalTo(112)
+            $0.height.equalTo(28)
         }
         
-//        content.snp.makeConstraints {
-//            $0.top.equalTo(topSpace.snp.bottom).offset(10)
-//            $0.trailing.equalToSuperview().inset(19)
-//            $0.width.height.equalTo(104)
-//        }
+        majorNameLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+        
+        lectureContainer2.snp.makeConstraints {
+            $0.top.equalTo(lectureContainer1.snp.bottom).offset(10)
+            $0.trailing.equalToSuperview().inset(12)
+            $0.width.equalTo(112)
+            $0.height.equalTo(28)
+        }
+        
+        majorNameLabel2.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
+        
+        lectureContainer3.snp.makeConstraints {
+            $0.top.equalTo(lectureContainer2.snp.bottom).offset(10)
+            $0.trailing.equalToSuperview().inset(12)
+            $0.width.equalTo(112)
+            $0.height.equalTo(28)
+        }
+        
+        majorNameLabel3.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalToSuperview()
+        }
     }
     
-    //MARK: - configure
+    
+    
+    //MARK: - SetData
     
     func configure(with review: RecommendDataModel) {
         recommendTitle.text = review.titleLabel
         titleLabel.text = review.titleLabel
-        majorNameLabel.text = review.majorNameLabel
+//        majorNameLabel.text = review.majorNameLabel
         nickname.text = review.nickNameLabel
-        courseYear.text = review.courseYearLabel
+        creationDateLabel.text = "[\(review.creationDateLabel)]"
         recommendContent.text = review.contentLabel
     }
-    
-//    //MARK: - make LectureBox
-//    func lectureBox() {
-//
-//    }
-        
 }
