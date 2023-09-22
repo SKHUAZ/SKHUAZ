@@ -22,7 +22,6 @@
 		2539B9792A8CA63D00E939AA /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B9782A8CA63D00E939AA /* BaseViewController.swift */; };
 		2539B97F2A8CA66F00E939AA /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */; };
 		2539B9832A8CA6AD00E939AA /* Image.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2539B9822A8CA6AD00E939AA /* Image.xcassets */; };
-		2539B9852A8CA6B400E939AA /* Color.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2539B9842A8CA6B400E939AA /* Color.xcassets */; };
 		2539B9872A8CA6BF00E939AA /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B9862A8CA6BF00E939AA /* Font.swift */; };
 		2539B98F2A8CA70D00E939AA /* UIView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B98E2A8CA70D00E939AA /* UIView++.swift */; };
 		2539B9912A8CA72C00E939AA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B9902A8CA72C00E939AA /* Color.swift */; };
@@ -96,7 +95,6 @@
 		2539B9782A8CA63D00E939AA /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2539B97E2A8CA66F00E939AA /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		2539B9822A8CA6AD00E939AA /* Image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Image.xcassets; sourceTree = "<group>"; };
-		2539B9842A8CA6B400E939AA /* Color.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Color.xcassets; sourceTree = "<group>"; };
 		2539B9862A8CA6BF00E939AA /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		2539B98E2A8CA70D00E939AA /* UIView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView++.swift"; sourceTree = "<group>"; };
 		2539B9902A8CA72C00E939AA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -339,7 +337,6 @@
 			children = (
 				2539B9512A8CA48400E939AA /* Assets.xcassets */,
 				2539B9822A8CA6AD00E939AA /* Image.xcassets */,
-				2539B9842A8CA6B400E939AA /* Color.xcassets */,
 			);
 			path = AsseCatalog;
 			sourceTree = "<group>";
@@ -652,7 +649,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2539B9552A8CA48400E939AA /* LaunchScreen.storyboard in Resources */,
-				2539B9852A8CA6B400E939AA /* Color.xcassets in Resources */,
 				2539B9832A8CA6AD00E939AA /* Image.xcassets in Resources */,
 				2539B9522A8CA48400E939AA /* Assets.xcassets in Resources */,
 			);
