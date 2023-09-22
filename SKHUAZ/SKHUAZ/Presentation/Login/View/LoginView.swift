@@ -10,6 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
+protocol LoginViewDelegate: AnyObject {
+    func logInButtonTapped()
+    func signUpButtonTapped()
+}
+
 final class LoginView: UIView {
     
     // MARK: - UI Components
@@ -19,13 +24,13 @@ final class LoginView: UIView {
     private let pwTextField = UITextField()
     private let logInButton = UIButton()
     private let signUpButton = UIButton()
-    private let forgotButton = UIButton()
     
     // MARK: - Properties
         
     var signUpButtonHandler: (() -> Void)?
     var forgotButtonnHandler: (() -> Void)?
     var logInButtonnHandler: (() -> Void)?
+    weak var delegate: LoginViewDelegate?
     
     // MARK: - Initializer
     
@@ -82,7 +87,7 @@ extension LoginView {
             $0.backgroundColor = .black
             $0.setTitleColor(.white, for: .normal)
             $0.addTarget(self,
-                             action: #selector(pushSecondViewController),
+                             action: #selector(presentSignUpViewController),
                              for: .touchUpInside)
             $0.layer.cornerRadius = 5
         }
@@ -91,15 +96,7 @@ extension LoginView {
             $0.titleLabel?.font = .systemFont(ofSize: 11)
             $0.setTitleColor(.gray, for: .normal)
             $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
-                         for: .touchUpInside)
-        }
-        forgotButton.do {
-            $0.setTitle("아이디/비밀번호 찾기", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 11)
-            $0.setTitleColor(.appColor(.placeHolderColor) , for: .normal)
-            $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
+                         action: #selector(presentSignUpViewController),
                          for: .touchUpInside)
         }
     }
@@ -109,7 +106,7 @@ extension LoginView {
     private func setLayout() {
         
         addSubviews(logoLabel, idTextField, pwTextField,
-                    logInButton, signUpButton, forgotButton)
+                    logInButton, signUpButton)
         
         logoLabel.snp.makeConstraints {
             $0.bottom.equalTo(idTextField.snp.top).offset(-50)
@@ -141,14 +138,6 @@ extension LoginView {
             $0.top.equalTo(logInButton.snp.bottom).offset(30)
             $0.trailing.equalToSuperview().inset(30)
             $0.height.equalTo(13)
-
-        }
-        
-        forgotButton.snp.makeConstraints {
-            
-            $0.trailing.equalTo(signUpButton.snp.leading).offset(-10)
-            $0.top.equalTo(signUpButton)
-            $0.height.equalTo(13)
         }
     }
     
@@ -156,7 +145,8 @@ extension LoginView {
     
     // MARK: - @objc Methods
     @objc
-    func pushSecondViewController() {
-        
+    func presentSignUpViewController() {
+        self.delegate?.signUpButtonTapped()
+        print("signUpButton Tapped")
     }
 }

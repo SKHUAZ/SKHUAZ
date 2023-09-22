@@ -9,7 +9,20 @@ import UIKit
 import SnapKit
 import Then
 
-final class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, LoginViewDelegate {
+    
+    func logInButtonTapped() {
+        let secondVC = BaseViewController()
+        secondVC.modalPresentationStyle = .fullScreen
+        present(secondVC, animated: true, completion: nil)
+    }
+    
+    func signUpButtonTapped() {
+        let secondVC = SignUpViewController()
+        secondVC.modalPresentationStyle = .fullScreen
+        present(secondVC, animated: true, completion: nil)
+    }
+    
     
     // MARK: - UI Components
     
@@ -24,6 +37,7 @@ final class LoginViewController: UIViewController {
     
     override func loadView() {
         self.view = rootView
+        rootView.delegate = self
     }
 }
 
