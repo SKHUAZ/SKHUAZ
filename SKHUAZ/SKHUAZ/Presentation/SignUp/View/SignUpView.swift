@@ -66,15 +66,20 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         
         
         // MARK: - UI Components
-
+    
+    
+    private let contentScrollView = UIScrollView()
         private let mainImage = UIImageView()
         private let nameTextField = UITextField()
         private let nicknameTextField = UITextField()
         private let nicknameCheckButton = UIButton()
+        private let nicknameWarningMessage = UILabel()
         private let emailTextField = UITextField()
         private let emailCheckButton = UIButton()
+        private let emailWarningMessage = UILabel()
         private let pwTextField = UITextField()
         private let pwReTextField = UITextField()
+        private let pwWarningMessage = UILabel()
         private let semesterLabel = UILabel()
         private var semesterButton = UIButton(type: .system)
         private let graduateLabel = UILabel()
@@ -86,6 +91,7 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private let signUpButton = UIButton()
 
         // MARK: - Getter
+    
         var firstValueReturn: String? {
             return firstValue
         }
@@ -143,7 +149,16 @@ extension SignUpView {
     
     private func setUI() {
         self.backgroundColor = .white
+        pwWarningMessage.isHidden = true
+        emailWarningMessage.isHidden = true
+        nicknameWarningMessage.isHidden = true
         
+        contentScrollView.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.backgroundColor = .white
+            $0.showsVerticalScrollIndicator = false
+            $0.isDirectionalLockEnabled = true
+        }
         mainImage.do {
             $0.contentMode = .scaleAspectFit
             $0.image = Image.Logo1
@@ -190,6 +205,13 @@ extension SignUpView {
             $0.layer.borderColor = UIColor.black.cgColor
         }
         
+        nicknameWarningMessage.do {
+            $0.text = "닉네임 중복 *"
+            $0.font = .systemFont(ofSize: 10)
+            $0.textColor = .red
+            $0.textAlignment = .center
+        }
+        
         emailTextField.do {
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 14), // 원하는 폰트 크기로 설정
@@ -213,6 +235,13 @@ extension SignUpView {
             $0.layer.cornerRadius = 6
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.black.cgColor
+        }
+        
+        emailWarningMessage.do {
+            $0.text = "학교 이메일만 가능합니다 *"
+            $0.font = .systemFont(ofSize: 10)
+            $0.textColor = .red
+            $0.textAlignment = .center
         }
         
         pwTextField.do {
@@ -245,6 +274,13 @@ extension SignUpView {
             $0.layer.cornerRadius = 5
             $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
             $0.leftViewMode = .always
+        }
+        
+        pwWarningMessage.do {
+            $0.text = "비밀번호가 일치하지 않습니다.*"
+            $0.font = .systemFont(ofSize: 10)
+            $0.textColor = .red
+            $0.textAlignment = .center
         }
         
         semesterLabel.do {
@@ -318,10 +354,13 @@ extension SignUpView {
     // MARK: - Layout Helper
     
     private func setLayout() {
+        addSubview(contentScrollView)
         
-        addSubviews(mainImage, nameTextField, nicknameTextField, nicknameCheckButton, emailTextField, emailCheckButton,pwTextField,
-                    pwReTextField, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, mainMajorButton, subMajorButton, signUpButton)
-        
+        contentScrollView.addSubviews(mainImage, nameTextField, nicknameTextField, nicknameCheckButton, nicknameWarningMessage, emailTextField, emailCheckButton, emailWarningMessage, pwTextField,
+                    pwReTextField,pwWarningMessage, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, signUpButton)
+        contentScrollView.snp.makeConstraints{
+            $0.top.leading.trailing.bottom.equalToSuperview()
+        }
         mainImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(45)
             $0.width.equalTo(234)
@@ -351,22 +390,32 @@ extension SignUpView {
             $0.height.equalTo(50)
         }
         
+        nicknameWarningMessage.snp.makeConstraints {
+            $0.top.equalTo(nicknameTextField.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().inset(28)
+        }
+        
         emailTextField.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField.snp.bottom).offset(32)
+            $0.top.equalTo(nicknameWarningMessage.snp.bottom).offset(5)
             $0.leading.equalToSuperview().inset(28)
             $0.height.equalTo(50)
         }
         
         emailCheckButton.snp.makeConstraints {
-            $0.top.equalTo(nicknameTextField.snp.bottom).offset(32)
+            $0.top.equalTo(nicknameWarningMessage.snp.bottom).offset(5)
             $0.leading.equalTo(emailTextField.snp.trailing).offset(9)
             $0.trailing.equalToSuperview().inset(29)
             $0.width.equalTo(113)
             $0.height.equalTo(50)
         }
         
+        emailWarningMessage.snp.makeConstraints {
+            $0.top.equalTo(emailTextField.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().inset(28)
+        }
+        
         pwTextField.snp.makeConstraints {
-            $0.top.equalTo(emailTextField.snp.bottom).offset(23 )
+            $0.top.equalTo(emailWarningMessage.snp.bottom).offset(5)
             $0.leading.equalToSuperview().inset(28)
             $0.trailing.equalToSuperview().inset(29)
             $0.height.equalTo(50)
@@ -379,14 +428,19 @@ extension SignUpView {
             $0.height.equalTo(50)
         }
         
+        pwWarningMessage.snp.makeConstraints {
+            $0.top.equalTo(pwReTextField.snp.bottom).offset(5)
+            $0.leading.equalToSuperview().inset(28)
+        }
+        
         semesterLabel.snp.makeConstraints {
-            $0.top.equalTo(pwReTextField.snp.bottom).offset(48)
+            $0.centerY.equalTo(semesterButton.snp.centerY)
             $0.leading.equalToSuperview().offset(28)
             $0.height.equalTo(17)
         }
         
         semesterButton.snp.makeConstraints {
-            $0.centerY.equalTo(semesterLabel.snp.top)
+            $0.top.equalTo(pwWarningMessage.snp.bottom).offset(32)
             $0.leading.equalTo(semesterLabel.snp.trailing).offset(12)
             $0.trailing.equalToSuperview().inset(29)
             $0.width.equalTo(262)
@@ -498,20 +552,14 @@ extension SignUpView {
                 self.delegate?.emailCheckButtonTapped()
             }
             else {
+                emailWarningMessage.isHidden = false
                 // 입력값이 유효하지 않은 이메일 주소일 경우
-                //                        resultLabel.text = "유효하지 않은 이메일 주소입니다."
-                //                        resultLabel.textColor = .red
             }
         }
     }
     @objc
     func signUpButtonTapped() {
         self.delegate?.signUpButtonTapped()
-    }
-    @objc
-    func pushSecondViewController() {
-        print("\(firstValue)")
-        print("\(secondValue)")
     }
     
     @objc func testprint() {

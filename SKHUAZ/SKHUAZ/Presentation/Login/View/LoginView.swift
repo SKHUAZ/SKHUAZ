@@ -116,21 +116,18 @@ extension LoginView {
         idTextField.snp.makeConstraints {
             $0.bottom.equalTo(pwTextField.snp.top).offset(-30)
             $0.trailing.leading.equalToSuperview().inset(30)
-            $0.width.equalTo(300)
             $0.height.equalTo(50)
         }
         
         pwTextField.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.leading.equalToSuperview().inset(30)
-            $0.width.equalTo(300)
             $0.height.equalTo(50)
         }
         
         logInButton.snp.makeConstraints {
             $0.top.equalTo(pwTextField.snp.bottom).offset(30)
             $0.trailing.leading.equalToSuperview().inset(30)
-            $0.width.equalTo(300)
             $0.height.equalTo(50)
         }
         
