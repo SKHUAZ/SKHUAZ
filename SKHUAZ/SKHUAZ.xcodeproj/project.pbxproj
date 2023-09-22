@@ -61,6 +61,7 @@
 		9E4EAD2D2AB70357006CA2A2 /* AlertViewOfRecommendController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EAD2C2AB70357006CA2A2 /* AlertViewOfRecommendController.swift */; };
 		9E691DAB2AB847A800DC42C9 /* DetailRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E691DAA2AB847A800DC42C9 /* DetailRecommendViewController.swift */; };
 		9E691DAF2ABB064800DC42C9 /* CustomRootContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E691DAE2ABB064800DC42C9 /* CustomRootContainer.swift */; };
+		9E691DB22ABC20DB00DC42C9 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E691DB12ABC20DB00DC42C9 /* HomeViewController.swift */; };
 		9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */; };
 		9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */; };
 		9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */; };
@@ -137,6 +138,7 @@
 		9E4EAD2C2AB70357006CA2A2 /* AlertViewOfRecommendController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewOfRecommendController.swift; sourceTree = "<group>"; };
 		9E691DAA2AB847A800DC42C9 /* DetailRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecommendViewController.swift; sourceTree = "<group>"; };
 		9E691DAE2ABB064800DC42C9 /* CustomRootContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRootContainer.swift; sourceTree = "<group>"; };
+		9E691DB12ABC20DB00DC42C9 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
 		9EC5E2E02A99EBF40047E6E7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 		2539B95E2A8CA50400E939AA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				9E691DB02ABC20A100DC42C9 /* Home */,
 				E3EC5D032AB421B700325E7D /* Setting */,
 				25D46EF62AB07E5C008FA088 /* Essential */,
 				9EC5E2D22A924BB40047E6E7 /* Recommend */,
@@ -498,6 +501,30 @@
 				F117412C1F8CCFD2FB59B8E4 /* Pods_SKHUAZ.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9E691DB02ABC20A100DC42C9 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9E691DB42ABD13BD00DC42C9 /* View */,
+				9E691DB32ABD13AB00DC42C9 /* ViewController */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9E691DB32ABD13AB00DC42C9 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9E691DB12ABC20DB00DC42C9 /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9E691DB42ABD13BD00DC42C9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		9EC5E2D22A924BB40047E6E7 /* Recommend */ = {
@@ -777,6 +804,7 @@
 				9E4EAD292AB55D61006CA2A2 /* CreateRecommendBottomSheetViewController.swift in Sources */,
 				25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */,
 				25FA1D892AA80A290044B38F /* EvaluateTextFieldView.swift in Sources */,
+				9E691DB22ABC20DB00DC42C9 /* HomeViewController.swift in Sources */,
 				259435D12AB15E2F00B03EBF /* EssentialSideView.swift in Sources */,
 				258A71DA2AA89C1D001E8A5B /* UITextField++.swift in Sources */,
 				2539B98F2A8CA70D00E939AA /* UIView++.swift in Sources */,
