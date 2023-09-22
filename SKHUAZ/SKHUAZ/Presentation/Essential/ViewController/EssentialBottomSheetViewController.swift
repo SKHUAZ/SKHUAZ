@@ -123,5 +123,15 @@ extension EssentialBottomSheetViewController {
     @objc
     private func saveEvaluate() {
         print("저장버튼이 눌렸습니다")
+        self.dismiss(animated: false) { [weak self] in
+            self?.delegate?.didTapSaveButton() {
+                let customAlertVC = AlertViewController(alertType: .mainEvaluate)
+                customAlertVC.modalPresentationStyle = .overFullScreen
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let mainWindow = windowScene.windows.first {
+                    mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+                }
+            }
+        }
     }
 }

@@ -1,8 +1,8 @@
 //
-//  CreateEvaluateBottomSheetViewController.swift
+//  CreateRecommendBottomSheetViewController.swift
 //  SKHUAZ
 //
-//  Created by 천성우 on 2023/09/07.
+//  Created by 박신영 on 2023/09/16.
 //
 
 import UIKit
@@ -10,21 +10,21 @@ import UIKit
 import SnapKit
 import Then
 
-protocol CreateEvaluateBottomSheetViewControllerDelegate: AnyObject {
+protocol CreateRecommendBottomSheetViewControllerDelegate: AnyObject {
     func didTapSaveButton(completion: @escaping () -> Void)
 }
 
-final class CreateEvaluateBottomSheetViewController: UIViewController {
+final class CreateRecommendBottomSheetViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let titleLabel = UILabel()
-    private let cancelButton = UIButton()
-    private let saveButton = UIButton()
+    private let saveViewTitleLabel = UILabel()
+    private let saveViewCancelButton = UIButton()
+    private let saveViewSaveButton = UIButton()
     
     // MARK: - Properties
     
-    weak var delegate: CreateEvaluateViewController?
+    weak var delegate: CreateRecommendViewController?
     private let titleText: String = "{글제목}"
     
     // MARK: - Initializer
@@ -39,7 +39,7 @@ final class CreateEvaluateBottomSheetViewController: UIViewController {
     }
 }
 
-extension CreateEvaluateBottomSheetViewController {
+extension CreateRecommendBottomSheetViewController {
     
     // MARK: - UI Components Property
     
@@ -55,7 +55,7 @@ extension CreateEvaluateBottomSheetViewController {
             }]
         }
         
-        titleLabel.do {
+        saveViewTitleLabel.do {
             $0.text = "저장하시겠습니까?"
             $0.textColor = UIColor(hex: "#000000")
             $0.numberOfLines = 2
@@ -63,7 +63,7 @@ extension CreateEvaluateBottomSheetViewController {
             $0.textAlignment = .center
         }
         
-        cancelButton.do {
+        saveViewCancelButton.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
             $0.layer.borderWidth = 1
@@ -73,7 +73,7 @@ extension CreateEvaluateBottomSheetViewController {
             $0.titleLabel?.font = .systemFont(ofSize: 15)
         }
         
-        saveButton.do {
+        saveViewSaveButton.do {
             $0.layer.cornerRadius = 6
             $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
             $0.layer.borderWidth = 1
@@ -87,22 +87,22 @@ extension CreateEvaluateBottomSheetViewController {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(titleLabel, cancelButton, saveButton)
+        view.addSubviews(saveViewTitleLabel, saveViewCancelButton, saveViewSaveButton)
         
-        titleLabel.snp.makeConstraints {
+        saveViewTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(107)
             $0.leading.trailing.equalToSuperview().inset(137)
         }
         
-        cancelButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(75)
+        saveViewCancelButton.snp.makeConstraints {
+            $0.top.equalTo(saveViewTitleLabel.snp.bottom).offset(75)
             $0.leading.equalToSuperview().offset(43)
             $0.width.equalTo(142)
             $0.height.equalTo(50)
         }
         
-        saveButton.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(75)
+        saveViewSaveButton.snp.makeConstraints {
+            $0.top.equalTo(saveViewTitleLabel.snp.bottom).offset(75)
             $0.trailing.equalToSuperview().inset(43)
             $0.width.equalTo(142)
             $0.height.equalTo(50)
@@ -112,14 +112,14 @@ extension CreateEvaluateBottomSheetViewController {
     // MARK: - Methods
     
     private func addTarget() {
-        cancelButton.addTarget(self, action: #selector(dismissToCreateEvaluateViewController), for: .touchUpInside)
-        saveButton.addTarget(self, action: #selector(saveEvaluate), for: .touchUpInside)
+        saveViewCancelButton.addTarget(self, action: #selector(dismissToCreateRecommendViewController), for: .touchUpInside)
+        saveViewSaveButton.addTarget(self, action: #selector(saveEvaluate), for: .touchUpInside)
     }
     
     // MARK: - @objc Methods
     
     @objc
-    private func dismissToCreateEvaluateViewController() {
+    private func dismissToCreateRecommendViewController() {
         dismiss(animated: true, completion: nil)
     }
     
