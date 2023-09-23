@@ -17,7 +17,8 @@ class EvaluateTableViewCell: UITableViewCell {
     // MARK: - UI Components
     private let cellContainer = UIView()
     private let mainContainer = UIView()
-    private let subContainer = PaddingLabel()
+    private let subContainer = UIView()
+    private let evaluateReview = UILabel()
     private let topSpace = UIView()
     private let evaluateTitle = UILabel()
     private let lectureNameLabel = UILabel()
@@ -62,14 +63,13 @@ extension EvaluateTableViewCell {
         }
         
         subContainer.do {
-            $0.font = .systemFont(ofSize: 8)
-            $0.numberOfLines = 6
             $0.layer.cornerRadius = 6
             $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
-            $0.topInset = 6
-            $0.rightInset = 9
-            $0.bottomInset = 6
-            $0.leftInset = 7
+        }
+        
+        evaluateReview.do {
+            $0.font = .systemFont(ofSize: 8)
+            $0.numberOfLines = 6
         }
         
         evaluateGraph.do {
@@ -79,7 +79,6 @@ extension EvaluateTableViewCell {
         evaluateTitle.do {
             $0.font = .systemFont(ofSize: 8)
             $0.textColor = UIColor(hex: "#FFFFFF")
-//            $0.backgroundColor = UIColor(hex: "#9AC1D1")
         }
         
         lectureNameLabel.do {
@@ -106,6 +105,7 @@ extension EvaluateTableViewCell {
         contentView.addSubviews(cellContainer)
         cellContainer.addSubviews(topSpace, mainContainer, subContainer,
                                   evaluateGraph)
+        subContainer.addSubviews(evaluateReview)
         topSpace.addSubviews(evaluateTitle)
         mainContainer.addSubviews(lectureNameLabel, professorNameLabel)
         
@@ -114,6 +114,11 @@ extension EvaluateTableViewCell {
             $0.leading.equalToSuperview().offset(36)
             $0.width.equalTo(315)
             $0.height.equalTo(147)
+        }
+        
+        evaluateReview.snp.makeConstraints {
+            $0.top.leading.equalToSuperview().offset(7)
+            $0.width.equalTo(135)
         }
         
         lectureNameLabel.snp.makeConstraints {
@@ -165,7 +170,8 @@ extension EvaluateTableViewCell {
         evaluateTitle.text = "[\(review.semester)]  \(review.title)"
         lectureNameLabel.text = review.lecture
         professorNameLabel.text = review.professor
-        subContainer.text = review.evaluate
+        evaluateReview.text = review.evaluate
         evaluateGraph.numbers = [review.firstPoint, review.secondPoint, review.thirdPoint, review.fourthPoint]
     }
+
 }
