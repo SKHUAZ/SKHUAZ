@@ -14,9 +14,9 @@ struct EssentialDataModel {
 
 
 let essentialDataModels: [[EssentialDataModel]] = [[
-        EssentialDataModel(lectureName: "Java프로그래밍", professorName: "문성현"),
-        EssentialDataModel(lectureName: "1111111", professorName: "박신영"),
-        EssentialDataModel(lectureName: "UIkit 입문", professorName: "천성우"),
+        EssentialDataModel(lectureName: "웹개발입문", professorName: "1학년 2학기"),
+        EssentialDataModel(lectureName: "Python프로그래밍", professorName: "1학년 2학기"),
+        EssentialDataModel(lectureName: "대학생활세미나 II", professorName: "1학년 2학기"),
         EssentialDataModel(lectureName: "1111111", professorName: "허지영")
     ],
     [
