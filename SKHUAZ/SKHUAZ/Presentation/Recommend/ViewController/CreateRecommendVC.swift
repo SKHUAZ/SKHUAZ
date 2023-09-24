@@ -137,7 +137,7 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     
     private func addTarget() {
         backButton.addTarget(self, action: #selector(pushToRecommendViewController), for: .touchUpInside)
-                saveButton.addTarget(self, action: #selector(presnetToCreateRecommendBottomSheetViewController), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(presnetToCreateRecommendBottomSheetViewController), for: .touchUpInside)
         bringButton.addTarget(self, action: #selector(pressedBringButton), for: .touchUpInside)
     }
     
@@ -181,13 +181,15 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     @objc
     func presnetToCreateRecommendBottomSheetViewController() {
         
-        if (recommendView.titleTextFieldText == nil || recommendView.contentTextFieldText == "본문을 입력해주세요") {
+        print(recommendView.rootTitleTextField
+              , recommendView.contentTextFieldText)
+        if (self.recommendView.rootTitleTextField == "" || self.recommendView.contentTextView.text == "본문을 입력해주세요") {
             print("입력을 다 해주세요")
             let customAlertVC = AlertViewOfRecommendController(alertType: .notEnteredCreateRootView)
             customAlertVC.modalPresentationStyle = .overFullScreen
             UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
         } else {
-            print("titleTextField : \(String(describing: recommendView.titleTextFieldText))")
+            print("titleTextField : \(String(describing: recommendView.rootTitleTextField))")
             print("contentTextField : \(recommendView.contentTextFieldText ?? "")")
             
             let bottomSheetVC = CreateRecommendBottomSheetViewController()

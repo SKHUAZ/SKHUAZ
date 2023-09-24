@@ -22,7 +22,7 @@ class CreateRecommendView: UIView {
     private let recommendType: RecommendType
     private let pageName = UILabel()
     private let titleTextField = UITextField()
-    private let contentTextView = UITextView()
+    let contentTextView = UITextView()
     
     private let placeholderTextView = "본문을 작성해주세요"
     private let placeholderColor = UIColor(hex: "#737373")
@@ -32,7 +32,7 @@ class CreateRecommendView: UIView {
     
     // MARK: - Getter
     
-    var titleTextFieldText: String? {
+    var rootTitleTextField: String? {
         return titleTextField.text
     }
     
