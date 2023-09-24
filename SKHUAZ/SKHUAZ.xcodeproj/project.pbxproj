@@ -62,6 +62,9 @@
 		25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */; };
 		25D46EFA2AB07E84008FA088 /* EssentialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF92AB07E84008FA088 /* EssentialView.swift */; };
 		25D46EFC2AB07E8C008FA088 /* EssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */; };
+		25E3EB352AC0A6B500165B9D /* SaveEssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB342AC0A6B500165B9D /* SaveEssentialViewController.swift */; };
+		25E3EB372AC0B07200165B9D /* SaveEssentialContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB362AC0B07200165B9D /* SaveEssentialContainerView.swift */; };
+		25E3EB392AC0B86800165B9D /* SaveEssentialSubContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB382AC0B86800165B9D /* SaveEssentialSubContainerView.swift */; };
 		25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */; };
 		25FA1D852AA61BEC0044B38F /* CircleGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D842AA61BEC0044B38F /* CircleGraph.swift */; };
 		25FA1D892AA80A290044B38F /* EvaluateTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */; };
@@ -141,6 +144,9 @@
 		25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
 		25D46EF92AB07E84008FA088 /* EssentialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialView.swift; sourceTree = "<group>"; };
 		25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialViewController.swift; sourceTree = "<group>"; };
+		25E3EB342AC0A6B500165B9D /* SaveEssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEssentialViewController.swift; sourceTree = "<group>"; };
+		25E3EB362AC0B07200165B9D /* SaveEssentialContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEssentialContainerView.swift; sourceTree = "<group>"; };
+		25E3EB382AC0B86800165B9D /* SaveEssentialSubContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEssentialSubContainerView.swift; sourceTree = "<group>"; };
 		25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
 		25FA1D842AA61BEC0044B38F /* CircleGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleGraph.swift; sourceTree = "<group>"; };
 		25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateTextFieldView.swift; sourceTree = "<group>"; };
@@ -418,13 +424,16 @@
 				E3EC5CF72AAAF91200325E7D /* RadioButton.swift */,
 				E3EC5D122AB996D700325E7D /* CustomDropDownMenuView.swift */,
 				E3EC5D012AAD59F500325E7D /* RadioButtonsStack.swift */,
+				25E3EB362AC0B07200165B9D /* SaveEssentialContainerView.swift */,
 				25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */,
+				258A71E72AA9B7FA001E8A5B /* AlertViewController.swift */,
 				25FA1D842AA61BEC0044B38F /* CircleGraph.swift */,
 				25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */,
 				25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */,
 				259435D52AB2DD8B00B03EBF /* LectureButton.swift */,
 				251214652AB995EA005B8F43 /* CustomDropdownMenuSearch.swift */,
 				254419712ABD50BA00207250 /* CustomRootContainer.swift */,
+				25E3EB382AC0B86800165B9D /* SaveEssentialSubContainerView.swift */,
 			);
 			path = CustomClass;
 			sourceTree = "<group>";
@@ -446,7 +455,6 @@
 				259435DB2AB44CBE00B03EBF /* DetailEvaluateViewController.swift */,
 				25FA1D8C2AA820090044B38F /* CreateEvaluateViewController.swift */,
 				258A71DD2AA98EDB001E8A5B /* CreateEvaluateBottomSheetViewController.swift */,
-				258A71E72AA9B7FA001E8A5B /* AlertViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -490,6 +498,7 @@
 			isa = PBXGroup;
 			children = (
 				25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */,
+				25E3EB342AC0A6B500165B9D /* SaveEssentialViewController.swift */,
 				259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */,
 			);
 			path = ViewController;
@@ -741,6 +750,7 @@
 				258A71DA2AA89C1D001E8A5B /* UITextField++.swift in Sources */,
 				2539B98F2A8CA70D00E939AA /* UIView++.swift in Sources */,
 				2539B96D2A8CA5BB00E939AA /* Config.swift in Sources */,
+				25E3EB392AC0B86800165B9D /* SaveEssentialSubContainerView.swift in Sources */,
 				2544196A2ABD501600207250 /* CreateRecommendBottomSheetViewController.swift in Sources */,
 				E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */,
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
@@ -769,11 +779,13 @@
 				2539B9972A8CA74900E939AA /* FontLevel.swift in Sources */,
 				25292C892ABDDF00003845C5 /* AllevaluateResponseDTO.swift in Sources */,
 				254419722ABD50BA00207250 /* CustomRootContainer.swift in Sources */,
+				25E3EB372AC0B07200165B9D /* SaveEssentialContainerView.swift in Sources */,
 				9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */,
 				259435D82AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift in Sources */,
 				254419702ABD508200207250 /* ImportRootModel.swift in Sources */,
 				2539B9652A8CA56100E939AA /* DTO.swift in Sources */,
 				25292C712ABD6F89003845C5 /* BaseTargetType.swift in Sources */,
+				25E3EB352AC0A6B500165B9D /* SaveEssentialViewController.swift in Sources */,
 				25292C732ABD6F9A003845C5 /* BaseAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
