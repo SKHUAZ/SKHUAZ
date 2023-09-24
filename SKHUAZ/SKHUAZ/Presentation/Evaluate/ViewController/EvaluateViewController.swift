@@ -28,10 +28,13 @@ class EvaluateViewController: UIViewController {
     private var isTouch: Bool = false
     private var filteredReviews: [EvaluateDataModel]!
     var reviews: [EvaluateDataModel]!
+    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJnandsZHVkMDcxOUBuYXZlci5jb20iLCJpYXQiOjE2OTUzNzE2ODMsImV4cCI6MTY5NTczMTY4M30.eLdAzQAHD4oJF2EkaTGmLdnxGNxG54KVxyGMA4_Ojpa61g2YKi6C6zeyohwlUDvLvsdfbXqEuIwTLf62NgwYag"
+
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        getAllEvaluate()
         setupData()
         setUI()
         setLayout()
@@ -39,6 +42,7 @@ class EvaluateViewController: UIViewController {
         setDelegate()
         addTarget()
     }
+
 }
 
 extension EvaluateViewController {
@@ -129,8 +133,7 @@ extension EvaluateViewController {
     // MARK: - Methods
 
     private func setupData() {
-        reviews = evaluateDataModels
-        filteredReviews = reviews
+//        reviews = evaluateDataModels
     }
     
     private func setRegister() {
@@ -198,11 +201,11 @@ extension EvaluateViewController {
         }
         
         filteredReviews = reviews.filter { review in
-            return review.department.contains(searchText) ||
+            return review.semester.contains(searchText) ||
+            review.professor.contains(searchText) ||
             review.lecture.contains(searchText) ||
             review.title.contains(searchText) ||
-            review.authorName.contains(searchText) ||
-            review.professor.contains(searchText)
+            review.department.contains(searchText)
         }
         
         tableView.reloadData()
@@ -231,8 +234,9 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int {
-       return filteredReviews.count
+        return filteredReviews?.count ?? 0
     }
+
 
     func tableView(_ tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
        let cell = tableView.dequeueReusableCell(withIdentifier:"evaluateCell",for:indexPath) as! EvaluateTableViewCell
@@ -242,11 +246,69 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
        return cell
     }
     
-    
-    
     func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
         print("You selected cell #\(reviews[indexPath.row].title)")
         let detailVC = DetailEvaluateViewController()
         self.navigationController?.pushViewController(detailVC, animated: true)
+    }
+}
+
+
+extension EvaluateViewController {
+    func getAllEvaluate() {
+        EvaluateAPI.shared.getAllEvaluate(token: token) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? AllevaluateResponseDTO {
+                    // 서버에서 받은 데이터를 EvaluateDataModel로 매핑
+                    let serverData = data.data
+                    var mappedData: [EvaluateDataModel] = []
+                    
+                    for serverItem in serverData {
+                        let mappedItem = EvaluateDataModel(
+                            semester: serverItem.lecture.semester,
+                            professor: serverItem.lecture.profName,
+                            lecture: serverItem.lecture.lecName,
+                            title: serverItem.title,
+                            evaluate: serverItem.review,
+                            firstPoint: serverItem.task,
+                            secondPoint: serverItem.practice,
+                            thirdPoint: serverItem.presentation,
+                            fourthPoint: serverItem.teamPlay,
+                            department: serverItem.lecture.deptName,
+                            authorName: String(serverItem.evaluationID),
+                            evaluationId: serverItem.evaluationID, // evaluationId 필드 추가
+                            createdAt: serverItem.createdAt // createdAt 필드 추가
+                        )
+                        mappedData.append(mappedItem)
+                    }
+                    
+                    // 매핑된 데이터를 배열에 저장
+                    self.reviews = mappedData
+                    self.filteredReviews = self.reviews
+                    
+                    
+                    // 테이블 뷰 업데이트
+                    self.tableView.reloadData()
+                } else {
+                    print("Failed to decode the response.")
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
+        }
     }
 }

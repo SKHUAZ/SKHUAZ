@@ -32,8 +32,8 @@ class TabBarController: UITabBarController {
 extension TabBarController {
     
     private func setFirstViewContoller() {
-        if let evaluateIndex = tabs.firstIndex(where: { $0 is EvaluateViewController }) {
-              selectedIndex = evaluateIndex
+        if let homeVC = tabs.firstIndex(where: { $0 is UIViewController }) {
+              selectedIndex = homeVC
           } // 지금은 강의평 화면을 기본 셋팅화면으로 설정
     }
     
@@ -41,9 +41,9 @@ extension TabBarController {
         tabs = [
             EssentialViewController(), // 선수과목
             EvaluateViewController(), // 강의평
-            SettingViewController(), // 홈
+            UIViewController(), // 홈
             RecommendViewController(), // 루트추천
-            UIViewController() // 설정
+            SettingViewController() // 설정
         ]
         TabBarItemType.allCases.forEach {
             let tabBarItem = $0.setTabBarItem()
