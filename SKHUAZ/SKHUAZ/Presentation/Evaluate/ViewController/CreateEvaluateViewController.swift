@@ -185,7 +185,6 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
         if (evaluateView.semesterButtonTitle == "학기를 선택해주세요" || evaluateView.propeserButtonTitle == "교수님을 선택해주세요" ||
             evaluateView.lectureButtonTitle == "강의를 선택해주세요" || evaluateView.titleTextFieldText == nil ||
             evaluateView.evaluateViewText == "본문을 작성해주세요") {
-            print("입려을 다 해주세요")
             let customAlertVC = AlertViewController(alertType: .createEvaluate)
             customAlertVC.modalPresentationStyle = .overFullScreen
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

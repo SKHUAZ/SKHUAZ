@@ -10,6 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol EssentialBottomSheetDelegate: class {
+    func didTapSaveButtons()
+}
+
 final class EssentialBottomSheetViewController: UIViewController {
     
     // MARK: - UI Components
@@ -22,6 +26,8 @@ final class EssentialBottomSheetViewController: UIViewController {
     
     weak var delegate: CreateEvaluateViewController?
     private let titleText: String = "{글제목}"
+    weak var delegates: EssentialBottomSheetDelegate?
+
     
     // MARK: - Initializer
     
@@ -52,7 +58,7 @@ extension EssentialBottomSheetViewController {
         }
         
         titleLabel.do {
-            $0.text = "{학기} 선택을 마치고\n{다음학기}로 넘어가시겠습니까?"
+            $0.text = "선수과목제도 확인하기를\n이대로 저장하시겠습니까?"
             $0.textColor = UIColor(hex: "#000000")
             $0.numberOfLines = 2
             $0.font = .systemFont(ofSize: 15)
@@ -110,7 +116,7 @@ extension EssentialBottomSheetViewController {
     
     private func addTarget() {
         cancelButton.addTarget(self, action: #selector(dismissToCreateEvaluateViewController), for: .touchUpInside)
-        saveButton.addTarget(self, action: #selector(saveEvaluate), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveEssentialButton), for: .touchUpInside)
     }
     
     // MARK: - @objc Methods
@@ -119,9 +125,9 @@ extension EssentialBottomSheetViewController {
     private func dismissToCreateEvaluateViewController() {
         dismiss(animated: true, completion: nil)
     }
+
     
-    @objc
-    private func saveEvaluate() {
-        print("저장버튼이 눌렸습니다")
-    }
+    @objc private func saveEssentialButton() {
+         delegates?.didTapSaveButtons()
+     }
 }
