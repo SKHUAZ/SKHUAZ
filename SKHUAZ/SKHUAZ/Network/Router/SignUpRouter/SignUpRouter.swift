@@ -59,7 +59,7 @@ extension SignUpRouter: BaseTargetType {
         case .emailAuth:
             return "email/send"
         case .emailCode:
-            return "verify/code"
+            return "email/verify/code"
         }
     }
     

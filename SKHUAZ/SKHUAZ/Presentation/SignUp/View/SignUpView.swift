@@ -20,9 +20,9 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
 
     func sendData(mydata: String, groupId: Int) {
         if groupId == 1{
-                firstValue = mydata
-                print("first value =\(firstValue!)")
-            }
+            firstValue = mydata
+            print("first value =\(firstValue!)")
+        }
         else {
             secondValue = mydata
             print("second value =\(secondValue!)")
@@ -52,7 +52,7 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
                 }
             }
         }
-        }
+    }
         // MARK: - Delegate Property
         
     weak var delegate : SignUpViewDelegate?
@@ -91,6 +91,7 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private let signUpButton = UIButton()
 
         // MARK: - Getter
+    
     var passwordReturn: String? {
         return pwTextField.text
     }

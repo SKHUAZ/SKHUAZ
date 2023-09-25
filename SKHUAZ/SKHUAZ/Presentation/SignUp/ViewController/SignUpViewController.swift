@@ -8,6 +8,7 @@
 import UIKit
 
 final class SignUpViewController: UIViewController, SignUpViewDelegate {
+    
     func nicknameCheckButtonTapped() {
         let bottomSheetVC = CreateEmailAuthViewController()
         present(bottomSheetVC, animated: true, completion: nil)
@@ -15,10 +16,12 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         
     func emailCheckButtonTapped() {
         if let email = rootView.emailTextFieldText {
+            
                     if checkEmail(str: email) {
                         // 입력값이 유효한 이메일 주소일 경우
                         emailAuth()
                         let bottomSheetVC = CreateEmailAuthViewController()
+                        bottomSheetVC.setEmail(email)
                         present(bottomSheetVC, animated: true, completion: nil)
                     }
                     else {
@@ -50,7 +53,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
     // MARK: - UI Components
     
     private let rootView = SignUpView()
-    
+
     //MARK: - View Life Cycle
     
     override func viewDidLoad() {
