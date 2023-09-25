@@ -83,6 +83,7 @@
 		E365250A2AC18248002D1BC2 /* LogInAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36525092AC18248002D1BC2 /* LogInAPI.swift */; };
 		E365250C2AC1D216002D1BC2 /* nicknameCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */; };
 		E36525102AC1E532002D1BC2 /* logOutDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365250F2AC1E532002D1BC2 /* logOutDTO.swift */; };
+		E36525122AC1EFF1002D1BC2 /* EditProfileDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36525112AC1EFF1002D1BC2 /* EditProfileDTO.swift */; };
 		E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */; };
 		E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D512AA20B110047C079 /* SignUpViewController.swift */; };
 		E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CF72AAAF91200325E7D /* RadioButton.swift */; };
@@ -172,6 +173,7 @@
 		E36525092AC18248002D1BC2 /* LogInAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInAPI.swift; sourceTree = "<group>"; };
 		E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nicknameCheckDTO.swift; sourceTree = "<group>"; };
 		E365250F2AC1E532002D1BC2 /* logOutDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logOutDTO.swift; sourceTree = "<group>"; };
+		E36525112AC1EFF1002D1BC2 /* EditProfileDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileDTO.swift; sourceTree = "<group>"; };
 		E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		E3E83D512AA20B110047C079 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E3EC5CF72AAAF91200325E7D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				E36524FB2AC00739002D1BC2 /* SignUpResponseDTO.swift */,
 				E36525042AC18034002D1BC2 /* logInDTO.swift */,
 				E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */,
+				E36525112AC1EFF1002D1BC2 /* EditProfileDTO.swift */,
 				E36525022AC1744C002D1BC2 /* emailAuthDTO.swift */,
 				E365250F2AC1E532002D1BC2 /* logOutDTO.swift */,
 			);
@@ -811,6 +814,7 @@
 				25FA1D8F2AA821B40044B38F /* EvaluateView.swift in Sources */,
 				258A71DE2AA98EDB001E8A5B /* CreateEvaluateBottomSheetViewController.swift in Sources */,
 				25292C8D2ABDDF77003845C5 /* EvaluateAPI.swift in Sources */,
+				E36525122AC1EFF1002D1BC2 /* EditProfileDTO.swift in Sources */,
 				258A71D82AA89BB4001E8A5B /* UIResponder++.swift in Sources */,
 				E36525032AC1744C002D1BC2 /* emailAuthDTO.swift in Sources */,
 				254419682ABD4FD500207250 /* DetailRecommendViewController.swift in Sources */,

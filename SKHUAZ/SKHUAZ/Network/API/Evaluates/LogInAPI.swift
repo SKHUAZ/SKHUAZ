@@ -36,4 +36,11 @@ extension LogInAPI {
                                 completion: completion)
         }
     }
+    public func editProfile(request: EditProfileRequest, token: String,  completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(LogInRouter.editProfile(request: request, token: token)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: EditProfileDTO.self,
+                                completion: completion)
+        }
+    }
 }

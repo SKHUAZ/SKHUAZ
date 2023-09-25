@@ -13,6 +13,7 @@ enum LogInRouter {
     case LogIn (request: LogInRequest)
     case nicknameCheck (nickname: String )
     case LogOut(token: String)
+    case editProfile(request: EditProfileRequest, token: String)
 }
 
 struct LogInRequest: Encodable {
@@ -20,6 +21,19 @@ struct LogInRequest: Encodable {
     let password: String
 }
 
+struct EditProfileRequest: Encodable {
+    let nickname: String
+    let semester: String
+    let graduate: Bool
+    let major1, major2: String
+    let department, majorMinor, doubleMajor: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case nickname, semester, graduate, major1, major2, department
+        case majorMinor = "major_minor"
+        case doubleMajor = "double_major"
+    }
+}
 extension LogInRouter: BaseTargetType {
     
     var baseURL: String { return Config.baseURL }
@@ -32,6 +46,8 @@ extension LogInRouter: BaseTargetType {
             return .get
         case .LogOut:
             return .post
+        case .editProfile:
+            return .post
         }
     }
     
@@ -43,6 +59,8 @@ extension LogInRouter: BaseTargetType {
             return "/user/checkDuplicate/\(nickname)"
         case .LogOut:
             return "/user/logout"
+        case .editProfile:
+            return "/user/update-information"
         }
     }
     
@@ -54,6 +72,8 @@ extension LogInRouter: BaseTargetType {
             return .none
         case .LogOut:
             return .none
+        case let .editProfile(request, _):
+            return .body(request)
         }
     }
     var headers : HTTPHeaders?{
@@ -63,6 +83,8 @@ extension LogInRouter: BaseTargetType {
         case .nicknameCheck:
             return nil
         case .LogOut(let token):
+            return ["Authorization": "Bearer \(token)"]
+        case .editProfile(_, let token):
             return ["Authorization": "Bearer \(token)"]
         default:
             return nil

@@ -53,6 +53,7 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
             }
         }
     }
+    
         // MARK: - Delegate Property
         
     weak var delegate : SignUpViewDelegate?

@@ -37,6 +37,11 @@ extension SettingViewController {
     
     // MARK: - Methods
     
+    func pushToLogInView() {
+        let secondViewController = LoginViewController()
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+    }
+    
     func editProfileButtonTapped() {
         let secondViewController = EditProfileViewController()
         secondViewController.modalPresentationStyle = .fullScreen
@@ -52,6 +57,7 @@ extension SettingViewController {
             switch result {
             case .success:
                 print("로그아웃했대요")
+                self.pushToLogInView()
             case .requestErr(let message):
                 // Handle request error here.
                 print("Request error: \(message)")
@@ -69,6 +75,7 @@ extension SettingViewController {
             }
             
         }
+        
         // MARK: - @objc Methods
     }
 }
