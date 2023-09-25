@@ -137,7 +137,8 @@
         
         @objc
         private func saveEvaluate() {
-            print("저장버튼이 눌렸습니다")
+            
+            print("인증이 완료되었습니다.")
             self.dismiss(animated: false) { [weak self] in
                     let customAlertVC = AlertViewController(alertType: .mainEvaluate)
                     customAlertVC.modalPresentationStyle = .overFullScreen

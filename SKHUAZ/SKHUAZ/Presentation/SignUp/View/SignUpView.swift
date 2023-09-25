@@ -91,7 +91,9 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private let signUpButton = UIButton()
 
         // MARK: - Getter
-    
+    var passwordReturn: String? {
+        return pwTextField.text
+    }
         var firstValueReturn: String? {
             return firstValue
         }
@@ -354,6 +356,7 @@ extension SignUpView {
     // MARK: - Layout Helper
     
     private func setLayout() {
+            
         addSubview(contentScrollView)
         
         contentScrollView.addSubviews(mainImage, nameTextField, nicknameTextField, nicknameCheckButton, nicknameWarningMessage, emailTextField, emailCheckButton, emailWarningMessage, pwTextField,

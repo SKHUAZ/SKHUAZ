@@ -20,6 +20,7 @@ class SettingView: UIView {
 
     // MARK: - UI Components
     
+    private let contentScrollView = UIScrollView()
     private let mainImage = UIImageView()
     private let editProfileButton = UIButton()
     private let setAlarmButton = UIButton()
@@ -49,6 +50,12 @@ extension SettingView {
     private func setUI() {
         self.backgroundColor = .white
         
+        contentScrollView.do {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.backgroundColor = .white
+            $0.showsVerticalScrollIndicator = false
+            $0.isDirectionalLockEnabled = true
+        }
         mainImage.do {
             $0.contentMode = .scaleAspectFit
             $0.image = Image.Logo1
@@ -88,7 +95,9 @@ extension SettingView {
 
     private func setLayout() {
         
-        addSubviews(mainImage, editProfileButton, ruleButton, signOutButton, rightLabel)
+        addSubview(contentScrollView)
+
+        contentScrollView.addSubviews(mainImage, editProfileButton, ruleButton, signOutButton, rightLabel)
         
         mainImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(45)
