@@ -29,4 +29,11 @@ extension SignUpAPI {
                                     completion: completion)
             }
         }
+    public func emailAuthCode(request: emailCodeRequest,  completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(SignUpRouter.emailCode(request: request)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: EmailAuthCodeDTO.self,
+                                completion: completion)
+        }
+    }
     }

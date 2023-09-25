@@ -17,6 +17,14 @@ protocol LoginViewDelegate: AnyObject {
 
 final class LoginView: UIView {
     
+    // MARK: - GETTER
+    
+    var emailTextFieldText: String? {
+        return idTextField.text
+    }
+    var passwordReturn: String? {
+        return pwTextField.text
+    }
     // MARK: - UI Components
     
     private let logoLabel = UILabel()
@@ -144,6 +152,5 @@ extension LoginView {
     @objc
     func presentSignUpViewController() {
         self.delegate?.signUpButtonTapped()
-        print("signUpButton Tapped")
     }
 }

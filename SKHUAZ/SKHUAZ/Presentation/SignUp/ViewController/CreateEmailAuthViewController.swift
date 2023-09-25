@@ -145,4 +145,28 @@
                     UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
             }
         }
+        
+        // MARK: - API 통신
+//        func emailAuthCode() {
+//            SignUpAPI.shared.emailAuthCode(request: emailCodeRequest.init(email: <#T##String#>, code: <#T##String#>)){ result in
+//                    switch result {
+//                    case .success:
+//                        print("Sign Up Success")
+//                    case .requestErr(let message):
+//                        // Handle request error here.
+//                        print("Request error: \(message)")
+//                    case .pathErr:
+//                        // Handle path error here.
+//                        print("Path error")
+//                    case .serverErr:
+//                        // Handle server error here.
+//                        print("Server error")
+//                    case .networkFail:
+//                        // Handle network failure here.
+//                        print("Network failure")
+//                    default:
+//                        break
+//                    }
+//                }
+//            }
     }

@@ -12,6 +12,12 @@ import Alamofire
 enum SignUpRouter {
     case SignUp (request: SignUpRequest)
     case emailAuth (email: String)
+    case emailCode (request: emailCodeRequest)
+}
+
+struct emailCodeRequest: Encodable {
+    let email: String
+    let code: String
 }
 
 struct SignUpRequest: Encodable {
@@ -37,6 +43,8 @@ extension SignUpRouter: BaseTargetType {
             return .post
         case .emailAuth:
             return .post
+        case .emailCode:
+            return .post
         }
     }
     
@@ -46,6 +54,8 @@ extension SignUpRouter: BaseTargetType {
             return "user/join"
         case .emailAuth:
             return "email/send"
+        case .emailCode:
+            return "verify/code"
         }
     }
     
@@ -55,6 +65,8 @@ extension SignUpRouter: BaseTargetType {
             return .body(request)
         case let .emailAuth(email):
             return .body(email)
+        case let .emailCode(request):
+            return .body(request)
         }
         
         var headers : HTTPHeaders?{
@@ -62,6 +74,8 @@ extension SignUpRouter: BaseTargetType {
             case .SignUp:
                 return nil
             case .emailAuth:
+                return nil
+            case .emailCode:
                 return nil
             default:
                 return nil

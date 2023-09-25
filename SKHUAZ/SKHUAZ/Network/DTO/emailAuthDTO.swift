@@ -14,6 +14,12 @@ struct EmailAuthDTO: Codable {
     let message: String
 }
 
+// MARK: - EmailAuthCodeDTO
+struct EmailAuthCodeDTO: Codable {
+    let statusCode: Int
+    let httpStatus, errorMessage: String
+}
+
 // MARK: - Encode/decode helpers
 
 class JSONNull: Codable, Hashable {
