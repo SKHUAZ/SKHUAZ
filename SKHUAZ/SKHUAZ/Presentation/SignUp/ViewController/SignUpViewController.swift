@@ -128,7 +128,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
             }
         }
     func emailAuth() {
-        SignUpAPI.shared.emailAuth(email: rootView.emailTextFieldText ?? "") { result in
+        SignUpAPI.shared.emailAuth(request:emailSendRequest.init(email: rootView.emailTextFieldText ?? "")) { result in
                 switch result {
                 case .success:
                     print("email send Success")

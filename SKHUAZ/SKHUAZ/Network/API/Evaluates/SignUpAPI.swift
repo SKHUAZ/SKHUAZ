@@ -22,8 +22,8 @@ extension SignUpAPI {
                                 completion: completion)
         }
     }
-        public func emailAuth(email: String,  completion: @escaping(NetworkResult<Any>) -> Void) {
-            AFManager.request(SignUpRouter.emailAuth(email: email)).responseData { response in
+        public func emailAuth(request: emailSendRequest, completion: @escaping(NetworkResult<Any>) -> Void) {
+            AFManager.request(SignUpRouter.emailAuth(request: request)).responseData { response in
                 self.disposeNetwork(response,
                                     dataModel: EmailAuthDTO.self,
                                     completion: completion)

@@ -26,7 +26,7 @@ final class LoginViewController: UIViewController, LoginViewDelegate {
 //        present(secondVC, animated: true, completion: nil)
 //        let secondViewController = SignUpViewController()
 //                self.navigationController?.pushViewController(secondViewController, animated: true)
-//            
+//
     }
     
     
@@ -82,8 +82,15 @@ extension LoginViewController {
     func LogIn() {
         LogInAPI.shared.LogIn(request: LogInRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "")) { result in
                 switch result {
-                case .success:
-                    print("email send Success")
+                case .success(let data):
+                    if let data = data as? LogInDTO {
+                        // 서버에서 받은 데이터를 LogInDTo로 매핑
+                        UserDefaults.standard.set(data.accessToken, forKey: "AuthToken")
+                        print("LogIn Success")
+                        print("\(UserDefaults.standard.object(forKey: "AuthToken")!)")
+                    } else {
+                        print("Failed to decode the response.")
+                    }
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")
@@ -101,6 +108,13 @@ extension LoginViewController {
                 }
             }
         }
-
-    
+    func parseLogInResponse(data: Data) throws -> LogInDTO {
+        do {
+            let decoder = JSONDecoder()
+            let logInDTO = try decoder.decode(LogInDTO.self, from: data)
+            return logInDTO
+        } catch {
+            throw YourErrorType.parsingError(description: "Failed to parse LogIn response")
+        }
+    }
 }

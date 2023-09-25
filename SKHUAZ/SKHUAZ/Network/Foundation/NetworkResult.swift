@@ -16,3 +16,6 @@ enum NetworkResult<T> {
     case networkFail              // 네트워크 연결 실패했을 때
 }
 
+enum YourErrorType: Error {
+    case parsingError(description: String)
+}
