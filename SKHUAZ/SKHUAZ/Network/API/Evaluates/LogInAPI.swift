@@ -22,4 +22,11 @@ extension LogInAPI {
                                 completion: completion)
         }
     }
+    public func nicknameCheck(nickname: String,  completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(LogInRouter.nicknameCheck(nickname: nickname)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: NicknameCheckDTO.self,
+                                completion: completion)
+        }
+    }
 }

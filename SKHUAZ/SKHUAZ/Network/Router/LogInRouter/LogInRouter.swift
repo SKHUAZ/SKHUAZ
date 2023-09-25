@@ -11,12 +11,17 @@ import Alamofire
 
 enum LogInRouter {
     case LogIn (request: LogInRequest)
+    case nicknameCheck (nickname: String )
 }
 
 struct LogInRequest: Encodable {
     let email: String
     let password: String
 }
+
+//struct nicknameRequest: Encodable {
+//    let nickname: String
+//}
 
 extension LogInRouter: BaseTargetType {
     
@@ -26,6 +31,8 @@ extension LogInRouter: BaseTargetType {
         switch self {
         case .LogIn:
             return .post
+        case .nicknameCheck:
+            return .get
         }
     }
     
@@ -33,6 +40,8 @@ extension LogInRouter: BaseTargetType {
         switch self {
         case .LogIn:
             return "user/login"
+        case .nicknameCheck(let nickname):
+            return "/user/checkDuplicate/\(nickname)"
         }
     }
     
@@ -40,11 +49,15 @@ extension LogInRouter: BaseTargetType {
         switch self {
         case let .LogIn(request):
             return .body(request)
+        case let .nicknameCheck:
+            return .none
         }
         
         var headers : HTTPHeaders?{
             switch self{
             case .LogIn:
+                return nil
+            case .nicknameCheck:
                 return nil
             default:
                 return nil

@@ -10,8 +10,7 @@ import UIKit
 final class SignUpViewController: UIViewController, SignUpViewDelegate {
     
     func nicknameCheckButtonTapped() {
-        let bottomSheetVC = CreateEmailAuthViewController()
-        present(bottomSheetVC, animated: true, completion: nil)
+        nicknameCheck()
     }
         
     func emailCheckButtonTapped() {
@@ -135,6 +134,28 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
                 switch result {
                 case .success:
                     print("email send Success")
+                case .requestErr(let message):
+                    // Handle request error here.
+                    print("Request error: \(message)")
+                case .pathErr:
+                    // Handle path error here.
+                    print("Path error")
+                case .serverErr:
+                    // Handle server error here.
+                    print("Server error")
+                case .networkFail:
+                    // Handle network failure here.
+                    print("Network failure")
+                default:
+                    break
+                }
+            }
+        }
+    func nicknameCheck() {
+        LogInAPI.shared.nicknameCheck(nickname: rootView.nicknameTextFieldText ?? "") { result in
+                switch result {
+                case .success:
+                    print("nickname checked Success")
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")

@@ -81,6 +81,7 @@
 		E36525052AC18034002D1BC2 /* logInDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36525042AC18034002D1BC2 /* logInDTO.swift */; };
 		E36525082AC180F6002D1BC2 /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36525072AC180F6002D1BC2 /* LogInRouter.swift */; };
 		E365250A2AC18248002D1BC2 /* LogInAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E36525092AC18248002D1BC2 /* LogInAPI.swift */; };
+		E365250C2AC1D216002D1BC2 /* nicknameCheckDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */; };
 		E3E83D502AA20AFF0047C079 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */; };
 		E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3E83D512AA20B110047C079 /* SignUpViewController.swift */; };
 		E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3EC5CF72AAAF91200325E7D /* RadioButton.swift */; };
@@ -168,6 +169,7 @@
 		E36525042AC18034002D1BC2 /* logInDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logInDTO.swift; sourceTree = "<group>"; };
 		E36525072AC180F6002D1BC2 /* LogInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
 		E36525092AC18248002D1BC2 /* LogInAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInAPI.swift; sourceTree = "<group>"; };
+		E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nicknameCheckDTO.swift; sourceTree = "<group>"; };
 		E3E83D4F2AA20AFF0047C079 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		E3E83D512AA20B110047C079 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E3EC5CF72AAAF91200325E7D /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				25292C882ABDDF00003845C5 /* AllevaluateResponseDTO.swift */,
 				E36524FB2AC00739002D1BC2 /* SignUpResponseDTO.swift */,
 				E36525042AC18034002D1BC2 /* logInDTO.swift */,
+				E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */,
 				E36525022AC1744C002D1BC2 /* emailAuthDTO.swift */,
 			);
 			path = DTO;
@@ -812,6 +815,7 @@
 				2539B9972A8CA74900E939AA /* FontLevel.swift in Sources */,
 				E36525082AC180F6002D1BC2 /* LogInRouter.swift in Sources */,
 				25292C892ABDDF00003845C5 /* AllevaluateResponseDTO.swift in Sources */,
+				E365250C2AC1D216002D1BC2 /* nicknameCheckDTO.swift in Sources */,
 				254419722ABD50BA00207250 /* CustomRootContainer.swift in Sources */,
 				9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */,
 				259435D82AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift in Sources */,
