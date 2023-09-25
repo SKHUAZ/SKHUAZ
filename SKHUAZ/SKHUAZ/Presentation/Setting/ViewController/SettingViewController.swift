@@ -15,6 +15,8 @@ final class SettingViewController: UIViewController, SettingViewDelegate {
 
     // MARK: - Properties
         
+    var token: String = UserDefaults.standard.string(forKey: "AuthToken")!
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -41,5 +43,32 @@ extension SettingViewController {
         self.present(secondViewController, animated: true)
     }
     
-    // MARK: - @objc Methods
+    func logOutButtonTapped() {
+        logOut()
+    }
+    
+    func logOut() {
+        LogInAPI.shared.LogOut(token: token) { result in
+            switch result {
+            case .success:
+                print("로그아웃했대요")
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
+        }
+        // MARK: - @objc Methods
+    }
 }

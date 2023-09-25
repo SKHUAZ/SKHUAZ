@@ -12,6 +12,7 @@ import Then
 
 protocol SettingViewDelegate: AnyObject {
     func editProfileButtonTapped()
+    func logOutButtonTapped()
 }
 
 class SettingView: UIView {
@@ -26,7 +27,7 @@ class SettingView: UIView {
     private let setAlarmButton = UIButton()
     private let setModeButton = UIButton()
     private let ruleButton = UIButton()
-    private let signOutButton = UIButton()
+    private let logOutButton = UIButton()
     private let rightLabel = UILabel()
     
     // MARK: - Initializer
@@ -49,13 +50,7 @@ extension SettingView {
     
     private func setUI() {
         self.backgroundColor = .white
-        
-        contentScrollView.do {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.backgroundColor = .white
-            $0.showsVerticalScrollIndicator = false
-            $0.isDirectionalLockEnabled = true
-        }
+
         mainImage.do {
             $0.contentMode = .scaleAspectFit
             $0.image = Image.Logo1
@@ -76,7 +71,7 @@ extension SettingView {
             $0.layer.borderWidth = 2
             $0.layer.borderColor = UIColor.black.cgColor
         }
-        signOutButton.do {
+        logOutButton.do {
             $0.setTitle("로그아웃", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
             $0.setTitleColor(.black, for: .normal)
@@ -95,30 +90,27 @@ extension SettingView {
 
     private func setLayout() {
         
-        addSubview(contentScrollView)
-
-        contentScrollView.addSubviews(mainImage, editProfileButton, ruleButton, signOutButton, rightLabel)
+        addSubviews(mainImage, editProfileButton, ruleButton, logOutButton, rightLabel)
         
         mainImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(45)
+            $0.top.equalToSuperview().offset(200)
             $0.width.equalTo(234)
             $0.height.equalTo(60)
-            $0.bottom.equalTo(editProfileButton.snp.bottom).offset(-57)
             $0.centerX.equalToSuperview()
         }
         editProfileButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
-            $0.bottom.equalTo(ruleButton.snp.top).offset(-40)
+            $0.top.equalTo(mainImage.snp.bottom).offset(57)
         }
         ruleButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
+            $0.top.equalTo(editProfileButton.snp.bottom).offset(40)
             $0.height.equalTo(53)
         }
-        signOutButton.snp.makeConstraints {
+        logOutButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
@@ -127,8 +119,8 @@ extension SettingView {
         rightLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
-            $0.height.equalTo(53)
-            $0.top.equalTo(signOutButton.snp.bottom).offset(40)
+            $0.height.equalTo(53)   
+            $0.top.equalTo(logOutButton.snp.bottom).offset(40)
         }
     }
     
@@ -137,11 +129,15 @@ extension SettingView {
     private func addTarget() {
         
         editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
+        logOutButton.addTarget(self, action: #selector(logOutButtonTapped), for: .touchUpInside)
     }
 
     // MARK: - @objc Methods
     
     @objc func editProfileButtonTapped() {
         delegate?.editProfileButtonTapped()
+    }
+    @objc func logOutButtonTapped() {
+        delegate?.logOutButtonTapped()
     }
 }

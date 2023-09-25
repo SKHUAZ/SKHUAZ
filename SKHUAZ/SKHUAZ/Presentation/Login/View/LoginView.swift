@@ -88,14 +88,13 @@ extension LoginView {
             $0.leftViewMode = .always
         }
 
-        
         logInButton.do {
             $0.setTitle("로그인", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
             $0.backgroundColor = .black
             $0.setTitleColor(.white, for: .normal)
             $0.addTarget(self,
-                             action: #selector(presentSignUpViewController),
+                             action: #selector(logInButtonTapped),
                              for: .touchUpInside)
             $0.layer.cornerRadius = 5
         }
@@ -104,7 +103,7 @@ extension LoginView {
             $0.titleLabel?.font = .systemFont(ofSize: 11)
             $0.setTitleColor(.gray, for: .normal)
             $0.addTarget(self,
-                         action: #selector(presentSignUpViewController),
+                         action: #selector(signUpButtonTapped),
                          for: .touchUpInside)
         }
     }
@@ -150,7 +149,11 @@ extension LoginView {
     
     // MARK: - @objc Methods
     @objc
-    func presentSignUpViewController() {
+    func logInButtonTapped() {
+        self.delegate?.logInButtonTapped()
+    }
+    @objc
+    func signUpButtonTapped() {
         self.delegate?.signUpButtonTapped()
     }
 }
