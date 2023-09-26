@@ -9,26 +9,6 @@ import Foundation
 
 import Alamofire
 
-//class EvaluationAPIManager {
-//
-//    let api = BaseAPI()
-//
-//    func getAllEvaluations(token:String, completion:@escaping (NetworkResult<AllevaluateResponseDTO>) -> Void) {
-//        let router = EvaluateRouter.getAllEvaluation(token: token)
-//        api.AFManager.request(router).responseData { response in
-//            self.api.disposeNetwork(response,
-//                               dataModel: AllevaluateResponseDTO.self) { result in
-//                if let result = result as? NetworkResult<AllevaluateResponseDTO> {
-//                    completion(result)
-//                } else {
-//                    // 캐스팅 실패 처리
-//                    completion(.pathErr)
-//                }
-//            }
-//        }
-//    }
-//}
-
 final class EvaluateAPI: BaseAPI {
     static let shared = EvaluateAPI()
     
@@ -42,6 +22,54 @@ extension EvaluateAPI {
         AFManager.request(EvaluateRouter.getAllEvaluation(token: token)).responseData { response in
             self.disposeNetwork(response,
                                 dataModel: AllevaluateResponseDTO.self,
+                                completion: completion)
+        }
+    }
+    
+//    public func getDetailEvaluation(token: String, evaluationId: Int, completion: @escaping(NetworkResult<Any>) -> Void) {
+//        AFManager.request(EvaluateRouter.getDetailEvaluation(token: token, evaluationId: evaluationId)).responseData { response in
+//            self.disposeNetwork(response,
+//                                dataModel: DetailEvaluateDTO.self,
+//                                completion: completion)
+//        }
+//    }
+    
+    
+    
+    
+    
+    public func getDetailEvaluation(token: String,
+                                    evaluationId: Int,
+                                    completion: @escaping (Result<DetailEvaluateDTO?, Error>) -> Void) {
+
+            AF.request(EvaluateRouter.getDetailEvaluation(token: token,
+                                                          evaluationId: evaluationId))
+                .validate()
+                .responseDecodable(of: DetailEvaluateDTO.self) { response in
+
+                    switch response.result {
+                    case .success(let data):
+                        DispatchQueue.main.async {
+                            completion(.success(data))
+                        }
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
+                    }
+                }
+    }
+    
+    
+    
+    
+    
+    public func postCreateEvaluate(token: String,
+                                   requestBody: CreateEvaluateRequestBody,
+                                   completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(EvaluateRouter.postCreateEvaluation(token: token, requestBody: requestBody)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: CreateEvaluateDTO.self,
                                 completion: completion)
         }
     }
