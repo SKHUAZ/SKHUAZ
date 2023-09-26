@@ -11,6 +11,8 @@ import Alamofire
 
 enum EvaluateRouter {
     case getAllEvaluation(token: String)
+    case getDetailEvaluation(token: String, evaluationId: Int)
+    case postCreateEvaluation(token: String, requestBody: CreateEvaluateRequestBody)
 }
 
 extension EvaluateRouter: BaseTargetType {
@@ -21,6 +23,10 @@ extension EvaluateRouter: BaseTargetType {
         switch self {
         case .getAllEvaluation:
             return .get
+        case .getDetailEvaluation:
+            return .get
+        case .postCreateEvaluation:
+            return .post
         }
     }
     
@@ -28,6 +34,10 @@ extension EvaluateRouter: BaseTargetType {
         switch self {
         case .getAllEvaluation:
             return "/evaluation/AllEvaluation"
+        case  .getDetailEvaluation(_,let evaluationId):
+            return "/evaluation/content/\(evaluationId)"
+        case .postCreateEvaluation:
+            return "/evaluation/create"
         }
     }
     
@@ -35,6 +45,10 @@ extension EvaluateRouter: BaseTargetType {
         switch self {
         case .getAllEvaluation:
             return .none
+        case .getDetailEvaluation:
+            return .none
+        case .postCreateEvaluation(_, let requestBody):
+            return .body(requestBody)
         }
     }
     
@@ -42,8 +56,10 @@ extension EvaluateRouter: BaseTargetType {
         switch self{
         case .getAllEvaluation(let token):
             return ["Authorization": "Bearer \(token)"]
-        default:
-            return nil
+        case .getDetailEvaluation(let token, _):
+            return ["Authorization": "Bearer \(token)"]
+        case .postCreateEvaluation(let token, _):
+            return ["Authorization": "Bearer \(token)"]
         }
     }
 }

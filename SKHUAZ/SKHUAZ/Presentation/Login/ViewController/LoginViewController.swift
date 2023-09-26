@@ -12,9 +12,15 @@ import Then
 final class LoginViewController: UIViewController, LoginViewDelegate {
     
     func pushToTabbarView() {
-        let secondViewController = TabBarController()
-        self.navigationController?.pushViewController(secondViewController, animated: true)
+        let tabBarController = TabBarController()
+        let navigationController = UINavigationController(rootViewController: tabBarController)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let delegate = windowScene.delegate as? SceneDelegate {
+            delegate.window?.rootViewController = navigationController
+        }
     }
+    
     func logInButtonTapped() {
         LogIn()
         print("뷰야 바뀌어라 얍")
