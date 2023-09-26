@@ -68,6 +68,8 @@ extension LoginView {
         idTextField.do {
             $0.attributedPlaceholder = NSAttributedString(string: "학번을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.appColor(.placeHolderColor)]) // Placeholder 텍스트 색상 설정
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
             $0.clearButtonMode = .whileEditing
             $0.layer.borderWidth = 1
@@ -77,6 +79,9 @@ extension LoginView {
         }
         pwTextField.do {
             $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.appColor(.placeHolderColor)]) // Placeholder 텍스트 색상 설정
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
+            $0.isSecureTextEntry = true
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
             $0.clearButtonMode = .whileEditing

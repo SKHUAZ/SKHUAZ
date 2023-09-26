@@ -126,6 +126,7 @@ extension UserRouter: BaseTargetType {
         case let .emailCode(request):
             return .body(request)
         }
+    }
         
         var headers : HTTPHeaders?{
             switch self{
@@ -149,5 +150,4 @@ extension UserRouter: BaseTargetType {
                 return nil
             }
         }
-    }
 }
