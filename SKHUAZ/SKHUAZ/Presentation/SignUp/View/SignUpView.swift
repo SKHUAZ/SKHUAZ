@@ -128,6 +128,9 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         private let signUpButton = UIButton()
 
         // MARK: - Getter
+    var nicknameWarningMessageReturn: UILabel? {
+        return nicknameWarningMessage
+    }
     var graduateReturn: Bool? {
         return graduate
     }
@@ -538,21 +541,7 @@ extension SignUpView {
             $0.leading.equalTo(majorLabel.snp.trailing).offset(12)
             $0.height.equalTo(17)
         }
-        
-//        mainMajorButton.snp.makeConstraints {
-//            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
-//            $0.leading.equalToSuperview().inset(28)
-//            $0.width.equalTo(140)
-//            $0.height.equalTo(50)
-//        }
-//
-//        subMajorButton.snp.makeConstraints {
-//            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
-//            $0.trailing.equalToSuperview().inset(29)
-//            $0.width.equalTo(140)
-//            $0.height.equalTo(50)
-//        }
-        
+
         signUpButton.snp.makeConstraints {
             $0.top.equalTo(majorRadioButton.snp.bottom).offset(120)
             $0.leading.equalToSuperview().inset(28)
