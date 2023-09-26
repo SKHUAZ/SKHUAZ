@@ -29,6 +29,9 @@ final class AlertViewController: UIViewController {
     private let checkButton = UIButton()
     private let lectureNameTextField = UITextField()
     private let professorNameTextField = UITextField()
+    private let essentialNameTextField = UITextField()
+    private let semesterTextField = UITextField()
+    private let warringLabel = UILabel()
     
     // MARK: - Properties
     
@@ -195,7 +198,7 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "강의명", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "강의명을 입력해주세요", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -206,7 +209,29 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "교수명", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "교수명을 입력해주세요", attributes: attributes)
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            semesterTextField.do {
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.attributedPlaceholder = NSAttributedString(string: "학기를 입력해주세요", attributes: attributes)
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            essentialNameTextField.do {
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.attributedPlaceholder = NSAttributedString(string: "해당 과목의 선수과목", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -269,29 +294,44 @@ extension AlertViewController {
                 mainLabel,
                 lectureNameTextField,
                 professorNameTextField,
+                semesterTextField,
+                essentialNameTextField,
                 checkButton
             )
             
             alertView.snp.makeConstraints {
                 $0.width.equalTo(300)
-                $0.height.equalTo(300)
+                $0.height.equalTo(340)
                 $0.center.equalToSuperview()
             }
             
             mainLabel.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(40)
+                $0.top.equalToSuperview().offset(20)
                 $0.leading.equalToSuperview().offset(40)
             }
             
             lectureNameTextField.snp.makeConstraints {
-                $0.top.equalTo(mainLabel.snp.bottom).offset(30)
+                $0.top.equalTo(mainLabel.snp.bottom).offset(20)
                 $0.leading.trailing.equalToSuperview().inset(40)
                 $0.height.equalTo(40)
 
             }
             
+            
             professorNameTextField.snp.makeConstraints {
-                $0.top.equalTo(lectureNameTextField.snp.bottom).offset(30)
+                $0.top.equalTo(lectureNameTextField.snp.bottom).offset(15)
+                $0.leading.trailing.equalToSuperview().inset(40)
+                $0.height.equalTo(40)
+            }
+            
+            semesterTextField.snp.makeConstraints {
+                $0.top.equalTo(professorNameTextField.snp.bottom).offset(15)
+                $0.leading.trailing.equalToSuperview().inset(40)
+                $0.height.equalTo(40)
+            }
+            
+            essentialNameTextField.snp.makeConstraints {
+                $0.top.equalTo(semesterTextField.snp.bottom).offset(15)
                 $0.leading.trailing.equalToSuperview().inset(40)
                 $0.height.equalTo(40)
             }
