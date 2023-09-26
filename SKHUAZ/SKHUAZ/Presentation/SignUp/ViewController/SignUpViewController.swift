@@ -121,7 +121,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         UserAPI.shared.emailAuth(request:emailSendRequest.init(email: rootView.emailTextFieldText ?? "")) { result in
                 switch result {
                 case .success:
-                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+                    print("email")
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")
@@ -142,11 +142,23 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
     func nicknameCheck() {
         UserAPI.shared.nicknameCheck(nickname: rootView.nicknameTextFieldText ?? "") { result in
                 switch result {
-                case .success:
-                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+                case .success(let data):
+                    if let conflictData = data as? NicknameCheckConflictDTO  {
+                        if conflictData.statusCode == 409 {
+                                        self.rootView.nicknameWarningMessageReturn?.textColor = .red
+                                        self.rootView.nicknameWarningMessageReturn?.text = "닉네임 중복 *"
+                                        self.rootView.nicknameWarningMessageReturn?.isHidden = false
+                                    }
+                                }
+                    else if let successData = data as? NicknameCheckDTO  {
+                        if successData.statusCode == 200{
+                            self.rootView.nicknameWarningMessageReturn?.textColor = .blue
+                            self.rootView.nicknameWarningMessageReturn?.text = "닉네임 인증 성공 *"
+                            self.rootView.nicknameWarningMessageReturn?.isHidden = false
+                        }
+                    }
                 case .requestErr(let message):
-                    // Handle request error here.
-                    print("Request error: \(message)")
+                    print("\(message)")
                 case .pathErr:
                     // Handle path error here.
                     print("Path error")
