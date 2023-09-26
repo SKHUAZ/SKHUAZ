@@ -82,6 +82,7 @@ extension EssentialView {
             
             tutorialButton.do {
                 $0.setImage(Image.questionmark, for: .normal)
+                $0.addTarget(self, action: #selector(openTurotial), for: .touchUpInside)
             }
             
             titleLabel.do {
@@ -447,6 +448,12 @@ extension EssentialView {
             
             renderLectureButtons(forIndex: currentIndex)
         }
+    }
+    
+    @objc func openTurotial() {
+        let customAlertVC = TutorialEssentialViewController()
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
     }
     
     @objc

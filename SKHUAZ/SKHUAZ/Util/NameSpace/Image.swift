@@ -37,4 +37,12 @@ public enum Image {
     static let rightButton = UIImage(named: "rightButton")
     static let openMenu = UIImage(named: "open")
     static let questionmark = UIImage(named: "QuestionMark")
+    
+    static let pythonImage = UIImage(named: "python")
+    static let javaImage = UIImage(named: "java")
+    static let webImage = UIImage(named: "web")
+    static let dataImage = UIImage(named: "data")
+    static let rightVector = UIImage(named: "rightVector")
+    static let leftVector = UIImage(named: "leftVector")
+    
 }

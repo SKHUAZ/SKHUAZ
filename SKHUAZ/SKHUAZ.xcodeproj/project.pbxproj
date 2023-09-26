@@ -15,6 +15,7 @@
 		25292C752ABD6FA5003845C5 /* AlamofireLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25292C742ABD6FA5003845C5 /* AlamofireLogger.swift */; };
 		25292C8B2ABDDF15003845C5 /* EvaluateRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25292C8A2ABDDF15003845C5 /* EvaluateRouter.swift */; };
 		25292C8D2ABDDF77003845C5 /* EvaluateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25292C8C2ABDDF77003845C5 /* EvaluateAPI.swift */; };
+		25348B1A2AC3368300631CD2 /* TutorialEssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25348B192AC3368300631CD2 /* TutorialEssentialViewController.swift */; };
 		2539B9492A8CA48300E939AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B9482A8CA48300E939AA /* AppDelegate.swift */; };
 		2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2539B94A2A8CA48300E939AA /* SceneDelegate.swift */; };
 		2539B9522A8CA48400E939AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2539B9512A8CA48400E939AA /* Assets.xcassets */; };
@@ -122,6 +123,7 @@
 		25292C742ABD6FA5003845C5 /* AlamofireLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlamofireLogger.swift; sourceTree = "<group>"; };
 		25292C8A2ABDDF15003845C5 /* EvaluateRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateRouter.swift; sourceTree = "<group>"; };
 		25292C8C2ABDDF77003845C5 /* EvaluateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateAPI.swift; sourceTree = "<group>"; };
+		25348B192AC3368300631CD2 /* TutorialEssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialEssentialViewController.swift; sourceTree = "<group>"; };
 		2539B9452A8CA48300E939AA /* SKHUAZ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKHUAZ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2539B9482A8CA48300E939AA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2539B94A2A8CA48300E939AA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -563,6 +565,7 @@
 				25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */,
 				25E3EB342AC0A6B500165B9D /* SaveEssentialViewController.swift */,
 				259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */,
+				25348B192AC3368300631CD2 /* TutorialEssentialViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -888,6 +891,7 @@
 				2539B97F2A8CA66F00E939AA /* TabBarViewController.swift in Sources */,
 				258A71DC2AA8AFC6001E8A5B /* UIViewController++.swift in Sources */,
 				25292C8B2ABDDF15003845C5 /* EvaluateRouter.swift in Sources */,
+				25348B1A2AC3368300631CD2 /* TutorialEssentialViewController.swift in Sources */,
 				2539B9B82A8E57EF00E939AA /* UIStackView++.swift in Sources */,
 				E3546DDA2A8DF6EF00ACFF3C /* LoginViewController.swift in Sources */,
 				25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */,
