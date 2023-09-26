@@ -30,7 +30,7 @@ class importRootTableViewCell: UITableViewCell {
         setUI()
         selectedBackgroundView = UIView()
 //        loadEssentialData()
-        renderLectureContainer(forIndex: 0)
+        renderLectureContainer()
     }
     
     required init?(coder: NSCoder) {
@@ -40,7 +40,7 @@ class importRootTableViewCell: UITableViewCell {
 extension importRootTableViewCell {
     
     // MARK: - UI Components Property
-        
+    
     private func setUI() {
         recommendListContainer.do {
             $0.layer.cornerRadius = 6
@@ -95,6 +95,7 @@ extension importRootTableViewCell {
         mainContainer.snp.makeConstraints {
             $0.top.equalTo(topSpace.snp.bottom).offset(12)
             $0.leading.trailing.equalToSuperview().inset(10)
+            $0.height.greaterThanOrEqualTo(38)  // 여기서 38은 CustomRootContainer의 높이입니다.
         }
     }
     
@@ -104,32 +105,28 @@ extension importRootTableViewCell {
         courseYear.text = review.courseYearLabel
     }
     
-//    private func loadEssentialData() {
-//        recommendDataModel = recommendList
-//    }
+    //    private func loadEssentialData() {
+    //        recommendDataModel = recommendList
+    //    }
     
-    private func renderLectureContainer(forIndex index: Int) {
+    private func renderLectureContainer() {
         mainContainer.subviews.forEach { $0.removeFromSuperview() }
         
-        let dataModels = recommendList[index].lectureNameLabel // 현재 인덱스에 해당하는 배열 가져오기
-        print(dataModels)
-        
-        for lecture in dataModels {
-            print("현재 값", lecture)
-            let lectureContainer = CustomRootContainer(lectureName: lecture)
-            
-            mainContainer.addArrangedSubview(lectureContainer)
-            
-            lectureContainer.snp.makeConstraints { make in
-                make.height.equalTo(38)
+        let dataModels = recommendList[0].lectureNameLabel // 현재 인덱스에 해당하는 배열 가져오기
+        for lectures in dataModels {
+            let lectureContainers = UIStackView()
+            lectureContainers.axis = .vertical
+            lectureContainers.spacing = 10
+            for lecture in lectures {
+                let lectureContainer = CustomRootContainer(lectureName: lecture)
+                lectureContainers.addArrangedSubview(lectureContainer)
+                
+                lectureContainer.snp.makeConstraints { make in
+                    make.height.equalTo(38)
+                }
             }
+            mainContainer.addArrangedSubview(lectureContainers)
         }
-        currentIndex += 1
-        if currentIndex > recommendList.count-1 {
-            return
-        } else {
-            renderLectureContainer(forIndex: currentIndex)
-        }
-    }
         
+    }
 }

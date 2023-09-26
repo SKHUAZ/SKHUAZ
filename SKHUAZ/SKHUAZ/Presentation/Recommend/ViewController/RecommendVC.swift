@@ -4,7 +4,7 @@
 //
 //  Created by 박신영 on 2023/08/26.
 //
-
+//sinyoung9215@office.skhu.ac.kr
 import UIKit
 import SnapKit
 import Then
@@ -220,7 +220,7 @@ extension RecommendViewController {
         
         filteredReviews = reviews.filter { review in
             return review.majorNameLabel.contains(searchText) ||
-            review.lectureNameLabel.contains(searchText) ||
+//            review.lectureNameLabel.contains(searchText) ||
             review.titleLabel.contains(searchText) ||
             review.authorNameLabel.contains(searchText) ||
             review.professorNameLabel.contains(searchText)

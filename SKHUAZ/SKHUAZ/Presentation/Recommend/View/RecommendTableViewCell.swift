@@ -233,4 +233,14 @@ extension RecommendTableViewCell {
         creationDateLabel.text = "[\(review.creationDateLabel)]"
         recommendContent.text = review.contentLabel
     }
+    
+    func configureUpdate(with review: RootRecommendDataModel) {
+        recommendTitle.text = review.title
+        recommendContent.text = review.recommendation
+        let creationDate = review.createAt.split(separator: "T")
+        creationDateLabel.text = String(creationDate[0])
+        majorNameLabel.text = review.preLectures[0].lecNames[0]
+        majorNameLabel2.text = review.preLectures[0].lecNames[1]
+        majorNameLabel3.text = review.preLectures[0].lecNames[2]
+    }
 }
