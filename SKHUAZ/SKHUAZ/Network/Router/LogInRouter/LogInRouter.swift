@@ -14,6 +14,7 @@ enum LogInRouter {
     case nicknameCheck (nickname: String )
     case LogOut(token: String)
     case editProfile(request: EditProfileRequest, token: String)
+    case signOut(token: String)
 }
 
 struct LogInRequest: Encodable {
@@ -46,6 +47,8 @@ extension LogInRouter: BaseTargetType {
             return .get
         case .LogOut:
             return .post
+        case .signOut:
+            return .delete
         case .editProfile:
             return .post
         }
@@ -59,6 +62,8 @@ extension LogInRouter: BaseTargetType {
             return "/user/checkDuplicate/\(nickname)"
         case .LogOut:
             return "/user/logout"
+        case .signOut:
+            return "/user/delete"
         case .editProfile:
             return "/user/update-information"
         }
@@ -72,6 +77,8 @@ extension LogInRouter: BaseTargetType {
             return .none
         case .LogOut:
             return .none
+        case .signOut:
+            return .none
         case let .editProfile(request, _):
             return .body(request)
         }
@@ -83,6 +90,8 @@ extension LogInRouter: BaseTargetType {
         case .nicknameCheck:
             return nil
         case .LogOut(let token):
+            return ["Authorization": "Bearer \(token)"]
+        case .signOut(let token):
             return ["Authorization": "Bearer \(token)"]
         case .editProfile(_, let token):
             return ["Authorization": "Bearer \(token)"]

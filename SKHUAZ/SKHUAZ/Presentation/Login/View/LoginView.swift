@@ -27,7 +27,7 @@ final class LoginView: UIView {
     }
     // MARK: - UI Components
     
-    private let logoLabel = UILabel()
+    private let mainImage = UIImageView()
     private let idTextField = UITextField()
     private let pwTextField = UITextField()
     private let logInButton = UIButton()
@@ -60,11 +60,9 @@ extension LoginView {
     private func setUI() {
         self.backgroundColor = .white
         
-        logoLabel.do {
-            $0.text = "SKHUAZ"
-            $0.font = .systemFont(ofSize: 16)
-            $0.textColor = .blue
-            $0.textAlignment = .center
+        mainImage.do {
+            $0.contentMode = .scaleAspectFit
+            $0.image = Image.Logo1
         }
 
         idTextField.do {
@@ -112,10 +110,10 @@ extension LoginView {
     
     private func setLayout() {
         
-        addSubviews(logoLabel, idTextField, pwTextField,
+        addSubviews(mainImage, idTextField, pwTextField,
                     logInButton, signUpButton)
         
-        logoLabel.snp.makeConstraints {
+        mainImage.snp.makeConstraints {
             $0.bottom.equalTo(idTextField.snp.top).offset(-50)
             $0.trailing.leading.equalToSuperview().inset(50)
         }

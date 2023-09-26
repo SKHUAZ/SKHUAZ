@@ -52,6 +52,10 @@ extension SettingViewController {
         logOut()
     }
     
+    func signOutButtonTapped() {
+        signOut()
+    }
+    
     func logOut() {
         LogInAPI.shared.LogOut(token: token) { result in
             switch result {
@@ -75,7 +79,30 @@ extension SettingViewController {
             }
             
         }
-        
-        // MARK: - @objc Methods
     }
+    func signOut() {
+        LogInAPI.shared.signOut(token: token) { result in
+            switch result {
+            case .success:
+                print("회원탈퇴완료")
+                self.pushToLogInView()
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
+        }
+    }
+        // MARK: - @objc Methods
 }

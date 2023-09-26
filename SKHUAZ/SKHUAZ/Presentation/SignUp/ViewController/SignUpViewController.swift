@@ -108,7 +108,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
     }
     // MARK: - API 통신
     func SignUp() {
-        SignUpAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: false, major_minor: true, double_major: false)) { result in
+        SignUpAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, major_minor: rootView.majorminorReturn ?? false, double_major: rootView.doublemajorReturn ?? false)) { result in
                 switch result {
                 case .success:
                     print("Sign Up Success")
