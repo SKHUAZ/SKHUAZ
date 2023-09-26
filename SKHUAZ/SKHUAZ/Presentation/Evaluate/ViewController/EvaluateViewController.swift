@@ -28,9 +28,6 @@ class EvaluateViewController: UIViewController {
     private var isTouch: Bool = false
     private var filteredReviews: [EvaluateDataModel]!
     var reviews: [EvaluateDataModel]!
-    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJnandsZHVkMDcxOUBuYXZlci5jb20iLCJpYXQiOjE2OTUzNzE2ODMsImV4cCI6MTY5NTczMTY4M30.eLdAzQAHD4oJF2EkaTGmLdnxGNxG54KVxyGMA4_Ojpa61g2YKi6C6zeyohwlUDvLvsdfbXqEuIwTLf62NgwYag"
-
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +39,6 @@ class EvaluateViewController: UIViewController {
         setDelegate()
         addTarget()
     }
-
 }
 
 extension EvaluateViewController {
@@ -173,6 +169,7 @@ extension EvaluateViewController {
     private func movewroteMeButton() {
         isMove.toggle()
         if isMove {
+            print("지금은 이동 못 해")
             self.wroteMeButtonBottomConstraint?.update(inset: 168)
             createButton.setImage(Image.edit, for: .normal)
             UIView.animate(withDuration: 0.3) { [weak self] in
@@ -180,9 +177,10 @@ extension EvaluateViewController {
             }
         }
         else if !isMove {
+            print("지금은 이동해")
             let vc = CreateEvaluateViewController()
-            createButton.setImage(Image.createbutton, for: .normal)
             self.navigationController?.pushViewController(vc, animated: true)
+            createButton.setImage(Image.createbutton, for: .normal)
             self.wroteMeButtonBottomConstraint?.update(inset: 104)
             UIView.animate(withDuration: 0.3) { [weak self] in
                 self?.view.layoutIfNeeded()
@@ -247,8 +245,9 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-        print("You selected cell #\(reviews[indexPath.row].title)")
+        print("You selected cell #\(reviews[indexPath.row].evaluationId)")
         let detailVC = DetailEvaluateViewController()
+        detailVC.evaluationId = reviews[indexPath.row].evaluationId
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -256,11 +255,10 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension EvaluateViewController {
     func getAllEvaluate() {
-        EvaluateAPI.shared.getAllEvaluate(token: token) { result in
+        EvaluateAPI.shared.getAllEvaluate(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
             switch result {
             case .success(let data):
                 if let data = data as? AllevaluateResponseDTO {
-                    // 서버에서 받은 데이터를 EvaluateDataModel로 매핑
                     let serverData = data.data
                     var mappedData: [EvaluateDataModel] = []
                     

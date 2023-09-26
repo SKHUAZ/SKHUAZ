@@ -10,22 +10,35 @@ import UIKit
 import SnapKit
 import Then
 
+protocol LoginViewDelegate: AnyObject {
+    func logInButtonTapped()
+    func signUpButtonTapped()
+}
+
 final class LoginView: UIView {
     
+    // MARK: - GETTER
+    
+    var emailTextFieldText: String? {
+        return idTextField.text
+    }
+    var passwordReturn: String? {
+        return pwTextField.text
+    }
     // MARK: - UI Components
     
-    private let logoLabel = UILabel()
+    private let mainImage = UIImageView()
     private let idTextField = UITextField()
     private let pwTextField = UITextField()
     private let logInButton = UIButton()
     private let signUpButton = UIButton()
-    private let forgotButton = UIButton()
     
     // MARK: - Properties
         
     var signUpButtonHandler: (() -> Void)?
     var forgotButtonnHandler: (() -> Void)?
     var logInButtonnHandler: (() -> Void)?
+    weak var delegate: LoginViewDelegate?
     
     // MARK: - Initializer
     
@@ -47,11 +60,9 @@ extension LoginView {
     private func setUI() {
         self.backgroundColor = .white
         
-        logoLabel.do {
-            $0.text = "SKHUAZ"
-            $0.font = .systemFont(ofSize: 16)
-            $0.textColor = .blue
-            $0.textAlignment = .center
+        mainImage.do {
+            $0.contentMode = .scaleAspectFit
+            $0.image = Image.Logo1
         }
 
         idTextField.do {
@@ -75,14 +86,13 @@ extension LoginView {
             $0.leftViewMode = .always
         }
 
-        
         logInButton.do {
             $0.setTitle("로그인", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
             $0.backgroundColor = .black
             $0.setTitleColor(.white, for: .normal)
             $0.addTarget(self,
-                             action: #selector(pushSecondViewController),
+                             action: #selector(logInButtonTapped),
                              for: .touchUpInside)
             $0.layer.cornerRadius = 5
         }
@@ -91,15 +101,7 @@ extension LoginView {
             $0.titleLabel?.font = .systemFont(ofSize: 11)
             $0.setTitleColor(.gray, for: .normal)
             $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
-                         for: .touchUpInside)
-        }
-        forgotButton.do {
-            $0.setTitle("아이디/비밀번호 찾기", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 11)
-            $0.setTitleColor(.appColor(.placeHolderColor) , for: .normal)
-            $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
+                         action: #selector(signUpButtonTapped),
                          for: .touchUpInside)
         }
     }
@@ -108,10 +110,10 @@ extension LoginView {
     
     private func setLayout() {
         
-        addSubviews(logoLabel, idTextField, pwTextField,
-                    logInButton, signUpButton, forgotButton)
+        addSubviews(mainImage, idTextField, pwTextField,
+                    logInButton, signUpButton)
         
-        logoLabel.snp.makeConstraints {
+        mainImage.snp.makeConstraints {
             $0.bottom.equalTo(idTextField.snp.top).offset(-50)
             $0.trailing.leading.equalToSuperview().inset(50)
         }
@@ -119,35 +121,24 @@ extension LoginView {
         idTextField.snp.makeConstraints {
             $0.bottom.equalTo(pwTextField.snp.top).offset(-30)
             $0.trailing.leading.equalToSuperview().inset(30)
-            $0.width.equalTo(300)
             $0.height.equalTo(50)
         }
         
         pwTextField.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.leading.equalToSuperview().inset(30)
-            $0.width.equalTo(300)
             $0.height.equalTo(50)
         }
         
         logInButton.snp.makeConstraints {
             $0.top.equalTo(pwTextField.snp.bottom).offset(30)
             $0.trailing.leading.equalToSuperview().inset(30)
-            $0.width.equalTo(300)
             $0.height.equalTo(50)
         }
         
         signUpButton.snp.makeConstraints {
             $0.top.equalTo(logInButton.snp.bottom).offset(30)
             $0.trailing.equalToSuperview().inset(30)
-            $0.height.equalTo(13)
-
-        }
-        
-        forgotButton.snp.makeConstraints {
-            
-            $0.trailing.equalTo(signUpButton.snp.leading).offset(-10)
-            $0.top.equalTo(signUpButton)
             $0.height.equalTo(13)
         }
     }
@@ -156,7 +147,11 @@ extension LoginView {
     
     // MARK: - @objc Methods
     @objc
-    func pushSecondViewController() {
-        
+    func logInButtonTapped() {
+        self.delegate?.logInButtonTapped()
+    }
+    @objc
+    func signUpButtonTapped() {
+        self.delegate?.signUpButtonTapped()
     }
 }

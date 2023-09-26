@@ -9,21 +9,26 @@
     import SnapKit
     import Then
 
-    final class CreateEmailAuthViewController: UIViewController {
-        
+final class CreateEmailAuthViewController: UIViewController {
+    
+        private var email: String?
+    
         // MARK: - UI Components
         
         private let titleLabel = UILabel()
         private let textField = UITextField()
         private let cancelButton = UIButton()
         private let saveButton = UIButton()
-        
         // MARK: - Properties
-                
+                        
         // MARK: - Initializer
         
-        // MARK: - View Life Cycle
+        var codeReturn: String? {
+            return textField.text
+        }
         
+        // MARK: - View Life Cycle
+    
         override func viewDidLoad() {
             super.viewDidLoad()
             setUI()
@@ -127,6 +132,9 @@
             cancelButton.addTarget(self, action: #selector(dismissToCreateEvaluateViewController), for: .touchUpInside)
             saveButton.addTarget(self, action: #selector(saveEvaluate), for: .touchUpInside)
         }
+        func setEmail(_ email: String) {
+                self.email = email
+            }
         
         // MARK: - @objc Methods
         
@@ -137,11 +145,35 @@
         
         @objc
         private func saveEvaluate() {
-            print("저장버튼이 눌렸습니다")
+            emailAuthCode(email: email ?? "")
             self.dismiss(animated: false) { [weak self] in
                     let customAlertVC = AlertViewController(alertType: .mainEvaluate)
                     customAlertVC.modalPresentationStyle = .overFullScreen
                     UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
             }
         }
+        
+        // MARK: - API 통신
+        func emailAuthCode(email: String) {
+            UserAPI.shared.emailAuthCode(request: emailCodeRequest.init(email: email, code: textField.text ?? "")){ result in
+                    switch result {
+                    case .success:
+                        print("인증이 완료되었습니다.")
+                    case .requestErr(let message):
+                        // Handle request error here.
+                        print("Request error: \(message)")
+                    case .pathErr:
+                        // Handle path error here.
+                        print("Path error")
+                    case .serverErr:
+                        // Handle server error here.
+                        print("Server error")
+                    case .networkFail:
+                        // Handle network failure here.
+                        print("Network failure")
+                    default:
+                        break
+                    }
+                }
+            }
     }

@@ -21,9 +21,12 @@ final class CreateEvaluateViewController: UIViewController {
     
     // MARK: - Properties
     
-    private var semesterOptions: [String] = ["23 - 1학기", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"]
+    private var semesterOptions: [String] = []
     private var lectureOptions: [String] = ["C 프로그래밍", "이산수학", "Python 프로그래밍", "데이터베이스", "사물인터넷 기초", "Java 프로그래밍", "논리회로설계", "웹 개발 입문", "데이터기초수학", "전공탐색세미나 (컴퓨터공학전공)", "전공탐색세미나 (소프트웨어공학전공)", "전공탐색세미나 (인공지능전공)"]
-    private var profeserOptions: [String] = ["1", "1", "1", "1", "1"]
+    private var profeserOptions: [String] = ["김덕봉", "1", "1", "1", "1"]
+    var createData = CreateEvaluateRequestBody()
+    private var lecPostData: String = ""
+    private var semPostData: String = ""
     
     // MARK: - Initializer
     
@@ -38,6 +41,7 @@ final class CreateEvaluateViewController: UIViewController {
         addTarget()
         setDelagate()
         self.hideKeyboardWhenTappedAround()
+        postSemester()
         NotificationCenter.default.addObserver(self, selector: #selector(semesterTitleChanged(_:)), name: NSNotification.Name("SemesterTitleChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(lectureTitleChanged(_:)), name: NSNotification.Name("LectureTitleChanged"), object: nil)
     }
@@ -47,16 +51,20 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
     @objc
     private func semesterTitleChanged(_ notification: Notification) {
         if let newTitle = notification.userInfo?["newTitle"] as? String {
+            let postLectureData = AllLectureRequestBody(semester: newTitle)
             print("\(newTitle)를 서버에 넣어야합니다 이건 선택한 학기입니다")
-            evaluateView.setDropDownLectureMenu(lectureOptions: lectureOptions)
+            self.semPostData = newTitle
+            postLecture(postLectureData: postLectureData)
         }
     }
     
     @objc
     private func lectureTitleChanged(_ notification: Notification) {
         if let newTitle = notification.userInfo?["newTitle"] as? String {
+            var postProfessorData = AllProfessorRequestBody(semester: semPostData,
+                                                            lecName: newTitle)
+            postProfessor(postProfessorData: postProfessorData)
             print("\(newTitle)을 서버에 넣어야합니다 이건 선택한 강의입니다")
-            evaluateView.setDropDownProfessorMenu(profeserOptions: profeserOptions)
         }
     }
     // MARK: - UI Components Property
@@ -181,11 +189,9 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
     
     @objc
     func presnetToCreateEvaluateBottomSheetViewController() {
-        
         if (evaluateView.semesterButtonTitle == "학기를 선택해주세요" || evaluateView.propeserButtonTitle == "교수님을 선택해주세요" ||
             evaluateView.lectureButtonTitle == "강의를 선택해주세요" || evaluateView.titleTextFieldText == nil ||
             evaluateView.evaluateViewText == "본문을 작성해주세요") {
-            print("입려을 다 해주세요")
             let customAlertVC = AlertViewController(alertType: .createEvaluate)
             customAlertVC.modalPresentationStyle = .overFullScreen
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -194,19 +200,112 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             }
 
         } else {
-            print("Semester Button Title : \(evaluateView.semesterButtonTitle ?? "")")
-            print("Propeser Button Title : \(evaluateView.propeserButtonTitle ?? "")")
-            print("Lecture Button Title : \(evaluateView.lectureButtonTitle ?? "")")
-            print("Title Text Field Text : \(evaluateView.titleTextFieldText ?? "")")
-            print("Evaluate View Text : \(evaluateView.evaluateViewText ?? "")")
+            self.createData.deptName = "IT"
+            self.createData.lecName = evaluateView.lectureButtonTitle ?? ""
+            self.createData.profName = evaluateView.propeserButtonTitle ?? ""
+            self.createData.semester = evaluateView.semesterButtonTitle ?? ""
+            self.createData.teamPlay = evaluateView.fourthSliderValue
+            self.createData.task = evaluateView.firstSliderValue
+            self.createData.practice = evaluateView.secondSliderValue
+            self.createData.presentation = evaluateView.thirdSliderValue
+            self.createData.title = evaluateView.titleTextFieldText ?? ""
+            self.createData.review = evaluateView.evaluateViewText ?? ""
             
-            print("First Slider Value : \(evaluateView.firstSliderValue)")
-            print("Second Slider Value : \(evaluateView.secondSliderValue)")
-            print("Third Slider Value : \(evaluateView.thirdSliderValue)")
-            print("Fourth Slider Value : \(evaluateView.fourthSliderValue)")
+            print(self.createData)
             let bottomSheetVC = CreateEvaluateBottomSheetViewController()
+            bottomSheetVC.dataBind(data: self.createData)
             bottomSheetVC.delegate = self
             present(bottomSheetVC, animated: true, completion: nil)
+        }
+    }
+}
+
+extension CreateEvaluateViewController {
+    
+    // 1. 학기 불러오기
+    
+    func postSemester() {
+        LectureAPI.shared.postSemesters(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? SemestersDTO {
+                    
+                    let serverData = data.data
+                    self.semesterOptions = serverData
+                    self.setUI()
+                    print("==============================")
+                    print(serverData)
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+        }
+    }
+    
+    func postLecture(postLectureData: AllLectureRequestBody) {
+        LectureAPI.shared.postAllLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: postLectureData) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? AllLectureDTO {
+                    
+                    print(data.data)
+                    self.evaluateView.setDropDownLectureMenu(lectureOptions: data.data)
+
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+        }
+    }
+    
+    func postProfessor(postProfessorData: AllProfessorRequestBody) {
+        LectureAPI.shared.postAllProfessor(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: postProfessorData) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? AllProfessorDTO {
+                    print(data.data)
+                    self.evaluateView.setDropDownProfessorMenu(profeserOptions: data.data)
+
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
         }
     }
 }

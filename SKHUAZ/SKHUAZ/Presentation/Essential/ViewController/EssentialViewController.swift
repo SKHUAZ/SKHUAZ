@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-final class EssentialViewController: UIViewController {
+final class EssentialViewController: UIViewController, EssentialBottomSheetDelegate {
     
     // MARK: - UI Components
     
-    private let essentialView = EssentialView()
+    private let essentialView = EssentialView(frame: .zero, essentialType: .user)
     private let sideMenu = EssentialSideView()
     
     // MARK: - Properties
@@ -65,6 +65,30 @@ extension EssentialViewController {
     private func setAddTarget() {
         essentialView.listButtonHandler = { [weak self] in
             self?.openSideMenu()
+        }
+        
+//        essentialView.saveButtonHandler = { [weak self] in
+//            let bottomSheetVC = EssentialBottomSheetViewController()
+//            self?.present(bottomSheetVC, animated: true)
+//        }
+        
+        essentialView.saveButtonHandler = { [weak self] in
+             let bottomSheetVC = EssentialBottomSheetViewController()
+             bottomSheetVC.delegates = self // 델리게이트 설정
+             self?.present(bottomSheetVC, animated: true)
+         }
+        
+        essentialView.adminButtonHandler = { [weak self] in
+            let customAlertVC = AlertViewController(alertType: .admin)
+            customAlertVC.modalPresentationStyle = .overFullScreen
+            UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        }
+    }
+    
+    func didTapSaveButtons() {
+        dismiss(animated: true) { [weak self] in
+            let saveEssentialVC = SaveEssentialViewController()
+            self?.navigationController?.pushViewController(saveEssentialVC, animated: false)
         }
     }
     
