@@ -32,7 +32,7 @@ class TabBarController: UITabBarController {
 extension TabBarController {
     
     private func setFirstViewContoller() {
-        if let homeVC = tabs.firstIndex(where: { $0 is UIViewController }) {
+        if let homeVC = tabs.firstIndex(where: { $0 is HomeViewController }) {
               selectedIndex = homeVC
           } // 지금은 강의평 화면을 기본 셋팅화면으로 설정
     }
@@ -41,7 +41,7 @@ extension TabBarController {
         tabs = [
             EssentialViewController(), // 선수과목
             EvaluateViewController(), // 강의평
-            UIViewController(), // 홈
+            HomeViewController(), // 홈
             RecommendViewController(), // 루트추천
             SettingViewController() // 설정
         ]
