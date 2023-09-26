@@ -46,8 +46,15 @@ extension BaseTargetType {
             components?.queryItems = queryParams
             urlRequest.url = components?.url
         case .body(let request):
-            let params = request?.toDictionary() ?? [:]
-            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+            let encoder = JSONEncoder()
+            if let requestData = request {
+                do {
+                    let jsonData = try encoder.encode(requestData)
+                    urlRequest.httpBody = jsonData
+                } catch {
+                    throw AFError.parameterEncodingFailed(reason: .jsonEncodingFailed(error: error))
+                }
+            }
         case .both(let query, let body):
             let params = query?.toDictionary() ?? [:]
             let queryParams = params.map { URLQueryItem(name: $0.key, value: "\($0.value)") }

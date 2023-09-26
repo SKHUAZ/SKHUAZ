@@ -26,7 +26,8 @@ final class CreateEvaluateBottomSheetViewController: UIViewController {
     
     weak var delegate: CreateEvaluateViewController?
     private let titleText: String = "{글제목}"
-    
+    var requestDataBind = CreateEvaluateRequestBody()
+
     // MARK: - Initializer
     
     // MARK: - View Life Cycle
@@ -125,6 +126,7 @@ extension CreateEvaluateBottomSheetViewController {
     
     @objc
     private func saveEvaluate() {
+        postCreateEvaluate()
         print("저장버튼이 눌렸습니다")
         self.dismiss(animated: false) { [weak self] in
             self?.delegate?.didTapSaveButton() {
@@ -135,6 +137,38 @@ extension CreateEvaluateBottomSheetViewController {
                     mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
                 }
             }
+        }
+    }
+}
+
+extension CreateEvaluateBottomSheetViewController {
+    
+    func dataBind(data: CreateEvaluateRequestBody) {
+        self.requestDataBind = data
+    }
+    
+    
+    func postCreateEvaluate() {
+        EvaluateAPI.shared.postCreateEvaluate(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestDataBind) { result in
+            switch result {
+            case .success(let data):
+                print("성공")
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+
         }
     }
 }
