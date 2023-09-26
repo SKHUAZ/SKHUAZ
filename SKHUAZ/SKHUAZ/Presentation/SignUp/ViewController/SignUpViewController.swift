@@ -95,10 +95,10 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
     }
     // MARK: - API 통신
     func SignUp() {
-        UserAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, major_minor: rootView.majorminorReturn ?? false, double_major: rootView.doublemajorReturn ?? true)) { result in
+        UserAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, majorMinor: rootView.majorminorReturn ?? false, doubleMajor: rootView.doublemajorReturn ?? true)) { result in
                 switch result {
                 case .success:
-                    print("Sign Up Success")
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                     self.dismiss(animated: true, completion: nil)
                 case .requestErr(let message):
                     // Handle request error here.
@@ -121,7 +121,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         UserAPI.shared.emailAuth(request:emailSendRequest.init(email: rootView.emailTextFieldText ?? "")) { result in
                 switch result {
                 case .success:
-                    print("email send Success")
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")
@@ -143,7 +143,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         UserAPI.shared.nicknameCheck(nickname: rootView.nicknameTextFieldText ?? "") { result in
                 switch result {
                 case .success:
-                    print("nickname checked Success")
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")

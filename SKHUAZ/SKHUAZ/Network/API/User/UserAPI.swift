@@ -23,13 +23,13 @@ extension UserAPI {
         }
     }
     
-        public func emailAuth(request: emailSendRequest, completion: @escaping(NetworkResult<Any>) -> Void) {
-            AFManager.request(UserRouter.emailAuth(request: request)).responseData { response in
-                self.disposeNetwork(response,
-                                    dataModel: EmailAuthDTO.self,
-                                    completion: completion)
-            }
+    public func emailAuth(request: emailSendRequest, completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(UserRouter.emailAuth(request: request)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: EmailAuthDTO.self,
+                                completion: completion)
         }
+    }
     
     public func emailAuthCode(request: emailCodeRequest,  completion: @escaping(NetworkResult<Any>) -> Void) {
         AFManager.request(UserRouter.emailCode(request: request)).responseData { response in
@@ -57,7 +57,7 @@ extension UserAPI {
     public func signOut(token: String,  completion: @escaping(NetworkResult<Any>) -> Void) {
         AFManager.request(UserRouter.signOut(token: token)).responseData { response in
             self.disposeNetwork(response,
-                                dataModel: signOutDTO.self,
+                                dataModel: SignOutDTO.self,
                                 completion: completion)
         }
     }
@@ -75,4 +75,4 @@ extension UserAPI {
                                 completion: completion)
         }
     }
-    }
+}

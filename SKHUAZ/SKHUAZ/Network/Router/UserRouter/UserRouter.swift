@@ -49,16 +49,17 @@ struct emailCodeRequest: Encodable {
 }
 
 struct SignUpRequest: Encodable {
-    let email: String
-    let password: String
-    let nickname: String
+    let email, password, nickname: String
     let semester: String
     let graduate: Bool
-    let major1: String
-    let major2: String
-    let department: Bool
-    let major_minor: Bool
-    let double_major: Bool
+    let major1, major2: String
+    let department, majorMinor, doubleMajor: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case email, password, nickname, semester, graduate, major1, major2, department
+        case majorMinor = "major_minor"
+        case doubleMajor = "double_major"
+    }
 }
 
 extension UserRouter: BaseTargetType {

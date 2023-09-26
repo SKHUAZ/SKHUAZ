@@ -77,9 +77,13 @@ extension SettingViewController {
     func signOut() {
         UserAPI.shared.signOut(token: token) { result in
             switch result {
-            case .success:
-                print("회원탈퇴완료")
-                self.pushToLoginView()
+            case .success(let data):
+                if let data = data as? SignOutDTO{
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+                    self.pushToLoginView()
+                } else {
+                    print("🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍")
+                }
             case .requestErr(let message):
                 // Handle request error here.
                 print("Request error: \(message)")
