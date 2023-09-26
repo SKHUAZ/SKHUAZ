@@ -36,6 +36,7 @@ public enum Image {
     static let leftButton = UIImage(named: "leftButton")
     static let rightButton = UIImage(named: "rightButton")
     static let openMenu = UIImage(named: "open")
+    static let BringRootRecommend = UIImage(named: "BringRootRecommend")
     static let questionmark = UIImage(named: "QuestionMark")
     
     static let pythonImage = UIImage(named: "python")

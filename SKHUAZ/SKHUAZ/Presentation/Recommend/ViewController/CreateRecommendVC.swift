@@ -22,6 +22,10 @@ final class CreateRecommendViewController: UIViewController {
     
     private let importRecommendListView = UITableView()
     
+    private let bringRootRecommend = UIImageView()
+    private let imageContainer = UIView()
+    
+    
     var pushBringButtonFlag: Bool = false
     
     // MARK: - Properties
@@ -54,6 +58,11 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     
     private func setUI() {
         view.backgroundColor = .white
+        
+        bringRootRecommend.do {
+            $0.contentMode = .scaleAspectFill
+            $0.image = Image.BringRootRecommend
+        }
         
         logoImage.do {
             $0.contentMode = .scaleAspectFit
@@ -89,12 +98,16 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
             $0.register(importRootTableViewCell.self, forCellReuseIdentifier: "Cell")
             $0.showsVerticalScrollIndicator = false
         }
+        
+        imageContainer.do {
+            $0.isHidden = true
+        }
     }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(logoImage, recommendView, backButton, saveButton, bringButton)
+        view.addSubviews(logoImage, recommendView, backButton, saveButton, bringButton, imageContainer)
         
         
         logoImage.snp.makeConstraints {
@@ -129,6 +142,13 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
             $0.centerX.equalToSuperview()
             $0.width.equalTo(345)
             $0.height.equalTo(50)
+        }
+        
+        imageContainer.snp.makeConstraints {
+            $0.top.equalTo(logoImage.snp.bottom).offset(350)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(400)
+            $0.height.equalTo(1700)
         }
         
     }
@@ -166,13 +186,25 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
         pushBringButtonFlag.toggle()
         if pushBringButtonFlag == true {
             bringButton.removeFromSuperview()
-            view.addSubview(importRecommendListView)
+//            view.addSubview(importRecommendListView)
+//
+//            importRecommendListView.snp.makeConstraints {
+//                $0.top.equalTo(logoImage.snp.bottom).offset(340)
+//                $0.bottom.equalTo(saveButton.snp.top).inset(-15)
+//                $0.centerX.equalToSuperview()
+//                $0.width.equalTo(UIScreen.main.bounds.width)
+//            }
+            imageContainer.isHidden = false
+            imageContainer.addSubview(bringRootRecommend)
             
-            importRecommendListView.snp.makeConstraints {
+            
+            
+            bringRootRecommend.snp.makeConstraints {
                 $0.top.equalTo(logoImage.snp.bottom).offset(340)
                 $0.bottom.equalTo(saveButton.snp.top).inset(-15)
                 $0.centerX.equalToSuperview()
-                $0.width.equalTo(UIScreen.main.bounds.width)
+                $0.width.equalTo(393)
+                $0.height.equalTo(1611)
             }
         }
         print(pushBringButtonFlag)

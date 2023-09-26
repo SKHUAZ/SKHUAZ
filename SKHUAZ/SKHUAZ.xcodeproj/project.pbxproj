@@ -86,6 +86,12 @@
 		25FA1D892AA80A290044B38F /* EvaluateTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */; };
 		25FA1D8D2AA820090044B38F /* CreateEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D8C2AA820090044B38F /* CreateEvaluateViewController.swift */; };
 		25FA1D8F2AA821B40044B38F /* EvaluateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D8E2AA821B40044B38F /* EvaluateView.swift */; };
+		9E2D638A2AC3304F00708673 /* RootRecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D63892AC3304F00708673 /* RootRecommendDataModel.swift */; };
+		9E2D638D2AC3308C00708673 /* RootRecommendRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D638C2AC3308C00708673 /* RootRecommendRouter.swift */; };
+		9E2D63902AC3319500708673 /* AllRootRecommendResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D638F2AC3319500708673 /* AllRootRecommendResponseDTO.swift */; };
+		9E2D63922AC331AB00708673 /* CreateRootRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */; };
+		9E2D63952AC331E200708673 /* RootRecommendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D63942AC331E200708673 /* RootRecommendAPI.swift */; };
+		9E2D63992AC3322B00708673 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D63982AC3322B00708673 /* HomeViewController.swift */; };
 		9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */; };
 		9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */; };
 		9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */; };
@@ -193,6 +199,12 @@
 		25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateTextFieldView.swift; sourceTree = "<group>"; };
 		25FA1D8C2AA820090044B38F /* CreateEvaluateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEvaluateViewController.swift; sourceTree = "<group>"; };
 		25FA1D8E2AA821B40044B38F /* EvaluateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateView.swift; sourceTree = "<group>"; };
+		9E2D63892AC3304F00708673 /* RootRecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRecommendDataModel.swift; sourceTree = "<group>"; };
+		9E2D638C2AC3308C00708673 /* RootRecommendRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRecommendRouter.swift; sourceTree = "<group>"; };
+		9E2D638F2AC3319500708673 /* AllRootRecommendResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllRootRecommendResponseDTO.swift; sourceTree = "<group>"; };
+		9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRootRecommendDTO.swift; sourceTree = "<group>"; };
+		9E2D63942AC331E200708673 /* RootRecommendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRecommendAPI.swift; sourceTree = "<group>"; };
+		9E2D63982AC3322B00708673 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
 		9EC5E2E02A99EBF40047E6E7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +251,7 @@
 		25292C682ABD6823003845C5 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				9E2D63932AC331D100708673 /* RootRecommend */,
 				E36525132AC2977F002D1BC2 /* User */,
 				25E3EB582AC27C5900165B9D /* preLecture */,
 				25E3EB432AC189C800165B9D /* Lecture */,
@@ -323,6 +336,7 @@
 		2539B95E2A8CA50400E939AA /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				9E2D63962AC3320000708673 /* Home */,
 				E3EC5D032AB421B700325E7D /* Setting */,
 				25D46EF62AB07E5C008FA088 /* Essential */,
 				9EC5E2D22A924BB40047E6E7 /* Recommend */,
@@ -360,6 +374,7 @@
 		2539B9632A8CA55700E939AA /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				9E2D638E2AC3316200708673 /* RootRecommend */,
 				25E3EB502AC27A8D00165B9D /* preLecture */,
 				25E3EB3F2AC1894A00165B9D /* Lecture */,
 				25E3EB3A2AC0DCC900165B9D /* Evaluate */,
@@ -391,6 +406,7 @@
 		2539B9692A8CA58F00E939AA /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				9E2D638B2AC3307200708673 /* RootRecommendRouter */,
 				E36524FD2AC13511002D1BC2 /* UserRouter */,
 				25E3EB552AC27B6600165B9D /* preLecture */,
 				25E3EB402AC1895900165B9D /* LectureRouter */,
@@ -644,6 +660,47 @@
 			path = preLecture;
 			sourceTree = "<group>";
 		};
+		9E2D638B2AC3307200708673 /* RootRecommendRouter */ = {
+			isa = PBXGroup;
+			children = (
+				9E2D638C2AC3308C00708673 /* RootRecommendRouter.swift */,
+			);
+			path = RootRecommendRouter;
+			sourceTree = "<group>";
+		};
+		9E2D638E2AC3316200708673 /* RootRecommend */ = {
+			isa = PBXGroup;
+			children = (
+				9E2D638F2AC3319500708673 /* AllRootRecommendResponseDTO.swift */,
+				9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */,
+			);
+			path = RootRecommend;
+			sourceTree = "<group>";
+		};
+		9E2D63932AC331D100708673 /* RootRecommend */ = {
+			isa = PBXGroup;
+			children = (
+				9E2D63942AC331E200708673 /* RootRecommendAPI.swift */,
+			);
+			path = RootRecommend;
+			sourceTree = "<group>";
+		};
+		9E2D63962AC3320000708673 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				9E2D63972AC3321700708673 /* ViewController */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		9E2D63972AC3321700708673 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9E2D63982AC3322B00708673 /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		9EC5E2D22A924BB40047E6E7 /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,6 +716,7 @@
 			children = (
 				25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */,
 				2544196F2ABD508200207250 /* ImportRootModel.swift */,
+				9E2D63892AC3304F00708673 /* RootRecommendDataModel.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -861,6 +919,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25E3EB602AC28FA000165B9D /* AllProfessorDTO.swift in Sources */,
+				9E2D638D2AC3308C00708673 /* RootRecommendRouter.swift in Sources */,
 				9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */,
 				2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */,
 				2539B9932A8CA73000E939AA /* Image.swift in Sources */,
@@ -882,6 +941,7 @@
 				E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */,
 				259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */,
 				259435D42AB2DA3E00B03EBF /* EssentialDataModel.swift in Sources */,
+				9E2D63992AC3322B00708673 /* HomeViewController.swift in Sources */,
 				2539B9952A8CA73A00E939AA /* Literals.swift in Sources */,
 				25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */,
 				25FA1D8D2AA820090044B38F /* CreateEvaluateViewController.swift in Sources */,
@@ -920,6 +980,9 @@
 				2539B9AC2A8E499E00E939AA /* EvaluateViewController.swift in Sources */,
 				E36525052AC18034002D1BC2 /* logInDTO.swift in Sources */,
 				251214662AB995EA005B8F43 /* CustomDropdownMenuSearch.swift in Sources */,
+				9E2D63902AC3319500708673 /* AllRootRecommendResponseDTO.swift in Sources */,
+				9E2D63922AC331AB00708673 /* CreateRootRecommendDTO.swift in Sources */,
+				9E2D638A2AC3304F00708673 /* RootRecommendDataModel.swift in Sources */,
 				25E3EB452AC189DA00165B9D /* LectureAPI.swift in Sources */,
 				25E3EB4B2AC1C1D400165B9D /* CreateEvaluateRequestBody.swift in Sources */,
 				9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */,
@@ -959,6 +1022,7 @@
 				25E3EB642AC29BFE00165B9D /* AllevaluateResponseDTO.swift in Sources */,
 				25E3EB352AC0A6B500165B9D /* SaveEssentialViewController.swift in Sources */,
 				25292C732ABD6F9A003845C5 /* BaseAPI.swift in Sources */,
+				9E2D63952AC331E200708673 /* RootRecommendAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
