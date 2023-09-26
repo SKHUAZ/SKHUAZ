@@ -32,20 +32,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
             }
     
     func signUpButtonTapped() {
-//        let bottomSheetVC = CreateEmailAuthViewController()
-//        present(bottomSheetVC, animated: true, completion: nil)
         SignUp()
-//        print("first Value: \(rootView.firstValueReturn)")
-//        print("second Value: \(rootView.secondValueReturn)")
-//        print("name Value: \(rootView.nameTextFieldText)")
-//        print("email Value: \(rootView.emailTextFieldText)")
-//        print("nickname Value: \(rootView.nicknameTextFieldText)")
-//        print("nickname Value: \(rootView.nicknameTextFieldText)")
-//        print("semester Value: \(rootView.semesterButtonTitle)")
-//        print("mainMajor Value: \(rootView.mainMajorButtonTitle)")
-//        print("subMajor Value: \(rootView.subMajorButtonTitle)")
-
-
     }
     
 
@@ -108,11 +95,11 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
     }
     // MARK: - API 통신
     func SignUp() {
-        UserAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, major_minor: rootView.majorminorReturn ?? false, double_major: rootView.doublemajorReturn ?? false)) { result in
+        UserAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, majorMinor: rootView.majorminorReturn ?? false, doubleMajor: rootView.doublemajorReturn ?? true)) { result in
                 switch result {
                 case .success:
-                    print("Sign Up Success")
-                    self.dismiss(animated: true)
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+                    self.dismiss(animated: true, completion: nil)
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")
@@ -134,7 +121,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         UserAPI.shared.emailAuth(request:emailSendRequest.init(email: rootView.emailTextFieldText ?? "")) { result in
                 switch result {
                 case .success:
-                    print("email send Success")
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")
@@ -156,7 +143,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         UserAPI.shared.nicknameCheck(nickname: rootView.nicknameTextFieldText ?? "") { result in
                 switch result {
                 case .success:
-                    print("nickname checked Success")
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")

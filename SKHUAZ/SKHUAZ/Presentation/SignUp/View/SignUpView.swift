@@ -222,6 +222,8 @@ extension SignUpView {
             ]
             $0.attributedPlaceholder = NSAttributedString(string: "이름을 입력해주세요 * ", attributes: attributes)
             $0.font = .systemFont(ofSize:14)
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
             $0.clearButtonMode = .whileEditing
@@ -238,6 +240,8 @@ extension SignUpView {
             ]
             $0.attributedPlaceholder = NSAttributedString(string: "닉네임을 입력해주세요 * ", attributes: attributes)
             $0.font = .systemFont(ofSize:14)
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
             $0.clearButtonMode = .whileEditing
@@ -268,7 +272,9 @@ extension SignUpView {
                 .font: UIFont.systemFont(ofSize: 14), // 원하는 폰트 크기로 설정
                 .foregroundColor: UIColor.appColor(.placeHolderColor) // 원하는 폰트 색상 설정
             ]
-            $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력해주세요 * ", attributes: attributes)
+            $0.attributedPlaceholder = NSAttributedString(string: "학교 이메일을 입력해주세요 * ", attributes: attributes)
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
             $0.font = .systemFont(ofSize:14)
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
@@ -280,7 +286,7 @@ extension SignUpView {
         }
         
         emailCheckButton.do {
-            $0.setTitle("중복확인", for: .normal)
+            $0.setTitle("이메일 인증", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 14)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.cornerRadius = 6
@@ -301,6 +307,9 @@ extension SignUpView {
                 .foregroundColor: UIColor.appColor(.placeHolderColor) // 원하는 폰트 색상 설정
             ]
             $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 입력해주세요 * ", attributes: attributes)
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
+            $0.isSecureTextEntry = true
             $0.font = .systemFont(ofSize:14)
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
@@ -318,6 +327,9 @@ extension SignUpView {
             ]
             $0.attributedPlaceholder = NSAttributedString(string: "비밀번호를 한번 더 입력해주세요 * ", attributes: attributes)
             $0.font = .systemFont(ofSize:14)
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
+            $0.isSecureTextEntry = true
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
             $0.clearButtonMode = .whileEditing

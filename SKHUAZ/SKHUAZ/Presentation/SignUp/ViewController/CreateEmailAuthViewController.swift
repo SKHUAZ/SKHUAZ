@@ -68,6 +68,7 @@ final class CreateEmailAuthViewController: UIViewController {
                     string: "인증번호 입력",
                     attributes: [.paragraphStyle: centeredParagraphStyle]
                     )
+                $0.textAlignment = .center
                 $0.layer.borderColor = UIColor.appColor(.placeHolderBackgroundColor).cgColor
                 $0.clearButtonMode = .whileEditing
                 $0.layer.borderWidth = 1
@@ -76,19 +77,19 @@ final class CreateEmailAuthViewController: UIViewController {
             
             cancelButton.do {
                 $0.layer.cornerRadius = 6
-                $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
                 $0.layer.borderWidth = 1
                 $0.backgroundColor = UIColor(hex: "#FFFFFF")
                 $0.setTitle("취소", for: .normal)
-                $0.setTitleColor(UIColor(hex: "#ED7A7A"), for: .normal)
+                $0.setTitleColor(UIColor(hex: "#9AC1D1"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
             
             saveButton.do {
                 $0.layer.cornerRadius = 6
-                $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
                 $0.layer.borderWidth = 1
-                $0.backgroundColor = UIColor(hex: "#ED7A7A")
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
                 $0.setTitle("확인", for: .normal)
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)

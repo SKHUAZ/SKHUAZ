@@ -37,15 +37,9 @@ extension SettingViewController {
     
     // MARK: - Methods
     
-    func pushToLogInView() {
-        let secondViewController = LoginViewController()
-        self.navigationController?.pushViewController(secondViewController, animated: true)
-    }
-    
     func editProfileButtonTapped() {
         let secondViewController = EditProfileViewController()
-        secondViewController.modalPresentationStyle = .fullScreen
-        self.present(secondViewController, animated: true)
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     func logOutButtonTapped() {
@@ -61,7 +55,7 @@ extension SettingViewController {
             switch result {
             case .success:
                 print("로그아웃했대요")
-                self.pushToLogInView()
+                self.pushToLoginView()
             case .requestErr(let message):
                 // Handle request error here.
                 print("Request error: \(message)")
@@ -83,9 +77,13 @@ extension SettingViewController {
     func signOut() {
         UserAPI.shared.signOut(token: token) { result in
             switch result {
-            case .success:
-                print("회원탈퇴완료")
-                self.pushToLogInView()
+            case .success(let data):
+                if let data = data as? SignOutDTO{
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+                    self.pushToLoginView()
+                } else {
+                    print("🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍")
+                }
             case .requestErr(let message):
                 // Handle request error here.
                 print("Request error: \(message)")
@@ -104,5 +102,15 @@ extension SettingViewController {
             
         }
     }
+    func pushToLoginView() {
+            let loginVC = LoginViewController()
+            let navigationController = UINavigationController(rootViewController: loginVC)
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let delegate = windowScene.delegate as? SceneDelegate {
+                delegate.window?.rootViewController = navigationController
+            }
+        }
+    
         // MARK: - @objc Methods
 }
