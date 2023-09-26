@@ -280,7 +280,7 @@ extension SignUpView {
         }
         
         emailCheckButton.do {
-            $0.setTitle("중복확인", for: .normal)
+            $0.setTitle("이메일 인증", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 14)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.cornerRadius = 6
