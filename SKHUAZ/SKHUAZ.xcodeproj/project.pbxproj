@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		251214662AB995EA005B8F43 /* CustomDropdownMenuSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251214652AB995EA005B8F43 /* CustomDropdownMenuSearch.swift */; };
+		251A74D82AC2CC7A0091C7B3 /* DelEvaluateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251A74D72AC2CC7A0091C7B3 /* DelEvaluateDTO.swift */; };
 		25292C6F2ABD6F52003845C5 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25292C6E2ABD6F52003845C5 /* NetworkResult.swift */; };
 		25292C712ABD6F89003845C5 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25292C702ABD6F89003845C5 /* BaseTargetType.swift */; };
 		25292C732ABD6F9A003845C5 /* BaseAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25292C722ABD6F9A003845C5 /* BaseAPI.swift */; };
@@ -113,6 +114,7 @@
 
 /* Begin PBXFileReference section */
 		251214652AB995EA005B8F43 /* CustomDropdownMenuSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropdownMenuSearch.swift; sourceTree = "<group>"; };
+		251A74D72AC2CC7A0091C7B3 /* DelEvaluateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelEvaluateDTO.swift; sourceTree = "<group>"; };
 		25292C6E2ABD6F52003845C5 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		25292C702ABD6F89003845C5 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		25292C722ABD6F9A003845C5 /* BaseAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAPI.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 				25E3EB3B2AC0DD0800165B9D /* DetailEvaluateDTO.swift */,
 				25E3EB4A2AC1C1D400165B9D /* CreateEvaluateRequestBody.swift */,
 				25E3EB632AC29BFE00165B9D /* AllevaluateResponseDTO.swift */,
+				251A74D72AC2CC7A0091C7B3 /* DelEvaluateDTO.swift */,
 			);
 			path = Evaluate;
 			sourceTree = "<group>";
@@ -860,6 +863,7 @@
 				25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */,
 				25E3EB522AC27AA300165B9D /* preLectureDTO.swift in Sources */,
 				25E3EB5A2AC27C5F00165B9D /* preLectureAPI.swift in Sources */,
+				251A74D82AC2CC7A0091C7B3 /* DelEvaluateDTO.swift in Sources */,
 				2544196E2ABD505B00207250 /* importRootTableViewCell.swift in Sources */,
 				25E3EB572AC27B7700165B9D /* preLectureRouter.swift in Sources */,
 				259435DC2AB44CBE00B03EBF /* DetailEvaluateViewController.swift in Sources */,
