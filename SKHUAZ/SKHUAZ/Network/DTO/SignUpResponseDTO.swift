@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Template
+// MARK: - SignUpResponseDTO
 struct SignUpResponseDTO: Codable {
     let statusCode: Int
     let data: SignUpData
@@ -17,7 +17,7 @@ struct SignUpResponseDTO: Codable {
 // MARK: - DataClass
 struct SignUpData: Codable {
     let email, nickname: String
-    let semester: Int
+    let semester: String
     let graduate: Bool
     let major1, major2: String
     let department, majorMinor, doubleMajor: Bool

@@ -21,6 +21,7 @@ final class LoginViewController: UIViewController, LoginViewDelegate {
         }
     }
     
+    
     func logInButtonTapped() {
         LogIn()
         print("뷰야 바뀌어라 얍")
@@ -86,6 +87,7 @@ extension LoginViewController {
         UserAPI.shared.LogIn(request: LogInRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "")) { result in
                 switch result {
                 case .success(let data):
+                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                     if let data = data as? LogInDTO {
                         // 서버에서 받은 데이터를 LogInDTo로 매핑
                         UserDefaults.standard.set(data.accessToken, forKey: "AuthToken")

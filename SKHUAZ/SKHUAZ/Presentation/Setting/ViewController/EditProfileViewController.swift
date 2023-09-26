@@ -24,10 +24,11 @@ final class EditProfileViewController: UIViewController {
     
     override func loadView() {
         self.view = rootView
+        setNavigationBar()
     }
 }
 
-extension SettingViewController {
+extension EditProfileViewController {
     
     // MARK: - UI Components Property
     
@@ -35,5 +36,11 @@ extension SettingViewController {
     
     // MARK: - Methods
 
+    private func setNavigationBar() {
+            self.navigationController?.setNavigationBarHidden(false, animated: false)
+            self.navigationController?.navigationBar.tintColor = UIColor(hex: "#9AC1D1")
+            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#9AC1D1")]
+        }
+    
     // MARK: - @objc Methods
 }
