@@ -10,14 +10,53 @@ import UIKit
 import SnapKit
 import Then
 
-class EditProfileView: UIView, DropdownMenuDelegate{
+class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
 
+    func sendData(mydata: String, groupId: Int) {
+        if groupId == 1{
+            firstValue = mydata
+            print("first value =\(firstValue!)")
+        }
+        else {
+            secondValue = mydata
+            print("second value =\(secondValue!)")
+            if secondValue == nil {
+                mainMajorButton.removeFromSuperview()
+                subMajorButton.removeFromSuperview()
+            }
+            else if secondValue == "전공 미선택"{
+                mainMajorButton.removeFromSuperview()
+                subMajorButton.removeFromSuperview()
+            }
+            else {
+                addSubviews(mainMajorButton, subMajorButton)
+                
+                mainMajorButton.snp.makeConstraints {
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(27)
+                    $0.leading.equalToSuperview().inset(28)
+                    $0.width.equalTo(140)
+                    $0.height.equalTo(50)
+                }
+                
+                subMajorButton.snp.makeConstraints {
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(27)
+                    $0.trailing.equalToSuperview().inset(29)
+                    $0.width.equalTo(140)
+                    $0.height.equalTo(50)
+                }
+            }
+        }
+    }
+    
     // MARK: - Delegate Property
 
     private var semesterDropdownMenu: CustomDropdownMenuView?
     private var mainMajorDropdownMenu: CustomDropdownMenuView?
     private var subMajorDropdownMenu: CustomDropdownMenuView?
 
+    private var firstValue: String?
+    private var secondValue: String?
+    
     // MARK: - UI Components
 
     private let profileImage = UIImageView()
@@ -47,6 +86,8 @@ class EditProfileView: UIView, DropdownMenuDelegate{
     }
 
     // MARK: - Properties
+    
+    var token: String = UserDefaults.standard.string(forKey: "AuthToken")!
 
     private var semesterButtonClosure: (() -> Void)?
     private var mainMajorButtonClosure: (() -> Void)?
@@ -63,6 +104,8 @@ class EditProfileView: UIView, DropdownMenuDelegate{
         setLayout()
         setupDropdownMenus()
         addTarget()
+        graduateRadioButton.delegate = self
+        majorRadioButton.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -79,11 +122,8 @@ extension EditProfileView {
         
         profileImage.do {
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.contentMode = .scaleAspectFill
-            $0.frame = CGRect(x: 0, y: 0, width: 162, height: 162)
+            $0.contentMode = .scaleAspectFit
             $0.image = Image.Logo1
-            $0.clipsToBounds = true
-            $0.layer.cornerRadius = 100
         }
         
         nameTextField.do {
@@ -126,7 +166,7 @@ extension EditProfileView {
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor.black.cgColor
             $0.addTarget(self,
-                         action: #selector(pushSecondViewController),
+                         action: #selector(nicknameCheckButtonTapped),
                          for: .touchUpInside)
         }
         
@@ -205,16 +245,17 @@ extension EditProfileView {
     
     private func setLayout() {
         
-        addSubviews(profileImage, nameTextField, nicknameTextField, nicknameCheckButton, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, mainMajorButton, subMajorButton, saveButton)
+        addSubviews(profileImage, nameTextField, nicknameTextField, nicknameCheckButton, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, saveButton)
         
         profileImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(45)
+            $0.top.equalToSuperview().offset(100)
+            $0.width.equalTo(234)
+            $0.height.equalTo(60)
             $0.centerX.equalToSuperview()
         }
         
         nameTextField.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.bottom).offset(25)
-            $0.centerX.equalToSuperview()
             $0.height.equalTo(50)
             $0.leading.equalToSuperview().inset(28)
             $0.trailing.equalToSuperview().inset(29)
@@ -233,7 +274,7 @@ extension EditProfileView {
             $0.width.equalTo(113)
             $0.height.equalTo(50)
         }
-
+        
         semesterLabel.snp.makeConstraints {
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(48)
             $0.leading.equalToSuperview().offset(28)
@@ -276,27 +317,11 @@ extension EditProfileView {
             $0.height.equalTo(17)
         }
         
-        mainMajorButton.snp.makeConstraints {
-            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
-            $0.leading.equalToSuperview().inset(28)
-            $0.width.equalTo(140)
-            $0.height.equalTo(50)
-        }
-        
-        subMajorButton.snp.makeConstraints {
-            $0.top.equalTo(majorLabel.snp.bottom).offset(37)
-            $0.trailing.equalToSuperview().inset(29)
-            $0.width.equalTo(140)
-            $0.height.equalTo(50)
-        }
-        
         saveButton.snp.makeConstraints {
-            $0.top.equalTo(subMajorButton.snp.bottom).offset(32)
+            $0.top.equalTo(majorRadioButton.snp.bottom).offset(102)
             $0.leading.equalToSuperview().inset(28)
             $0.trailing.equalToSuperview().inset(29)
             $0.height.equalTo(50)
-            $0.bottom.equalToSuperview().inset(48)
-            
         }
     }
     
@@ -325,6 +350,7 @@ extension EditProfileView {
         semesterButton.addTarget(self, action: #selector(semesterButtonTapped), for: .touchUpInside)
         mainMajorButton.addTarget(self, action: #selector(mainMajorButtonTapped), for: .touchUpInside)
         subMajorButton.addTarget(self, action: #selector(subMajorButtonTapped), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(pushSecondViewController), for: .touchUpInside)
     }
     
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
@@ -335,7 +361,7 @@ extension EditProfileView {
     
     @objc
     func pushSecondViewController() {
-        
+        EditProfile()
     }
     
     @objc func testprint() {
@@ -345,7 +371,9 @@ extension EditProfileView {
     @objc func showSelectBox() {
         // 이 메서드는 버튼을 누를 때 UIMenu가 표시됩니다.
     }
-    
+    @objc func nicknameCheckButtonTapped() {
+        nicknameCheck()
+    }
     @objc private func semesterButtonTapped() {
         if let menu = semesterDropdownMenu {
             if menu.superview == nil {
@@ -397,5 +425,50 @@ extension EditProfileView {
         }
         semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         mainMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
+    }
+    func nicknameCheck() {
+        UserAPI.shared.nicknameCheck(nickname: nicknameTextField.text ?? "") { result in
+            switch result {
+            case .success:
+                print("nickname checked Success")
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+        }
+    }
+    func EditProfile() {
+        UserAPI.shared.editProfile(request: EditProfileRequest.init(nickname: nicknameTextField.text ?? "", semester: semesterButtonTitle ?? "", graduate: false, major1: mainMajorButtonTitle ?? "", major2: subMajorButtonTitle ?? "", department: false, majorMinor: true, doubleMajor: false), token: token)
+        { result in
+            switch result {
+            case .success:
+                print("Sign Up Success")
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+        }
     }
 }
