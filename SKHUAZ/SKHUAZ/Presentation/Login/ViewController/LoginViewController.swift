@@ -77,7 +77,7 @@ extension LoginViewController {
     }
     
     func LogIn() {
-        LogInAPI.shared.LogIn(request: LogInRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "")) { result in
+        UserAPI.shared.LogIn(request: LogInRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "")) { result in
                 switch result {
                 case .success(let data):
                     if let data = data as? LogInDTO {

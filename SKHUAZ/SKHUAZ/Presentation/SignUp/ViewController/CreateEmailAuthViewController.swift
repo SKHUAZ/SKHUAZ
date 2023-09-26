@@ -155,7 +155,7 @@ final class CreateEmailAuthViewController: UIViewController {
         
         // MARK: - API 통신
         func emailAuthCode(email: String) {
-            SignUpAPI.shared.emailAuthCode(request: emailCodeRequest.init(email: email, code: textField.text ?? "")){ result in
+            UserAPI.shared.emailAuthCode(request: emailCodeRequest.init(email: email, code: textField.text ?? "")){ result in
                     switch result {
                     case .success:
                         print("인증이 완료되었습니다.")

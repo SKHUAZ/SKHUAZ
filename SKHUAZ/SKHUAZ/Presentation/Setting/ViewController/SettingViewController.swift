@@ -10,7 +10,7 @@ import UIKit
 final class SettingViewController: UIViewController, SettingViewDelegate {
     
     // MARK: - UI Components
-    
+        
     private let rootView = SettingView()
 
     // MARK: - Properties
@@ -57,7 +57,7 @@ extension SettingViewController {
     }
     
     func logOut() {
-        LogInAPI.shared.LogOut(token: token) { result in
+        UserAPI.shared.LogOut(token: token) { result in
             switch result {
             case .success:
                 print("로그아웃했대요")
@@ -81,7 +81,7 @@ extension SettingViewController {
         }
     }
     func signOut() {
-        LogInAPI.shared.signOut(token: token) { result in
+        UserAPI.shared.signOut(token: token) { result in
             switch result {
             case .success:
                 print("회원탈퇴완료")

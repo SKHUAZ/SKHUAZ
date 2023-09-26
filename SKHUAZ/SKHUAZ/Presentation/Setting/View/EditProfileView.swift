@@ -427,7 +427,7 @@ extension EditProfileView {
         mainMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
     }
     func nicknameCheck() {
-        LogInAPI.shared.nicknameCheck(nickname: nicknameTextField.text ?? "") { result in
+        UserAPI.shared.nicknameCheck(nickname: nicknameTextField.text ?? "") { result in
             switch result {
             case .success:
                 print("nickname checked Success")
@@ -449,7 +449,7 @@ extension EditProfileView {
         }
     }
     func EditProfile() {
-        LogInAPI.shared.editProfile(request: EditProfileRequest.init(nickname: nicknameTextField.text ?? "", semester: semesterButtonTitle ?? "", graduate: false, major1: mainMajorButtonTitle ?? "", major2: subMajorButtonTitle ?? "", department: false, majorMinor: true, doubleMajor: false), token: token)
+        UserAPI.shared.editProfile(request: EditProfileRequest.init(nickname: nicknameTextField.text ?? "", semester: semesterButtonTitle ?? "", graduate: false, major1: mainMajorButtonTitle ?? "", major2: subMajorButtonTitle ?? "", department: false, majorMinor: true, doubleMajor: false), token: token)
         { result in
             switch result {
             case .success:

@@ -108,10 +108,11 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
     }
     // MARK: - API 통신
     func SignUp() {
-        SignUpAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, major_minor: rootView.majorminorReturn ?? false, double_major: rootView.doublemajorReturn ?? false)) { result in
+        UserAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, major_minor: rootView.majorminorReturn ?? false, double_major: rootView.doublemajorReturn ?? false)) { result in
                 switch result {
                 case .success:
                     print("Sign Up Success")
+                    self.dismiss(animated: true)
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")
@@ -130,7 +131,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
             }
         }
     func emailAuth() {
-        SignUpAPI.shared.emailAuth(request:emailSendRequest.init(email: rootView.emailTextFieldText ?? "")) { result in
+        UserAPI.shared.emailAuth(request:emailSendRequest.init(email: rootView.emailTextFieldText ?? "")) { result in
                 switch result {
                 case .success:
                     print("email send Success")
@@ -152,7 +153,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
             }
         }
     func nicknameCheck() {
-        LogInAPI.shared.nicknameCheck(nickname: rootView.nicknameTextFieldText ?? "") { result in
+        UserAPI.shared.nicknameCheck(nickname: rootView.nicknameTextFieldText ?? "") { result in
                 switch result {
                 case .success:
                     print("nickname checked Success")
