@@ -33,10 +33,6 @@ final class TutorialEssentialViewController: UIViewController {
     
     // MARK: - View Life Cycle
     
-    override func viewDidAppear(_ animated: Bool) {
-        <#code#>
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
