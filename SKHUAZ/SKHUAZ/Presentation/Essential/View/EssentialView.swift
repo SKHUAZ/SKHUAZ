@@ -22,13 +22,11 @@ class EssentialView: UIView {
     // MARK: - UI Components
     
     private let listButton = UIButton()
-    
+    private let tutorialButton = UIButton()
     private let titleLabel = UILabel()
-    
     private let mainLectureLabel = UILabel()
     private let essentialLectureLabel = UILabel()
     private let professorNameLabel = UILabel()
-    
     private let mainContainer = UIScrollView()
     private let contentView = UIView()
     private let mainTitleSpace = UIView()
@@ -80,6 +78,10 @@ extension EssentialView {
             listButton.do {
                 $0.setImage(Image.list, for: .normal)
 
+            }
+            
+            tutorialButton.do {
+                $0.setImage(Image.questionmark, for: .normal)
             }
             
             titleLabel.do {
@@ -209,7 +211,7 @@ extension EssentialView {
             
         case .user:
             
-            addSubviews(listButton, titleLabel, mainTitleSpace, mainContainer, leftButton, rightButton, saveButton)
+            addSubviews(listButton, tutorialButton, titleLabel, mainTitleSpace, mainContainer, leftButton, rightButton, saveButton)
             mainContainer.addSubviews(contentView)
             mainTitleSpace.addSubviews(
                 mainTitleLabel
@@ -220,6 +222,12 @@ extension EssentialView {
             listButton.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(60)
                 $0.leading.equalToSuperview().offset(22)
+                $0.width.height.equalTo(23)
+            }
+            
+            tutorialButton.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(60)
+                $0.trailing.equalToSuperview().inset(22)
                 $0.width.height.equalTo(23)
             }
             
