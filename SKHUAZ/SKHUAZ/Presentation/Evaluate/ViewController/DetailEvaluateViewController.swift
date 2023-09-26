@@ -128,7 +128,7 @@ extension DetailEvaluateViewController {
 
     private func loadDetailEvaluate() {
         
-        EvaluateAPI.shared.getDetailEvaluation(token: token, evaluationId: evaluationId) { result in
+        EvaluateAPI.shared.getDetailEvaluation(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", evaluationId: evaluationId) { result in
                  switch result {
                  case .success(let detailEvaluateDTO):
                      print(detailEvaluateDTO?.data.review ?? "No Review")

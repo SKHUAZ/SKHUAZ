@@ -152,7 +152,7 @@ extension EssentialBottomSheetViewController {
 
         
         
-        preLectureAPI.shared.postPreLecture(token: token, requestBody: requestBody) { result in
+        preLectureAPI.shared.postPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestBody) { result in
             switch result {
             case .success(let data):
                 print(data)

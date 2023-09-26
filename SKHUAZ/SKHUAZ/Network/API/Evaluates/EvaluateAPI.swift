@@ -26,15 +26,6 @@ extension EvaluateAPI {
         }
     }
     
-//    public func getDetailEvaluation(token: String, evaluationId: Int, completion: @escaping(NetworkResult<Any>) -> Void) {
-//        AFManager.request(EvaluateRouter.getDetailEvaluation(token: token, evaluationId: evaluationId)).responseData { response in
-//            self.disposeNetwork(response,
-//                                dataModel: DetailEvaluateDTO.self,
-//                                completion: completion)
-//        }
-//    }
-    
-    
     
     
     

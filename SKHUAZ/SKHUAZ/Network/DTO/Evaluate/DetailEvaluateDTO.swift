@@ -11,11 +11,11 @@ import Foundation
 struct DetailEvaluateDTO: Codable {
     let statusCode: Int
     let message: String
-    let data: DataClass
+    let data: DetailData
 }
 
 // MARK: - DataClass
-struct DataClass: Codable {
+struct DetailData: Codable {
     let evaluationID, teamPlay, task, practice: Int
     let presentation: Int
     let title, review, createdAt, email: String

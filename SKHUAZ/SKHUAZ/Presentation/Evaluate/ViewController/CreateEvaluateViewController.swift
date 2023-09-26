@@ -225,7 +225,7 @@ extension CreateEvaluateViewController {
     // 1. 학기 불러오기
     
     func postSemester() {
-        LectureAPI.shared.postSemesters(token: token) { result in
+        LectureAPI.shared.postSemesters(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
             switch result {
             case .success(let data):
                 if let data = data as? SemestersDTO {
@@ -255,7 +255,7 @@ extension CreateEvaluateViewController {
     }
     
     func postLecture(postLectureData: AllLectureRequestBody) {
-        LectureAPI.shared.postAllLecture(token: token, requestBody: postLectureData) { result in
+        LectureAPI.shared.postAllLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: postLectureData) { result in
             switch result {
             case .success(let data):
                 if let data = data as? AllLectureDTO {
@@ -283,7 +283,7 @@ extension CreateEvaluateViewController {
     }
     
     func postProfessor(postProfessorData: AllProfessorRequestBody) {
-        LectureAPI.shared.postAllProfessor(token: token, requestBody: postProfessorData) { result in
+        LectureAPI.shared.postAllProfessor(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: postProfessorData) { result in
             switch result {
             case .success(let data):
                 if let data = data as? AllProfessorDTO {
