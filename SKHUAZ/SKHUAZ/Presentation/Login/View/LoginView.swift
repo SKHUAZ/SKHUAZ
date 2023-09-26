@@ -66,7 +66,7 @@ extension LoginView {
         }
 
         idTextField.do {
-            $0.attributedPlaceholder = NSAttributedString(string: "이메일을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.appColor(.placeHolderColor)]) // Placeholder 텍스트 색상 설정
+            $0.attributedPlaceholder = NSAttributedString(string: "학교 이메일을 입력해주세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.appColor(.placeHolderColor)]) // Placeholder 텍스트 색상 설정
             $0.backgroundColor = UIColor.appColor(.placeHolderBackgroundColor)
             $0.autocapitalizationType = .none
             $0.autocorrectionType = .no

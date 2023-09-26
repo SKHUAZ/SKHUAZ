@@ -57,7 +57,7 @@ extension UserAPI {
     public func signOut(token: String,  completion: @escaping(NetworkResult<Any>) -> Void) {
         AFManager.request(UserRouter.signOut(token: token)).responseData { response in
             self.disposeNetwork(response,
-                                dataModel: LogOutDTO.self,
+                                dataModel: signOutDTO.self,
                                 completion: completion)
         }
     }

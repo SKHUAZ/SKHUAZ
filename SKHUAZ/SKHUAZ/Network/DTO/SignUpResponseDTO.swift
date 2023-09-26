@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Template
+// MARK: - SignUpResponseDTO
 struct SignUpResponseDTO: Codable {
     let statusCode: Int
     let data: SignUpData
