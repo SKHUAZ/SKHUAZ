@@ -12,6 +12,8 @@ import Then
 
 protocol SettingViewDelegate: AnyObject {
     func editProfileButtonTapped()
+    func logOutButtonTapped()
+    func signOutButtonTapped()
 }
 
 class SettingView: UIView {
@@ -20,11 +22,13 @@ class SettingView: UIView {
 
     // MARK: - UI Components
     
+    private let contentScrollView = UIScrollView()
     private let mainImage = UIImageView()
     private let editProfileButton = UIButton()
     private let setAlarmButton = UIButton()
     private let setModeButton = UIButton()
     private let ruleButton = UIButton()
+    private let logOutButton = UIButton()
     private let signOutButton = UIButton()
     private let rightLabel = UILabel()
     
@@ -48,7 +52,7 @@ extension SettingView {
     
     private func setUI() {
         self.backgroundColor = .white
-        
+
         mainImage.do {
             $0.contentMode = .scaleAspectFit
             $0.image = Image.Logo1
@@ -69,8 +73,16 @@ extension SettingView {
             $0.layer.borderWidth = 2
             $0.layer.borderColor = UIColor.black.cgColor
         }
-        signOutButton.do {
+        logOutButton.do {
             $0.setTitle("로그아웃", for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 15)
+            $0.setTitleColor(.black, for: .normal)
+            $0.layer.cornerRadius = 5
+            $0.layer.borderWidth = 2
+            $0.layer.borderColor = UIColor.black.cgColor
+        }
+        signOutButton.do {
+            $0.setTitle("회원탈퇴", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 15)
             $0.setTitleColor(.black, for: .normal)
             $0.layer.cornerRadius = 5
@@ -88,37 +100,42 @@ extension SettingView {
 
     private func setLayout() {
         
-        addSubviews(mainImage, editProfileButton, ruleButton, signOutButton, rightLabel)
+        addSubviews(mainImage, editProfileButton, ruleButton, logOutButton, signOutButton, rightLabel)
         
         mainImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(45)
+            $0.top.equalToSuperview().offset(150)
             $0.width.equalTo(234)
             $0.height.equalTo(60)
-            $0.bottom.equalTo(editProfileButton.snp.bottom).offset(-57)
             $0.centerX.equalToSuperview()
         }
         editProfileButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
-            $0.bottom.equalTo(ruleButton.snp.top).offset(-40)
+            $0.top.equalTo(mainImage.snp.bottom).offset(57)
         }
         ruleButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
+            $0.top.equalTo(editProfileButton.snp.bottom).offset(40)
             $0.height.equalTo(53)
         }
-        signOutButton.snp.makeConstraints {
+        logOutButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
             $0.top.equalTo(ruleButton.snp.bottom).offset(40)
         }
-        rightLabel.snp.makeConstraints {
+        signOutButton.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(27)
             $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(53)
+            $0.top.equalTo(logOutButton.snp.bottom).offset(40)
+        }
+        rightLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(27)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(53)   
             $0.top.equalTo(signOutButton.snp.bottom).offset(40)
         }
     }
@@ -128,11 +145,19 @@ extension SettingView {
     private func addTarget() {
         
         editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
+        logOutButton.addTarget(self, action: #selector(logOutButtonTapped), for: .touchUpInside)
+        signOutButton.addTarget(self, action: #selector(signOutButtonTapped), for: .touchUpInside)
     }
 
     // MARK: - @objc Methods
     
     @objc func editProfileButtonTapped() {
         delegate?.editProfileButtonTapped()
+    }
+    @objc func logOutButtonTapped() {
+        delegate?.logOutButtonTapped()
+    }
+    @objc func signOutButtonTapped() {
+        delegate?.signOutButtonTapped()
     }
 }

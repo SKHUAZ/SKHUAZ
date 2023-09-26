@@ -46,5 +46,4 @@ extension EvaluateRouter: BaseTargetType {
             return nil
         }
     }
-
 }
