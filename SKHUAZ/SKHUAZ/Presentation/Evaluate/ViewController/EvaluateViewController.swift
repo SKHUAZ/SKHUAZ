@@ -28,9 +28,6 @@ class EvaluateViewController: UIViewController {
     private var isTouch: Bool = false
     private var filteredReviews: [EvaluateDataModel]!
     var reviews: [EvaluateDataModel]!
-    var token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJnandsZHVkMDcxOUBuYXZlci5jb20iLCJpYXQiOjE2OTUzNzE2ODMsImV4cCI6MTY5NTczMTY4M30.eLdAzQAHD4oJF2EkaTGmLdnxGNxG54KVxyGMA4_Ojpa61g2YKi6C6zeyohwlUDvLvsdfbXqEuIwTLf62NgwYag"
-
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +39,6 @@ class EvaluateViewController: UIViewController {
         setDelegate()
         addTarget()
     }
-
 }
 
 extension EvaluateViewController {
@@ -247,8 +243,9 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-        print("You selected cell #\(reviews[indexPath.row].title)")
+        print("You selected cell #\(reviews[indexPath.row].evaluationId)")
         let detailVC = DetailEvaluateViewController()
+        detailVC.evaluationId = reviews[indexPath.row].evaluationId
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

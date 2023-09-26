@@ -21,6 +21,9 @@ class DetailEvaluateViewController: UIViewController {
     
     // MARK: - Properties
     
+    let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJnandsZHVkMDcxOUBuYXZlci5jb20iLCJpYXQiOjE2OTUzNzE2ODMsImV4cCI6MTY5NTczMTY4M30.eLdAzQAHD4oJF2EkaTGmLdnxGNxG54KVxyGMA4_Ojpa61g2YKi6C6zeyohwlUDvLvsdfbXqEuIwTLf62NgwYag"
+    var evaluationId: Int = 0
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -29,8 +32,8 @@ class DetailEvaluateViewController: UIViewController {
         setLayout()
         self.hideKeyboardWhenTappedAround()
         addTarget()
-        detailEvaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 1, secondPoint: 3, thirdPoint: 4, fourtPoint: 5)
-
+//        detailEvaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 1, secondPoint: 3, thirdPoint: 4, fourtPoint: 5)
+        loadDetailEvaluate()
     }
 }
 
@@ -117,5 +120,38 @@ extension DetailEvaluateViewController {
     @objc
     private func popToEvaluateViewController() {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+
+extension DetailEvaluateViewController {
+
+    private func loadDetailEvaluate() {
+        
+        EvaluateAPI.shared.getDetailEvaluation(token: token, evaluationId: evaluationId) { result in
+                 switch result {
+                 case .success(let detailEvaluateDTO):
+                     print(detailEvaluateDTO?.data.review ?? "No Review")
+                     DispatchQueue.main.async {
+                               self.detailEvaluateView.setDetailEvaluateView(
+                                   semester: detailEvaluateDTO?.data.lecture.semester ?? "No Review",
+                                   professor: detailEvaluateDTO?.data.lecture.profName ?? "No Review",
+                                   lecture: detailEvaluateDTO?.data.lecture.lecName ?? "No Review",
+                                   title: detailEvaluateDTO?.data.title ?? "No Review",
+                                   evaluate: detailEvaluateDTO?.data.review ?? "No Review",
+                                   firstPoint:  detailEvaluateDTO?.data.task ?? 0,
+                                   secondPoint: detailEvaluateDTO?.data.practice ?? 0,
+                                   thirdPoint: detailEvaluateDTO?.data.presentation ?? 0,
+                                   fourtPoint: detailEvaluateDTO?.data.teamPlay ?? 0
+                               )
+                           }
+                 case .failure(let error):
+                     print("Request failed with error: \(error)")
+                 }
+            }
+    }
+    
+    func loadUI() {
+//        detailEvaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 1, secondPoint: 3, thirdPoint: 4, fourtPoint: 5)
     }
 }
