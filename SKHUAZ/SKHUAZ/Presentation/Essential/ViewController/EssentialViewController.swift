@@ -14,7 +14,7 @@ final class EssentialViewController: UIViewController, EssentialBottomSheetDeleg
     
     // MARK: - UI Components
     
-    private let essentialView = EssentialView(frame: .zero, essentialType: .user)
+    private let essentialView = EssentialView(frame: .zero, essentialType: .admin)
     private let sideMenu = EssentialSideView()
     
     // MARK: - Properties

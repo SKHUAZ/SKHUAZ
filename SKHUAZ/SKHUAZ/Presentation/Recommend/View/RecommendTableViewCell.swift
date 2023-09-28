@@ -124,6 +124,7 @@ extension RecommendTableViewCell {
         recommendContent.do {
             $0.font = .systemFont(ofSize: 8)
             $0.textColor = .black
+            $0.numberOfLines = 0
         }
 
     }
@@ -182,6 +183,7 @@ extension RecommendTableViewCell {
         recommendContent.snp.makeConstraints {
             $0.top.equalToSuperview().offset(5)
             $0.leading.equalToSuperview().offset(8)
+            $0.width.equalTo(150)
         }
         
         lectureContainer1.snp.makeConstraints {
@@ -225,6 +227,8 @@ extension RecommendTableViewCell {
     
     //MARK: - SetData
     
+    
+    
     func configure(with review: RecommendDataModel) {
         recommendTitle.text = review.titleLabel
         titleLabel.text = review.titleLabel
@@ -234,13 +238,19 @@ extension RecommendTableViewCell {
         recommendContent.text = review.contentLabel
     }
     
-    func configureUpdate(with review: RootRecommendDataModel) {
+    func configureUpdate(with review: RootRecommendDataModel, at indexPath: IndexPath) {
         recommendTitle.text = review.title
         recommendContent.text = review.recommendation
         let creationDate = review.createAt.split(separator: "T")
         creationDateLabel.text = String(creationDate[0])
-        majorNameLabel.text = review.preLectures[0].lecNames[0]
-        majorNameLabel2.text = review.preLectures[0].lecNames[1]
-        majorNameLabel3.text = review.preLectures[0].lecNames[2]
+        
+        let lectureIndex = indexPath.row % (review.preLectures.count)
+        
+        majorNameLabel.text = review.preLectures[lectureIndex].lecNames[0]
+        
+        // 주어진 배열 범위 내에 있는지 확인합니다.
+        if lectureIndex + 1 < review.preLectures.count {
+            majorNameLabel2.text = review.preLectures[lectureIndex + 1].lecNames[0]
+        }
     }
 }
