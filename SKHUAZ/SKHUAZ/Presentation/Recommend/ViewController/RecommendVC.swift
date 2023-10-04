@@ -21,9 +21,13 @@ final class RecommendViewController: UIViewController {
     
     private let createButton = UIButton()
     private let writeByMeButton = UIButton()
-    private var filteredReviews: [RecommendDataModel]!
-    var reviews: [RecommendDataModel]!
+//    private var filteredReviews: [RecommendDataModel]!
+//    var reviews: [RecommendDataModel]!
     
+    
+    // Recommend
+    private var filteredReviews: [RootRecommendDataModel]!
+    var reviews: [RootRecommendDataModel]!
     
     
     // MARK: - Properties
@@ -34,6 +38,7 @@ final class RecommendViewController: UIViewController {
     var reviewList: [RecommendDataModel] = []
     var filteredReviewList: [RecommendDataModel] = []
     var isFiltering = false
+    var token = UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     
     
     override func viewDidLoad() {
@@ -45,6 +50,7 @@ final class RecommendViewController: UIViewController {
         setDelegate()
         addTarget()
         setupKeyboardEvent()
+        getAllRootRecommend()
         self.hideKeyboardWhenTappedAround()
     }
 }
@@ -151,7 +157,7 @@ extension RecommendViewController {
     
     private func addTarget() {
         createButton.addTarget(self, action: #selector(movewroteMeButton), for: .touchUpInside)
-        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+//        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
         writeByMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for:.touchUpInside)
     }
     
@@ -160,14 +166,75 @@ extension RecommendViewController {
     private func setupData() {
         reviewList = [recommendReview1, recommendReview2, recommendReview3, recommendReview4, recommendReview5, recommendReview6, recommendReview7]
         recommendListView.reloadData()
-        reviews = recommendList
-        filteredReviews = reviews
+//        reviews = recommendList
+//        filteredReviews = reviews
     }
     
     private func setDelegate() {
         recommendListView.delegate = self
         recommendListView.dataSource = self
         searchTextField.delegate = self
+    }
+    
+    func getAllRootRecommend() {
+        RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? AllRootRecommendResponseDTO {
+                    // 서버에서 받은 데이터를 EvaluateDataModel로 매핑
+                    let serverData = data.data
+                    var mappedData: [RootRecommendDataModel] = []
+                    
+                    for serverItem in serverData {
+                        
+                        var mappedPreLecturesItems: [PreLectures] = []
+                        
+                        for prelectureItem in serverItem.preLectures {
+                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureId,
+                                                            semester: prelectureItem.semester,
+                                                            lecNames: prelectureItem.lecNames)
+                            
+                            mappedPreLecturesItems.append(newMappedItem)
+                        }
+                        
+                        let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
+                                                                                   recommendation : serverItem.recommendation,
+                                                                                   createAt :serverItem.createAt ,
+                                                                                   email :serverItem.email ,
+                                                                                   preLectures:mappedPreLecturesItems )
+                        
+                        mappedData.append(mappedRootRecommendDataModel)
+                    }
+                    
+                    // 매핑된 데이터를 배열에 저장
+                    self.reviews = mappedData
+                    self.filteredReviews = self.reviews
+                    
+                    
+                    
+                    
+                    // 테이블 뷰 업데이트
+                    self.recommendListView.reloadData()
+                } else {
+                    print("Failed to decode the response.")
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
+        }
     }
     
 //    private func setUITableView() {
@@ -181,11 +248,11 @@ extension RecommendViewController {
         if isTouch {
             writeByMeButton.setImage(Image.WritingOn, for: .normal)
             searchTextField.text = "박신영"
-            searchTextChanged()
+//            searchTextChanged()
         } else {
             writeByMeButton.setImage(Image.WritingOff, for: .normal)
             searchTextField.text = ""
-            searchTextChanged()
+//            searchTextChanged()
         }
     }
     
@@ -208,53 +275,27 @@ extension RecommendViewController {
         }
         print(isMove)
     }
-
-    @objc
-    private func searchTextChanged() {
-        
-        guard let searchText = searchTextField.text, !searchText.isEmpty else {
-            filteredReviews = reviews
-            recommendListView.reloadData()
-            return
-        }
-        
-        filteredReviews = reviews.filter { review in
-            return review.majorNameLabel.contains(searchText) ||
-//            review.lectureNameLabel.contains(searchText) ||
-            review.titleLabel.contains(searchText) ||
-            review.authorNameLabel.contains(searchText) ||
-            review.professorNameLabel.contains(searchText)
-        }
-        
-        recommendListView.reloadData()
-    }
 }
 
 extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
+        return 170
     }
-    
-    //RecommendTableView 스크롤 막기
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        if scrollView == recommendListView {
-//            scrollView.contentOffset = .zero
-//        }
-//    }
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reviewList.count
+        return filteredReviews?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! RecommendTableViewCell
-        let review = reviewList[indexPath.row]
-        
-        cell.configure(with: review)
-        
-        return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"Cell",for:indexPath) as! RecommendTableViewCell
+            let adjustedIndex = (filteredReviews?.count ?? 0) - indexPath.row - 1
+            if let review = filteredReviews?[adjustedIndex] {
+                cell.configureUpdate(with: review, at: indexPath)
+            }
+            
+            return cell
     }
     
     private func setupKeyboardEvent() {

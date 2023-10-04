@@ -105,7 +105,7 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
         // MARK: - UI Components
     
     
-    private let contentScrollView = UIScrollView()
+        private let contentScrollView = UIScrollView()
         private let mainImage = UIImageView()
         private let nameTextField = UITextField()
         private let nicknameTextField = UITextField()

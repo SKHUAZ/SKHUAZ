@@ -39,6 +39,11 @@ class EvaluateViewController: UIViewController {
         setDelegate()
         addTarget()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllEvaluate()
+    }
 }
 
 extension EvaluateViewController {

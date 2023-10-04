@@ -23,7 +23,7 @@ final class CreateRecommendViewController: UIViewController {
     private let importRecommendListView = UITableView()
     
     private let bringRootRecommend = UIImageView()
-    private let imageContainer = UIView()
+    private let imageContainer = UIScrollView()
     
     
     var pushBringButtonFlag: Bool = false
@@ -44,6 +44,12 @@ final class CreateRecommendViewController: UIViewController {
         setDelegate()
         setUITableView()
         self.hideKeyboardWhenTappedAround()
+        
+        // 임시방편으로 넣어둠
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#9AC1D1")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#9AC1D1")]
     }
 }
 
@@ -101,6 +107,8 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
         
         imageContainer.do {
             $0.isHidden = true
+            // 스크롤 가능한 콘텐츠 크기 설정 (여기서는 이미지의 크기에 맞게 설정해야 합니다)
+            $0.contentSize = CGSize(width: 393, height: 1611)
         }
     }
     
@@ -145,10 +153,10 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
         }
         
         imageContainer.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(350)
+            $0.top.equalTo(logoImage.snp.bottom).offset(300)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(400)
-            $0.height.equalTo(1700)
+            $0.height.equalTo(UIScreen.main.bounds.height - 100) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
         }
         
     }
@@ -185,30 +193,25 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     @objc private func pressedBringButton() {
         pushBringButtonFlag.toggle()
         if pushBringButtonFlag == true {
-            bringButton.removeFromSuperview()
-//            view.addSubview(importRecommendListView)
-//
-//            importRecommendListView.snp.makeConstraints {
-//                $0.top.equalTo(logoImage.snp.bottom).offset(340)
-//                $0.bottom.equalTo(saveButton.snp.top).inset(-15)
-//                $0.centerX.equalToSuperview()
-//                $0.width.equalTo(UIScreen.main.bounds.width)
-//            }
+            bringButton.setTitle("", for: .normal)
             imageContainer.isHidden = false
+
+            // bringRootRecommend 이미지 뷰를 imageContainer에 추가
             imageContainer.addSubview(bringRootRecommend)
-            
-            
-            
+
             bringRootRecommend.snp.makeConstraints {
-                $0.top.equalTo(logoImage.snp.bottom).offset(340)
-                $0.bottom.equalTo(saveButton.snp.top).inset(-15)
-                $0.centerX.equalToSuperview()
+                $0.top.equalToSuperview()
+                $0.leading.equalToSuperview()
                 $0.width.equalTo(393)
                 $0.height.equalTo(1611)
             }
+        } else {
+            bringButton.setTitle("선수과목제도 불러오기", for: .normal)
+            imageContainer.isHidden = true
         }
         print(pushBringButtonFlag)
     }
+
     
     @objc
     func presnetToCreateRecommendBottomSheetViewController() {

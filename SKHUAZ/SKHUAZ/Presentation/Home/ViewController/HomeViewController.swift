@@ -111,7 +111,7 @@ extension HomeViewController {
         //        }
         
         nameLabel.do {
-            let name = "박신영"
+            let name = "천성우"
             $0.text = "이름  :  \(name)"
             $0.textColor = .black
             $0.font = .systemFont(ofSize: 14)
@@ -638,7 +638,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier:"Cell",for:indexPath) as! RecommendTableViewCell
             let adjustedIndex = (filteredReviews?.count ?? 0) - indexPath.row - 1
             if let review = filteredReviews?[adjustedIndex] {
-                cell.configureUpdate(with: review)
+                cell.configureUpdate(with: review, at: indexPath)
             }
             
             return cell
