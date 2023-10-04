@@ -440,7 +440,7 @@ extension EvaluateView: DropdownMenuSearchDelegate {
             }
             
             guidePoint.snp.makeConstraints {
-                $0.top.equalTo(evaluateView.snp.bottom).offset(19)
+                $0.top.equalTo(evaluateView.snp.bottom).offset(5)
                 $0.leading.equalToSuperview().offset(19)
             }
             

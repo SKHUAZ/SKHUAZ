@@ -21,7 +21,6 @@ class DetailEvaluateViewController: UIViewController {
     
     // MARK: - Properties
     
-    let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBQ0NFU1MiLCJhdWQiOiJnandsZHVkMDcxOUBuYXZlci5jb20iLCJpYXQiOjE2OTUzNzE2ODMsImV4cCI6MTY5NTczMTY4M30.eLdAzQAHD4oJF2EkaTGmLdnxGNxG54KVxyGMA4_Ojpa61g2YKi6C6zeyohwlUDvLvsdfbXqEuIwTLf62NgwYag"
     var evaluationId: Int = 0
     
     // MARK: - View Life Cycle
@@ -32,8 +31,10 @@ class DetailEvaluateViewController: UIViewController {
         setLayout()
         self.hideKeyboardWhenTappedAround()
         addTarget()
-//        detailEvaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 1, secondPoint: 3, thirdPoint: 4, fourtPoint: 5)
+        setNavigationBar()
         loadDetailEvaluate()
+        print(evaluationId)
+        print("================")
     }
 }
 
@@ -55,7 +56,7 @@ extension DetailEvaluateViewController {
             $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
             $0.layer.borderWidth = 1
             $0.backgroundColor = UIColor(hex: "#FFFFFF")
-            $0.setTitle("목록", for: .normal)
+            $0.setTitle("수정", for: .normal)
             $0.setTitleColor(UIColor(hex: "#9AC1D1"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
@@ -74,17 +75,10 @@ extension DetailEvaluateViewController {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(mainImage, detailEvaluateView, backButton, saveButton)
-        
-        mainImage.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(35)
-            $0.leading.equalToSuperview().offset(19)
-            $0.width.equalTo(168)
-            $0.height.equalTo(43)
-        }
+        view.addSubviews(detailEvaluateView, backButton, saveButton)
         
         detailEvaluateView.snp.makeConstraints {
-            $0.top.equalTo(mainImage.snp.bottom)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.leading.equalToSuperview()
             $0.height.equalTo(640)
             $0.width.equalTo(UIScreen.main.bounds.width)
@@ -105,20 +99,30 @@ extension DetailEvaluateViewController {
         }
     }
     
-    private func setNavigation() {
-        navigationController?.setNavigationBarHidden(false, animated: true)
+    private func setNavigationBar() {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.navigationBar.tintColor = UIColor(hex: "#9AC1D1")
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(hex: "#9AC1D1")]
     }
     
     // MARK: - Methods
     
     private func addTarget() {
         backButton.addTarget(self, action: #selector(popToEvaluateViewController), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(deleteEvaluate), for: .touchUpInside)
     }
+
     
     // MARK: - @objc Methods
     
     @objc
     private func popToEvaluateViewController() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc
+    private func deleteEvaluate() {
+        delEvaluate(evaluateId: evaluationId)
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -131,27 +135,62 @@ extension DetailEvaluateViewController {
         EvaluateAPI.shared.getDetailEvaluation(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", evaluationId: evaluationId) { result in
                  switch result {
                  case .success(let detailEvaluateDTO):
-                     print(detailEvaluateDTO?.data.review ?? "No Review")
-                     DispatchQueue.main.async {
-                               self.detailEvaluateView.setDetailEvaluateView(
-                                   semester: detailEvaluateDTO?.data.lecture.semester ?? "No Review",
-                                   professor: detailEvaluateDTO?.data.lecture.profName ?? "No Review",
-                                   lecture: detailEvaluateDTO?.data.lecture.lecName ?? "No Review",
-                                   title: detailEvaluateDTO?.data.title ?? "No Review",
-                                   evaluate: detailEvaluateDTO?.data.review ?? "No Review",
-                                   firstPoint:  detailEvaluateDTO?.data.task ?? 0,
-                                   secondPoint: detailEvaluateDTO?.data.practice ?? 0,
-                                   thirdPoint: detailEvaluateDTO?.data.presentation ?? 0,
-                                   fourtPoint: detailEvaluateDTO?.data.teamPlay ?? 0
-                               )
-                           }
-                 case .failure(let error):
-                     print("Request failed with error: \(error)")
+                     if let detailEvaluateDTO = detailEvaluateDTO as? DetailEvaluateDTO {
+                         print(detailEvaluateDTO.data.review ?? "No Review")
+                         DispatchQueue.main.async {
+                                   self.detailEvaluateView.setDetailEvaluateView(
+                                       semester: detailEvaluateDTO.data.lecture.semester ?? "No Review",
+                                       professor: detailEvaluateDTO.data.lecture.profName ?? "No Review",
+                                       lecture: detailEvaluateDTO.data.lecture.lecName ?? "No Review",
+                                       title: detailEvaluateDTO.data.title ?? "No Review",
+                                       evaluate: detailEvaluateDTO.data.review ?? "No Review",
+                                       firstPoint:  detailEvaluateDTO.data.task ?? 0,
+                                       secondPoint: detailEvaluateDTO.data.practice ?? 0,
+                                       thirdPoint: detailEvaluateDTO.data.presentation ?? 0,
+                                       fourtPoint: detailEvaluateDTO.data.teamPlay ?? 0
+                                   )
+                               }
+                     }
+                 case .requestErr(let message):
+                     print("Request error: \(message)")
+                     
+                 case .pathErr:
+                     print("Path error")
+                     
+                 case .serverErr:
+                     print("Server error")
+                     
+                 case .networkFail:
+                     print("Network failure")
+                     
+                 default:
+                     break
                  }
             }
     }
     
-    func loadUI() {
-//        detailEvaluateView.setDetailEvaluateView(semester: "상세보기기지롱", professor: "상세보보기기", lecture: "천성우", title: "우성천의 승리", evaluate: "이거 100자 제한 해야하는데", firstPoint: 1, secondPoint: 3, thirdPoint: 4, fourtPoint: 5)
+    private func delEvaluate(evaluateId: Int) {
+        EvaluateAPI.shared.delEvaluate(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", evaluationId: evaluateId) { result in
+            switch result {
+                    case .success(let data):
+                        if let response = data as? DelEvaluateDTO {
+                            print("Deleted successfully with message: \(response.message)")
+                        }
+                    case .requestErr(let message):
+                        print("Request error: \(message)")
+                        
+                    case .pathErr:
+                        print("Path error")
+                        
+                    case .serverErr:
+                        print("Server error")
+                        
+                    case .networkFail:
+                        print("Network failure")
+                        
+                    default:
+                        break
+                    }
+        }
     }
 }

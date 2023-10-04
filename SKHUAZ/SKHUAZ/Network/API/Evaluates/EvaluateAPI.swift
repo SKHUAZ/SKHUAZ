@@ -16,7 +16,7 @@ final class EvaluateAPI: BaseAPI {
 }
 
 extension EvaluateAPI {
-    // 1. 전체 루틴 조회
+    // 1. 전체 강의평 조회
     
     public func getAllEvaluate(token: String, completion: @escaping(NetworkResult<Any>) -> Void) {
         AFManager.request(EvaluateRouter.getAllEvaluation(token: token)).responseData { response in
@@ -26,34 +26,20 @@ extension EvaluateAPI {
         }
     }
     
-    
-    
+    // 2. 강의평 상세보기
     
     public func getDetailEvaluation(token: String,
                                     evaluationId: Int,
-                                    completion: @escaping (Result<DetailEvaluateDTO?, Error>) -> Void) {
-
-            AF.request(EvaluateRouter.getDetailEvaluation(token: token,
-                                                          evaluationId: evaluationId))
-                .validate()
-                .responseDecodable(of: DetailEvaluateDTO.self) { response in
-
-                    switch response.result {
-                    case .success(let data):
-                        DispatchQueue.main.async {
-                            completion(.success(data))
-                        }
-                    case .failure(let error):
-                        DispatchQueue.main.async {
-                            completion(.failure(error))
-                        }
-                    }
-                }
+                                    completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(EvaluateRouter.getDetailEvaluation(token: token, evaluationId: evaluationId)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: DetailEvaluateDTO.self,
+                                completion: completion)
+        }
     }
+
     
-    
-    
-    
+    // 3. 강의평 저장하기
     
     public func postCreateEvaluate(token: String,
                                    requestBody: CreateEvaluateRequestBody,
@@ -62,6 +48,19 @@ extension EvaluateAPI {
             self.disposeNetwork(response,
                                 dataModel: CreateEvaluateDTO.self,
                                 completion: completion)
+        }
+    }
+    
+    // 4. 강의평 삭제하기
+    
+    public func delEvaluate(token: String,
+                            evaluationId: Int,
+                            completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(EvaluateRouter.delEvaluation(token: token, evaluationId: evaluationId)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: DelEvaluateDTO.self,
+                                completion: completion)
+            
         }
     }
 }

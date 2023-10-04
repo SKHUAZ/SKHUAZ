@@ -14,7 +14,7 @@ final class EssentialViewController: UIViewController, EssentialBottomSheetDeleg
     
     // MARK: - UI Components
     
-    private let essentialView = EssentialView(frame: .zero, essentialType: .user)
+    private let essentialView = EssentialView(frame: .zero, essentialType: .admin)
     private let sideMenu = EssentialSideView()
     
     // MARK: - Properties
@@ -67,11 +67,6 @@ extension EssentialViewController {
             self?.openSideMenu()
         }
         
-//        essentialView.saveButtonHandler = { [weak self] in
-//            let bottomSheetVC = EssentialBottomSheetViewController()
-//            self?.present(bottomSheetVC, animated: true)
-//        }
-        
         essentialView.saveButtonHandler = { [weak self] in
              let bottomSheetVC = EssentialBottomSheetViewController()
              bottomSheetVC.delegates = self // 델리게이트 설정
@@ -111,6 +106,12 @@ extension EssentialViewController {
             $0.width.equalTo(145)
         }
     }
+    
+//    @objc func openTurotial() {
+//        let customAlertVC = AlertViewController(alertType: .admin)
+//        customAlertVC.modalPresentationStyle = .overFullScreen
+//        self.present(customAlertVC, animated: false, completion: nil)
+//    }
     
     @objc func openSideMenu() {
         if !isMenuOpen {
