@@ -135,22 +135,36 @@ extension DetailEvaluateViewController {
         EvaluateAPI.shared.getDetailEvaluation(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", evaluationId: evaluationId) { result in
                  switch result {
                  case .success(let detailEvaluateDTO):
-                     print(detailEvaluateDTO?.data.review ?? "No Review")
-                     DispatchQueue.main.async {
-                               self.detailEvaluateView.setDetailEvaluateView(
-                                   semester: detailEvaluateDTO?.data.lecture.semester ?? "No Review",
-                                   professor: detailEvaluateDTO?.data.lecture.profName ?? "No Review",
-                                   lecture: detailEvaluateDTO?.data.lecture.lecName ?? "No Review",
-                                   title: detailEvaluateDTO?.data.title ?? "No Review",
-                                   evaluate: detailEvaluateDTO?.data.review ?? "No Review",
-                                   firstPoint:  detailEvaluateDTO?.data.task ?? 0,
-                                   secondPoint: detailEvaluateDTO?.data.practice ?? 0,
-                                   thirdPoint: detailEvaluateDTO?.data.presentation ?? 0,
-                                   fourtPoint: detailEvaluateDTO?.data.teamPlay ?? 0
-                               )
-                           }
-                 case .failure(let error):
-                     print("Request failed with error: \(error)")
+                     if let detailEvaluateDTO = detailEvaluateDTO as? DetailEvaluateDTO {
+                         print(detailEvaluateDTO.data.review ?? "No Review")
+                         DispatchQueue.main.async {
+                                   self.detailEvaluateView.setDetailEvaluateView(
+                                       semester: detailEvaluateDTO.data.lecture.semester ?? "No Review",
+                                       professor: detailEvaluateDTO.data.lecture.profName ?? "No Review",
+                                       lecture: detailEvaluateDTO.data.lecture.lecName ?? "No Review",
+                                       title: detailEvaluateDTO.data.title ?? "No Review",
+                                       evaluate: detailEvaluateDTO.data.review ?? "No Review",
+                                       firstPoint:  detailEvaluateDTO.data.task ?? 0,
+                                       secondPoint: detailEvaluateDTO.data.practice ?? 0,
+                                       thirdPoint: detailEvaluateDTO.data.presentation ?? 0,
+                                       fourtPoint: detailEvaluateDTO.data.teamPlay ?? 0
+                                   )
+                               }
+                     }
+                 case .requestErr(let message):
+                     print("Request error: \(message)")
+                     
+                 case .pathErr:
+                     print("Path error")
+                     
+                 case .serverErr:
+                     print("Server error")
+                     
+                 case .networkFail:
+                     print("Network failure")
+                     
+                 default:
+                     break
                  }
             }
     }
