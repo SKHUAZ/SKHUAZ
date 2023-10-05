@@ -10,32 +10,6 @@ import Foundation
 // MARK: - LogOutDTO
 struct LogOutDTO: Codable {
     let statusCode: Int
-    let data: JSONnNull?
+    let data: Bool?
     let message: String
-}
-
-// MARK: - Encode/decode helpers
-
-class JSONnNull: Codable, Hashable {
-    static func == (lhs: JSONnNull, rhs: JSONnNull) -> Bool {
-        return true
-    }
-
-    public var hashValue: Int {
-        return 0
-    }
-
-    public init() {}
-
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.singleValueContainer()
-        if !container.decodeNil() {
-            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
-        }
-    }
-
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.singleValueContainer()
-        try container.encodeNil()
-    }
 }
