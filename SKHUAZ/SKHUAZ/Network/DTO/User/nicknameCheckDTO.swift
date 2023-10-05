@@ -13,9 +13,9 @@ struct NicknameCheckDTO: Codable {
     let message, data: String
 }
 
-struct NicknameCheckConflictDTO: Codable {
-    let statusCode: Int
+struct ErrorDTO: Codable {
     let httpStatus: String
+    let statusCode: Int
     let errorMessage: String
     
 }

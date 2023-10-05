@@ -11,7 +11,7 @@ import Alamofire
 
 enum UserRouter {
     case LogIn (request: LogInRequest)
-    case nicknameCheck (nickname: String )
+    case nicknameCheck (nickname: String)
     case LogOut(token: String)
     case editProfile(request: EditProfileRequest, token: String)
     case signOut(token: String)
