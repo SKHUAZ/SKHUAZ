@@ -586,6 +586,7 @@ extension SignUpView {
         mainMajorButton.addTarget(self, action: #selector(mainMajorButtonTapped), for: .touchUpInside)
         subMajorButton.addTarget(self, action: #selector(subMajorButtonTapped), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        pwReTextField.addTarget(self, action: #selector(checkPasswordMatch), for: .editingChanged)
     }
     
         func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
@@ -593,8 +594,16 @@ extension SignUpView {
         }
     
     // MARK: - @objc Methods
-    @objc
-    func nicknameCheckButtonTapped() {
+    
+    @objc func checkPasswordMatch() {
+           if pwTextField.text != pwReTextField.text {
+               pwWarningMessage.isHidden = false
+           } else {
+               pwWarningMessage.isHidden = true
+           }
+       }
+    
+    @objc func nicknameCheckButtonTapped() {
         self.delegate?.nicknameCheckButtonTapped()
     }
     @objc
