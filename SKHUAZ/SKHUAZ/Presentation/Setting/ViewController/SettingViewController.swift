@@ -55,13 +55,22 @@ extension SettingViewController {
     func signOutButtonTapped() {
         signOut()
     }
+     
+    private func pushToLoginView() {
+            let loginVC = LoginViewController()
+            let navigationController = UINavigationController(rootViewController: loginVC)
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let delegate = windowScene.delegate as? SceneDelegate {
+                delegate.window?.rootViewController = navigationController
+            }
+        }
     
     func logOut() {
         UserAPI.shared.LogOut(token: token) { result in
             switch result {
             case .success:
                 print("로그아웃했대요")
-                self.pushToLoginView()
             case .requestErr(let message):
                 // Handle request error here.
                 print("Request error: \(message)")
@@ -106,15 +115,6 @@ extension SettingViewController {
             
         }
     }
-    func pushToLoginView() {
-            let loginVC = LoginViewController()
-            let navigationController = UINavigationController(rootViewController: loginVC)
-            
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-               let delegate = windowScene.delegate as? SceneDelegate {
-                delegate.window?.rootViewController = navigationController
-            }
-        }
     
         // MARK: - @objc Methods
 }

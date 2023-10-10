@@ -370,8 +370,23 @@ extension AlertViewController {
     // MARK: - Methodes
     
     private func addTarget() {
-        checkButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
+        switch alertType {
+        case.save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .admin:
+            checkButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
+        case .logout:
+            checkButton.addTarget(self, action: #selector(touchLogoutComplete), for: .touchUpInside)
+        }
     }
+    
+    private func pushToLoginView() {
+            let loginVC = LoginViewController()
+            let navigationController = UINavigationController(rootViewController: loginVC)
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let delegate = windowScene.delegate as? SceneDelegate {
+                delegate.window?.rootViewController = navigationController
+            }
+        }
     
     // MARK: - @objc Methods
     
@@ -379,6 +394,13 @@ extension AlertViewController {
     private func touchdeleteButton() {
         dismiss(animated: false, completion: nil)
         print("바보")
+    }
+    
+    @objc
+    private func touchLogoutComplete() {
+        dismiss(animated: false, completion: nil)
+        print("바보")
+        self.pushToLoginView()
     }
 }
 
