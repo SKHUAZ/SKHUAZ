@@ -131,6 +131,9 @@ final class SignUpView: UIView, SendStringData, DropdownMenuDelegate {
     var nicknameWarningMessageReturn: UILabel? {
         return nicknameWarningMessage
     }
+    var emailWarningMessageReturn: UILabel? {
+        return emailWarningMessage
+    }
     var graduateReturn: Bool? {
         return graduate
     }

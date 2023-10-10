@@ -155,10 +155,13 @@ final class CreateEmailAuthViewController: UIViewController {
                     switch result {
                     case .success:
                         print("인증이 완료되었습니다.")
+                        NotificationCenter.default.post(name: NSNotification.Name("emailSignal"),
+                                                                object: true)
                         self.dismiss(animated: false) { [weak self] in
                                 let customAlertVC = AlertViewController(alertType: .mainEvaluate)
                                 customAlertVC.modalPresentationStyle = .overFullScreen
                                 UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+                            
                         }
                     case .requestErr(let message):
                         // Handle request error here.

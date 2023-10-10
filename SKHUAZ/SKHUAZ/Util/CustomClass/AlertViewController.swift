@@ -17,6 +17,7 @@ enum CustomAlertType {
     case unSelectLecture
     case nuSelectDataStructure
     case save
+    case logout
     case admin
 }
 
@@ -183,6 +184,25 @@ extension AlertViewController {
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
             
+        case .logout:
+            mainLabel.do {
+                $0.text = "로그아웃이 완료되었습니다."
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
         case .admin:
             
             mainLabel.do {
@@ -261,7 +281,7 @@ extension AlertViewController {
     private func setLayout() {
         
         switch alertType {
-        case .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate:
+        case .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate:
             view.addSubview(alertView)
             
             alertView.addSubviews(

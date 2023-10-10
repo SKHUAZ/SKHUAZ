@@ -19,14 +19,16 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
                     if checkEmail(str: email) {
                         // 입력값이 유효한 이메일 주소일 경우
                         emailAuth()
+                        NotificationCenter.default.addObserver(self,
+                                                                       selector: #selector(dataReceived),
+                                                                       name: NSNotification.Name("emailSignal"),
+                                                                       object: nil)
                         let bottomSheetVC = CreateEmailAuthViewController()
                         bottomSheetVC.setEmail(email)
                         present(bottomSheetVC, animated: true, completion: nil)
                     }
                     else {
-                        // 입력값이 유효하지 않은 이메일 주소일 경우
-//                        resultLabel.text = "유효하지 않은 이메일 주소입니다."
-//                        resultLabel.textColor = .red
+                        print("Invalid Email")
                     }
                 }
             }
@@ -172,6 +174,19 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
                 default:
                     break
                 }
+            }
+        }
+    @objc
+        func dataReceived(notification: NSNotification) {
+            
+            guard let emailValid = notification.object as? Bool else { return }
+            if emailValid{
+                self.rootView.emailWarningMessageReturn?.isHidden = false
+                self.rootView.emailWarningMessageReturn?.textColor = .red
+                self.rootView.emailWarningMessageReturn?.text = "인증 완료 *"
+            }
+            else {
+                
             }
         }
 }

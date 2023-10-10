@@ -43,6 +43,12 @@ extension SettingViewController {
     }
     
     func logOutButtonTapped() {
+        let customAlertVC = AlertViewController(alertType: .logout)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let mainWindow = windowScene.windows.first {
+            mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        }
         logOut()
     }
     
@@ -79,10 +85,8 @@ extension SettingViewController {
             switch result {
             case .success(let data):
                 if let data = data as? SignOutDTO{
-                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                     self.pushToLoginView()
                 } else {
-                    print("🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍")
                 }
             case .requestErr(let message):
                 // Handle request error here.
