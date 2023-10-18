@@ -257,7 +257,6 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-
 extension EvaluateViewController {
     func getAllEvaluate() {
         EvaluateAPI.shared.getAllEvaluate(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in

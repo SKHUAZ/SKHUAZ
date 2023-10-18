@@ -91,7 +91,7 @@ extension LoginViewController {
                     if let data = data as? LogInDTO {
                         // 서버에서 받은 데이터를 LogInDTo로 매핑
                         UserDefaults.standard.set(data.accessToken, forKey: "AuthToken")
-                        
+                        UserDefaults.standard.set(self.rootView.emailTextFieldText ?? "", forKey: "LoginEmail")
                     } else {
                         print("Failed to decode the response.")
                     }

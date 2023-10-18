@@ -14,13 +14,12 @@ final class EssentialViewController: UIViewController, EssentialBottomSheetDeleg
     
     // MARK: - UI Components
     
-    private let essentialView = EssentialView(frame: .zero, essentialType: .admin)
+    private var essentialView = EssentialView(frame: .zero, essentialType: .user)
     private let sideMenu = EssentialSideView()
     
     // MARK: - Properties
-    
     private var isMenuOpen = false
-    
+    private var isUserType: EssentialType = .user
     
     // MARK: - Initializer
     
@@ -32,7 +31,6 @@ final class EssentialViewController: UIViewController, EssentialBottomSheetDeleg
         setLayout()
         setSwipe()
         setAddTarget()
-        
     }
 }
 
@@ -107,11 +105,16 @@ extension EssentialViewController {
         }
     }
     
-//    @objc func openTurotial() {
-//        let customAlertVC = AlertViewController(alertType: .admin)
-//        customAlertVC.modalPresentationStyle = .overFullScreen
-//        self.present(customAlertVC, animated: false, completion: nil)
-//    }
+    private func loadUserType() {
+        
+       if UserDefaults.standard.string(forKey: "LoginEmail") == "cjs1399@office.skhu.ac.kr" {
+                isUserType = .admin
+       } else {
+                isUserType = .user
+       }
+       
+       essentialView = EssentialView(frame:.zero, essentialType:isUserType)
+    }
     
     @objc func openSideMenu() {
         if !isMenuOpen {
