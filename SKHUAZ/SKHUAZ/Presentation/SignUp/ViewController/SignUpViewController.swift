@@ -19,14 +19,16 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
                     if checkEmail(str: email) {
                         // 입력값이 유효한 이메일 주소일 경우
                         emailAuth()
+                        NotificationCenter.default.addObserver(self,
+                                                                       selector: #selector(dataReceived),
+                                                                       name: NSNotification.Name("emailSignal"),
+                                                                       object: nil)
                         let bottomSheetVC = CreateEmailAuthViewController()
                         bottomSheetVC.setEmail(email)
                         present(bottomSheetVC, animated: true, completion: nil)
                     }
                     else {
-                        // 입력값이 유효하지 않은 이메일 주소일 경우
-//                        resultLabel.text = "유효하지 않은 이메일 주소입니다."
-//                        resultLabel.textColor = .red
+                        print("Invalid Email")
                     }
                 }
             }
@@ -98,7 +100,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         UserAPI.shared.SignUp(request: SignUpRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "", nickname: rootView.nicknameTextFieldText ?? "", semester: rootView.semesterButtonTitle ?? "", graduate: rootView.graduateReturn ?? false, major1: rootView.mainMajorButtonTitle ?? "", major2: rootView.subMajorButtonTitle ?? "", department: rootView.departmentReturn ?? false, majorMinor: rootView.majorminorReturn ?? false, doubleMajor: rootView.doublemajorReturn ?? true)) { result in
                 switch result {
                 case .success:
-                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
+                    print("signup")
                     self.dismiss(animated: true, completion: nil)
                 case .requestErr(let message):
                     // Handle request error here.
@@ -143,22 +145,21 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
         UserAPI.shared.nicknameCheck(nickname: rootView.nicknameTextFieldText ?? "") { result in
                 switch result {
                 case .success(let data):
-                    if let conflictData = data as? NicknameCheckConflictDTO  {
-                        if conflictData.statusCode == 409 {
-                                        self.rootView.nicknameWarningMessageReturn?.textColor = .red
-                                        self.rootView.nicknameWarningMessageReturn?.text = "닉네임 중복 *"
-                                        self.rootView.nicknameWarningMessageReturn?.isHidden = false
-                                    }
-                                }
-                    else if let successData = data as? NicknameCheckDTO  {
+                    if let successData = data as? NicknameCheckDTO  {
                         if successData.statusCode == 200{
                             self.rootView.nicknameWarningMessageReturn?.textColor = .blue
                             self.rootView.nicknameWarningMessageReturn?.text = "닉네임 인증 성공 *"
                             self.rootView.nicknameWarningMessageReturn?.isHidden = false
                         }
                     }
-                case .requestErr(let message):
-                    print("\(message)")
+                case .requestErr(let data):
+                    if let failData = data as? ErrorDTO  {
+                        if failData.statusCode == 409 {
+                            self.rootView.nicknameWarningMessageReturn?.textColor = .red
+                            self.rootView.nicknameWarningMessageReturn?.text = "닉네임 중복 *"
+                            self.rootView.nicknameWarningMessageReturn?.isHidden = false
+                        }
+                    }
                 case .pathErr:
                     // Handle path error here.
                     print("Path error")
@@ -168,9 +169,24 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
                 case .networkFail:
                     // Handle network failure here.
                     print("Network failure")
+                case .decodedErr:
+                    print("decoding Error")
                 default:
                     break
                 }
+            }
+        }
+    @objc
+        func dataReceived(notification: NSNotification) {
+            
+            guard let emailValid = notification.object as? Bool else { return }
+            if emailValid{
+                self.rootView.emailWarningMessageReturn?.isHidden = false
+                self.rootView.emailWarningMessageReturn?.textColor = .red
+                self.rootView.emailWarningMessageReturn?.text = "인증 완료 *"
+            }
+            else {
+                
             }
         }
 }

@@ -27,8 +27,26 @@ class BaseAPI {
         }
         
         guard let realData = try? decoder.decode(object.self, from: data) else {
-            return .decodedErr
-        }
+                // 첫 번째 디코딩이 실패했을 때 두 번째 디코딩 시도
+                if let failData = try? decoder.decode(ErrorDTO.self, from: data) {
+                    switch statusCode {
+                    case 200..<205:
+                        print("이건 200-205 성공임")
+                        return .success(failData as Any)
+                    case 400..<500:
+                        print("이건 400-500에러임")
+                        return .requestErr(failData as Any)
+                    case 500:
+                        print("이건 서버에러임")
+                        return .serverErr
+                    default:
+                        print("이건 기본에러")
+                        return .networkFail
+                    }
+                } else {
+                    return .decodedErr
+                }
+            }
         
         print(realData)
         switch statusCode {

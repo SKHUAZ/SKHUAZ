@@ -10,6 +10,6 @@ import Foundation
 struct DelEvaluateDTO: Codable {
     let statusCode: Int
     let message: String
-    let data: JSONNull?
+    let data: Bool?
 }
 

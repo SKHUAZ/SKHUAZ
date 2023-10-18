@@ -25,3 +25,10 @@ struct VoidResult: Codable {
     var data: Bool?
     var message: String?
 }
+
+struct ErrorResult: Codable {
+    var statusCode: Int
+    var httpStatus: Bool?
+    var errorMessage: String?
+}
+

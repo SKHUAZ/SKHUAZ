@@ -13,7 +13,7 @@ struct NicknameCheckDTO: Codable {
     let message, data: String
 }
 
-struct NicknameCheckConflictDTO: Codable {
+struct ErrorDTO: Codable {
     let statusCode: Int
     let httpStatus: String
     let errorMessage: String

@@ -337,8 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				9E2D63962AC3320000708673 /* Home */,
-				E3EC5D032AB421B700325E7D /* Setting */,
 				25D46EF62AB07E5C008FA088 /* Essential */,
+				E3EC5D032AB421B700325E7D /* Setting */,
 				9EC5E2D22A924BB40047E6E7 /* Recommend */,
 				E3E83D4C2AA2097E0047C079 /* SignUp */,
 				E3546DD62A8DECD900ACFF3C /* Login */,
@@ -374,18 +374,12 @@
 		2539B9632A8CA55700E939AA /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				2539B9642A8CA56100E939AA /* DTO.swift */,
 				9E2D638E2AC3316200708673 /* RootRecommend */,
 				25E3EB502AC27A8D00165B9D /* preLecture */,
 				25E3EB3F2AC1894A00165B9D /* Lecture */,
 				25E3EB3A2AC0DCC900165B9D /* Evaluate */,
-				2539B9642A8CA56100E939AA /* DTO.swift */,
-				E36524FB2AC00739002D1BC2 /* SignUpResponseDTO.swift */,
-				E36525042AC18034002D1BC2 /* logInDTO.swift */,
-				E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */,
-				E36525112AC1EFF1002D1BC2 /* EditProfileDTO.swift */,
-				E36525022AC1744C002D1BC2 /* emailAuthDTO.swift */,
-				E365250F2AC1E532002D1BC2 /* logOutDTO.swift */,
-				E36525142AC2CD15002D1BC2 /* signOutDTO.swift */,
+				E3CEBEC32ACE6C0500712957 /* User */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -780,6 +774,20 @@
 			isa = PBXGroup;
 			children = (
 				E36525002AC14F0F002D1BC2 /* UserAPI.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		E3CEBEC32ACE6C0500712957 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				E36524FB2AC00739002D1BC2 /* SignUpResponseDTO.swift */,
+				E36525042AC18034002D1BC2 /* logInDTO.swift */,
+				E365250B2AC1D216002D1BC2 /* nicknameCheckDTO.swift */,
+				E36525022AC1744C002D1BC2 /* emailAuthDTO.swift */,
+				E36525142AC2CD15002D1BC2 /* signOutDTO.swift */,
+				E36525112AC1EFF1002D1BC2 /* EditProfileDTO.swift */,
+				E365250F2AC1E532002D1BC2 /* logOutDTO.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
