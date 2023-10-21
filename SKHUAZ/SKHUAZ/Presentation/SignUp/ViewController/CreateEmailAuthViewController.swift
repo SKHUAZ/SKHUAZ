@@ -64,6 +64,7 @@ final class CreateEmailAuthViewController: UIViewController {
             textField.do {
                 let centeredParagraphStyle = NSMutableParagraphStyle()
                 centeredParagraphStyle.alignment = .center
+                $0.autocapitalizationType = .none
                 $0.attributedPlaceholder = NSAttributedString(
                     string: "인증번호 입력",
                     attributes: [.paragraphStyle: centeredParagraphStyle]

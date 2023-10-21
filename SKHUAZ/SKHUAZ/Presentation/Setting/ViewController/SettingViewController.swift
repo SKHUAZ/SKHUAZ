@@ -59,7 +59,6 @@ extension SettingViewController {
     private func pushToLoginView() {
             let loginVC = LoginViewController()
             let navigationController = UINavigationController(rootViewController: loginVC)
-            
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let delegate = windowScene.delegate as? SceneDelegate {
                 delegate.window?.rootViewController = navigationController

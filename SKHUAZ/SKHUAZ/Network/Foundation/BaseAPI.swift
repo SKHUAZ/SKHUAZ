@@ -95,7 +95,7 @@ class BaseAPI {
                 completion(networkResult)
             }
         case .failure(let error):
-            print("여기서 에러나는 경우는 무슨경우?")
+            print("Data parsing failure")
             print(error)
         }
     }
