@@ -18,12 +18,15 @@ class DetailEvaluateViewController: UIViewController {
     private let detailEvaluateView = EvaluateView(frame: .zero, evaluateType: .detailEvalute)
     private let editButton = UIButton()
     private let deleteButton = UIButton()
+    private let modifyButton = UIButton()
     
     // MARK: - Properties
     
     var evaluationId: Int = 0
     private var writerEmail: String = ""
     private var loginUserEmail = UserDefaults.standard.string(forKey: "LoginEmail")
+    private var putData = EditEvaluateRequestBody()
+    
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -71,12 +74,23 @@ extension DetailEvaluateViewController {
             $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 13)
         }
+        
+        modifyButton.do {
+            $0.layer.cornerRadius = 6
+            $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+            $0.layer.borderWidth = 1
+            $0.backgroundColor = UIColor(hex: "#FFFFFF")
+            $0.setTitle("수정", for: .normal)
+            $0.setTitleColor(UIColor(hex: "#9AC1D1"), for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 13)
+            $0.isHidden = true
+        }
     }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(detailEvaluateView, editButton, deleteButton)
+        view.addSubviews(detailEvaluateView, editButton, deleteButton, modifyButton)
         
         detailEvaluateView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -98,6 +112,13 @@ extension DetailEvaluateViewController {
             $0.width.equalTo(83)
             $0.height.equalTo(39)
         }
+        
+        modifyButton.snp.makeConstraints {
+            $0.top.equalTo(deleteButton.snp.top)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(39)
+        }
     }
     
     private func setNavigationBar() {
@@ -111,10 +132,28 @@ extension DetailEvaluateViewController {
     private func addTarget() {
         editButton.addTarget(self, action: #selector(editEvaluate), for: .touchUpInside)
         deleteButton.addTarget(self, action: #selector(deleteEvaluate), for: .touchUpInside)
+        modifyButton.addTarget(self, action: #selector(modify), for: .touchUpInside)
+    }
+    
+    private func deleteButtonisEnabled() {
+        deleteButton.isEnabled = false
+    }
+    
+    private func deleteButtonUnEnabled() {
+        deleteButton.isEnabled = true
+        editButton.isHidden = false
+        deleteButton.isHidden = false
+        modifyButton.isHidden = true
     }
     
     
     // MARK: - @objc Methods
+    
+    @objc
+    private func modify() {
+        editDataBind()
+        putEvaluate(putEvaluate: putData)
+    }
     
     @objc
     private func deleteReview() {
@@ -125,7 +164,10 @@ extension DetailEvaluateViewController {
     @objc
     private func editEvaluate() {
         detailEvaluateView.setEditable(true)
-        print("333")
+        deleteButtonisEnabled()
+        editButton.isHidden = true
+        deleteButton.isHidden = true
+        modifyButton.isHidden = false
     }
     
     @objc
@@ -221,5 +263,58 @@ extension DetailEvaluateViewController {
                 break
             }
         }
+    }
+    
+    private func putEvaluate(putEvaluate: EditEvaluateRequestBody) {
+//        DispatchQueue.main.async { [weak self] in
+//            self?.navigationController?.popViewController(animated: true)
+//        }
+        self.deleteButtonUnEnabled()
+
+        EvaluateAPI.shared.editEvaluate(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", evaluationId: evaluationId, requestBody: putEvaluate) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async { [weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                }
+                self.deleteButtonUnEnabled()
+
+                if let response = data as? EditEvaluateDTO {
+                    print("Deleted successfully with message: \(response.message)")
+                    print("====================================================================")
+                    DispatchQueue.main.async { [weak self] in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                    self.deleteButtonUnEnabled()
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+                
+            case .pathErr:
+                print("Path error")
+                
+            case .serverErr:
+                print("Server error")
+                
+            case .networkFail:
+                print("Network failure")
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    private func editDataBind() {
+        self.putData.deptName = "IT"
+        self.putData.lecName = detailEvaluateView.lectureButtonTitle ?? ""
+        self.putData.profName = detailEvaluateView.propeserButtonTitle ?? ""
+        self.putData.semester = detailEvaluateView.semesterButtonTitle ?? ""
+        self.putData.teamPlay = detailEvaluateView.fourthSliderValue
+        self.putData.task = detailEvaluateView.firstSliderValue
+        self.putData.practice = detailEvaluateView.secondSliderValue
+        self.putData.presentation = detailEvaluateView.thirdSliderValue
+        self.putData.title = detailEvaluateView.titleTextFieldText ?? ""
+        self.putData.review = detailEvaluateView.evaluateViewText ?? ""
     }
 }
