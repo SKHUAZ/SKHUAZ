@@ -35,8 +35,6 @@ final class RecommendViewController: UIViewController {
     private var wroteMeButtonBottomConstraint: Constraint? //글쓰기 버튼 바텀 움직임 제약조건
     private var isMove: Bool = false //글쓰기 버튼 클릭 여부 확인
     private var isTouch: Bool = false
-    var reviewList: [RecommendDataModel] = []
-    var filteredReviewList: [RecommendDataModel] = []
     var isFiltering = false
     var token = UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     
@@ -74,14 +72,6 @@ extension RecommendViewController {
             $0.font = .systemFont(ofSize: 16)
         }
         
-//        searchTextField.do {
-//            $0.placeholder = "제목 혹은 강의명을 입력해주세요"
-//            $0.font = .systemFont(ofSize: 8)
-//            $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
-//            $0.borderStyle = .roundedRect
-//            $0.clearButtonMode = .whileEditing
-//            $0.returnKeyType = .done
-//        }
         searchTextField.do {
             $0.placeholder = "제목 혹은 강의명을 입력해주세요"
             $0.font = .systemFont(ofSize: 8)
@@ -157,17 +147,14 @@ extension RecommendViewController {
     
     private func addTarget() {
         createButton.addTarget(self, action: #selector(movewroteMeButton), for: .touchUpInside)
-//        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
         writeByMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for:.touchUpInside)
     }
     
     // MARK: - Methods
     
     private func setupData() {
-        reviewList = [recommendReview1, recommendReview2, recommendReview3, recommendReview4, recommendReview5, recommendReview6, recommendReview7]
         recommendListView.reloadData()
-//        reviews = recommendList
-//        filteredReviews = reviews
     }
     
     private func setDelegate() {
@@ -237,10 +224,6 @@ extension RecommendViewController {
         }
     }
     
-//    private func setUITableView() {
-//
-//    }
-    
     //내가 쓴 글 눌렀을 때 검색창에 본 계정주의 닉네임을 검색하여 내 글이 나오도록 함.
     @objc
     private func wroteMeButtonTapped() {
@@ -248,12 +231,32 @@ extension RecommendViewController {
         if isTouch {
             writeByMeButton.setImage(Image.WritingOn, for: .normal)
             searchTextField.text = "박신영"
-//            searchTextChanged()
+            searchTextChanged()
         } else {
             writeByMeButton.setImage(Image.WritingOff, for: .normal)
             searchTextField.text = ""
-//            searchTextChanged()
+            searchTextChanged()
         }
+    }
+    @objc
+    private func searchTextChanged() {
+        
+        guard let searchText = searchTextField.text, !searchText.isEmpty else {
+            filteredReviews = reviews
+            recommendListView.reloadData()
+            return
+        }
+        
+        filteredReviews = reviews.filter { review in
+            return review.recommendation.contains(searchText.lowercased()) ||
+            review.title.contains(searchText) ||
+            review.createAt.contains(searchText) ||
+            review.email.contains(searchText)
+//            ||
+//            review.PreLectures.lecNames.contains(searchText)
+        }
+        
+        recommendListView.reloadData()
     }
     
     @objc
