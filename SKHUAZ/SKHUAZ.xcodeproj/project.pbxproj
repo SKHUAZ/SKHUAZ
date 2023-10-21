@@ -81,6 +81,8 @@
 		25E3EB602AC28FA000165B9D /* AllProfessorDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB5F2AC28FA000165B9D /* AllProfessorDTO.swift */; };
 		25E3EB622AC28FC100165B9D /* AllProfessorRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB612AC28FC100165B9D /* AllProfessorRequestBody.swift */; };
 		25E3EB642AC29BFE00165B9D /* AllevaluateResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB632AC29BFE00165B9D /* AllevaluateResponseDTO.swift */; };
+		25E8BC842AE4119300F4C640 /* EditEvaluateRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8BC832AE4119300F4C640 /* EditEvaluateRequestBody.swift */; };
+		25E8BC862AE412A800F4C640 /* EditEvaluateDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8BC852AE412A800F4C640 /* EditEvaluateDTO.swift */; };
 		25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */; };
 		25FA1D852AA61BEC0044B38F /* CircleGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D842AA61BEC0044B38F /* CircleGraph.swift */; };
 		25FA1D892AA80A290044B38F /* EvaluateTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */; };
@@ -194,6 +196,8 @@
 		25E3EB5F2AC28FA000165B9D /* AllProfessorDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProfessorDTO.swift; sourceTree = "<group>"; };
 		25E3EB612AC28FC100165B9D /* AllProfessorRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProfessorRequestBody.swift; sourceTree = "<group>"; };
 		25E3EB632AC29BFE00165B9D /* AllevaluateResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllevaluateResponseDTO.swift; sourceTree = "<group>"; };
+		25E8BC832AE4119300F4C640 /* EditEvaluateRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEvaluateRequestBody.swift; sourceTree = "<group>"; };
+		25E8BC852AE412A800F4C640 /* EditEvaluateDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEvaluateDTO.swift; sourceTree = "<group>"; };
 		25FA1D7E2AA585F50044B38F /* UILabelPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelPadding.swift; sourceTree = "<group>"; };
 		25FA1D842AA61BEC0044B38F /* CircleGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleGraph.swift; sourceTree = "<group>"; };
 		25FA1D882AA80A290044B38F /* EvaluateTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluateTextFieldView.swift; sourceTree = "<group>"; };
@@ -592,10 +596,12 @@
 		25E3EB3A2AC0DCC900165B9D /* Evaluate */ = {
 			isa = PBXGroup;
 			children = (
+				25E3EB632AC29BFE00165B9D /* AllevaluateResponseDTO.swift */,
 				25E3EB482AC1C0B400165B9D /* CreateEvaluateDTO.swift */,
+				25E8BC852AE412A800F4C640 /* EditEvaluateDTO.swift */,
+				25E8BC832AE4119300F4C640 /* EditEvaluateRequestBody.swift */,
 				25E3EB3B2AC0DD0800165B9D /* DetailEvaluateDTO.swift */,
 				25E3EB4A2AC1C1D400165B9D /* CreateEvaluateRequestBody.swift */,
-				25E3EB632AC29BFE00165B9D /* AllevaluateResponseDTO.swift */,
 				251A74D72AC2CC7A0091C7B3 /* DelEvaluateDTO.swift */,
 			);
 			path = Evaluate;
@@ -945,6 +951,7 @@
 				25292C752ABD6FA5003845C5 /* AlamofireLogger.swift in Sources */,
 				2539B9912A8CA72C00E939AA /* Color.swift in Sources */,
 				25E3EB542AC27B5700165B9D /* PreLectureRequestBodyElement.swift in Sources */,
+				25E8BC862AE412A800F4C640 /* EditEvaluateDTO.swift in Sources */,
 				E3EC5D072AB421E300325E7D /* SettingView.swift in Sources */,
 				E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */,
 				259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */,
@@ -980,6 +987,7 @@
 				25E3EB392AC0B86800165B9D /* SaveEssentialSubContainerView.swift in Sources */,
 				2544196A2ABD501600207250 /* CreateRecommendBottomSheetViewController.swift in Sources */,
 				25E3EB3C2AC0DD0800165B9D /* DetailEvaluateDTO.swift in Sources */,
+				25E8BC842AE4119300F4C640 /* EditEvaluateRequestBody.swift in Sources */,
 				E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */,
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
 				258A71E82AA9B7FA001E8A5B /* AlertViewController.swift in Sources */,
