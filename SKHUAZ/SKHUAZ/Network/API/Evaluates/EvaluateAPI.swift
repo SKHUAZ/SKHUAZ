@@ -72,7 +72,7 @@ extension EvaluateAPI {
                              completion: @escaping(NetworkResult<Any>) -> Void) {
         AFManager.request(EvaluateRouter.editEvaluation(token: token, evaluationId: evaluationId, requestBody: requestBody)).responseData { response in
             self.disposeNetwork(response,
-                                dataModel: EditProfileDTO.self,
+                                dataModel: EditEvaluateDTO.self,
                                 completion: completion)
         }
     }
