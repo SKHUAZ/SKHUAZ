@@ -486,13 +486,11 @@ extension AlertViewController {
     @objc
     private func touchdeleteButton() {
         dismiss(animated: false, completion: nil)
-        print("바보")
     }
     
     @objc
     private func touchLogoutComplete() {
         dismiss(animated: false, completion: nil)
-        print("바보")
         self.pushToLoginView()
     }
 }

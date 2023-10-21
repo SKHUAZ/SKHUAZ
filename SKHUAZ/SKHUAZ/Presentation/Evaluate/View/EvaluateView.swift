@@ -597,6 +597,15 @@ extension EvaluateView: DropdownMenuSearchDelegate {
         
     }
     
+    func setEditable(_ isEditable: Bool) {
+        titleTextField.isEnabled = isEditable
+        evaluateView.isEditable = isEditable
+        firstSlider.isUserInteractionEnabled = isEditable
+        secondSlider.isUserInteractionEnabled = isEditable
+        thirdSlider.isUserInteractionEnabled = isEditable
+        fourthSlider.isUserInteractionEnabled = isEditable
+    }
+    
     @objc
     private func professorButtonTapped() {
         if let menu = professorDropdownMenu {
@@ -649,7 +658,7 @@ extension EvaluateView: DropdownMenuSearchDelegate {
         customAlertVC.modalPresentationStyle = .overFullScreen
         UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
     }
-        
+    
     @objc func sliderValueChanged(_ sender: UISlider) {
         print("Slider value changed to \(sender.value)")
     }
