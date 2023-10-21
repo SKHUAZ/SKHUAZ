@@ -14,12 +14,11 @@ final class EssentialViewController: UIViewController, EssentialBottomSheetDeleg
     
     // MARK: - UI Components
     
-    private var essentialView = EssentialView(frame: .zero, essentialType: .user)
+    private var essentialView: EssentialView?
     private let sideMenu = EssentialSideView()
     
     // MARK: - Properties
     private var isMenuOpen = false
-    private var isUserType: EssentialType = .user
     
     // MARK: - Initializer
     
@@ -51,9 +50,16 @@ extension EssentialViewController {
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(essentialView, sideMenu)
         
-        essentialView.snp.makeConstraints {
+        if UserDefaults.standard.string(forKey: "LoginEmail") == "admin" {
+            essentialView = EssentialView(frame:.zero, essentialType: .admin)
+        } else {
+            essentialView = EssentialView(frame:.zero, essentialType: .user)
+        }
+        
+        view.addSubviews(essentialView!, sideMenu)
+        
+        essentialView?.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
@@ -61,17 +67,17 @@ extension EssentialViewController {
     // MARK: - Methods
     
     private func setAddTarget() {
-        essentialView.listButtonHandler = { [weak self] in
+        essentialView?.listButtonHandler = { [weak self] in
             self?.openSideMenu()
         }
         
-        essentialView.saveButtonHandler = { [weak self] in
+        essentialView?.saveButtonHandler = { [weak self] in
              let bottomSheetVC = EssentialBottomSheetViewController()
              bottomSheetVC.delegates = self // 델리게이트 설정
              self?.present(bottomSheetVC, animated: true)
          }
         
-        essentialView.adminButtonHandler = { [weak self] in
+        essentialView?.adminButtonHandler = { [weak self] in
             let customAlertVC = AlertViewController(alertType: .admin)
             customAlertVC.modalPresentationStyle = .overFullScreen
             UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
@@ -105,17 +111,6 @@ extension EssentialViewController {
         }
     }
     
-    private func loadUserType() {
-        
-       if UserDefaults.standard.string(forKey: "LoginEmail") == "cjs1399@office.skhu.ac.kr" {
-                isUserType = .admin
-       } else {
-                isUserType = .user
-       }
-       
-       essentialView = EssentialView(frame:.zero, essentialType:isUserType)
-    }
-    
     @objc func openSideMenu() {
         if !isMenuOpen {
             view.addSubviews(sideMenu)
@@ -127,7 +122,7 @@ extension EssentialViewController {
                     $0.top.leading.bottom.equalToSuperview()
                     $0.width.equalTo(145)
                 }
-                self.essentialView.snp.remakeConstraints { (make) in
+                self.essentialView?.snp.remakeConstraints { (make) in
                     make.edges.equalToSuperview().inset(UIEdgeInsets(top:0, left:145, bottom :0 , right :0))
                 }
 
@@ -138,7 +133,7 @@ extension EssentialViewController {
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8,
                            initialSpringVelocity: 0, options: .curveEaseInOut) { [weak self] in
                 guard let self = self else { return }
-                self.essentialView.snp.remakeConstraints{ (make) in
+                self.essentialView?.snp.remakeConstraints{ (make) in
                     make.edges.equalToSuperview().inset(UIEdgeInsets(top :0 , left :0 , bottom :0 , right :0))
                 }
                 self.sideMenu.removeFromSuperview()
