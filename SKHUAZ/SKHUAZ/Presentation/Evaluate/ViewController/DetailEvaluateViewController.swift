@@ -163,11 +163,23 @@ extension DetailEvaluateViewController {
     
     @objc
     private func editEvaluate() {
-        detailEvaluateView.setEditable(true)
-        deleteButtonisEnabled()
-        editButton.isHidden = true
-        deleteButton.isHidden = true
-        modifyButton.isHidden = false
+        
+        if loginUserEmail == writerEmail {
+            print("작성자가와 로그인 한 사람이 같습니다")
+            detailEvaluateView.setEditable(true)
+            deleteButtonisEnabled()
+            editButton.isHidden = true
+            deleteButton.isHidden = true
+            modifyButton.isHidden = false
+        } else {
+            print("작성자와 로그인 한 사람이 다릅니다")
+            let customAlertVC = AlertViewController(alertType: .unWriter)
+            customAlertVC.modalPresentationStyle = .overFullScreen
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let mainWindow = windowScene.windows.first {
+                mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+            }
+        }
     }
     
     @objc

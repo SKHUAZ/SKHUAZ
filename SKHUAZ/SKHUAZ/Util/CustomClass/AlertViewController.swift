@@ -272,7 +272,7 @@ extension AlertViewController {
             
         case .unWriter:
             mainLabel.do {
-                $0.text = "삭제 권한이 없습니다"
+                $0.text = "수정/삭제 권한이 없습니다"
                 $0.textAlignment = .center
                 $0.textColor = UIColor(hex: "#000000")
                 $0.font = .systemFont(ofSize: 15)
@@ -348,7 +348,7 @@ extension AlertViewController {
             mainLabel.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(40)
                 $0.leading.equalToSuperview().offset(77)
-                $0.width.equalTo(147)
+                $0.width.equalTo(160)
             }
             
             checkButton.snp.makeConstraints {
