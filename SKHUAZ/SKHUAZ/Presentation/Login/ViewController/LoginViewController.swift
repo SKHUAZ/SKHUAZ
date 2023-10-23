@@ -42,7 +42,7 @@ final class LoginViewController: UIViewController, LoginViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setButton()
+        setupKeyboardEvent()
     }
     
     override func loadView() {
@@ -55,18 +55,26 @@ extension LoginViewController {
     
     //MARK: - @objc
     
-//    @objc
-//    private func setButton() {
-//        rootView.signUpButtonHandler  = { [weak self] in
-//            self?.signUpButtonDidTap()
-//        }
-//        rootView.logInButtonnHandler  = { [weak self] in
-//            self?.logInButtonDidTap()
-//        }
-//        rootView.forgotButtonnHandler  = { [weak self] in
-//            self?.forgotButtonDidTap()
-//        }
-//    }
+    @objc
+    private func keyboardWillShow(_ sender: Notification) {
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let currentTextField = UIResponder.currentResponder as? UITextField else { return }
+        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
+        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+        
+        if textFieldBottomY > keyboardTopY {
+            let keyboardOverlap = textFieldBottomY - keyboardTopY
+            view.frame.origin.y = -keyboardOverlap - 40
+        }
+    }
+    
+    @objc
+    private func keyboardWillHide(_ sender: Notification) {
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
     
     @objc
     private func signUpButtonDidTap() {
@@ -81,6 +89,17 @@ extension LoginViewController {
     @objc
     private func forgotButtonDidTap() {
 
+    }
+    
+    private func setupKeyboardEvent() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
     
     func LogIn() {
