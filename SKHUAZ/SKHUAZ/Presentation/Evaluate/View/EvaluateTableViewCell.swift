@@ -59,12 +59,12 @@ extension EvaluateTableViewCell {
         
         mainContainer.do {
             $0.layer.cornerRadius = 6
-            $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
+            $0.layer.backgroundColor = UIColor(hex: "#EFEFEF").cgColor
         }
         
         subContainer.do {
             $0.layer.cornerRadius = 6
-            $0.layer.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1).cgColor
+            $0.layer.backgroundColor = UIColor(hex: "#EFEFEF").cgColor
         }
         
         evaluateReview.do {
@@ -73,7 +73,7 @@ extension EvaluateTableViewCell {
         }
         
         evaluateGraph.do {
-            $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
+            $0.backgroundColor = UIColor(hex: "#EFEFEF")
         }
         
         evaluateTitle.do {
