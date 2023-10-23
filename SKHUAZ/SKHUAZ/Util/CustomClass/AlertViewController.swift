@@ -23,6 +23,10 @@ enum CustomAlertType {
     case unWriter
 }
 
+protocol AlertViewDelegate : AnyObject {
+   func didConfirmAction()
+}
+
 final class AlertViewController: UIViewController {
     
     // MARK: - UI Components
@@ -40,6 +44,7 @@ final class AlertViewController: UIViewController {
     // MARK: - Properties
     
     private let alertType: CustomAlertType
+    weak var delegate : AlertViewDelegate?
     let attributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: UIColor(hex: "#737373"),
     ]
@@ -232,7 +237,7 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "교수명을 입력해주세요", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "해당 강의의 학기를 입력해주세요", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -243,7 +248,7 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "학기를 입력해주세요", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "선수과목명을 입력해주세요", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -254,7 +259,7 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "해당 과목의 선수과목", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "선수과목의 학기를 입력해주세요", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -457,12 +462,15 @@ extension AlertViewController {
     
     private func addTarget() {
         switch alertType {
-        case.save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .admin, .unWriter:
+        case.save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter:
             checkButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
         case .logout:
             checkButton.addTarget(self, action: #selector(touchLogoutComplete), for: .touchUpInside)
         case .writer:
             cancelButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
+        case .admin:
+            checkButton.addTarget(self, action: #selector(touchSaveButton), for: .touchUpInside)
+
         }
     }
     
@@ -493,5 +501,11 @@ extension AlertViewController {
         dismiss(animated: false, completion: nil)
         self.pushToLoginView()
     }
+    
+    @objc private func touchSaveButton() {
+         dismiss(animated:false){
+             self.delegate?.didConfirmAction()
+         }
+     }
 }
 
