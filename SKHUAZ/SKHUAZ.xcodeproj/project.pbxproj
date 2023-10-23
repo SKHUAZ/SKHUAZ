@@ -48,6 +48,8 @@
 		254419702ABD508200207250 /* ImportRootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544196F2ABD508200207250 /* ImportRootModel.swift */; };
 		254419722ABD50BA00207250 /* CustomRootContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254419712ABD50BA00207250 /* CustomRootContainer.swift */; };
 		2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */; };
+		255F76172AE645C4006F5BDE /* EssentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F76162AE645C4006F5BDE /* EssentialTableViewCell.swift */; };
+		255F76192AE64929006F5BDE /* EssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F76182AE64929006F5BDE /* EssentialViewController.swift */; };
 		258A71D82AA89BB4001E8A5B /* UIResponder++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258A71D72AA89BB4001E8A5B /* UIResponder++.swift */; };
 		258A71DA2AA89C1D001E8A5B /* UITextField++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258A71D92AA89C1D001E8A5B /* UITextField++.swift */; };
 		258A71DC2AA8AFC6001E8A5B /* UIViewController++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 258A71DB2AA8AFC6001E8A5B /* UIViewController++.swift */; };
@@ -62,7 +64,7 @@
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
 		25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */; };
 		25D46EFA2AB07E84008FA088 /* EssentialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF92AB07E84008FA088 /* EssentialView.swift */; };
-		25D46EFC2AB07E8C008FA088 /* EssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */; };
+		25D46EFC2AB07E8C008FA088 /* throwEssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EFB2AB07E8C008FA088 /* throwEssentialViewController.swift */; };
 		25E3EB352AC0A6B500165B9D /* SaveEssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB342AC0A6B500165B9D /* SaveEssentialViewController.swift */; };
 		25E3EB372AC0B07200165B9D /* SaveEssentialContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB362AC0B07200165B9D /* SaveEssentialContainerView.swift */; };
 		25E3EB392AC0B86800165B9D /* SaveEssentialSubContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E3EB382AC0B86800165B9D /* SaveEssentialSubContainerView.swift */; };
@@ -163,6 +165,8 @@
 		2544196F2ABD508200207250 /* ImportRootModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportRootModel.swift; sourceTree = "<group>"; };
 		254419712ABD50BA00207250 /* CustomRootContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRootContainer.swift; sourceTree = "<group>"; };
 		2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		255F76162AE645C4006F5BDE /* EssentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialTableViewCell.swift; sourceTree = "<group>"; };
+		255F76182AE64929006F5BDE /* EssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialViewController.swift; sourceTree = "<group>"; };
 		258A71D72AA89BB4001E8A5B /* UIResponder++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder++.swift"; sourceTree = "<group>"; };
 		258A71D92AA89C1D001E8A5B /* UITextField++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField++.swift"; sourceTree = "<group>"; };
 		258A71DB2AA8AFC6001E8A5B /* UIViewController++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController++.swift"; sourceTree = "<group>"; };
@@ -177,7 +181,7 @@
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
 		25D46EF92AB07E84008FA088 /* EssentialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialView.swift; sourceTree = "<group>"; };
-		25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialViewController.swift; sourceTree = "<group>"; };
+		25D46EFB2AB07E8C008FA088 /* throwEssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = throwEssentialViewController.swift; sourceTree = "<group>"; };
 		25E3EB342AC0A6B500165B9D /* SaveEssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEssentialViewController.swift; sourceTree = "<group>"; };
 		25E3EB362AC0B07200165B9D /* SaveEssentialContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEssentialContainerView.swift; sourceTree = "<group>"; };
 		25E3EB382AC0B86800165B9D /* SaveEssentialSubContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveEssentialSubContainerView.swift; sourceTree = "<group>"; };
@@ -576,7 +580,8 @@
 		25D46EF72AB07E6D008FA088 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				25D46EFB2AB07E8C008FA088 /* EssentialViewController.swift */,
+				255F76182AE64929006F5BDE /* EssentialViewController.swift */,
+				25D46EFB2AB07E8C008FA088 /* throwEssentialViewController.swift */,
 				25E3EB342AC0A6B500165B9D /* SaveEssentialViewController.swift */,
 				259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */,
 				25348B192AC3368300631CD2 /* TutorialEssentialViewController.swift */,
@@ -588,6 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				25D46EF92AB07E84008FA088 /* EssentialView.swift */,
+				255F76162AE645C4006F5BDE /* EssentialTableViewCell.swift */,
 				259435D02AB15E2F00B03EBF /* EssentialSideView.swift */,
 			);
 			path = View;
@@ -962,7 +968,7 @@
 				25FA1D8D2AA820090044B38F /* CreateEvaluateViewController.swift in Sources */,
 				25FA1D852AA61BEC0044B38F /* CircleGraph.swift in Sources */,
 				2539B9792A8CA63D00E939AA /* BaseViewController.swift in Sources */,
-				25D46EFC2AB07E8C008FA088 /* EssentialViewController.swift in Sources */,
+				25D46EFC2AB07E8C008FA088 /* throwEssentialViewController.swift in Sources */,
 				2539B97F2A8CA66F00E939AA /* TabBarViewController.swift in Sources */,
 				258A71DC2AA8AFC6001E8A5B /* UIViewController++.swift in Sources */,
 				25292C8B2ABDDF15003845C5 /* EvaluateRouter.swift in Sources */,
@@ -994,10 +1000,12 @@
 				E3EC5D0F2AB96AB700325E7D /* EditProfileView.swift in Sources */,
 				2544196C2ABD502A00207250 /* AlertViewOfRecommendController.swift in Sources */,
 				2539B9AC2A8E499E00E939AA /* EvaluateViewController.swift in Sources */,
+				255F76192AE64929006F5BDE /* EssentialViewController.swift in Sources */,
 				E36525052AC18034002D1BC2 /* logInDTO.swift in Sources */,
 				251214662AB995EA005B8F43 /* CustomDropdownMenuSearch.swift in Sources */,
 				9E2D63902AC3319500708673 /* AllRootRecommendResponseDTO.swift in Sources */,
 				9E2D63922AC331AB00708673 /* CreateRootRecommendDTO.swift in Sources */,
+				255F76172AE645C4006F5BDE /* EssentialTableViewCell.swift in Sources */,
 				9E2D638A2AC3304F00708673 /* RootRecommendDataModel.swift in Sources */,
 				25E3EB452AC189DA00165B9D /* LectureAPI.swift in Sources */,
 				25E3EB4B2AC1C1D400165B9D /* CreateEvaluateRequestBody.swift in Sources */,
