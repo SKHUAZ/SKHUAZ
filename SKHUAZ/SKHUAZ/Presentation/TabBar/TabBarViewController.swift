@@ -12,15 +12,21 @@ class TabBarController: UITabBarController {
     // MARK: - Properties
     
     private var tabs: [UIViewController] = []
+    private var openView: EssentialType = .admin
     
     // MARK: - View Life Cycle
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+            if UserDefaults.standard.string(forKey: "LoginEmail") == "admin" {
+                openView = .admin
+            } else {
+                openView = .user
+            }
         setTabBarUI()
         setTabBarItems()
         setFirstViewContoller()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -39,7 +45,7 @@ extension TabBarController {
     
     private func setTabBarItems() {
         tabs = [
-            EssentialViewController(), // 선수과목
+            EssentialViewController(essentialType: openView), // 선수과목
             EvaluateViewController(), // 강의평
             HomeViewController(), // 홈
             RecommendViewController(), // 루트추천
