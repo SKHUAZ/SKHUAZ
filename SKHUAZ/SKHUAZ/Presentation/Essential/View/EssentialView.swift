@@ -12,7 +12,7 @@ import Then
 import SnapKit
 
 
-enum EssentialType {
+enum TestType {
     case user
     case admin
 }
@@ -45,13 +45,13 @@ class EssentialView: UIView {
     private var selectedLectures: [EssentialDataModel] = []
     private var currentIndex: Int = 0 // 현재 표시 중인 배열의 인덱스
     private var lectureButtons: [LectureButton] = []
-    private let essentialType: EssentialType
+    private let essentialType: TestType
     private var allEssentialDataModels: [AllEssentialDataModel] = []
     
     
     // MARK: - Initializer
     
-    init(frame: CGRect, essentialType: EssentialType) {
+    init(frame: CGRect, essentialType: TestType) {
         self.essentialType = essentialType
         super.init(frame: frame)
         
