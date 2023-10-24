@@ -28,9 +28,6 @@ final class LoginViewController: UIViewController, LoginViewDelegate {
     }
     
     func signUpButtonTapped() {
-        //        let secondVC = SignUpViewController()
-        //        secondVC.modalPresentationStyle = .fullScreen
-        //        present(secondVC, animated: true, completion: nil)
         let secondViewController = SignUpViewController()
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
