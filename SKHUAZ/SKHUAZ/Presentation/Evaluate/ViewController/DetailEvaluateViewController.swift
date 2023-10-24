@@ -216,7 +216,7 @@ extension DetailEvaluateViewController {
             case .success(let detailEvaluateDTO):
                 if let detailEvaluateDTO = detailEvaluateDTO as? DetailEvaluateDTO {
                     print(detailEvaluateDTO.data.review)
-                    self.writerEmail = detailEvaluateDTO.data.email
+                    self.writerEmail = detailEvaluateDTO.data.nickname
                     DispatchQueue.main.async {
                         self.detailEvaluateView.setDetailEvaluateView(
                             semester: detailEvaluateDTO.data.lecture.semester,
