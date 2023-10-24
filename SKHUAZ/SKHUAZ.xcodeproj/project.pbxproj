@@ -63,6 +63,9 @@
 		25ACBA292AE804EE00A34B29 /* HomeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA282AE804EE00A34B29 /* HomeDTO.swift */; };
 		25ACBA2C2AE8052500A34B29 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA2B2AE8052500A34B29 /* HomeRouter.swift */; };
 		25ACBA2F2AE8058200A34B29 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA2E2AE8058200A34B29 /* HomeAPI.swift */; };
+		25ACBA322AE80FE900A34B29 /* AdminPreLectureDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA312AE80FE900A34B29 /* AdminPreLectureDTO.swift */; };
+		25ACBA352AE8103A00A34B29 /* AdminPreLectureRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA342AE8103A00A34B29 /* AdminPreLectureRouter.swift */; };
+		25ACBA382AE810A500A34B29 /* AdminPreLectureAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */; };
 		25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */; };
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
 		25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */; };
@@ -183,6 +186,9 @@
 		25ACBA282AE804EE00A34B29 /* HomeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDTO.swift; sourceTree = "<group>"; };
 		25ACBA2B2AE8052500A34B29 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		25ACBA2E2AE8058200A34B29 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
+		25ACBA312AE80FE900A34B29 /* AdminPreLectureDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPreLectureDTO.swift; sourceTree = "<group>"; };
+		25ACBA342AE8103A00A34B29 /* AdminPreLectureRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPreLectureRouter.swift; sourceTree = "<group>"; };
+		25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPreLectureAPI.swift; sourceTree = "<group>"; };
 		25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
@@ -268,6 +274,7 @@
 				25ACBA2D2AE8057100A34B29 /* Home */,
 				9E2D63932AC331D100708673 /* RootRecommend */,
 				E36525132AC2977F002D1BC2 /* User */,
+				25ACBA362AE8108700A34B29 /* AdminPreLecture */,
 				25E3EB582AC27C5900165B9D /* preLecture */,
 				25E3EB432AC189C800165B9D /* Lecture */,
 				25292C7C2ABD766B003845C5 /* Evaluates */,
@@ -392,6 +399,7 @@
 				25ACBA272AE804C100A34B29 /* Home */,
 				2539B9642A8CA56100E939AA /* DTO.swift */,
 				9E2D638E2AC3316200708673 /* RootRecommend */,
+				25ACBA302AE80FBA00A34B29 /* AdminPreLecture */,
 				25E3EB502AC27A8D00165B9D /* preLecture */,
 				25E3EB3F2AC1894A00165B9D /* Lecture */,
 				25E3EB3A2AC0DCC900165B9D /* Evaluate */,
@@ -419,6 +427,7 @@
 				25ACBA2A2AE8050800A34B29 /* HomeRouter */,
 				9E2D638B2AC3307200708673 /* RootRecommendRouter */,
 				E36524FD2AC13511002D1BC2 /* UserRouter */,
+				25ACBA332AE8101E00A34B29 /* AdminPreLecture */,
 				25E3EB552AC27B6600165B9D /* preLecture */,
 				25E3EB402AC1895900165B9D /* LectureRouter */,
 				25292C832ABD86DE003845C5 /* EvaluateRouter */,
@@ -598,6 +607,30 @@
 				25ACBA2E2AE8058200A34B29 /* HomeAPI.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		25ACBA302AE80FBA00A34B29 /* AdminPreLecture */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA312AE80FE900A34B29 /* AdminPreLectureDTO.swift */,
+			);
+			path = AdminPreLecture;
+			sourceTree = "<group>";
+		};
+		25ACBA332AE8101E00A34B29 /* AdminPreLecture */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA342AE8103A00A34B29 /* AdminPreLectureRouter.swift */,
+			);
+			path = AdminPreLecture;
+			sourceTree = "<group>";
+		};
+		25ACBA362AE8108700A34B29 /* AdminPreLecture */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */,
+			);
+			path = AdminPreLecture;
 			sourceTree = "<group>";
 		};
 		25D46EF62AB07E5C008FA088 /* Essential */ = {
@@ -1012,6 +1045,7 @@
 				2539B9712A8CA5D100E939AA /* URLConst.swift in Sources */,
 				2539B9492A8CA48300E939AA /* AppDelegate.swift in Sources */,
 				E36525012AC14F0F002D1BC2 /* UserAPI.swift in Sources */,
+				25ACBA322AE80FE900A34B29 /* AdminPreLectureDTO.swift in Sources */,
 				2539B9B02A8E4A0600E939AA /* EvaluateTableViewCell.swift in Sources */,
 				25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */,
 				25ACBA2C2AE8052500A34B29 /* HomeRouter.swift in Sources */,
@@ -1027,6 +1061,7 @@
 				25E3EB392AC0B86800165B9D /* SaveEssentialSubContainerView.swift in Sources */,
 				2544196A2ABD501600207250 /* CreateRecommendBottomSheetViewController.swift in Sources */,
 				25E3EB3C2AC0DD0800165B9D /* DetailEvaluateDTO.swift in Sources */,
+				25ACBA382AE810A500A34B29 /* AdminPreLectureAPI.swift in Sources */,
 				25E8BC842AE4119300F4C640 /* EditEvaluateRequestBody.swift in Sources */,
 				E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */,
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
@@ -1073,6 +1108,7 @@
 				E365250C2AC1D216002D1BC2 /* nicknameCheckDTO.swift in Sources */,
 				25E3EB5E2AC28F7A00165B9D /* AllLectureDTO.swift in Sources */,
 				254419722ABD50BA00207250 /* CustomRootContainer.swift in Sources */,
+				25ACBA352AE8103A00A34B29 /* AdminPreLectureRouter.swift in Sources */,
 				25E3EB372AC0B07200165B9D /* SaveEssentialContainerView.swift in Sources */,
 				9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */,
 				259435D82AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift in Sources */,
