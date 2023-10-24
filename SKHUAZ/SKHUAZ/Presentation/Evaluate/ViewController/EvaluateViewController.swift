@@ -154,6 +154,14 @@ extension EvaluateViewController {
         wroteMeButton.addTarget(self, action: #selector(wroteMeButtonTapped), for: .touchUpInside)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let lowercaseString = string.lowercased()
+        if lowercaseString != string {
+             return false
+         }
+        return true
+     }
+    
     // MARK: - @objc Methods
     
     @objc
@@ -161,7 +169,7 @@ extension EvaluateViewController {
         isTouch.toggle()
         if isTouch {
             wroteMeButton.setImage(Image.WritingOn, for: .normal)
-            searchTextField.text = "천성우"
+            searchTextField.text = UserDefaults.standard.string(forKey: "Nickname") ?? ""
             searchTextChanged()
         } else {
             wroteMeButton.setImage(Image.WritingOff, for: .normal)
@@ -208,7 +216,8 @@ extension EvaluateViewController {
             review.professor.contains(searchText) ||
             review.lecture.contains(searchText) ||
             review.title.contains(searchText) ||
-            review.department.contains(searchText)
+            review.department.contains(searchText) ||
+            review.nickname.contains(searchText)
         }
         
         tableView.reloadData()
@@ -280,7 +289,8 @@ extension EvaluateViewController {
                             department: serverItem.lecture.deptName,
                             authorName: String(serverItem.evaluationID),
                             evaluationId: serverItem.evaluationID, // evaluationId 필드 추가
-                            createdAt: serverItem.createdAt // createdAt 필드 추가
+                            createdAt: serverItem.createdAt, // createdAt 필드 추가
+                            nickname: serverItem.nickname
                         )
                         mappedData.append(mappedItem)
                     }
