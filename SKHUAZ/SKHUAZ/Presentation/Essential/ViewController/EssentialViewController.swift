@@ -34,29 +34,31 @@ final class EssentialViewController: UIViewController {
     
     private let essentialType: EssentialType
     private let semesterLabel: String = ""
-    private let data = [
-        ("웹개발입문", "1학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-        ("웹개발입문자", "2학기"),
-    ]
+    private var data: [adminPreLecture] = []// 데이터를 담을 배열
+//    private let data = [
+//        ("웹개발입문", "1학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//        ("웹개발입문자", "2학기"),
+//    ]
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadViewData()
         setUI()
         setLayout()
     }
@@ -286,7 +288,7 @@ extension EssentialViewController {
         }
     }
     
-    // Method
+    // MARK: - Method
     
     func didTapSaveButtons() {
         dismiss(animated: true) { [weak self] in
@@ -321,6 +323,15 @@ extension EssentialViewController {
                     toastLabel.removeFromSuperview()
                 }
             })
+    }
+    
+    func loadViewData() {
+        switch essentialType {
+        case .user:
+            print("유저케이스 로드 데이터가 들어갈 것 입니다")
+        case .admin:
+            getAdminPreLecture()
+        }
     }
 
     
@@ -381,5 +392,41 @@ extension EssentialViewController: UITableViewDataSource, UITableViewDelegate, E
         
         print("Selected Cell ID:",cellID)
         
+    }
+}
+
+
+extension EssentialViewController {
+    func getAdminPreLecture() {
+        AdminPreLectureAPI.shared.getAdminPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? AdminPreLectureDTO {
+                    let serverData = data.data
+                    self.data = serverData
+                    // 테이블 뷰 리로드
+                    self.tableView.reloadData()
+
+                    print("====================================")
+                    print(serverData)
+                    print("====================================")
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
+        }
     }
 }

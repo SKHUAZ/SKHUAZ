@@ -85,9 +85,10 @@ extension EssentialTableViewCell {
     }
     
     // MARK: - Configure
-    func configure(with data: (String, String)) {
-        lectureLabel.text = data.0
-        semesterLabel.text = data.1
+    
+    func configure(with item: adminPreLecture) {
+        lectureLabel.text = item.subjectName
+        semesterLabel.text = item.subjectSemester
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
