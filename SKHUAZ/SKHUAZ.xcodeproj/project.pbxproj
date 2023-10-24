@@ -60,6 +60,9 @@
 		259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D52AB2DD8B00B03EBF /* LectureButton.swift */; };
 		259435D82AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */; };
 		259435DC2AB44CBE00B03EBF /* DetailEvaluateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259435DB2AB44CBE00B03EBF /* DetailEvaluateViewController.swift */; };
+		25ACBA292AE804EE00A34B29 /* HomeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA282AE804EE00A34B29 /* HomeDTO.swift */; };
+		25ACBA2C2AE8052500A34B29 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA2B2AE8052500A34B29 /* HomeRouter.swift */; };
+		25ACBA2F2AE8058200A34B29 /* HomeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA2E2AE8058200A34B29 /* HomeAPI.swift */; };
 		25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */; };
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
 		25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */; };
@@ -177,6 +180,9 @@
 		259435D52AB2DD8B00B03EBF /* LectureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LectureButton.swift; sourceTree = "<group>"; };
 		259435D72AB2FB8000B03EBF /* EssentialBottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialBottomSheetViewController.swift; sourceTree = "<group>"; };
 		259435DB2AB44CBE00B03EBF /* DetailEvaluateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailEvaluateViewController.swift; sourceTree = "<group>"; };
+		25ACBA282AE804EE00A34B29 /* HomeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDTO.swift; sourceTree = "<group>"; };
+		25ACBA2B2AE8052500A34B29 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		25ACBA2E2AE8058200A34B29 /* HomeAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAPI.swift; sourceTree = "<group>"; };
 		25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
@@ -259,6 +265,7 @@
 		25292C682ABD6823003845C5 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				25ACBA2D2AE8057100A34B29 /* Home */,
 				9E2D63932AC331D100708673 /* RootRecommend */,
 				E36525132AC2977F002D1BC2 /* User */,
 				25E3EB582AC27C5900165B9D /* preLecture */,
@@ -382,6 +389,7 @@
 		2539B9632A8CA55700E939AA /* DTO */ = {
 			isa = PBXGroup;
 			children = (
+				25ACBA272AE804C100A34B29 /* Home */,
 				2539B9642A8CA56100E939AA /* DTO.swift */,
 				9E2D638E2AC3316200708673 /* RootRecommend */,
 				25E3EB502AC27A8D00165B9D /* preLecture */,
@@ -408,6 +416,7 @@
 		2539B9692A8CA58F00E939AA /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				25ACBA2A2AE8050800A34B29 /* HomeRouter */,
 				9E2D638B2AC3307200708673 /* RootRecommendRouter */,
 				E36524FD2AC13511002D1BC2 /* UserRouter */,
 				25E3EB552AC27B6600165B9D /* preLecture */,
@@ -565,6 +574,30 @@
 				259435D32AB2DA3E00B03EBF /* EssentialDataModel.swift */,
 			);
 			path = DataModel;
+			sourceTree = "<group>";
+		};
+		25ACBA272AE804C100A34B29 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA282AE804EE00A34B29 /* HomeDTO.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		25ACBA2A2AE8050800A34B29 /* HomeRouter */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA2B2AE8052500A34B29 /* HomeRouter.swift */,
+			);
+			path = HomeRouter;
+			sourceTree = "<group>";
+		};
+		25ACBA2D2AE8057100A34B29 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA2E2AE8058200A34B29 /* HomeAPI.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		25D46EF62AB07E5C008FA088 /* Essential */ = {
@@ -981,6 +1014,7 @@
 				E36525012AC14F0F002D1BC2 /* UserAPI.swift in Sources */,
 				2539B9B02A8E4A0600E939AA /* EvaluateTableViewCell.swift in Sources */,
 				25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */,
+				25ACBA2C2AE8052500A34B29 /* HomeRouter.swift in Sources */,
 				25FA1D892AA80A290044B38F /* EvaluateTextFieldView.swift in Sources */,
 				259435D12AB15E2F00B03EBF /* EssentialSideView.swift in Sources */,
 				258A71DA2AA89C1D001E8A5B /* UITextField++.swift in Sources */,
@@ -1000,6 +1034,7 @@
 				E3EC5D0F2AB96AB700325E7D /* EditProfileView.swift in Sources */,
 				2544196C2ABD502A00207250 /* AlertViewOfRecommendController.swift in Sources */,
 				2539B9AC2A8E499E00E939AA /* EvaluateViewController.swift in Sources */,
+				25ACBA292AE804EE00A34B29 /* HomeDTO.swift in Sources */,
 				255F76192AE64929006F5BDE /* EssentialViewController.swift in Sources */,
 				E36525052AC18034002D1BC2 /* logInDTO.swift in Sources */,
 				251214662AB995EA005B8F43 /* CustomDropdownMenuSearch.swift in Sources */,
@@ -1027,6 +1062,7 @@
 				258A71DE2AA98EDB001E8A5B /* CreateEvaluateBottomSheetViewController.swift in Sources */,
 				25292C8D2ABDDF77003845C5 /* EvaluateAPI.swift in Sources */,
 				E36525122AC1EFF1002D1BC2 /* EditProfileDTO.swift in Sources */,
+				25ACBA2F2AE8058200A34B29 /* HomeAPI.swift in Sources */,
 				258A71D82AA89BB4001E8A5B /* UIResponder++.swift in Sources */,
 				E36525032AC1744C002D1BC2 /* emailAuthDTO.swift in Sources */,
 				254419682ABD4FD500207250 /* DetailRecommendViewController.swift in Sources */,
