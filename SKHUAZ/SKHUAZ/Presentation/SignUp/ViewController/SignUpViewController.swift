@@ -101,7 +101,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
                 switch result {
                 case .success:
                     print("signup")
-                    self.dismiss(animated: true, completion: nil)
+                    self.navigationController?.popViewController(animated: true)
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")

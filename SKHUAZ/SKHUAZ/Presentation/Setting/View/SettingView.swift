@@ -22,7 +22,6 @@ class SettingView: UIView {
 
     // MARK: - UI Components
     
-    private let contentScrollView = UIScrollView()
     private let mainImage = UIImageView()
     private let editProfileButton = UIButton()
     private let setAlarmButton = UIButton()
