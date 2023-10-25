@@ -16,12 +16,25 @@ final class AdminPreLectureAPI: BaseAPI {
 }
 
 extension AdminPreLectureAPI {
-    // 1. 전체 강의평 조회
+    
+    // 1. Admin 화면 모든 선수과목 리스트 불러오기
     
     public func getAdminPreLecture(token: String, completion: @escaping(NetworkResult<Any>) -> Void) {
         AFManager.request(AdminPreLectureRouter.getAdminPreLecture(token: token)).responseData { response in
             self.disposeNetwork(response,
                                 dataModel: AdminPreLectureDTO.self,
+                                completion: completion)
+        }
+    }
+    
+    // 2. Admin 화면 선수과목 생성하기
+    
+    public func postAddAdminPreLecture(token: String,
+                                       requestBody: AddAdminPreLectureRequestBody,
+                                       completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(AdminPreLectureRouter.postAddAdminPreLecture(token: token, requestBody: requestBody)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: AddAdminPreLectureDTO.self,
                                 completion: completion)
         }
     }
