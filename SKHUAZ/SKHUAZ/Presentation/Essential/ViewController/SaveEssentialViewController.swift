@@ -20,30 +20,18 @@ final class SaveEssentialViewController: UIViewController {
     private let viewContainer = UIView()
     private let topSection = UIView()
     private let topSectionLabel = UILabel()
-    private let tableView = UITableView(frame:.zero, style:.plain)
+    let tableView = UITableView(frame:.zero, style:.plain)
 
     // MARK: - Properties
-    
-    private var data: [adminPreLecture] = []// 데이터를 담을 배열 -> 이거 수정해야함
-//        ("웹개발입문", "1학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//    ]
+    var saveData: [adminPreLecture] = []
 
-        
+//        var data: [adminPreLecture] = [
+//            adminPreLecture(subjectName: "과목1", subjectSemester: "2023-1"),
+//            adminPreLecture(subjectName: "과목2", subjectSemester: "2023-1"),
+//            adminPreLecture(subjectName: "과목3", subjectSemester: "2023-2"),
+//            adminPreLecture(subjectName: "과목4", subjectSemester: "2023-2")
+//        ]
+
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -161,17 +149,16 @@ extension SaveEssentialViewController {
            let keyWindow = windowScene.windows.first,
            let rootViewController = keyWindow.rootViewController {
             rootViewController.present(customAlertVC, animated: false, completion: nil)
+            self.postUserPreLecture()
         }
     }
-    
-    
 }
 
 
 extension SaveEssentialViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return saveData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -182,7 +169,7 @@ extension SaveEssentialViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! EssentialTableViewCell
         
-        let item = data[indexPath.row]
+        let item = saveData[indexPath.row]
         
         cell.configure(with: item)
         
@@ -191,9 +178,42 @@ extension SaveEssentialViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         
-        let cellID = data[indexPath.row]
+        let cellID = saveData[indexPath.row]
         
         print("Selected Cell ID:",cellID)
         
+    }
+}
+
+extension SaveEssentialViewController {
+    func postUserPreLecture() {
+        UserPreLectureAPI.shared.postUserPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? UserPreLectureDTO {
+                    let serverData = data.data
+                    var saveData = [adminPreLecture]() // 새로운 데이터를 저장할 배열
+
+                    for preLectureData in serverData {
+                        let adminPreLectureData = adminPreLecture(subjectName: preLectureData.lecNames[0], subjectSemester: preLectureData.semester)
+                        saveData.append(adminPreLectureData)
+                    }
+                    self.saveData = saveData
+                    self.tableView.reloadData()
+
+
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+            case .pathErr:
+                print("Path error")
+            case .serverErr:
+                print("Server error")
+            case .networkFail:
+                print("Network failure")
+            default:
+                break
+            }
+        }
     }
 }
