@@ -17,5 +17,4 @@ struct ErrorDTO: Codable {
     let statusCode: Int
     let httpStatus: String
     let errorMessage: String
-    
 }
