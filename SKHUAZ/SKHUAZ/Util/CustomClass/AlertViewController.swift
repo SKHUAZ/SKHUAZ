@@ -24,7 +24,7 @@ enum CustomAlertType {
 }
 
 protocol AlertViewDelegate : AnyObject {
-   func didConfirmAction()
+    func didConfirmAction(lectureName: String, professorName: String, semester: String, essentialName: String)
 }
 
 final class AlertViewController: UIViewController {
@@ -221,6 +221,12 @@ extension AlertViewController {
                 $0.numberOfLines = 2
             }
             
+            cancelButton.do {
+                $0.setTitle("x 닫기", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
             lectureNameTextField.do {
                 $0.font = .systemFont(ofSize: 15)
                 $0.textColor = .black
@@ -275,6 +281,13 @@ extension AlertViewController {
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
             
+            warringLabel.do {
+                $0.text = "모든 입력 항목을 입력해주세요"
+                $0.textColor = UIColor(hex: "#FF0000")
+                $0.font = .systemFont(ofSize: 10)
+                $0.isHidden = true
+            }
+
         case .unWriter:
             mainLabel.do {
                 $0.text = "수정/삭제 권한이 없습니다"
@@ -322,7 +335,6 @@ extension AlertViewController {
             }
 
         }
-        
         
         alertView.do {
             $0.backgroundColor = .white
@@ -399,7 +411,7 @@ extension AlertViewController {
                 $0.height.equalTo(34)
             }
         case .admin:
-            view.addSubview(alertView)
+            view.addSubviews(alertView, cancelButton)
             
             alertView.addSubviews(
                 mainLabel,
@@ -407,13 +419,19 @@ extension AlertViewController {
                 professorNameTextField,
                 semesterTextField,
                 essentialNameTextField,
-                checkButton
+                checkButton,
+                warringLabel
             )
             
             alertView.snp.makeConstraints {
                 $0.width.equalTo(300)
                 $0.height.equalTo(340)
                 $0.center.equalToSuperview()
+            }
+            
+            cancelButton.snp.makeConstraints {
+                $0.bottom.equalTo(alertView.snp.top).inset(5)
+                $0.trailing.equalTo(alertView.snp.trailing)
             }
             
             mainLabel.snp.makeConstraints {
@@ -447,6 +465,11 @@ extension AlertViewController {
                 $0.height.equalTo(40)
             }
             
+            warringLabel.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.top.equalTo(essentialNameTextField.snp.bottom).offset(10)
+            }
+            
             checkButton.snp.makeConstraints {
                 $0.bottom.equalTo(alertView.snp.bottom).offset(-18)
                 $0.leading.equalToSuperview().offset(107)
@@ -470,6 +493,7 @@ extension AlertViewController {
             cancelButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
         case .admin:
             checkButton.addTarget(self, action: #selector(touchSaveButton), for: .touchUpInside)
+            cancelButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
 
         }
     }
@@ -503,9 +527,20 @@ extension AlertViewController {
     }
     
     @objc private func touchSaveButton() {
-         dismiss(animated:false){
-             self.delegate?.didConfirmAction()
-         }
+        
+        if (lectureNameTextField.text == "" || professorNameTextField.text == "" || semesterTextField.text == "" || essentialNameTextField.text == "") {
+            warringLabel.isHidden = false
+        } else {
+            warringLabel.isHidden = true
+            let lectureName = lectureNameTextField.text ?? ""
+            let professorName = professorNameTextField.text ?? ""
+            let semester = semesterTextField.text ?? ""
+            let essentialName = essentialNameTextField.text ?? ""
+             dismiss(animated:false){
+                 self.delegate?.didConfirmAction(lectureName: lectureName, professorName: professorName, semester: semester, essentialName: essentialName)
+
+             }
+        }
      }
 }
 
