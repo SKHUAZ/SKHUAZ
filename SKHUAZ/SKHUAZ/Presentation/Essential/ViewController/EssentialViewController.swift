@@ -34,34 +34,31 @@ final class EssentialViewController: UIViewController {
     
     private let essentialType: EssentialType
     private let semesterLabel: String = ""
-    private var postAddAdmindata = AddAdminPreLectureRequestBody()
-    private var data: [adminPreLecture] = []// 데이터를 담을 배열
-//    private let data = [
-//        ("웹개발입문", "1학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//        ("웹개발입문자", "2학기"),
-//    ]
+    private var postAddAdminData = AddAdminPreLectureRequestBody()
+    private var postUserSelectLecData = SelectLecRequestBody(semester: "1학년 2학기")
+    private var data: [adminPreLecture] = []
+    private var userData: [selectLecData] = []
+    private var userCheckYN = UserCheckYnRequestBody(subjectIDS: [])
+    private var selectedCellIndexPath: IndexPath?
+    private var shouldChangeBackgroundColor: Bool = false
+    private let semesterArray: [String] = ["1학년 2학기", "2학년 1학기", "2학년 2학기", "3학년 1학기", "3학년 2학기", "4학년 1학기", "4학년 2학기"]
+    private var selectedSemesterIndex: Int = 0
+    var selectedSubjectIDs: [Int] = []
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (UserDefaults.standard.string(forKey: "LoginEmail") == "admin") {
+            getAdminPreLecture()
+        } else {
+            postUserSelectLecData.semester = semesterArray[selectedSemesterIndex]
+            postSelctLec(requestBody: postUserSelectLecData)
+        }
         loadViewData()
         setUI()
         setLayout()
+        addTarget()
     }
     
     // MARK: - Initializer
@@ -82,7 +79,7 @@ extension EssentialViewController {
     
     private func setUI() {
         view.backgroundColor = UIColor(hex: "#FFFFFF")
-    
+        
         switch essentialType {
         case .user:
             topButton.do {
@@ -168,16 +165,16 @@ extension EssentialViewController {
                 $0.separatorStyle = .none
                 $0.showsVerticalScrollIndicator = false
                 $0.allowsSelection = false
-
+                
             }
-
+            
             saveButton.do {
                 $0.setTitle("+", for: .normal)
                 $0.backgroundColor = UIColor(hex: "#9AC1D1")
                 $0.layer.cornerRadius = 6
                 $0.titleLabel?.font = .systemFont(ofSize: 20)
                 $0.addTarget(self, action: #selector(presentAlertView), for: .touchUpInside)
-
+                
                 
             }
         }
@@ -214,14 +211,14 @@ extension EssentialViewController {
                 $0.trailing.equalTo(saveButton.snp.leading).offset(-30)
                 $0.width.height.equalTo(39)
             }
-
+            
             saveButton.snp.makeConstraints {
                 $0.top.equalTo(viewContainer.snp.bottom).offset(9)
                 $0.centerX.equalToSuperview()
                 $0.width.equalTo(83)
                 $0.height.equalTo(39)
             }
-
+            
             rightButton.snp.makeConstraints {
                 $0.top.equalTo(viewContainer.snp.bottom).offset(9)
                 $0.leading.equalTo(saveButton.snp.trailing).offset(30)
@@ -265,15 +262,15 @@ extension EssentialViewController {
                 $0.top.equalTo(topSection.snp.bottom).offset(10)
                 $0.leading.trailing.bottom.equalToSuperview()
             }
-
-
+            
+            
             saveButton.snp.makeConstraints {
                 $0.top.equalTo(viewContainer.snp.bottom).offset(9)
                 $0.centerX.equalToSuperview()
                 $0.width.equalTo(83)
                 $0.height.equalTo(39)
             }
-
+            
             
             viewContainer.snp.makeConstraints {
                 $0.top.equalTo(titleLabel.snp.bottom).offset(15)
@@ -285,13 +282,13 @@ extension EssentialViewController {
                 $0.top.equalToSuperview().offset(60)
                 $0.centerX.equalToSuperview()
             }
-
+            
         }
     }
     
     // MARK: - Method
     
-    func didTapSaveButtons() {
+    func didTapSaveButtons(withData data: [adminPreLecture]) {
         dismiss(animated: true) { [weak self] in
             let saveEssentialVC = SaveEssentialViewController()
             self?.navigationController?.pushViewController(saveEssentialVC, animated: false)
@@ -319,22 +316,69 @@ extension EssentialViewController {
         
         UIView.animate(withDuration: 4.0, delay: 0.1, options:.curveEaseOut , animations:{
             toastLabel.alpha=0.0
-            }, completion:{(isCompleted) in
-                if isCompleted {
-                    toastLabel.removeFromSuperview()
-                }
-            })
+        }, completion:{(isCompleted) in
+            if isCompleted {
+                toastLabel.removeFromSuperview()
+            }
+        })
     }
     
     func loadViewData() {
         switch essentialType {
         case .user:
-            print("유저케이스 로드 데이터가 들어갈 것 입니다")
+            postUserSelectLecData.semester = semesterArray[selectedSemesterIndex]
+            postSelctLec(requestBody: postUserSelectLecData)
         case .admin:
             getAdminPreLecture()
         }
     }
+    
+    func addTarget() {
+        leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
+        rightButton.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
+    }
+    
+    func postEnd() {
+        if selectedSemesterIndex < semesterArray.count - 1 {
+            selectedSemesterIndex += 1
+            loadViewData()
+        }
+    }
+    
+    @objc func leftButtonTapped() {
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
+            for indexPath in selectedIndexPaths {
+                tableView.deselectRow(at: indexPath, animated: false)
+                if let cell = tableView.cellForRow(at: indexPath) as? EssentialTableViewCell {
+                    cell.updateUI(isSelected: false)
+                }
+            }
+        }
+        if selectedSemesterIndex > 0 {
+            selectedSemesterIndex -= 1
+            loadViewData()
+        }
+    }
 
+    @objc func rightButtonTapped() {
+        
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
+            for indexPath in selectedIndexPaths {
+                tableView.deselectRow(at: indexPath, animated: false)
+                if let cell = tableView.cellForRow(at: indexPath) as? EssentialTableViewCell {
+                    cell.updateUI(isSelected: false)
+                }
+            }
+        }
+        if selectedSubjectIDs.isEmpty {
+            print("배열이 비었습니다")
+            postEnd()
+        } else {
+            userCheckYN = UserCheckYnRequestBody(subjectIDS: selectedSubjectIDs)
+            postUserCheckYN(requestBody: userCheckYN)
+        }
+    }
+    
     
     @objc func openTurotial() {
         let customAlertVC = TutorialEssentialViewController()
@@ -346,10 +390,20 @@ extension EssentialViewController {
         }
     }
     
-    @objc func presentToEssentialBottomSheetView(){
+    @objc
+    func presentToEssentialBottomSheetView(){
+        if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
+            for indexPath in selectedIndexPaths {
+                tableView.deselectRow(at: indexPath, animated: false)
+                if let cell = tableView.cellForRow(at: indexPath) as? EssentialTableViewCell {
+                    cell.updateUI(isSelected: false)
+                }
+            }
+        }
         let bottomSheetVC = EssentialBottomSheetViewController()
         bottomSheetVC.delegates = self // 델리게이트 설정
         self.present(bottomSheetVC, animated: true)
+        bottomSheetVC.dataToSave = data // 데이터를 전달
     }
 }
 
@@ -372,14 +426,14 @@ extension EssentialViewController : AlertViewDelegate{
         print("professorName: \(professorName)")
         print("semester: \(semester)")
         print("essentialName: \(essentialName)")
-        self.postAddAdmindata.preLecName = lectureName
-        self.postAddAdmindata.preLecSemester = professorName
-        self.postAddAdmindata.subjectName = semester
-        self.postAddAdmindata.semester = essentialName
-        postAddAdminPreLecture(requestBody: postAddAdmindata)
+        self.postAddAdminData.preLecName = lectureName
+        self.postAddAdminData.preLecSemester = professorName
+        self.postAddAdminData.subjectName = semester
+        self.postAddAdminData.semester = essentialName
+        postAddAdminPreLecture(requestBody: postAddAdminData)
         showToast(message:"선수과목이 성공적으로 추가되었습니다")
         getAdminPreLecture()
-      }
+    }
 }
 
 
@@ -387,36 +441,170 @@ extension EssentialViewController : AlertViewDelegate{
 
 extension EssentialViewController: UITableViewDataSource, UITableViewDelegate, EssentialBottomSheetDelegate {
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        if (UserDefaults.standard.string(forKey: "LoginEmail") == "admin"){
+            return data.count
+            
+        }
+        return userData.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! EssentialTableViewCell
         
-        let item = data[indexPath.row]
+        if (UserDefaults.standard.string(forKey: "LoginEmail") == "admin"){
+            let item = data[indexPath.row]
+            cell.configure(with: item)
+            return cell
+        }
         
+        let item = userData[indexPath.row]
         cell.configure(with: item)
-        
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedCellIndexPath = indexPath
+        shouldChangeBackgroundColor = true
+        if (UserDefaults.standard.string(forKey: "LoginEmail") == "admin"){
+            let cellID = data[indexPath.row]
+            print("Selected Cell ID:", cellID)
+        }
+        let cellID = userData[indexPath.row]
+        print("Selected Cell SubjectID:", cellID.subjectID)
+        getUserCheckLec(path: cellID.subjectID)
         
-        let cellID = data[indexPath.row]
-        
-        print("Selected Cell ID:",cellID)
-        
+        if !selectedSubjectIDs.contains(cellID.subjectID) {
+            selectedSubjectIDs.append(cellID.subjectID)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) as? EssentialTableViewCell {
+            var cellID = userData[indexPath.row]
+            cellID.clickYn = false
+            print(cellID)
+            cell.isSelected = false
+            cell.updateUI(isSelected: false)
+            
+            if let index = selectedSubjectIDs.firstIndex(of: cellID.subjectID) {
+                selectedSubjectIDs.remove(at: index)
+            }
+        }
     }
 }
 
 
 extension EssentialViewController {
+    
+    // MARK: - User API
+    
+    // 1. User 학기별 선수과목 리스트 조회
+    
+    func postSelctLec(requestBody: SelectLecRequestBody) {
+        UserPreLectureAPI.shared.postUserSelectLec(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestBody) { result in
+            
+            switch result {
+            case .success(let data):
+                if let data = data as? SelectLecDTO {
+                    let serverData = data.data
+                    self.userData = serverData
+                    self.tableView.reloadData()
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+            case .pathErr:
+                print("Path error")
+            case .serverErr:
+                print("Server error")
+            case .networkFail:
+                print("Network failure")
+            default:
+                break
+            }
+        }
+    }
+    
+    // 2. User 선수과목 선택 가능 여부
+    
+    private func getUserCheckLec(path: Int) {
+        UserPreLectureAPI.shared.getUserCheckLec(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", path: path) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? CheckLecDTO {
+                    if data.statusCode == 200 {
+                        _ = data.data
+                        if let indexPath = self.selectedCellIndexPath, self.shouldChangeBackgroundColor {
+                            let cell = self.tableView.cellForRow(at: indexPath) as? EssentialTableViewCell
+                            cell?.updateUI(isSelected: true)
+                            if let userCell = cell, let userIndexPath = self.tableView.indexPath(for: userCell) {
+                                var userItem = self.userData[userIndexPath.row]
+                                userItem.clickYn = true
+                            }
+                        }
+                        self.selectedCellIndexPath = nil
+                        self.shouldChangeBackgroundColor = false
+                    }
+                    if data.statusCode == 202 {
+                        
+                        let customAlertVC = AlertViewController(alertType:.softwareCheck)
+                        customAlertVC.setSoftwareCheckMessage(data.message)
+                        customAlertVC.modalPresentationStyle = .overFullScreen
+                        customAlertVC.delegate = self
+                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                           let keyWindow = windowScene.windows.first,
+                           let rootViewController = keyWindow.rootViewController {
+                            rootViewController.present(customAlertVC, animated: false, completion: nil)
+                        }
+                    }
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+            case .pathErr:
+                print("Path error")
+            case .serverErr:
+                print("Server error")
+            case .networkFail:
+                print("Network failure")
+            default:
+                break
+            }
+        }
+    }
+    
+    // 3. 선수과목 checkYN 변경 API
+    
+    func postUserCheckYN(requestBody: UserCheckYnRequestBody) {
+        UserPreLectureAPI.shared.postUserCheckYN(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestBody) { result in
+            switch result {
+            case .success(_):
+                self.selectedSubjectIDs.removeAll()
+                self.postEnd()
+            case .requestErr(let message):
+                print("Request error: \(message)")
+            case .pathErr:
+                print("Path error")
+            case .serverErr:
+                print("Server error")
+            case .networkFail:
+                print("Network failure")
+            default:
+                break
+            }
+        }
+    }
+    
+    
+    
+    // MARK: - Admin API
+    
+    // 1. Admin 선수과목 리스트 조회
     
     func getAdminPreLecture() {
         AdminPreLectureAPI.shared.getAdminPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
@@ -450,6 +638,7 @@ extension EssentialViewController {
             
         }
     }
+    // 2. Admin 선수과목 추가하기 POST
     
     func postAddAdminPreLecture(requestBody: AddAdminPreLectureRequestBody) {
         AdminPreLectureAPI.shared.postAddAdminPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestBody) { result in
@@ -468,8 +657,9 @@ extension EssentialViewController {
             default:
                 break
             }
-
+            
         }
     }
     
 }
+
