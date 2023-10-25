@@ -41,9 +41,16 @@ extension SettingViewController {
         let secondViewController = EditProfileViewController()
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
+    
     func ruleButtonTapped() {
-        let bottomSheetVC = AlertViewController(alertType: .ruleView)
-        present(bottomSheetVC, animated: true, completion: nil)
+        let customAlertVC = AlertViewController(alertType:.ruleView)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
+
     }
     func logOutButtonTapped() {
         let customAlertVC = AlertViewController(alertType: .logout)

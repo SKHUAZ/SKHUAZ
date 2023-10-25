@@ -377,6 +377,22 @@ extension AlertViewController {
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
 
+        case .emailAuth:
+            mainLabel.do {
+                $0.text = "인증이 완료되었습니다."
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+            }
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
         }
         
         alertView.do {
@@ -391,7 +407,8 @@ extension AlertViewController {
     private func setLayout() {
         
         switch alertType {
-        case .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck:
+            
+        case .ruleView:
             view.addSubview(alertView)
             
             alertView.addSubviews(
@@ -417,33 +434,32 @@ extension AlertViewController {
                 $0.width.equalTo(87)
                 $0.height.equalTo(34)
             }
-            
-        case .emailAuth, .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate:
+        case .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck, .emailAuth:
             view.addSubview(alertView)
-            
-            alertView.addSubviews(
-                mainLabel,
-                checkButton
-            )
-            
-            alertView.snp.makeConstraints {
-                $0.width.equalTo(300)
-                $0.height.equalTo(144)
-                $0.centerX.centerY.equalToSuperview()
-            }
-            
-            mainLabel.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(40)
-                $0.centerX.equalToSuperview()
-                $0.width.equalTo(200)
-            }
-            
-            checkButton.snp.makeConstraints {
-                $0.top.equalTo(mainLabel.snp.bottom).offset(18)
-                $0.leading.equalToSuperview().offset(107)
-                $0.width.equalTo(87)
-                $0.height.equalTo(34)
-            }
+             
+             alertView.addSubviews(
+                 mainLabel,
+                 checkButton
+             )
+             
+             alertView.snp.makeConstraints {
+                 $0.width.equalTo(300)
+                 $0.height.equalTo(144)
+                 $0.centerX.centerY.equalToSuperview()
+             }
+             
+             mainLabel.snp.makeConstraints {
+                 $0.top.equalToSuperview().offset(40)
+                 $0.centerX.equalToSuperview()
+                 $0.width.equalTo(200)
+             }
+             
+             checkButton.snp.makeConstraints {
+                 $0.top.equalTo(mainLabel.snp.bottom).offset(18)
+                 $0.leading.equalToSuperview().offset(107)
+                 $0.width.equalTo(87)
+                 $0.height.equalTo(34)
+             }
             
         case .writer:
             view.addSubview(alertView)
@@ -553,7 +569,7 @@ extension AlertViewController {
     
     private func addTarget() {
         switch alertType {
-        case.save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck:
+        case .ruleView, .emailAuth, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck:
             checkButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
         case .logout:
             checkButton.addTarget(self, action: #selector(touchLogoutComplete), for: .touchUpInside)
@@ -609,7 +625,6 @@ extension AlertViewController {
             let essentialName = essentialNameTextField.text ?? ""
              dismiss(animated:false){
                  self.delegate?.didConfirmAction(lectureName: lectureName, professorName: professorName, semester: semester, essentialName: essentialName)
-
              }
         }
      }
