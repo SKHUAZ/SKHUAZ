@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-protocol EssentialBottomSheetDelegate: class {
+protocol EssentialBottomSheetDelegate: AnyObject {
     func didTapSaveButtons()
 }
 

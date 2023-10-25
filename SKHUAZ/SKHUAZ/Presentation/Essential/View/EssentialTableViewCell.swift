@@ -93,8 +93,6 @@ extension EssentialTableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
         if selected {
             EssentialContainer.backgroundColor = UIColor(hex: "#9AC1D1")
         } else {

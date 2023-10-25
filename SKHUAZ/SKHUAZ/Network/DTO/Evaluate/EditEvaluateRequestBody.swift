@@ -27,4 +27,5 @@ struct EditEvaluateRequestBody: Codable {
         self.presentation = presentation
         self.title = title
         self.review = review
-    }}
+    }
+}
