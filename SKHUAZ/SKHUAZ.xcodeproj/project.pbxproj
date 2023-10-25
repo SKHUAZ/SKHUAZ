@@ -47,6 +47,10 @@
 		2544196E2ABD505B00207250 /* importRootTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544196D2ABD505B00207250 /* importRootTableViewCell.swift */; };
 		254419702ABD508200207250 /* ImportRootModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2544196F2ABD508200207250 /* ImportRootModel.swift */; };
 		254419722ABD50BA00207250 /* CustomRootContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254419712ABD50BA00207250 /* CustomRootContainer.swift */; };
+		254763172AE96F29007D4438 /* UserCheckYnRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254763162AE96F29007D4438 /* UserCheckYnRequestBody.swift */; };
+		254763192AE96FCA007D4438 /* UserCheckYnDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254763182AE96FCA007D4438 /* UserCheckYnDTO.swift */; };
+		2547631B2AE98459007D4438 /* UserPreLectureDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2547631A2AE98459007D4438 /* UserPreLectureDTO.swift */; };
+		2547631D2AE98F6C007D4438 /* SaveDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2547631C2AE98F6C007D4438 /* SaveDataManager.swift */; };
 		2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */; };
 		255F76172AE645C4006F5BDE /* EssentialTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F76162AE645C4006F5BDE /* EssentialTableViewCell.swift */; };
 		255F76192AE64929006F5BDE /* EssentialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F76182AE64929006F5BDE /* EssentialViewController.swift */; };
@@ -68,6 +72,11 @@
 		25ACBA382AE810A500A34B29 /* AdminPreLectureAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */; };
 		25ACBA3A2AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA392AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift */; };
 		25ACBA3C2AE893E900A34B29 /* AddAdminPreLectureDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA3B2AE893E900A34B29 /* AddAdminPreLectureDTO.swift */; };
+		25ACBA3F2AE8AAEE00A34B29 /* SelectLecRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA3E2AE8AAEE00A34B29 /* SelectLecRequestBody.swift */; };
+		25ACBA412AE8AB0C00A34B29 /* SelectLecDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA402AE8AB0B00A34B29 /* SelectLecDTO.swift */; };
+		25ACBA442AE8AB4600A34B29 /* UserPreLectureRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA432AE8AB4600A34B29 /* UserPreLectureRouter.swift */; };
+		25ACBA472AE8ABC000A34B29 /* UserPreLectureAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA462AE8ABC000A34B29 /* UserPreLectureAPI.swift */; };
+		25ACBA492AE8BD6800A34B29 /* CheckLecDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA482AE8BD6800A34B29 /* CheckLecDTO.swift */; };
 		25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */; };
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
 		25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */; };
@@ -172,6 +181,10 @@
 		2544196D2ABD505B00207250 /* importRootTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = importRootTableViewCell.swift; sourceTree = "<group>"; };
 		2544196F2ABD508200207250 /* ImportRootModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportRootModel.swift; sourceTree = "<group>"; };
 		254419712ABD50BA00207250 /* CustomRootContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRootContainer.swift; sourceTree = "<group>"; };
+		254763162AE96F29007D4438 /* UserCheckYnRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCheckYnRequestBody.swift; sourceTree = "<group>"; };
+		254763182AE96FCA007D4438 /* UserCheckYnDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCheckYnDTO.swift; sourceTree = "<group>"; };
+		2547631A2AE98459007D4438 /* UserPreLectureDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreLectureDTO.swift; sourceTree = "<group>"; };
+		2547631C2AE98F6C007D4438 /* SaveDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDataManager.swift; sourceTree = "<group>"; };
 		2549C6CB2AA1BE4D006DB90A /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
 		255F76162AE645C4006F5BDE /* EssentialTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialTableViewCell.swift; sourceTree = "<group>"; };
 		255F76182AE64929006F5BDE /* EssentialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +206,11 @@
 		25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPreLectureAPI.swift; sourceTree = "<group>"; };
 		25ACBA392AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdminPreLectureRequestBody.swift; sourceTree = "<group>"; };
 		25ACBA3B2AE893E900A34B29 /* AddAdminPreLectureDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdminPreLectureDTO.swift; sourceTree = "<group>"; };
+		25ACBA3E2AE8AAEE00A34B29 /* SelectLecRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLecRequestBody.swift; sourceTree = "<group>"; };
+		25ACBA402AE8AB0B00A34B29 /* SelectLecDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLecDTO.swift; sourceTree = "<group>"; };
+		25ACBA432AE8AB4600A34B29 /* UserPreLectureRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreLectureRouter.swift; sourceTree = "<group>"; };
+		25ACBA462AE8ABC000A34B29 /* UserPreLectureAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreLectureAPI.swift; sourceTree = "<group>"; };
+		25ACBA482AE8BD6800A34B29 /* CheckLecDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckLecDTO.swift; sourceTree = "<group>"; };
 		25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
@@ -279,6 +297,7 @@
 				9E2D63932AC331D100708673 /* RootRecommend */,
 				E36525132AC2977F002D1BC2 /* User */,
 				25ACBA362AE8108700A34B29 /* AdminPreLecture */,
+				25ACBA452AE8ABAC00A34B29 /* UserPreLecture */,
 				25E3EB582AC27C5900165B9D /* preLecture */,
 				25E3EB432AC189C800165B9D /* Lecture */,
 				25292C7C2ABD766B003845C5 /* Evaluates */,
@@ -404,6 +423,7 @@
 				25ACBA272AE804C100A34B29 /* Home */,
 				9E2D638E2AC3316200708673 /* RootRecommend */,
 				25ACBA302AE80FBA00A34B29 /* AdminPreLecture */,
+				25ACBA3D2AE8AADD00A34B29 /* UserPreLecture */,
 				25E3EB502AC27A8D00165B9D /* preLecture */,
 				25E3EB3F2AC1894A00165B9D /* Lecture */,
 				25E3EB3A2AC0DCC900165B9D /* Evaluate */,
@@ -432,6 +452,7 @@
 				9E2D638B2AC3307200708673 /* RootRecommendRouter */,
 				E36524FD2AC13511002D1BC2 /* UserRouter */,
 				25ACBA332AE8101E00A34B29 /* AdminPreLecture */,
+				25ACBA422AE8AB3000A34B29 /* UserPreLecture */,
 				25E3EB552AC27B6600165B9D /* preLecture */,
 				25E3EB402AC1895900165B9D /* LectureRouter */,
 				25292C832ABD86DE003845C5 /* EvaluateRouter */,
@@ -585,6 +606,7 @@
 			isa = PBXGroup;
 			children = (
 				259435D32AB2DA3E00B03EBF /* EssentialDataModel.swift */,
+				2547631C2AE98F6C007D4438 /* SaveDataManager.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -637,6 +659,35 @@
 				25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */,
 			);
 			path = AdminPreLecture;
+			sourceTree = "<group>";
+		};
+		25ACBA3D2AE8AADD00A34B29 /* UserPreLecture */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA3E2AE8AAEE00A34B29 /* SelectLecRequestBody.swift */,
+				25ACBA482AE8BD6800A34B29 /* CheckLecDTO.swift */,
+				25ACBA402AE8AB0B00A34B29 /* SelectLecDTO.swift */,
+				254763162AE96F29007D4438 /* UserCheckYnRequestBody.swift */,
+				254763182AE96FCA007D4438 /* UserCheckYnDTO.swift */,
+				2547631A2AE98459007D4438 /* UserPreLectureDTO.swift */,
+			);
+			path = UserPreLecture;
+			sourceTree = "<group>";
+		};
+		25ACBA422AE8AB3000A34B29 /* UserPreLecture */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA432AE8AB4600A34B29 /* UserPreLectureRouter.swift */,
+			);
+			path = UserPreLecture;
+			sourceTree = "<group>";
+		};
+		25ACBA452AE8ABAC00A34B29 /* UserPreLecture */ = {
+			isa = PBXGroup;
+			children = (
+				25ACBA462AE8ABC000A34B29 /* UserPreLectureAPI.swift */,
+			);
+			path = UserPreLecture;
 			sourceTree = "<group>";
 		};
 		25D46EF62AB07E5C008FA088 /* Essential */ = {
@@ -1012,6 +1063,7 @@
 			files = (
 				25E3EB602AC28FA000165B9D /* AllProfessorDTO.swift in Sources */,
 				9E2D638D2AC3308C00708673 /* RootRecommendRouter.swift in Sources */,
+				25ACBA3F2AE8AAEE00A34B29 /* SelectLecRequestBody.swift in Sources */,
 				25ACBA3A2AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift in Sources */,
 				9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */,
 				2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */,
@@ -1033,10 +1085,13 @@
 				25E8BC862AE412A800F4C640 /* EditEvaluateDTO.swift in Sources */,
 				E3EC5D072AB421E300325E7D /* SettingView.swift in Sources */,
 				E3EC5CF82AAAF91200325E7D /* RadioButton.swift in Sources */,
+				25ACBA442AE8AB4600A34B29 /* UserPreLectureRouter.swift in Sources */,
 				259435D62AB2DD8B00B03EBF /* LectureButton.swift in Sources */,
 				259435D42AB2DA3E00B03EBF /* EssentialDataModel.swift in Sources */,
 				9E2D63992AC3322B00708673 /* HomeViewController.swift in Sources */,
 				2539B9952A8CA73A00E939AA /* Literals.swift in Sources */,
+				25ACBA492AE8BD6800A34B29 /* CheckLecDTO.swift in Sources */,
+				254763172AE96F29007D4438 /* UserCheckYnRequestBody.swift in Sources */,
 				25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */,
 				25FA1D8D2AA820090044B38F /* CreateEvaluateViewController.swift in Sources */,
 				25FA1D852AA61BEC0044B38F /* CircleGraph.swift in Sources */,
@@ -1070,6 +1125,7 @@
 				25ACBA3C2AE893E900A34B29 /* AddAdminPreLectureDTO.swift in Sources */,
 				25E3EB3C2AC0DD0800165B9D /* DetailEvaluateDTO.swift in Sources */,
 				25ACBA382AE810A500A34B29 /* AdminPreLectureAPI.swift in Sources */,
+				2547631D2AE98F6C007D4438 /* SaveDataManager.swift in Sources */,
 				25E8BC842AE4119300F4C640 /* EditEvaluateRequestBody.swift in Sources */,
 				E3EC5D0D2AB6C23D00325E7D /* EditProfileViewController.swift in Sources */,
 				2539B94B2A8CA48300E939AA /* SceneDelegate.swift in Sources */,
@@ -1088,6 +1144,7 @@
 				25E3EB452AC189DA00165B9D /* LectureAPI.swift in Sources */,
 				25E3EB4B2AC1C1D400165B9D /* CreateEvaluateRequestBody.swift in Sources */,
 				9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */,
+				25ACBA412AE8AB0C00A34B29 /* SelectLecDTO.swift in Sources */,
 				25292C6F2ABD6F52003845C5 /* NetworkResult.swift in Sources */,
 				25D46EFA2AB07E84008FA088 /* EssentialView.swift in Sources */,
 				9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */,
@@ -1098,6 +1155,7 @@
 				E3E83D522AA20B110047C079 /* SignUpViewController.swift in Sources */,
 				2539B9772A8CA61300E939AA /* BaseView.swift in Sources */,
 				E3EC5D152ABAE23300325E7D /* CreateEmailAuthViewController.swift in Sources */,
+				25ACBA472AE8ABC000A34B29 /* UserPreLectureAPI.swift in Sources */,
 				E36525102AC1E532002D1BC2 /* logOutDTO.swift in Sources */,
 				25E3EB622AC28FC100165B9D /* AllProfessorRequestBody.swift in Sources */,
 				E3EC5D022AAD59F500325E7D /* RadioButtonsStack.swift in Sources */,
@@ -1114,6 +1172,7 @@
 				2539B9972A8CA74900E939AA /* FontLevel.swift in Sources */,
 				25E3EB492AC1C0B400165B9D /* CreateEvaluateDTO.swift in Sources */,
 				E365250C2AC1D216002D1BC2 /* nicknameCheckDTO.swift in Sources */,
+				2547631B2AE98459007D4438 /* UserPreLectureDTO.swift in Sources */,
 				25E3EB5E2AC28F7A00165B9D /* AllLectureDTO.swift in Sources */,
 				254419722ABD50BA00207250 /* CustomRootContainer.swift in Sources */,
 				25ACBA352AE8103A00A34B29 /* AdminPreLectureRouter.swift in Sources */,
@@ -1126,6 +1185,7 @@
 				25E3EB642AC29BFE00165B9D /* AllevaluateResponseDTO.swift in Sources */,
 				25E3EB352AC0A6B500165B9D /* SaveEssentialViewController.swift in Sources */,
 				25292C732ABD6F9A003845C5 /* BaseAPI.swift in Sources */,
+				254763192AE96FCA007D4438 /* UserCheckYnDTO.swift in Sources */,
 				9E2D63952AC331E200708673 /* RootRecommendAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
