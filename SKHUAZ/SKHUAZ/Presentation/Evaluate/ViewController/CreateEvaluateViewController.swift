@@ -200,7 +200,6 @@ extension CreateEvaluateViewController:  CreateEvaluateBottomSheetViewController
             }
 
         } else {
-            self.createData.deptName = "IT"
             self.createData.lecName = evaluateView.lectureButtonTitle ?? ""
             self.createData.profName = evaluateView.propeserButtonTitle ?? ""
             self.createData.semester = evaluateView.semesterButtonTitle ?? ""

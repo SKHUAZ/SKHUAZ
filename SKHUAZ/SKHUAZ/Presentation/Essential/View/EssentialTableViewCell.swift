@@ -19,6 +19,10 @@ class EssentialTableViewCell: UITableViewCell {
     private let semesterLabel = UILabel()
     
     // MARK: - Property
+    
+    private var subjectID: Int = 0
+    private var checkYn: Bool = false
+    private var clickYn: Bool = true
 
     
     // MARK: - Initializer
@@ -91,9 +95,16 @@ extension EssentialTableViewCell {
         semesterLabel.text = item.subjectSemester
     }
     
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        if selected {
+    func configure(with item: selectLecData) {
+        lectureLabel.text = item.subjectName
+        semesterLabel.text = item.semester
+        subjectID = item.subjectID
+        checkYn = item.checkYn
+        clickYn = item.clickYn
+    }
+    
+    func updateUI(isSelected: Bool) {
+        if isSelected {
             EssentialContainer.backgroundColor = UIColor(hex: "#9AC1D1")
         } else {
             EssentialContainer.backgroundColor = UIColor(hex: "#EFEFEF")

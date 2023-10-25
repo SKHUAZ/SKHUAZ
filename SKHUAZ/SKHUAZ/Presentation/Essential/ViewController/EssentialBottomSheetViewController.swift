@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 protocol EssentialBottomSheetDelegate: AnyObject {
-    func didTapSaveButtons()
+    func didTapSaveButtons(withData data: [adminPreLecture])
 }
 
 final class EssentialBottomSheetViewController: UIViewController {
@@ -27,7 +27,7 @@ final class EssentialBottomSheetViewController: UIViewController {
     weak var delegate: CreateEvaluateViewController?
     private let titleText: String = "{글제목}"
     weak var delegates: EssentialBottomSheetDelegate?
-
+    var dataToSave: [adminPreLecture] = []
     
     
     
@@ -130,49 +130,42 @@ extension EssentialBottomSheetViewController {
     
     
     @objc private func saveEssentialButton() {
-        delegates?.didTapSaveButtons()
-        postPreLecture()
+//        postUserPreLecture()
+        delegates?.didTapSaveButtons(withData: dataToSave)
     }
 }
 
 
-extension EssentialBottomSheetViewController {
-    func postPreLecture(){
-
-        let requestBody = [
-            PreLectureRequestBody(semester: "1학년 2학기", lecNames: ["웹개발입문"]),
-            PreLectureRequestBody(semester: "2학년 1학기", lecNames: ["Java프로그래밍", "데이터베이스"]),
-            PreLectureRequestBody(semester: "2학년 2학기", lecNames: ["운영체제", "컴퓨터구조", "데이터통신"]),
-            PreLectureRequestBody(semester: "3학년 1학기", lecNames: ["자료구조", "컴퓨터네트워크", "프론트엔드개발", "Python프로그래밍"]),
-            PreLectureRequestBody(semester: "3학년 2학기", lecNames: ["알고리즘","모바일프로그래밍","프론트엔드프레임워크","서버구축및형상관리"]),
-            PreLectureRequestBody(semester: "4학년 1학기", lecNames:["졸업지도","소프트웨어캡스톤디자인","시스템분석및설계","고급Java프로그래밍"]),
-            PreLectureRequestBody(semester:"4학년 2학기" ,lecNames:["빅데이터"])
-        ]
-
-
-        
-        
-        preLectureAPI.shared.postPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestBody) { result in
-            switch result {
-            case .success(let data):
-                print(data)
-                print("성공")
-            case .requestErr(let message):
-                // Handle request error here.
-                print("Request error: \(message)")
-            case .pathErr:
-                // Handle path error here.
-                print("Path error")
-            case .serverErr:
-                // Handle server error here.
-                print("Server error")
-            case .networkFail:
-                // Handle network failure here.
-                print("Network failure")
-            default:
-                break
-            }
-            
-        }
-    }
-}
+//extension EssentialBottomSheetViewController {
+//    
+//    func postUserPreLecture() {
+//        UserPreLectureAPI.shared.postUserPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
+//            switch result {
+//            case .success(let data):
+//                if let data = data as? UserPreLectureDTO {
+//                    let serverData = data.data
+//                    var saveData = [adminPreLecture]() // 새로운 데이터를 저장할 배열
+//
+//                    for preLectureData in serverData {
+//                        let adminPreLectureData = adminPreLecture(subjectName: preLectureData.lecNames[0], subjectSemester: preLectureData.semester)
+//                        saveData.append(adminPreLectureData)
+//                    }
+//                    self.dataToSave = saveData
+//
+//
+//                }
+//            case .requestErr(let message):
+//                print("Request error: \(message)")
+//            case .pathErr:
+//                print("Path error")
+//            case .serverErr:
+//                print("Server error")
+//            case .networkFail:
+//                print("Network failure")
+//            default:
+//                break
+//            }
+//        }
+//    }
+//
+//}

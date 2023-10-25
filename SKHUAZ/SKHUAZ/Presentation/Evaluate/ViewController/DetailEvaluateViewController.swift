@@ -24,7 +24,7 @@ class DetailEvaluateViewController: UIViewController {
     
     var evaluationId: Int = 0
     private var writerEmail: String = ""
-    private var loginUserEmail = UserDefaults.standard.string(forKey: "LoginEmail")
+    private var loginUserEmail = UserDefaults.standard.string(forKey: "Nickname")
     private var putData = EditEvaluateRequestBody()
     
     // MARK: - View Life Cycle
@@ -164,7 +164,7 @@ extension DetailEvaluateViewController {
     @objc
     private func editEvaluate() {
         
-        if loginUserEmail == writerEmail {
+        if loginUserEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
             print("작성자가와 로그인 한 사람이 같습니다")
             detailEvaluateView.setEditable(true)
             deleteButtonisEnabled()
@@ -184,7 +184,7 @@ extension DetailEvaluateViewController {
     
     @objc
     private func deleteEvaluate() {
-        if loginUserEmail == writerEmail {
+        if loginUserEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
             print("작성자와 로그인 한 사람이 같습니다.")
             let customAlertVC = AlertViewController(alertType: .writer)
             customAlertVC.setCheckButtonAction(target: self, action: #selector(deleteReview))

@@ -11,6 +11,10 @@ import SnapKit
 import Then
 
 final class throwEssentialViewController: UIViewController, EssentialBottomSheetDelegate {
+    func didTapSaveButtons(withData data: [adminPreLecture]) {
+        print("")
+    }
+    
     
     // MARK: - UI Components
     
