@@ -66,6 +66,8 @@
 		25ACBA322AE80FE900A34B29 /* AdminPreLectureDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA312AE80FE900A34B29 /* AdminPreLectureDTO.swift */; };
 		25ACBA352AE8103A00A34B29 /* AdminPreLectureRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA342AE8103A00A34B29 /* AdminPreLectureRouter.swift */; };
 		25ACBA382AE810A500A34B29 /* AdminPreLectureAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */; };
+		25ACBA3A2AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA392AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift */; };
+		25ACBA3C2AE893E900A34B29 /* AddAdminPreLectureDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ACBA3B2AE893E900A34B29 /* AddAdminPreLectureDTO.swift */; };
 		25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */; };
 		25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EEA2AAEE531008FA088 /* UIButton++.swift */; };
 		25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */; };
@@ -189,6 +191,8 @@
 		25ACBA312AE80FE900A34B29 /* AdminPreLectureDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPreLectureDTO.swift; sourceTree = "<group>"; };
 		25ACBA342AE8103A00A34B29 /* AdminPreLectureRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPreLectureRouter.swift; sourceTree = "<group>"; };
 		25ACBA372AE810A500A34B29 /* AdminPreLectureAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPreLectureAPI.swift; sourceTree = "<group>"; };
+		25ACBA392AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdminPreLectureRequestBody.swift; sourceTree = "<group>"; };
+		25ACBA3B2AE893E900A34B29 /* AddAdminPreLectureDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdminPreLectureDTO.swift; sourceTree = "<group>"; };
 		25D46EE82AAEC5E6008FA088 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		25D46EEA2AAEE531008FA088 /* UIButton++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton++.swift"; sourceTree = "<group>"; };
 		25D46EF42AAF6ABD008FA088 /* RecommendDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendDataModel.swift; sourceTree = "<group>"; };
@@ -396,8 +400,8 @@
 		2539B9632A8CA55700E939AA /* DTO */ = {
 			isa = PBXGroup;
 			children = (
-				25ACBA272AE804C100A34B29 /* Home */,
 				2539B9642A8CA56100E939AA /* DTO.swift */,
+				25ACBA272AE804C100A34B29 /* Home */,
 				9E2D638E2AC3316200708673 /* RootRecommend */,
 				25ACBA302AE80FBA00A34B29 /* AdminPreLecture */,
 				25E3EB502AC27A8D00165B9D /* preLecture */,
@@ -613,6 +617,8 @@
 			isa = PBXGroup;
 			children = (
 				25ACBA312AE80FE900A34B29 /* AdminPreLectureDTO.swift */,
+				25ACBA392AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift */,
+				25ACBA3B2AE893E900A34B29 /* AddAdminPreLectureDTO.swift */,
 			);
 			path = AdminPreLecture;
 			sourceTree = "<group>";
@@ -1006,6 +1012,7 @@
 			files = (
 				25E3EB602AC28FA000165B9D /* AllProfessorDTO.swift in Sources */,
 				9E2D638D2AC3308C00708673 /* RootRecommendRouter.swift in Sources */,
+				25ACBA3A2AE893D000A34B29 /* AddAdminPreLectureRequestBody.swift in Sources */,
 				9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */,
 				2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */,
 				2539B9932A8CA73000E939AA /* Image.swift in Sources */,
@@ -1060,6 +1067,7 @@
 				25E3EB422AC1896B00165B9D /* LectureRouter.swift in Sources */,
 				25E3EB392AC0B86800165B9D /* SaveEssentialSubContainerView.swift in Sources */,
 				2544196A2ABD501600207250 /* CreateRecommendBottomSheetViewController.swift in Sources */,
+				25ACBA3C2AE893E900A34B29 /* AddAdminPreLectureDTO.swift in Sources */,
 				25E3EB3C2AC0DD0800165B9D /* DetailEvaluateDTO.swift in Sources */,
 				25ACBA382AE810A500A34B29 /* AdminPreLectureAPI.swift in Sources */,
 				25E8BC842AE4119300F4C640 /* EditEvaluateRequestBody.swift in Sources */,
