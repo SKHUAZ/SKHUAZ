@@ -157,7 +157,11 @@ extension SaveEssentialViewController {
     private func openSaveAlert() {
         let customAlertVC = AlertViewController(alertType: .save)
             customAlertVC.modalPresentationStyle = .overFullScreen
-            UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
     }
     
     
