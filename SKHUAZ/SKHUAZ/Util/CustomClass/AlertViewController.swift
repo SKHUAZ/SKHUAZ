@@ -22,6 +22,8 @@ enum CustomAlertType {
     case writer
     case unWriter
     case softwareCheck
+    case emailAuth
+    case ruleView
 }
 
 protocol AlertViewDelegate : AnyObject {
@@ -41,6 +43,7 @@ final class AlertViewController: UIViewController {
     private let essentialNameTextField = UITextField()
     private let semesterTextField = UITextField()
     private let warringLabel = UILabel()
+    private let titleLable = UILabel()
     
     // MARK: - Properties
     
@@ -82,6 +85,23 @@ extension AlertViewController {
         
         switch alertType {
             
+        case .ruleView:
+            titleLable.do {
+                $0.text = "다른 회원들과 예의를 갖고 대화하며 상호 존중해야 합니다. \n\n욕설, 혐오 발언, 차별적인 언행 등은 절대적으로 금지되며, 모든 회원들이 안전하고 쾌적한 환경에서 활동할 수 있어야 합니다."
+                $0.textColor = UIColor(hex: "#000000")
+                $0.numberOfLines = 0
+                $0.font = .systemFont(ofSize: 15)
+                $0.textAlignment = .center
+            }
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
         case .mainEvaluate:
             mainLabel.do {
                 $0.text = "저장이 완료되었습니다."
@@ -372,6 +392,33 @@ extension AlertViewController {
         
         switch alertType {
         case .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck:
+            view.addSubview(alertView)
+            
+            alertView.addSubviews(
+                titleLable,
+                checkButton
+            )
+            
+            alertView.snp.makeConstraints {
+                $0.width.equalTo(300)
+                $0.height.equalTo(300)
+                $0.center.equalToSuperview()
+            }
+            
+            titleLable.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(40)
+                $0.leading.equalToSuperview().offset(77)
+                $0.width.equalTo(147)
+            }
+            
+            checkButton.snp.makeConstraints {
+                $0.top.equalTo(titleLable.snp.bottom).offset(18)
+                $0.leading.equalToSuperview().offset(107)
+                $0.width.equalTo(87)
+                $0.height.equalTo(34)
+            }
+            
+        case .emailAuth, .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate:
             view.addSubview(alertView)
             
             alertView.addSubviews(
