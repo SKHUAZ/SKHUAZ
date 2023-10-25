@@ -21,6 +21,7 @@ enum CustomAlertType {
     case admin
     case writer
     case unWriter
+    case softwareCheck
 }
 
 protocol AlertViewDelegate : AnyObject {
@@ -44,6 +45,7 @@ final class AlertViewController: UIViewController {
     // MARK: - Properties
     
     private let alertType: CustomAlertType
+    private var softwareCheckMessage: String = ""
     weak var delegate : AlertViewDelegate?
     let attributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: UIColor(hex: "#737373"),
@@ -333,6 +335,27 @@ extension AlertViewController {
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
+            
+        case .softwareCheck:
+            
+            mainLabel.do {
+                $0.text = softwareCheckMessage
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+                $0.lineBreakMode = .byWordWrapping
+                
+            }
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
 
         }
         
@@ -348,7 +371,7 @@ extension AlertViewController {
     private func setLayout() {
         
         switch alertType {
-        case .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter:
+        case .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck:
             view.addSubview(alertView)
             
             alertView.addSubviews(
@@ -359,13 +382,13 @@ extension AlertViewController {
             alertView.snp.makeConstraints {
                 $0.width.equalTo(300)
                 $0.height.equalTo(144)
-                $0.center.equalToSuperview()
+                $0.centerX.centerY.equalToSuperview()
             }
             
             mainLabel.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(40)
-                $0.leading.equalToSuperview().offset(77)
-                $0.width.equalTo(160)
+                $0.centerX.equalToSuperview()
+                $0.width.equalTo(200)
             }
             
             checkButton.snp.makeConstraints {
@@ -387,12 +410,12 @@ extension AlertViewController {
             alertView.snp.makeConstraints {
                 $0.width.equalTo(300)
                 $0.height.equalTo(144)
-                $0.center.equalToSuperview()
+                $0.centerX.centerY.equalToSuperview()
             }
             
             mainLabel.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(40)
-                $0.leading.equalToSuperview().offset(77)
+                $0.centerX.equalToSuperview()
                 $0.width.equalTo(147)
             }
             
@@ -426,7 +449,7 @@ extension AlertViewController {
             alertView.snp.makeConstraints {
                 $0.width.equalTo(300)
                 $0.height.equalTo(340)
-                $0.center.equalToSuperview()
+                $0.centerX.centerY.equalToSuperview()
             }
             
             cancelButton.snp.makeConstraints {
@@ -477,15 +500,13 @@ extension AlertViewController {
                 $0.height.equalTo(34)
             }
         }
- 
-        
     }
     
     // MARK: - Methodes
     
     private func addTarget() {
         switch alertType {
-        case.save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter:
+        case.save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck:
             checkButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
         case .logout:
             checkButton.addTarget(self, action: #selector(touchLogoutComplete), for: .touchUpInside)
@@ -502,6 +523,9 @@ extension AlertViewController {
         checkButton.addTarget(target, action: action, for: .touchUpInside)
     }
 
+    func setSoftwareCheckMessage(_ message: String) {
+        self.softwareCheckMessage = message
+    }
     
     private func pushToLoginView() {
             let loginVC = LoginViewController()
