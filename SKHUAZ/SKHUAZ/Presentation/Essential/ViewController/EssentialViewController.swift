@@ -34,6 +34,7 @@ final class EssentialViewController: UIViewController {
     
     private let essentialType: EssentialType
     private let semesterLabel: String = ""
+    private var postAddAdmindata = AddAdminPreLectureRequestBody()
     private var data: [adminPreLecture] = []// 데이터를 담을 배열
 //    private let data = [
 //        ("웹개발입문", "1학기"),
@@ -338,7 +339,11 @@ extension EssentialViewController {
     @objc func openTurotial() {
         let customAlertVC = TutorialEssentialViewController()
         customAlertVC.modalPresentationStyle = .overFullScreen
-        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
     }
     
     @objc func presentToEssentialBottomSheetView(){
@@ -351,14 +356,29 @@ extension EssentialViewController {
 
 extension EssentialViewController : AlertViewDelegate{
     
-     @objc func presentAlertView() {
-         let customAlertVC = AlertViewController(alertType:.admin)
-         customAlertVC.modalPresentationStyle = .overFullScreen
+    @objc func presentAlertView() {
+        let customAlertVC = AlertViewController(alertType:.admin)
+        customAlertVC.modalPresentationStyle = .overFullScreen
         customAlertVC.delegate = self
-         UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated:false,completion:nil)
-     }
-     func didConfirmAction(){
-          showToast(message:"선수과목이 성공적으로 추가되었습니다")
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
+    }
+    
+    func didConfirmAction(lectureName: String, professorName: String, semester: String, essentialName: String) {
+        print("lectureName: \(lectureName)")
+        print("professorName: \(professorName)")
+        print("semester: \(semester)")
+        print("essentialName: \(essentialName)")
+        self.postAddAdmindata.preLecName = lectureName
+        self.postAddAdmindata.preLecSemester = professorName
+        self.postAddAdmindata.subjectName = semester
+        self.postAddAdmindata.semester = essentialName
+        postAddAdminPreLecture(requestBody: postAddAdmindata)
+        showToast(message:"선수과목이 성공적으로 추가되었습니다")
+        getAdminPreLecture()
       }
 }
 
@@ -397,6 +417,7 @@ extension EssentialViewController: UITableViewDataSource, UITableViewDelegate, E
 
 
 extension EssentialViewController {
+    
     func getAdminPreLecture() {
         AdminPreLectureAPI.shared.getAdminPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
             switch result {
@@ -429,4 +450,26 @@ extension EssentialViewController {
             
         }
     }
+    
+    func postAddAdminPreLecture(requestBody: AddAdminPreLectureRequestBody) {
+        AdminPreLectureAPI.shared.postAddAdminPreLecture(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestBody) { result in
+            switch result {
+            case .success(let data):
+                print(data)
+                print("성공")
+            case .requestErr(let message):
+                print("Request error: \(message)")
+            case .pathErr:
+                print("Path error")
+            case .serverErr:
+                print("Server error")
+            case .networkFail:
+                print("Network failure")
+            default:
+                break
+            }
+
+        }
+    }
+    
 }
