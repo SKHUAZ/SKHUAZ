@@ -101,7 +101,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
                 switch result {
                 case .success:
                     print("signup")
-                    self.dismiss(animated: true, completion: nil)
+                    self.navigationController?.popViewController(animated: true)
                 case .requestErr(let message):
                     // Handle request error here.
                     print("Request error: \(message)")
@@ -182,7 +182,7 @@ final class SignUpViewController: UIViewController, SignUpViewDelegate {
             guard let emailValid = notification.object as? Bool else { return }
             if emailValid{
                 self.rootView.emailWarningMessageReturn?.isHidden = false
-                self.rootView.emailWarningMessageReturn?.textColor = .red
+                self.rootView.emailWarningMessageReturn?.textColor = .blue
                 self.rootView.emailWarningMessageReturn?.text = "인증 완료 *"
             }
             else {
