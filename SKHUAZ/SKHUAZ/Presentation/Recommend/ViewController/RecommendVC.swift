@@ -21,11 +21,9 @@ final class RecommendViewController: UIViewController {
     
     private let createButton = UIButton()
     private let writeByMeButton = UIButton()
-//    private var filteredReviews: [RecommendDataModel]!
-//    var reviews: [RecommendDataModel]!
     
     
-    // Recommend
+    // Recommend for filter
     private var filteredReviews: [RootRecommendDataModel]!
     var reviews: [RootRecommendDataModel]!
     
@@ -187,8 +185,8 @@ extension RecommendViewController {
                         let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
                                                                                    recommendation : serverItem.recommendation,
                                                                                    createAt :serverItem.createAt ,
-                                                                                   email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems )
+                                                                                    email :serverItem.email ,
+                                                                                   preLectures:mappedPreLecturesItems, id: serverItem.id)
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
@@ -313,9 +311,9 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-//        print("You selected cell #\(reviews[indexPath.row].titleLabel)")
-        print(reviews)
+        print("You selected cell #\(reviews[indexPath.row].id)")
         let detailVC = DetailRecommendViewController()
+        detailVC.recommendID = reviews[indexPath.row].id
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
