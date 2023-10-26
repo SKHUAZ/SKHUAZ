@@ -23,7 +23,10 @@ class DetailRecommendViewController: UIViewController {
     
     // MARK: - Properties
     
-    var importReviewList: [RecommendDataModel] = []
+    var recommendID: Int = 0
+    
+//    var importReviewList: [RecommendDataModel] = []
+    var importReviewList: [PreLectureDTO] = []
     
     // MARK: - View Life Cycle
     
@@ -33,32 +36,15 @@ class DetailRecommendViewController: UIViewController {
         setLayout()
 //        self.hideKeyboardWhenTappedAround()
         addTarget()
-        recommendView.setDetailRecommendView(title: "제목이지롱", content: "본문이지롱")
+//        recommendView.setDetailRecommendView(title: "제목이지롱", content: "본문이지롱")
         setupData()
         setDelegate()
         setUITableView()
+        loadDetailEvaluate()
     }
 }
 
 extension DetailRecommendViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return importReviewList.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! importRootTableViewCell
-        let review = importReviewList[indexPath.row]
-        print(review)
-        
-        cell.importRootModelConfigure(with: review)
-        
-        return cell
-    }
     
     // MARK: - UI Components Property
     
@@ -150,7 +136,6 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     private func setupData() {
-        importReviewList = [recommendReview1, recommendReview2, recommendReview3, recommendReview4]
         importRecommendListView.reloadData()
     }
     
@@ -167,5 +152,78 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     @objc
     private func popToRecommendViewController() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard !importReviewList.isEmpty else { return 0 }
+        
+        let dto = importReviewList[0] // 이 부분을 수정하세요.
+        
+        // 아래의 i를 indexPath.row로 변경합니다.
+        let review = dto.data[indexPath.row]
+        
+        let lecCount = review.lecNames.count
+        
+        switch lecCount {
+            case 1...2:
+                return 170
+            case 3:
+                return 220
+            default:
+                return 265
+        }
+    }
+
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard !importReviewList.isEmpty else {
+            return 0 // importReviewList가 비어있으면 0을 반환합니다.
+        }
+        
+        let t = importReviewList[0]
+        print("@@@@@@@@@@",t.data.count)
+        
+        return t.data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! importRootTableViewCell
+        guard !importReviewList.isEmpty else { return cell }
+        let dto = importReviewList[0] // 이 부분을 수정하세요.
+        
+        cell.importRootModelConfigure(with: dto, at: indexPath)
+        
+        return cell
+    }
+}
+
+extension DetailRecommendViewController {
+    private func loadDetailEvaluate() {
+        
+        RootRecommendAPI.shared.getDetailRootRecommend(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", rootrecommendID: recommendID) { result in
+                 switch result {
+                 case .success(let detailrootDTO):
+                     if let detailrootDTO = detailrootDTO as? DetailRecommendDTO {
+                         print(detailrootDTO.data)
+                         DispatchQueue.main.async {
+                             self.recommendView.setDetailRecommendView(title: detailrootDTO.data.title, content: detailrootDTO.data.recommendation)
+                               }
+                     }
+                 case .requestErr(let message):
+                     print("Request error: \(message)")
+                     
+                 case .pathErr:
+                     print("Path error")
+                     
+                 case .serverErr:
+                     print("Server error")
+                     
+                 case .networkFail:
+                     print("Network failure")
+                     
+                 default:
+                     break
+                 }
+            }
     }
 }

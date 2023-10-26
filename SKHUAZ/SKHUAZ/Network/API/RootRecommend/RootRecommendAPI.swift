@@ -28,8 +28,20 @@ extension RootRecommendAPI {
     // MARK: - 루트추천 생성
     
     public func createRootRecommend(token: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+        
 
     }
-
+    
+    // MARK: - 루트추천 상세보기
+    
+    public func getDetailRootRecommend(token: String,
+                                       rootrecommendID: Int,
+                                    completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(RootRecommendRouter.getDetailRootRecommend(token: token, rootrecommendID: rootrecommendID)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: DetailRecommendDTO.self,
+                                completion: completion)
+        }
+    }
 
 }

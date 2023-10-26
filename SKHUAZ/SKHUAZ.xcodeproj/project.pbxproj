@@ -117,6 +117,7 @@
 		9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */; };
 		9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */; };
 		9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */; };
+		9EDDF7BC2AE9052200DF2926 /* DetailRootRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */; };
 		E3546DDA2A8DF6EF00ACFF3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */; };
 		E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE42A8E15CC00ACFF3C /* LoginView.swift */; };
 		E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */; };
@@ -252,6 +253,7 @@
 		9EC5E2E02A99EBF40047E6E7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendVC.swift; sourceTree = "<group>"; };
 		9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendView.swift; sourceTree = "<group>"; };
+		9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRootRecommendDTO.swift; sourceTree = "<group>"; };
 		E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3546DE42A8E15CC00ACFF3C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
@@ -399,8 +401,8 @@
 			children = (
 				2539B9632A8CA55700E939AA /* DTO */,
 				2539B9692A8CA58F00E939AA /* Router */,
-				2539B9682A8CA58F00E939AA /* Foundation */,
 				25292C682ABD6823003845C5 /* API */,
+				2539B9682A8CA58F00E939AA /* Foundation */,
 				25292C692ABD6837003845C5 /* Config */,
 			);
 			path = Network;
@@ -802,6 +804,7 @@
 			children = (
 				9E2D638F2AC3319500708673 /* AllRootRecommendResponseDTO.swift */,
 				9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */,
+				9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */,
 			);
 			path = RootRecommend;
 			sourceTree = "<group>";
@@ -1068,6 +1071,7 @@
 				9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */,
 				2549C6CC2AA1BE4D006DB90A /* TabBarItem.swift in Sources */,
 				2539B9932A8CA73000E939AA /* Image.swift in Sources */,
+				9EDDF7BC2AE9052200DF2926 /* DetailRootRecommendDTO.swift in Sources */,
 				E3EC5D092AB421F600325E7D /* SettingViewController.swift in Sources */,
 				E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */,
 				25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */,

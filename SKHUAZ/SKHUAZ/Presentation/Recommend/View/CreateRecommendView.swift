@@ -161,6 +161,12 @@ extension CreateRecommendView {
         titleTextField.text = title
         contentTextView.text = content
     }
+    
+//    func setDetailRecommend(title: String, rootrecommend: String) {
+//        
+//        titleTextField.text = title
+//        contentTextView.text = 
+//    }
 }
 
 extension CreateRecommendView: UITextViewDelegate {

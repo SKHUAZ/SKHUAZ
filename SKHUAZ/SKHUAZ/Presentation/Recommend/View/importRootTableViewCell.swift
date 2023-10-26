@@ -19,8 +19,10 @@ class importRootTableViewCell: UITableViewCell {
     
     private let recommendContent = UILabel()
     private let courseYear = UILabel()
-    private var recommendDataModel: [RecommendDataModel] = []
+//    private var recommendDataModel: [RecommendDataModel] = []
     private var currentIndex: Int = 0 // 현재 표시 중인 배열의 인덱스
+    
+    private var preLecture: preLectureData? // 추가된 코드
     
     // MARK: - Initializer
     
@@ -29,7 +31,6 @@ class importRootTableViewCell: UITableViewCell {
         setLayout()
         setUI()
         selectedBackgroundView = UIView()
-//        loadEssentialData()
         renderLectureContainer()
     }
     
@@ -60,7 +61,7 @@ extension importRootTableViewCell {
         }
         
         courseYear.do {
-            $0.font = .systemFont(ofSize: 12, weight: .bold)
+            $0.font = .systemFont(ofSize: 16, weight: .bold)
             $0.textColor = .white
         }
     }
@@ -74,17 +75,17 @@ extension importRootTableViewCell {
         
         topSpace.addSubviews(courseYear)
         
-        recommendListContainer.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(345)
-            $0.height.equalTo(147)
-        }
+//        recommendListContainer.snp.makeConstraints {
+//            $0.top.equalToSuperview().offset(10)
+//            $0.centerX.equalToSuperview()
+//            $0.width.equalTo(345)
+//            $0.height.equalTo(250)
+//        }
         
         topSpace.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(25)
+            $0.height.equalTo(35)
         }
         
         courseYear.snp.makeConstraints {
@@ -94,39 +95,114 @@ extension importRootTableViewCell {
         
         mainContainer.snp.makeConstraints {
             $0.top.equalTo(topSpace.snp.bottom).offset(12)
-            $0.leading.trailing.equalToSuperview().inset(10)
+//            $0.leading.trailing.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(310)
             $0.height.greaterThanOrEqualTo(38)  // 여기서 38은 CustomRootContainer의 높이입니다.
         }
     }
     
     //MARK: - configure
     
-    func importRootModelConfigure(with review: RecommendDataModel) {
-        courseYear.text = review.courseYearLabel
-    }
-    
-    //    private func loadEssentialData() {
-    //        recommendDataModel = recommendList
-    //    }
-    
     private func renderLectureContainer() {
         mainContainer.subviews.forEach { $0.removeFromSuperview() }
         
-        let dataModels = recommendList[0].lectureNameLabel // 현재 인덱스에 해당하는 배열 가져오기
-        for lectures in dataModels {
-            let lectureContainers = UIStackView()
-            lectureContainers.axis = .vertical
-            lectureContainers.spacing = 10
-            for lecture in lectures {
-                let lectureContainer = CustomRootContainer(lectureName: lecture)
-                lectureContainers.addArrangedSubview(lectureContainer)
-                
-                lectureContainer.snp.makeConstraints { make in
-                    make.height.equalTo(38)
-                }
-            }
-            mainContainer.addArrangedSubview(lectureContainers)
-        }
+        guard let preLecture = self.preLecture else { return }
         
+        let lectureContainers = UIStackView()
+        lectureContainers.axis = .vertical
+        lectureContainers.spacing = 10
+        
+        let lecCount = preLecture.lecNames.count
+        
+        recommendListContainer.snp.removeConstraints() // 기존 제약조건 삭제
+
+        recommendListContainer.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(345)
+            
+            switch lecCount {
+                case 1...2:
+                    $0.height.equalTo(160)
+                case 3:
+                    $0.height.equalTo(200)
+                default:
+                    $0.height.equalTo(250)
+            }
+         }
+
+         for lectureName in preLecture.lecNames {
+             let lectureContainer = CustomRootContainer(lectureName: lectureName)
+             lectureContainers.addArrangedSubview(lectureContainer)
+
+             lectureContainer.snp.makeConstraints { make in
+                 make.height.equalTo(38)
+             }
+         }
+
+         mainContainer.addArrangedSubview(lectureContainers)
+
     }
+
+    
+//    private func renderLectureContainer() {
+//        mainContainer.subviews.forEach { $0.removeFromSuperview() }
+//        
+//        guard let preLecture = self.preLecture else { return }  // 추가된 코드
+//        
+//        let lectureContainers = UIStackView()
+//        lectureContainers.axis = .vertical
+//        lectureContainers.spacing = 10
+//        
+//        let lecCount = preLecture.lecNames.count
+//        
+//        contentView.addSubviews(recommendListContainer)
+//        if lecCount == 1 || lecCount == 2 {
+//            contentView.addSubviews(recommendListContainer)
+//            recommendListContainer.snp.makeConstraints {
+//                $0.top.equalToSuperview().offset(10)
+//                $0.centerX.equalToSuperview()
+//                $0.width.equalTo(345)
+//                $0.height.equalTo(160)
+//            }
+//        } else if lecCount == 3 {
+//            contentView.addSubviews(recommendListContainer)
+//            recommendListContainer.snp.makeConstraints {
+//                $0.top.equalToSuperview().offset(10)
+//                $0.centerX.equalToSuperview()
+//                $0.width.equalTo(345)
+//                $0.height.equalTo(200)
+//            }
+//        } else {
+//            recommendListContainer.snp.makeConstraints {
+//                $0.top.equalToSuperview().offset(10)
+//                $0.centerX.equalToSuperview()
+//                $0.width.equalTo(345)
+//                $0.height.equalTo(250)
+//            }
+//        }
+//            
+//        
+//                    
+//       for lectureName in preLecture.lecNames {
+//            let lectureContainer = CustomRootContainer(lectureName: lectureName)
+//            lectureContainers.addArrangedSubview(lectureContainer)
+//                    
+//            lectureContainer.snp.makeConstraints { make in
+//                make.height.equalTo(38)
+//            }
+//       }
+//                
+//       mainContainer.addArrangedSubview(lectureContainers)
+//
+//    }
+    
+    func importRootModelConfigure(with review: PreLectureDTO, at indexPath: IndexPath) {
+            let reviewCount = indexPath.row
+            self.preLecture = review.data[reviewCount]  // 변경된 코드
+            courseYear.text = self.preLecture?.semester  // 변경된 코드
+            
+            renderLectureContainer()  // 위치 변경됨
+        }
 }
