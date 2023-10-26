@@ -114,7 +114,7 @@ extension HomeViewController {
             let name = "천성우"
             $0.text = "이름  :  \(name)"
             $0.textColor = .black
-            $0.font = .systemFont(ofSize: 14)
+            $0.font = .systemFont(ofSize: 16)
         }
         
         studentNumberLabel.do {
@@ -128,7 +128,7 @@ extension HomeViewController {
             let major2 = "정보통신공학과"
             $0.text = "IT융합자율학부  :  \(major1)  \(major2)"
             $0.textColor = .black
-            $0.font = .systemFont(ofSize: 14)
+            $0.font = .systemFont(ofSize: 16)
         }
         
         //        profileTextContainer.do {
@@ -150,13 +150,13 @@ extension HomeViewController {
         lectureReviewGuideTitle.do {
             $0.text = "내가 쓴 강의평"
             $0.textColor = .black
-            $0.font = .systemFont(ofSize: 15)
+            $0.font = .systemFont(ofSize: 22)
         }
         
         rootRecommendReviewGuideTitle.do {
             $0.text = "내가 쓴 루트추천"
             $0.textColor = .black
-            $0.font = .systemFont(ofSize: 15)
+            $0.font = .systemFont(ofSize: 22)
         }
         
         lectureReviewIWroteTableView.do {
@@ -195,16 +195,10 @@ extension HomeViewController {
             // height는 contentView에 의해 결정됩니다.
         }
         
-//        contentView.snp.makeConstraints { make in
-//            make.edges.equalTo(scrollView) // top, bottom, leading and trailing edges are equal to the scroll view's edges.
-//            make.width.equalTo(scrollView) // width is equal to the scroll view's width.
-////            make.height.equalTo(865) // 얘로 스크롤 범위 조절 가능
-//            // height는 내부 요소들에 의해 결정됩니다. 따라서 따로 설정하지 않습니다.
-//        }
         contentView.snp.makeConstraints { make in
             make.edges.equalTo(scrollView)
             make.width.equalTo(scrollView)
-            make.height.equalTo(865)
+            make.height.equalTo(900)
             // height는 내부 요소들에 의해 결정됩니다. 따라서 따로 설정하지 않습니다.
         }
         
@@ -240,13 +234,6 @@ extension HomeViewController {
             $0.top.equalTo(studentNumberLabel.snp.bottom).offset(10)
         }
         
-//        profileButton.snp.makeConstraints {
-//            $0.leading.equalToSuperview().offset(10)
-//            $0.centerY.equalToSuperview()
-//            $0.width.equalTo(100)
-//            $0.height.equalTo(100)
-//        }
-        
         bringButton.snp.makeConstraints {
             $0.top.equalTo(profileView.snp.bottom).offset(10)
             $0.centerX.equalToSuperview()
@@ -258,7 +245,6 @@ extension HomeViewController {
             $0.top.equalTo(bringButton.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(380)
-//            $0.height.equalTo(600)
         }
         
         lectureReviewGuideTitle.snp.makeConstraints {
@@ -267,18 +253,16 @@ extension HomeViewController {
         }
         
         lectureReviewIWroteTableView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+//            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
             $0.top.equalTo(lectureReviewGuideTitle.snp.bottom).offset(10)
-//            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         
         rootRecommendReviewContainer.snp.makeConstraints {
-//            $0.top.equalToSuperview().offset(650)
             $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.greaterThanOrEqualTo(contentView)
-//            $0.height.equalTo(400)
         }
         
         rootRecommendReviewGuideTitle.snp.makeConstraints {
@@ -287,8 +271,6 @@ extension HomeViewController {
         }
         
         rootRecommendReviewIWroteTableView.snp.makeConstraints {
-//            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-//            $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(rootRecommendReviewGuideTitle.snp.bottom).offset(15)
             $0.leading.trailing.bottom.equalToSuperview()
         }
@@ -342,16 +324,19 @@ extension HomeViewController {
                     }
                     
                     // 매핑된 데이터를 배열에 저장
+                    
                     self.evaluateReviews = mappedData
-//                    print("🔥🔥🔥🔥🔥🔥🔥evaluateReviews의 개수는🔥🔥🔥🔥🔥🔥🔥🔥 : \(evaluateReviews.count)")
+                    print("🔥🔥🔥🔥🔥🔥🔥evaluateReviews의 개수는🔥🔥🔥🔥🔥🔥🔥🔥 : \(evaluateReviews.count)")
 //                    self.evaluateReviews = []
                     
                     // MARK: - 불러온 내가 쓴 강의평 개수에 따른 내가 쓴 루트추천 레이아웃 분기처리 위한 변수에 값 할당
                     
                     if evaluateReviews.count <= 1 {
                         evaluateReviewCount = 0
+                        print("evaluateReviewCount 0으로 변경")
                     } else {
                         evaluateReviewCount = 2
+                        print("evaluateReviewCount 0으로 변경")
                     }
                     
 
@@ -365,6 +350,8 @@ extension HomeViewController {
                     
                     // 테이블 뷰 업데이트
                     self.lectureReviewIWroteTableView.reloadData()
+                    
+                    
                 } else {
                     print("Failed to decode the response.")
                 }
@@ -385,6 +372,7 @@ extension HomeViewController {
             }
             
         }
+        print("----------------강의평 불러오기 함수 끝--------------------")
     }
     
     func getAllRootRecommend() {
@@ -525,7 +513,7 @@ extension HomeViewController {
         let titleLabel = UILabel()
         titleLabel.text = "선수과목제도를 추천해보세요"
         titleLabel.textColor = .black
-        titleLabel.font = .systemFont(ofSize: 14)
+        titleLabel.font = .systemFont(ofSize: 18)
         
         // emptyView에 titleLabel 추가
         emptyView.addSubview(titleLabel)
@@ -542,6 +530,7 @@ extension HomeViewController {
         
         // 강의평 개수가 0~1개일 때
         if evaluateReviewCount == 0 {
+            print("---------강의평 개수 0~1개 루트추천 레이아웃 발동---------")
             rootRecommendReviewContainer.snp.makeConstraints {
 //                $0.top.equalToSuperview().offset(485)
                 $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
@@ -549,15 +538,9 @@ extension HomeViewController {
                 $0.bottom.equalTo(contentView)
             }
             
-//            contentView.snp.makeConstraints { make in
-//                make.edges.equalTo(scrollView)
-//                make.width.equalTo(scrollView)
-////                make.height.equalTo(600) // 얘로 스크롤 범위 조절 가능
-//                // height는 내부 요소들에 의해 결정됩니다. 따라서 따로 설정하지 않습니다.
-//            }
-            
             // 강의평 개수가 2개일 때
         } else {
+            print("---------강의평 개수 2개 루트추천 레이아웃 발동---------")
             rootRecommendReviewContainer.snp.makeConstraints {
 //                $0.top.equalToSuperview().offset(650)// 내가 쓴 강의평 2개일 때 레이아웃
                 $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
@@ -579,7 +562,7 @@ extension HomeViewController {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(rootRecommendReviewGuideTitle.snp.bottom).offset(15)
             $0.width.equalTo(315)
-            $0.height.equalTo(147)
+            $0.height.equalTo(180)
          }
         
         titleLabel.snp.makeConstraints {
@@ -644,7 +627,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         
-        print("tableView 로드싪")
+        print("tableView 로드실패")
         // If none of the above conditions are met, return a default UITableViewCell.
         return UITableViewCell()
     }
