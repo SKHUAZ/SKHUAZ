@@ -17,20 +17,21 @@ final class CreateRecommendViewController: UIViewController {
     private let logoImage = UIImageView()
     private let backButton = UIButton()
     private let saveButton = UIButton()
-    private let bringRecommendView = UITableView()
     private let bringButton = UIButton()
     
     private let importRecommendListView = UITableView()
     
     private let bringRootRecommend = UIImageView()
-    private let imageContainer = UIScrollView()
+    private let scrollContainer = UIScrollView()
     
     
     var pushBringButtonFlag: Bool = false
+    var token = UserDefaults.standard.string(forKey: "AuthToken") ?? ""
     
     // MARK: - Properties
     
-    var importReviewList: [RecommendDataModel] = []
+    var importReviewList: [PreLectureDTO] = []
+    
     
     // MARK: - View Life Cycle
     
@@ -105,17 +106,16 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
             $0.showsVerticalScrollIndicator = false
         }
         
-        imageContainer.do {
+        scrollContainer.do {
             $0.isHidden = true
-            // 스크롤 가능한 콘텐츠 크기 설정 (여기서는 이미지의 크기에 맞게 설정해야 합니다)
-            $0.contentSize = CGSize(width: 393, height: 1611)
         }
     }
     
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(logoImage, recommendView, backButton, saveButton, bringButton, imageContainer)
+        view.addSubviews(logoImage, recommendView, backButton, saveButton, bringButton, scrollContainer, scrollContainer)
+        scrollContainer.addSubview(importRecommendListView)
         
         
         logoImage.snp.makeConstraints {
@@ -152,12 +152,20 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
             $0.height.equalTo(50)
         }
         
-        imageContainer.snp.makeConstraints {
+        importRecommendListView.snp.makeConstraints {
             $0.top.equalTo(logoImage.snp.bottom).offset(300)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(400)
-            $0.height.equalTo(UIScreen.main.bounds.height - 100) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
+            $0.height.equalTo(370) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
         }
+        
+        scrollContainer.snp.makeConstraints {
+             $0.top.equalTo(logoImage.snp.bottom).offset(300)
+            $0.bottom.equalTo(saveButton.snp.top).offset(-10)
+             $0.centerX.equalToSuperview()
+             $0.width.equalTo(400)
+         }
+        
         
     }
     
@@ -170,7 +178,6 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     }
     
     private func setupData() {
-        importReviewList = [recommendReview1, recommendReview2, recommendReview3, recommendReview4]
         importRecommendListView.reloadData()
     }
     
@@ -182,6 +189,82 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
         importRecommendListView.dataSource = self
     }
     
+    func getPreLecture() {
+        preLectureAPI.shared.getPreLecture(token: token) { [self] result in
+            switch result {
+            case .success(let data):
+                if let data = data as? PreLectureDTO {
+                    pushBringButtonFlag.toggle()
+                    if pushBringButtonFlag == true {
+                        bringButton.removeFromSuperview()
+                        scrollContainer.isHidden = false
+                        
+                        self.importReviewList = [data] // API 응답을 저장합니다.
+                        importRecommendListView.reloadData()
+                        
+                        scrollContainer.addSubview(importRecommendListView)
+                        
+                    } else {
+                        bringButton.setTitle("선수과목제도 불러오기", for: .normal)
+    //                  importRecommendListView.isHidden = true
+                        scrollContainer.isHidden = true
+                    }
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+            case .pathErr:
+                print("Path error")
+            case .serverErr:
+                print("Server error")
+            case .networkFail:
+                print("Network failure")
+            default:
+                break
+            }
+        }
+    }
+
+//    func getPreLecture() {
+//        preLectureAPI.shared.getPreLecture(token: token) { [self] result in
+//            switch result {
+//            case .success(let data):
+//                if data is PreLectureDTO {
+//                    pushBringButtonFlag.toggle()
+//                    if pushBringButtonFlag == true {
+//                        
+//                        bringButton.removeFromSuperview()
+//                        scrollContainer.isHidden = false
+//                        importRecommendListView.reloadData()
+//                        
+//                        
+//                        scrollContainer.addSubview(importRecommendListView)
+//                        
+//                    } else {
+//                        bringButton.setTitle("선수과목제도 불러오기", for: .normal)
+////                        importRecommendListView.isHidden = true
+//                        scrollContainer.isHidden = true
+//                    }
+//                    print(pushBringButtonFlag)
+//                }
+//            case .requestErr(let message):
+//                // Handle request error here.
+//                print("Request error: \(message)")
+//            case .pathErr:
+//                // Handle path error here.
+//                print("Path error")
+//            case .serverErr:
+//                // Handle server error here.
+//                print("Server error")
+//            case .networkFail:
+//                // Handle network failure here.
+//                print("Network failure")
+//            default:
+//                break
+//            }
+//            
+//        }
+//    }
+    
     // MARK: - @objc Methods
     
     @objc
@@ -191,27 +274,12 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     }
     
     @objc private func pressedBringButton() {
-        pushBringButtonFlag.toggle()
-        if pushBringButtonFlag == true {
-            bringButton.setTitle("", for: .normal)
-            imageContainer.isHidden = false
-
-            // bringRootRecommend 이미지 뷰를 imageContainer에 추가
-            imageContainer.addSubview(bringRootRecommend)
-
-            bringRootRecommend.snp.makeConstraints {
-                $0.top.equalToSuperview()
-                $0.leading.equalToSuperview()
-                $0.width.equalTo(393)
-                $0.height.equalTo(1611)
-            }
-        } else {
-            bringButton.setTitle("선수과목제도 불러오기", for: .normal)
-            imageContainer.isHidden = true
-        }
-        print(pushBringButtonFlag)
+        
+        print("-------------내가 저장한 루트추천 불러오기 시작-------------")
+        getPreLecture()
+        
+        
     }
-
     
     @objc
     func presnetToCreateRecommendBottomSheetViewController() {
@@ -235,24 +303,52 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
 
 
 extension CreateRecommendViewController: UITableViewDataSource, UITableViewDelegate {
+    
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
+        guard !importReviewList.isEmpty else { return 0 }
+        
+        let dto = importReviewList[0] // 이 부분을 수정하세요.
+        
+        // 아래의 i를 indexPath.row로 변경합니다.
+        let review = dto.data[indexPath.row]
+        
+        let lecCount = review.lecNames.count
+        
+        switch lecCount {
+            case 1...2:
+                return 170
+            case 3:
+                return 220
+            default:
+                return 265
+        }
     }
+
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return importReviewList.count
+        guard !importReviewList.isEmpty else {
+            return 0 // importReviewList가 비어있으면 0을 반환합니다.
+        }
+        
+        let t = importReviewList[0]
+        print("@@@@@@@@@@",t.data.count)
+        
+        return t.data.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! importRootTableViewCell
-        let review = importReviewList[indexPath.row]
-        print(review)
+        guard !importReviewList.isEmpty else { return cell }
+        let dto = importReviewList[0] // 이 부분을 수정하세요.
         
-        cell.importRootModelConfigure(with: review)
+        cell.importRootModelConfigure(with: dto, at: indexPath)
         
         return cell
     }
+    
+    
+    
     
     private func setupKeyboardEvent() {
         NotificationCenter.default.addObserver(self,
@@ -288,3 +384,4 @@ extension CreateRecommendViewController: UITableViewDataSource, UITableViewDeleg
         }
     }
 }
+
