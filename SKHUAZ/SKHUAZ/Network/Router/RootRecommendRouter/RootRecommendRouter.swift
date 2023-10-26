@@ -9,7 +9,7 @@ import Alamofire
 
 enum RootRecommendRouter {
     case getAllRootRecommend(token: String)
-    case getDetailRootRecommend(token: String)
+    case getDetailRootRecommend(token: String, rootrecommendID: Int)
 }
 
 extension RootRecommendRouter: BaseTargetType {
@@ -31,8 +31,8 @@ extension RootRecommendRouter: BaseTargetType {
         case .getAllRootRecommend:
             return "/route/AllRoute"
 
-        case .getDetailRootRecommend:
-            return "/route/details/1"
+        case .getDetailRootRecommend(_,let rootrecommendID):
+            return "/route/details/\(rootrecommendID)"
         }
     }
 
@@ -50,10 +50,8 @@ extension RootRecommendRouter: BaseTargetType {
         switch self{
         case .getAllRootRecommend(let token):
             return ["Authorization": "Bearer \(token)"]
-        case .getDetailRootRecommend(let token):
+        case .getDetailRootRecommend(let token, _):
             return ["Authorization": "Bearer \(token)"]
-        default:
-            return nil
         }
     }
 
