@@ -151,7 +151,7 @@ extension CreateEvaluateBottomSheetViewController {
     func postCreateEvaluate() {
         EvaluateAPI.shared.postCreateEvaluate(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestDataBind) { result in
             switch result {
-            case .success(let data):
+            case .success(_):
                 print("성공")
             case .requestErr(let message):
                 // Handle request error here.

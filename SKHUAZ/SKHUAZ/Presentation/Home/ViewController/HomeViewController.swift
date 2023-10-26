@@ -71,6 +71,8 @@ class HomeViewController: UIViewController {
         setRegister()
         setDelegate()
         addTarget()
+        
+        getUserInfo()
 
         // TODO: Add data setup and other methods as needed
     }
@@ -336,7 +338,8 @@ extension HomeViewController {
                             department: serverItem.lecture.deptName,
                             authorName: String(serverItem.evaluationID),
                             evaluationId: serverItem.evaluationID, // evaluationId 필드 추가
-                            createdAt: serverItem.createdAt // createdAt 필드 추가
+                            createdAt: serverItem.createdAt, // createdAt 필드 추가
+                            nickname: serverItem.nickname
                         )
                         mappedData.append(mappedItem)
                     }
@@ -658,6 +661,43 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 print("You selected cell #\(filteredReviews[indexPath.row].title)")
                 let detailVC = DetailRecommendViewController()
                 self.navigationController?.pushViewController(detailVC, animated: true)
+        }
+    }
+}
+
+
+extension HomeViewController {
+    func getUserInfo() {
+        HomeAPI.shared.getUserInfo(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? HomeDTO {
+                    let serverData = data.data
+                    print("====================================")
+                    print(serverData.nickname)
+                    print(serverData.major1)
+                    print(serverData.major2)
+                    UserDefaults.standard.set(serverData.nickname, forKey: "Nickname")
+                    UserDefaults.standard.set(serverData.major1, forKey: "Major1")
+                    UserDefaults.standard.set(serverData.major2, forKey: "Major2")
+                    print("====================================")
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
         }
     }
 }

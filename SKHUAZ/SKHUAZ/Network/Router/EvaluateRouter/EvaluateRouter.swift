@@ -14,6 +14,7 @@ enum EvaluateRouter {
     case getDetailEvaluation(token: String, evaluationId: Int)
     case postCreateEvaluation(token: String, requestBody: CreateEvaluateRequestBody)
     case delEvaluation(token: String, evaluationId: Int)
+    case editEvaluation(token: String, evaluationId: Int, requestBody: EditEvaluateRequestBody)
 }
 
 extension EvaluateRouter: BaseTargetType {
@@ -30,6 +31,8 @@ extension EvaluateRouter: BaseTargetType {
             return .post
         case .delEvaluation:
             return .delete
+        case .editEvaluation:
+            return .put
         }
     }
     
@@ -43,6 +46,8 @@ extension EvaluateRouter: BaseTargetType {
             return "/evaluation/create"
         case .delEvaluation(_,let evaluationId):
             return "/evaluation/delete/\(evaluationId)"
+        case .editEvaluation(_, let evaluationId, _):
+            return "/evaluation/edit/\(evaluationId)"
         }
     }
     
@@ -56,6 +61,8 @@ extension EvaluateRouter: BaseTargetType {
             return .body(requestBody)
         case .delEvaluation:
             return .none
+        case .editEvaluation(_, _, let requestBody):
+            return .body(requestBody)
         }
     }
     
@@ -68,6 +75,8 @@ extension EvaluateRouter: BaseTargetType {
         case .postCreateEvaluation(let token, _):
             return ["Authorization": "Bearer \(token)"]
         case .delEvaluation(let token, _):
+            return ["Authorization": "Bearer \(token)"]
+        case .editEvaluation(let token, _, _):
             return ["Authorization": "Bearer \(token)"]
         }
     }

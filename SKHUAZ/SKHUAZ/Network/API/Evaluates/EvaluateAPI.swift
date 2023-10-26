@@ -63,5 +63,18 @@ extension EvaluateAPI {
             
         }
     }
+    
+    // 5. 강의평 수정하기
+    
+    public func editEvaluate(token: String,
+                             evaluationId: Int,
+                             requestBody: EditEvaluateRequestBody,
+                             completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(EvaluateRouter.editEvaluation(token: token, evaluationId: evaluationId, requestBody: requestBody)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: EditEvaluateDTO.self,
+                                completion: completion)
+        }
+    }
 }
 

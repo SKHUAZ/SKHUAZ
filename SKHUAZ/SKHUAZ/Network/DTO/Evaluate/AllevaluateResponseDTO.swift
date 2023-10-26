@@ -18,12 +18,12 @@ struct AllevaluateResponseDTO: Codable {
 struct AllevaluateData: Codable {
     let evaluationID, teamPlay, task, practice: Int
     let presentation: Int
-    let title, review, createdAt, email: String
+    let title, review, createdAt, nickname: String
     let lecture: Lecture
 
     enum CodingKeys: String, CodingKey {
         case evaluationID = "evaluationId"
-        case teamPlay, task, practice, presentation, title, review, createdAt, email, lecture
+        case teamPlay, task, practice, presentation, title, review, createdAt, nickname, lecture
     }
 }
 

@@ -597,6 +597,15 @@ extension EvaluateView: DropdownMenuSearchDelegate {
         
     }
     
+    func setEditable(_ isEditable: Bool) {
+        titleTextField.isEnabled = isEditable
+        evaluateView.isEditable = isEditable
+        firstSlider.isUserInteractionEnabled = isEditable
+        secondSlider.isUserInteractionEnabled = isEditable
+        thirdSlider.isUserInteractionEnabled = isEditable
+        fourthSlider.isUserInteractionEnabled = isEditable
+    }
+    
     @objc
     private func professorButtonTapped() {
         if let menu = professorDropdownMenu {
@@ -640,16 +649,24 @@ extension EvaluateView: DropdownMenuSearchDelegate {
     private func openAlertSemesterWarning() {
         let customAlertVC = AlertViewController(alertType: .unSelectSemester)
         customAlertVC.modalPresentationStyle = .overFullScreen
-        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
     }
     
     @objc
     private func openAlertLectureWarning() {
         let customAlertVC = AlertViewController(alertType: .unSelectLecture)
         customAlertVC.modalPresentationStyle = .overFullScreen
-        UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
     }
-        
+    
     @objc func sliderValueChanged(_ sender: UISlider) {
         print("Slider value changed to \(sender.value)")
     }

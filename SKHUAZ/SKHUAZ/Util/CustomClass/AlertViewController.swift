@@ -19,8 +19,15 @@ enum CustomAlertType {
     case save
     case logout
     case admin
+    case writer
+    case unWriter
+    case softwareCheck
     case emailAuth
     case ruleView
+}
+
+protocol AlertViewDelegate : AnyObject {
+    func didConfirmAction(lectureName: String, professorName: String, semester: String, essentialName: String)
 }
 
 final class AlertViewController: UIViewController {
@@ -30,6 +37,7 @@ final class AlertViewController: UIViewController {
     private let alertView = UIView()
     private let mainLabel = UILabel()
     private let checkButton = UIButton()
+    private let cancelButton = UIButton()
     private let lectureNameTextField = UITextField()
     private let professorNameTextField = UITextField()
     private let essentialNameTextField = UITextField()
@@ -40,6 +48,8 @@ final class AlertViewController: UIViewController {
     // MARK: - Properties
     
     private let alertType: CustomAlertType
+    private var softwareCheckMessage: String = ""
+    weak var delegate : AlertViewDelegate?
     let attributes: [NSAttributedString.Key: Any] = [
         .foregroundColor: UIColor(hex: "#737373"),
     ]
@@ -233,6 +243,12 @@ extension AlertViewController {
                 $0.numberOfLines = 2
             }
             
+            cancelButton.do {
+                $0.setTitle("x 닫기", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
             lectureNameTextField.do {
                 $0.font = .systemFont(ofSize: 15)
                 $0.textColor = .black
@@ -249,7 +265,7 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "교수명을 입력해주세요", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "해당 강의의 학기를 입력해주세요", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -260,7 +276,7 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "학기를 입력해주세요", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "선수과목명을 입력해주세요", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -271,7 +287,7 @@ extension AlertViewController {
                 $0.textColor = .black
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.layer.cornerRadius = 6
-                $0.attributedPlaceholder = NSAttributedString(string: "해당 과목의 선수과목", attributes: attributes)
+                $0.attributedPlaceholder = NSAttributedString(string: "선수과목의 학기를 입력해주세요", attributes: attributes)
                 let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
                 $0.leftViewMode = .always
                 $0.leftView = paddingView
@@ -286,6 +302,81 @@ extension AlertViewController {
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
             }
+            
+            warringLabel.do {
+                $0.text = "모든 입력 항목을 입력해주세요"
+                $0.textColor = UIColor(hex: "#FF0000")
+                $0.font = .systemFont(ofSize: 10)
+                $0.isHidden = true
+            }
+
+        case .unWriter:
+            mainLabel.do {
+                $0.text = "수정/삭제 권한이 없습니다"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+            }
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+
+            
+        case .writer:
+            mainLabel.do {
+                $0.text = "정말 삭제하시겠습니까?"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+            }
+            
+            cancelButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#FFFFFF")
+                $0.setTitle("취소", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#9AC1D1"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
+        case .softwareCheck:
+            
+            mainLabel.do {
+                $0.text = softwareCheckMessage
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+                $0.lineBreakMode = .byWordWrapping
+                
+            }
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+
         case .emailAuth:
             mainLabel.do {
                 $0.text = "인증이 완료되었습니다."
@@ -304,7 +395,6 @@ extension AlertViewController {
             }
         }
         
-        
         alertView.do {
             $0.backgroundColor = .white
             $0.layer.cornerRadius = 8
@@ -317,6 +407,7 @@ extension AlertViewController {
     private func setLayout() {
         
         switch alertType {
+            
         case .ruleView:
             view.addSubview(alertView)
             
@@ -343,35 +434,70 @@ extension AlertViewController {
                 $0.width.equalTo(87)
                 $0.height.equalTo(34)
             }
+        case .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck, .emailAuth:
+            view.addSubview(alertView)
+             
+             alertView.addSubviews(
+                 mainLabel,
+                 checkButton
+             )
+             
+             alertView.snp.makeConstraints {
+                 $0.width.equalTo(300)
+                 $0.height.equalTo(144)
+                 $0.centerX.centerY.equalToSuperview()
+             }
+             
+             mainLabel.snp.makeConstraints {
+                 $0.top.equalToSuperview().offset(40)
+                 $0.centerX.equalToSuperview()
+                 $0.width.equalTo(200)
+             }
+             
+             checkButton.snp.makeConstraints {
+                 $0.top.equalTo(mainLabel.snp.bottom).offset(18)
+                 $0.leading.equalToSuperview().offset(107)
+                 $0.width.equalTo(87)
+                 $0.height.equalTo(34)
+             }
             
-        case .emailAuth, .logout, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate:
+        case .writer:
             view.addSubview(alertView)
             
             alertView.addSubviews(
                 mainLabel,
+                cancelButton,
                 checkButton
             )
             
             alertView.snp.makeConstraints {
                 $0.width.equalTo(300)
                 $0.height.equalTo(144)
-                $0.center.equalToSuperview()
+                $0.centerX.centerY.equalToSuperview()
             }
             
             mainLabel.snp.makeConstraints {
                 $0.top.equalToSuperview().offset(40)
-                $0.leading.equalToSuperview().offset(77)
+                $0.centerX.equalToSuperview()
                 $0.width.equalTo(147)
             }
             
+            cancelButton.snp.makeConstraints {
+                $0.top.equalTo(mainLabel.snp.bottom).offset(30)
+                $0.leading.equalToSuperview().inset(50)
+                $0.width.equalTo(87)
+                $0.height.equalTo(34)
+            }
+            
+            
             checkButton.snp.makeConstraints {
-                $0.top.equalTo(mainLabel.snp.bottom).offset(18)
-                $0.leading.equalToSuperview().offset(107)
+                $0.top.equalTo(mainLabel.snp.bottom).offset(30)
+                $0.trailing.equalToSuperview().inset(50)
                 $0.width.equalTo(87)
                 $0.height.equalTo(34)
             }
         case .admin:
-            view.addSubview(alertView)
+            view.addSubviews(alertView, cancelButton)
             
             alertView.addSubviews(
                 mainLabel,
@@ -379,13 +505,19 @@ extension AlertViewController {
                 professorNameTextField,
                 semesterTextField,
                 essentialNameTextField,
-                checkButton
+                checkButton,
+                warringLabel
             )
             
             alertView.snp.makeConstraints {
                 $0.width.equalTo(300)
                 $0.height.equalTo(340)
-                $0.center.equalToSuperview()
+                $0.centerX.centerY.equalToSuperview()
+            }
+            
+            cancelButton.snp.makeConstraints {
+                $0.bottom.equalTo(alertView.snp.top).inset(5)
+                $0.trailing.equalTo(alertView.snp.trailing)
             }
             
             mainLabel.snp.makeConstraints {
@@ -419,6 +551,11 @@ extension AlertViewController {
                 $0.height.equalTo(40)
             }
             
+            warringLabel.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.top.equalTo(essentialNameTextField.snp.bottom).offset(10)
+            }
+            
             checkButton.snp.makeConstraints {
                 $0.bottom.equalTo(alertView.snp.bottom).offset(-18)
                 $0.leading.equalToSuperview().offset(107)
@@ -426,21 +563,31 @@ extension AlertViewController {
                 $0.height.equalTo(34)
             }
         }
- 
-        
     }
     
     // MARK: - Methodes
     
     private func addTarget() {
         switch alertType {
-            
-        
-        case .ruleView, .emailAuth, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .admin:
+        case .ruleView, .emailAuth, .save, .nuSelectDataStructure, .unSelectLecture, .unSelectSemester, .createEvaluate, .mainEvaluate, .unWriter, .softwareCheck:
             checkButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
         case .logout:
             checkButton.addTarget(self, action: #selector(touchLogoutComplete), for: .touchUpInside)
+        case .writer:
+            cancelButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
+        case .admin:
+            checkButton.addTarget(self, action: #selector(touchSaveButton), for: .touchUpInside)
+            cancelButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
+
         }
+    }
+    
+    func setCheckButtonAction(target: Any?, action: Selector) {
+        checkButton.addTarget(target, action: action, for: .touchUpInside)
+    }
+
+    func setSoftwareCheckMessage(_ message: String) {
+        self.softwareCheckMessage = message
     }
     
     private func pushToLoginView() {
@@ -458,14 +605,28 @@ extension AlertViewController {
     @objc
     private func touchdeleteButton() {
         dismiss(animated: false, completion: nil)
-        print("바보")
     }
     
     @objc
     private func touchLogoutComplete() {
         dismiss(animated: false, completion: nil)
-        print("바보")
         self.pushToLoginView()
     }
+    
+    @objc private func touchSaveButton() {
+        
+        if (lectureNameTextField.text == "" || professorNameTextField.text == "" || semesterTextField.text == "" || essentialNameTextField.text == "") {
+            warringLabel.isHidden = false
+        } else {
+            warringLabel.isHidden = true
+            let lectureName = lectureNameTextField.text ?? ""
+            let professorName = professorNameTextField.text ?? ""
+            let semester = semesterTextField.text ?? ""
+            let essentialName = essentialNameTextField.text ?? ""
+             dismiss(animated:false){
+                 self.delegate?.didConfirmAction(lectureName: lectureName, professorName: professorName, semester: semester, essentialName: essentialName)
+             }
+        }
+     }
 }
 
