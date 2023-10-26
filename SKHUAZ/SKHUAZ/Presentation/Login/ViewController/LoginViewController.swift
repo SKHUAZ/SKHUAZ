@@ -28,9 +28,8 @@ final class LoginViewController: UIViewController, LoginViewDelegate {
     }
     
     func signUpButtonTapped() {
-        let secondVC = SignUpViewController()
-        secondVC.modalPresentationStyle = .fullScreen
-        present(secondVC, animated: true, completion: nil)
+        let secondViewController = SignUpViewController()
+        self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
     
@@ -42,7 +41,7 @@ final class LoginViewController: UIViewController, LoginViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        setButton()
+        setupKeyboardEvent()
     }
     
     override func loadView() {
@@ -55,18 +54,26 @@ extension LoginViewController {
     
     //MARK: - @objc
     
-//    @objc
-//    private func setButton() {
-//        rootView.signUpButtonHandler  = { [weak self] in
-//            self?.signUpButtonDidTap()
-//        }
-//        rootView.logInButtonnHandler  = { [weak self] in
-//            self?.logInButtonDidTap()
-//        }
-//        rootView.forgotButtonnHandler  = { [weak self] in
-//            self?.forgotButtonDidTap()
-//        }
-//    }
+    @objc
+    private func keyboardWillShow(_ sender: Notification) {
+        guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let currentTextField = UIResponder.currentResponder as? UITextField else { return }
+        let keyboardTopY = keyboardFrame.cgRectValue.origin.y
+        let convertedTextFieldFrame = view.convert(currentTextField.frame, from: currentTextField.superview)
+        let textFieldBottomY = convertedTextFieldFrame.origin.y + convertedTextFieldFrame.size.height
+        
+        if textFieldBottomY > keyboardTopY {
+            let keyboardOverlap = textFieldBottomY - keyboardTopY
+            view.frame.origin.y = -keyboardOverlap - 40
+        }
+    }
+    
+    @objc
+    private func keyboardWillHide(_ sender: Notification) {
+        if view.frame.origin.y != 0 {
+            view.frame.origin.y = 0
+        }
+    }
     
     @objc
     private func signUpButtonDidTap() {
@@ -83,6 +90,17 @@ extension LoginViewController {
 
     }
     
+    private func setupKeyboardEvent() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
     func LogIn() {
         UserAPI.shared.LogIn(request: LogInRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "")) { result in
                 switch result {
@@ -91,7 +109,7 @@ extension LoginViewController {
                     if let data = data as? LogInDTO {
                         // 서버에서 받은 데이터를 LogInDTo로 매핑
                         UserDefaults.standard.set(data.accessToken, forKey: "AuthToken")
-                        
+                        UserDefaults.standard.set(self.rootView.emailTextFieldText ?? "", forKey: "LoginEmail")
                     } else {
                         print("Failed to decode the response.")
                     }

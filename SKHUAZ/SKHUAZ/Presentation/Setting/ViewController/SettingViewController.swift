@@ -42,6 +42,16 @@ extension SettingViewController {
         self.navigationController?.pushViewController(secondViewController, animated: true)
     }
     
+    func ruleButtonTapped() {
+        let customAlertVC = AlertViewController(alertType:.ruleView)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
+
+    }
     func logOutButtonTapped() {
         let customAlertVC = AlertViewController(alertType: .logout)
         customAlertVC.modalPresentationStyle = .overFullScreen
@@ -59,7 +69,6 @@ extension SettingViewController {
     private func pushToLoginView() {
             let loginVC = LoginViewController()
             let navigationController = UINavigationController(rootViewController: loginVC)
-            
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let delegate = windowScene.delegate as? SceneDelegate {
                 delegate.window?.rootViewController = navigationController

@@ -12,6 +12,7 @@ import Then
 
 protocol SettingViewDelegate: AnyObject {
     func editProfileButtonTapped()
+    func ruleButtonTapped()
     func logOutButtonTapped()
     func signOutButtonTapped()
 }
@@ -22,7 +23,6 @@ class SettingView: UIView {
 
     // MARK: - UI Components
     
-    private let contentScrollView = UIScrollView()
     private let mainImage = UIImageView()
     private let editProfileButton = UIButton()
     private let setAlarmButton = UIButton()
@@ -147,6 +147,8 @@ extension SettingView {
         editProfileButton.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
         logOutButton.addTarget(self, action: #selector(logOutButtonTapped), for: .touchUpInside)
         signOutButton.addTarget(self, action: #selector(signOutButtonTapped), for: .touchUpInside)
+        ruleButton.addTarget(self, action: #selector(ruleButtonTapped), for: .touchUpInside)
+
     }
 
     // MARK: - @objc Methods
@@ -159,5 +161,8 @@ extension SettingView {
     }
     @objc func signOutButtonTapped() {
         delegate?.signOutButtonTapped()
+    }
+    @objc func ruleButtonTapped() {
+        delegate?.ruleButtonTapped()
     }
 }

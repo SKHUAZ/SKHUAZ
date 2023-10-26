@@ -64,6 +64,7 @@ final class CreateEmailAuthViewController: UIViewController {
             textField.do {
                 let centeredParagraphStyle = NSMutableParagraphStyle()
                 centeredParagraphStyle.alignment = .center
+                $0.autocapitalizationType = .none
                 $0.attributedPlaceholder = NSAttributedString(
                     string: "인증번호 입력",
                     attributes: [.paragraphStyle: centeredParagraphStyle]
@@ -158,7 +159,7 @@ final class CreateEmailAuthViewController: UIViewController {
                         NotificationCenter.default.post(name: NSNotification.Name("emailSignal"),
                                                                 object: true)
                         self.dismiss(animated: false) { [weak self] in
-                                let customAlertVC = AlertViewController(alertType: .mainEvaluate)
+                                let customAlertVC = AlertViewController(alertType: .emailAuth)
                                 customAlertVC.modalPresentationStyle = .overFullScreen
                                 UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
                             

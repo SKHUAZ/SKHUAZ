@@ -23,9 +23,10 @@ struct EvaluateDataModel {
     var authorName: String
     var evaluationId: Int // 서버에서 받는 evaluationId 필드를 추가
     var createdAt: String // 서버에서 받는 createdAt 필드를 추가
+    var nickname: String
 
     // 이니셜라이저 추가
-    init(semester: String, professor: String, lecture: String, title: String, evaluate: String, firstPoint: Int, secondPoint: Int, thirdPoint: Int, fourthPoint: Int, department: String, authorName: String, evaluationId: Int, createdAt: String) {
+    init(semester: String, professor: String, lecture: String, title: String, evaluate: String, firstPoint: Int, secondPoint: Int, thirdPoint: Int, fourthPoint: Int, department: String, authorName: String, evaluationId: Int, createdAt: String, nickname: String) {
         self.semester = semester
         self.professor = professor
         self.lecture = lecture
@@ -39,5 +40,6 @@ struct EvaluateDataModel {
         self.authorName = authorName
         self.evaluationId = evaluationId
         self.createdAt = createdAt
+        self.nickname = nickname
     }
 }

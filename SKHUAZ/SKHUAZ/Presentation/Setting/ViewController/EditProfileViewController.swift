@@ -19,7 +19,6 @@ final class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        rootView.delegate = self
     }
     
     override func loadView() {
