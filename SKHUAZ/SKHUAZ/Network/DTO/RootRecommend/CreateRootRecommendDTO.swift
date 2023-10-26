@@ -6,8 +6,23 @@
 //
 import Foundation
 
+
 // MARK: - Welcome
 struct CreateRootRecommendDTO: Codable {
-    let title, recommendation: String
-    let preLectureList: [Int]
+    let statusCode: Int
+    let message: String
+    let data: [CreateData]
+}
+
+// MARK: - Datum
+struct CreateData: Codable {
+    let preLectureID: Int
+    let semester: String
+    let lecNames: [String]
+    let email: String
+
+    enum CodingKeys: String, CodingKey {
+        case preLectureID = "preLectureId"
+        case semester, lecNames, email
+    }
 }
