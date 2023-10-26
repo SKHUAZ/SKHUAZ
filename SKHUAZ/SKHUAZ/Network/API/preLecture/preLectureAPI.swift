@@ -26,5 +26,14 @@ extension preLectureAPI {
                                 completion: completion)
         }
     }
+    
+    public func getPreLecture(token: String,
+                               completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(preLectureRouter.getPreLecture(token: token)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: PreLectureDTO.self,
+                                completion: completion)
+        }
+    }
 }
 
