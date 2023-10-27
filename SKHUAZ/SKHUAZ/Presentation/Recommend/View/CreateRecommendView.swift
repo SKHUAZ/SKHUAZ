@@ -40,6 +40,10 @@ class CreateRecommendView: UIView {
         return contentTextView.text
     }
     
+//    var dddd: String? {
+//        return contentTextView.text
+//    }
+    
     // MARK: - Initializer
     
     init(frame: CGRect, recommendType: RecommendType) {
@@ -147,6 +151,11 @@ extension CreateRecommendView {
     }
     
     // MARK: - Methods
+    
+    func setEditable(_ isEditable: Bool) {
+        titleTextField.isEnabled = isEditable
+        contentTextView.isEditable = isEditable
+    }
     
     private func setupData() {
 //        importReviewList = [ImportRootReview1, ImportRootReview2, ImportRootReview3]

@@ -43,5 +43,17 @@ extension RootRecommendAPI {
                                 completion: completion)
         }
     }
+    
+    // MARK: - 루트추천 저장하기
+    
+    public func postCreateRootRecommend(token: String,
+                                   requestBody: CreateRecommendRequestBody,
+                                   completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(RootRecommendRouter.postCreateRootRecommend(token: token, requestBody: requestBody)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: CreateRootRecommendDTO.self,
+                                completion: completion)
+        }
+    }
 
 }

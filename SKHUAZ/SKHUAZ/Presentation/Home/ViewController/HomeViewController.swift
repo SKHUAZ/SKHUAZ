@@ -35,9 +35,17 @@ class HomeViewController: UIViewController {
     private let rootRecommendReviewContainer = UIView()
     private let rootRecommendReviewIWroteTableView = UITableView()
     private let rootRecommendReviewGuideTitle = UILabel()
+    
     var token = UserDefaults.standard.string(forKey: "AuthToken") ?? ""
-
-    // Evaluate
+    var s = UserDefaults.standard.string(forKey: "email")
+    var evaluationId = 0
+//    var s = UserDefaults.standard.string(forKey: "Nickname") ?? ""
+//
+//    var nickname = ""
+//    var major1 = ""
+//    var major2 = ""
+    
+//     Evaluate
     private var evaluatefilteredReviews: [EvaluateDataModel]!
     var evaluateReviews: [EvaluateDataModel]!
     var evaluateReviewCount = 0
@@ -47,6 +55,8 @@ class HomeViewController: UIViewController {
     // Recommend
     private var filteredReviews: [RootRecommendDataModel]!
     var reviews: [RootRecommendDataModel]!
+    var lectureReviews: [EvaluateDataModel]!
+    
     
     
     // 데이터 불러오기 이전 더미 데이터 사용하기 위함
@@ -63,15 +73,10 @@ class HomeViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         getAllEvaluate()
         getAllRootRecommend()
-        
-        
-//        setupData()
-        
         setupLayout()
         setRegister()
         setDelegate()
         addTarget()
-        
         getUserInfo()
 
         // TODO: Add data setup and other methods as needed
@@ -104,17 +109,9 @@ extension HomeViewController {
             $0.image = Image.Logo1
         }
         
-//        profileButton.do {
-//            $0.setImage(Image.Profile, for: .normal)
-//        }
-        
-        //        profileView.do {
-        //            $0.backgroundColor = .black
-        //        }
-        
         nameLabel.do {
-            let name = "천성우"
-            $0.text = "이름  :  \(name)"
+            let nickname = UserDefaults.standard.string(forKey: "Nickname") ?? "기본 닉네임"
+            $0.text = "이름  :  \(nickname)"
             $0.textColor = .black
             $0.font = .systemFont(ofSize: 16)
         }
@@ -126,16 +123,12 @@ extension HomeViewController {
         }
         
         departmentLabel.do {
-            let major1 = "소프트웨어공학과"
-            let major2 = "정보통신공학과"
+            let major1 = UserDefaults.standard.string(forKey: "Major1") ?? "소프트웨어공학과"
+            let major2 = UserDefaults.standard.string(forKey: "Major2") ?? "정보통신공학과"
             $0.text = "IT융합자율학부  :  \(major1)  \(major2)"
             $0.textColor = .black
             $0.font = .systemFont(ofSize: 16)
         }
-        
-        //        profileTextContainer.do {
-        //            $0.backgroundColor = .blue
-        //        }
         
         bringButton.do {
             $0.layer.cornerRadius = 6
@@ -195,6 +188,7 @@ extension HomeViewController {
             $0.leading.trailing.edges.equalTo(view.safeAreaLayoutGuide) // safe area를 고려하여 설정합니다.
             $0.width.equalTo(view.safeAreaLayoutGuide) // width를 화면 너비에 맞게 설정합니다.
             // height는 contentView에 의해 결정됩니다.
+//            $0.height.equalTo(1000)
         }
         
         contentView.snp.makeConstraints { make in
@@ -329,7 +323,6 @@ extension HomeViewController {
                     // 매핑된 데이터를 배열에 저장
                     
                     self.evaluateReviews = mappedData
-                    print("🔥🔥🔥🔥🔥🔥🔥evaluateReviews의 개수는🔥🔥🔥🔥🔥🔥🔥🔥 : \(evaluateReviews.count)")
 //                    self.evaluateReviews = []
                     
                     // MARK: - 불러온 내가 쓴 강의평 개수에 따른 내가 쓴 루트추천 레이아웃 분기처리 위한 변수에 값 할당
@@ -403,7 +396,7 @@ extension HomeViewController {
                                                                                    recommendation : serverItem.recommendation,
                                                                                    createAt :serverItem.createAt ,
                                                                                    email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems )
+                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId )
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
@@ -539,6 +532,7 @@ extension HomeViewController {
                 $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
                 $0.leading.trailing.equalToSuperview()
                 $0.bottom.equalTo(contentView)
+                $0.height.equalTo(400)
             }
             
             // 강의평 개수가 2개일 때
@@ -637,12 +631,26 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableview:UITableView, didSelectRowAt indexPath:IndexPath) {
         if tableview == lectureReviewIWroteTableView {
-            print("You selected cell #\(evaluateReviews[indexPath.row].title)")
             let detailVC = DetailEvaluateViewController()
-            self.navigationController?.pushViewController(detailVC, animated: true)
+            if let selectedReview = lectureReviews?[indexPath.row] {
+                print("현재 selectedReview : \(selectedReview)")
+                detailVC.evaluationId = selectedReview.evaluationId
+                self.navigationController?.pushViewController(detailVC, animated: true)
+            } else {
+                // 예외 처리: 선택한 리뷰가 없을 때 실행할 코드
+                print("Selected review is nil")
+            }
+//            detailVC.evaluationId = lectureReviews[indexPath.row].evaluationId
+//            self.navigationController?.pushViewController(detailVC, animated: true)
+//            print("You selected cell #\(evaluateReviews[indexPath.row].title)")
+//            let detailVC = DetailEvaluateViewController()
+//            self.navigationController?.pushViewController(detailVC, animated: true)
         } else if tableview == rootRecommendReviewIWroteTableView {
-                print("You selected cell #\(filteredReviews[indexPath.row].title)")
-                let detailVC = DetailRecommendViewController()
+            print("You selected cell #\(reviews[indexPath.row].routeId)")
+            let detailVC = DetailRecommendViewController()
+            detailVC.recommendID = reviews[indexPath.row].routeId
+//                print("You selected cell #\(filteredReviews[indexPath.row].title)")
+//                let detailVC = DetailRecommendViewController()
                 self.navigationController?.pushViewController(detailVC, animated: true)
         }
     }

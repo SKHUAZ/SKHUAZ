@@ -23,6 +23,7 @@ class importRootTableViewCell: UITableViewCell {
     private var currentIndex: Int = 0 // 현재 표시 중인 배열의 인덱스
     
     private var preLecture: preLectureData? // 추가된 코드
+    private var preLecture2: DetailPreLecture?
     
     // MARK: - Initializer
     
@@ -69,38 +70,38 @@ extension importRootTableViewCell {
     // MARK: - Layout Helper
     
     func setLayout() {
-        
-        contentView.addSubviews(recommendListContainer)
-        recommendListContainer.addSubviews(topSpace, mainContainer)
-        
-        topSpace.addSubviews(courseYear)
-        
-//        recommendListContainer.snp.makeConstraints {
-//            $0.top.equalToSuperview().offset(10)
-//            $0.centerX.equalToSuperview()
-//            $0.width.equalTo(345)
-//            $0.height.equalTo(250)
-//        }
-        
-        topSpace.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(35)
+            
+            contentView.addSubviews(recommendListContainer)
+            recommendListContainer.addSubviews(topSpace, mainContainer)
+            
+            topSpace.addSubviews(courseYear)
+            
+    //        recommendListContainer.snp.makeConstraints {
+    //            $0.top.equalToSuperview().offset(10)
+    //            $0.centerX.equalToSuperview()
+    //            $0.width.equalTo(345)
+    //            $0.height.equalTo(250)
+    //        }
+            
+            topSpace.snp.makeConstraints {
+                $0.top.equalToSuperview()
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(35)
+            }
+            
+            courseYear.snp.makeConstraints {
+                $0.centerX.equalTo(topSpace)
+                $0.centerY.equalTo(topSpace)
+            }
+            
+            mainContainer.snp.makeConstraints {
+                $0.top.equalTo(topSpace.snp.bottom).offset(12)
+    //            $0.leading.trailing.equalToSuperview()
+                $0.centerX.equalToSuperview()
+                $0.width.equalTo(310)
+                $0.height.greaterThanOrEqualTo(38)  // 여기서 38은 CustomRootContainer의 높이입니다.
+            }
         }
-        
-        courseYear.snp.makeConstraints {
-            $0.centerX.equalTo(topSpace)
-            $0.centerY.equalTo(topSpace)
-        }
-        
-        mainContainer.snp.makeConstraints {
-            $0.top.equalTo(topSpace.snp.bottom).offset(12)
-//            $0.leading.trailing.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(310)
-            $0.height.greaterThanOrEqualTo(38)  // 여기서 38은 CustomRootContainer의 높이입니다.
-        }
-    }
     
     //MARK: - configure
     
@@ -205,4 +206,19 @@ extension importRootTableViewCell {
             
             renderLectureContainer()  // 위치 변경됨
         }
+    
+//    func importRootModelConfigure2(with review: DetailPreLecture, at indexPath: IndexPath) {
+//            let reviewCount = indexPath.row
+////            self.preLecture2 = review.preLectures[reviewCount]  // 변경된 코드
+//        self.preLecture2 = importReviewList[reviewCount]
+//            courseYear.text = self.preLecture?.semester  // 변경된 코드
+//            
+//            renderLectureContainer()  // 위치 변경됨
+//        }
+    func importRootModelConfigure2(with review: DetailPreLecture, at indexPath: IndexPath, importReviewList: [DetailPreLecture]) {
+        let reviewCount = indexPath.row
+        self.preLecture2 = importReviewList[reviewCount]
+        courseYear.text = self.preLecture2?.semester
+        renderLectureContainer()
+    }
 }

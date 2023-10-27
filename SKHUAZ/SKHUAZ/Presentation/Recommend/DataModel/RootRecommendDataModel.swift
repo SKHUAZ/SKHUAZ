@@ -11,17 +11,17 @@ struct RootRecommendDataModel {
     var recommendation: String
     var createAt: String
     var email: String
-    var id: Int
+    var routeId: Int
     var preLectures: [PreLectures]
 
     // 이니셜라이저 추가
-    init(title: String, recommendation: String, createAt: String, email: String, preLectures: [PreLectures], id: Int) {
+    init(title: String, recommendation: String, createAt: String, email: String, preLectures: [PreLectures], routeId: Int) {
         self.title = title
         self.recommendation = recommendation
         self.createAt = createAt
         self.email = email
         self.preLectures = preLectures
-        self.id = id
+        self.routeId = routeId
     }
 }
 

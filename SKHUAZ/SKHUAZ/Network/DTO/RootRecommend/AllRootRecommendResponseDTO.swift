@@ -17,7 +17,7 @@ struct AllRootRecommendResponseDTO: Codable {
 struct AllRootRecommendData: Codable {
     let title, recommendation, createAt, email: String
     let preLectures: [PreLecture]
-    let id: Int
+    let routeId: Int
 
 }
 

@@ -39,7 +39,6 @@ final class RecommendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
         setUI()
         setLayout()
         setupData()
@@ -186,7 +185,7 @@ extension RecommendViewController {
                                                                                    recommendation : serverItem.recommendation,
                                                                                    createAt :serverItem.createAt ,
                                                                                     email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems, id: serverItem.id)
+                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId)
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
@@ -311,9 +310,9 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-        print("You selected cell #\(reviews[indexPath.row].id)")
+        print("You selected cell #\(reviews[indexPath.row].routeId)")
         let detailVC = DetailRecommendViewController()
-        detailVC.recommendID = reviews[indexPath.row].id
+        detailVC.recommendID = reviews[indexPath.row].routeId
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
