@@ -27,6 +27,8 @@ final class CreateRecommendBottomSheetViewController: UIViewController {
     weak var delegate: CreateRecommendViewController?
     private let titleText: String = "{글제목}"
     
+    var requestRecommendDataBind = CreateRecommendRequestBody()
+    
     // MARK: - Initializer
     
     // MARK: - View Life Cycle
@@ -113,7 +115,11 @@ extension CreateRecommendBottomSheetViewController {
     
     private func addTarget() {
         saveViewCancelButton.addTarget(self, action: #selector(dismissToCreateRecommendViewController), for: .touchUpInside)
-        saveViewSaveButton.addTarget(self, action: #selector(saveEvaluate), for: .touchUpInside)
+        saveViewSaveButton.addTarget(self, action: #selector(saveRootRecommend), for: .touchUpInside)
+    }
+    
+    func dataBind(data: CreateRecommendRequestBody) {
+        self.requestRecommendDataBind = data
     }
     
     // MARK: - @objc Methods
@@ -124,7 +130,7 @@ extension CreateRecommendBottomSheetViewController {
     }
     
     @objc
-    private func saveEvaluate() {
+    private func saveRootRecommend() {
         print("저장버튼이 눌렸습니다")
         self.dismiss(animated: false) { [weak self] in
             self?.delegate?.didTapSaveButton() {

@@ -10,6 +10,7 @@ import Alamofire
 enum RootRecommendRouter {
     case getAllRootRecommend(token: String)
     case getDetailRootRecommend(token: String, rootrecommendID: Int)
+    case postCreateRootRecommend(token: String, requestBody: CreateRecommendRequestBody)
 }
 
 extension RootRecommendRouter: BaseTargetType {
@@ -23,6 +24,9 @@ extension RootRecommendRouter: BaseTargetType {
 
         case .getDetailRootRecommend:
             return .get
+            
+        case .postCreateRootRecommend:
+            return .post
         }
     }
 
@@ -33,6 +37,9 @@ extension RootRecommendRouter: BaseTargetType {
 
         case .getDetailRootRecommend(_,let rootrecommendID):
             return "/route/details/\(rootrecommendID)"
+            
+        case .postCreateRootRecommend:
+            return "/route/create"
         }
     }
 
@@ -43,6 +50,9 @@ extension RootRecommendRouter: BaseTargetType {
 
         case .getDetailRootRecommend:
             return .none
+            
+        case .postCreateRootRecommend:
+            return .none
         }
     }
 
@@ -51,6 +61,8 @@ extension RootRecommendRouter: BaseTargetType {
         case .getAllRootRecommend(let token):
             return ["Authorization": "Bearer \(token)"]
         case .getDetailRootRecommend(let token, _):
+            return ["Authorization": "Bearer \(token)"]
+        case .postCreateRootRecommend(let token, _):
             return ["Authorization": "Bearer \(token)"]
         }
     }
