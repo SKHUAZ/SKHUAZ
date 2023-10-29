@@ -278,9 +278,6 @@ extension DetailEvaluateViewController {
     }
     
     private func putEvaluate(putEvaluate: EditEvaluateRequestBody) {
-//        DispatchQueue.main.async { [weak self] in
-//            self?.navigationController?.popViewController(animated: true)
-//        }
         self.deleteButtonUnEnabled()
 
         EvaluateAPI.shared.editEvaluate(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", evaluationId: evaluationId, requestBody: putEvaluate) { result in

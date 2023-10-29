@@ -270,25 +270,25 @@ extension EvaluateView: DropdownMenuSearchDelegate {
         }
         
         firstLabel.do {
-            $0.text = "과제"
+            $0.text = "과제량"
             $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         secondLabel.do {
-            $0.text = "실습"
+            $0.text = "실습량"
             $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         thirdLabel.do {
-            $0.text = "발표"
+            $0.text = "발표량"
             $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
         
         fourthLabel.do {
-            $0.text = "팀플"
+            $0.text = "팀플 횟수"
             $0.font = .systemFont(ofSize: 16)
             $0.textColor = UIColor(hex: "#000000")
         }
@@ -350,50 +350,50 @@ extension EvaluateView: DropdownMenuSearchDelegate {
             
             firstSlider.snp.makeConstraints {
                 $0.centerY.equalTo(firstLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             secondSlider.snp.makeConstraints {
                 $0.centerY.equalTo(secondLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             thirdSlider.snp.makeConstraints {
                 $0.centerY.equalTo(thirdLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             fourthSlider.snp.makeConstraints {
                 $0.centerY.equalTo(fourthLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             firstLabel.snp.makeConstraints {
                 $0.top.equalTo(guidePoint.snp.bottom).offset(20)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
             
             secondLabel.snp.makeConstraints {
                 $0.top.equalTo(firstLabel.snp.bottom).offset(30)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
             
             thirdLabel.snp.makeConstraints {
                 $0.top.equalTo(secondLabel.snp.bottom).offset(30)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
             
             fourthLabel.snp.makeConstraints {
                 $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
             
         case .detailEvalute:
@@ -446,51 +446,52 @@ extension EvaluateView: DropdownMenuSearchDelegate {
             
             firstSlider.snp.makeConstraints {
                 $0.centerY.equalTo(firstLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             secondSlider.snp.makeConstraints {
                 $0.centerY.equalTo(secondLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             thirdSlider.snp.makeConstraints {
                 $0.centerY.equalTo(thirdLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             fourthSlider.snp.makeConstraints {
                 $0.centerY.equalTo(fourthLabel)
-                $0.trailing.equalToSuperview().inset(20)
+                $0.trailing.equalToSuperview().inset(15)
                 $0.width.equalTo(268)
                 $0.height.equalTo(16)
             }
             
             firstLabel.snp.makeConstraints {
                 $0.top.equalTo(guidePoint.snp.bottom).offset(20)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
             
             secondLabel.snp.makeConstraints {
                 $0.top.equalTo(firstLabel.snp.bottom).offset(30)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
             
             thirdLabel.snp.makeConstraints {
                 $0.top.equalTo(secondLabel.snp.bottom).offset(30)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
             
             fourthLabel.snp.makeConstraints {
                 $0.top.equalTo(thirdLabel.snp.bottom).offset(30)
-                $0.leading.equalToSuperview().offset(45)
+                $0.leading.equalToSuperview().offset(35)
             }
+ 
         }
     }
     

@@ -76,5 +76,13 @@ extension EvaluateAPI {
                                 completion: completion)
         }
     }
+    
+    public func getMyEvaluate(token: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(EvaluateRouter.getMyEvaluation(token: token)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: MyEvaluationsDTO.self,
+                                completion: completion)
+        }
+    }
 }
 
