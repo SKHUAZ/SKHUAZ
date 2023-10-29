@@ -488,6 +488,14 @@ extension HomeViewController {
                     UserDefaults.standard.set(serverData.nickname, forKey: "Nickname")
                     UserDefaults.standard.set(serverData.major1, forKey: "Major1")
                     UserDefaults.standard.set(serverData.major2, forKey: "Major2")
+                    UserDefaults.standard.set(serverData.graduate, forKey: "Graduate") // 졸업유무
+                    UserDefaults.standard.set(serverData.semester, forKey: "Semester") // 학기
+                    UserDefaults.standard.set(serverData.department, forKey: "department") // 학기
+                    UserDefaults.standard.set(serverData.majorMinor, forKey: "MajorMinor") // 학기
+                    UserDefaults.standard.set(serverData.doubleMajor, forKey: "DoubleMajor") // 학기
+                    
+
+
                     print("====================================")
                 }
             case .requestErr(let message):

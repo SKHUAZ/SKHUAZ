@@ -16,5 +16,12 @@ struct HomeDTO: Codable {
 
 // MARK: - DataClass
 struct HomeData: Codable {
-    let nickname, major1, major2: String
+    let nickname, major1, major2, semester: String
+    let graduate, department, majorMinor, doubleMajor: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case nickname, major1, major2, semester, graduate, department
+        case majorMinor = "major_minor"
+        case doubleMajor = "double_major"
+    }
 }
