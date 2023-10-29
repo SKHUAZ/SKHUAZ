@@ -298,6 +298,18 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
     }
     
+    // MARK: - 페이지네이션에 맞춘 역순 정렬
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let reversedIndex = filteredReviews.count - indexPath.row - 1
+        if reversedIndex >= 0 && reversedIndex < filteredReviews.count {
+            let selectedReview = filteredReviews[reversedIndex]
+            let detailVC = DetailRecommendViewController()
+            detailVC.recommendID = selectedReview.routeId
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
+    }
+    
     private func setupKeyboardEvent() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
@@ -309,12 +321,15 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
                                                object: nil)
     }
     
-    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-        print("You selected cell #\(reviews[indexPath.row].routeId)")
-        let detailVC = DetailRecommendViewController()
-        detailVC.recommendID = reviews[indexPath.row].routeId
-        self.navigationController?.pushViewController(detailVC, animated: true)
-    }
+    
+
+
+//    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
+//        print("You selected cell #\(reviews[indexPath.row].routeId)")
+//        let detailVC = DetailRecommendViewController()
+//        detailVC.recommendID = reviews[indexPath.row].routeId
+//        self.navigationController?.pushViewController(detailVC, animated: true)
+//    }
     
     
     // MARK: - @objc Methods

@@ -106,7 +106,7 @@ extension RecommendTableViewCell {
         majorNameLabel.do {
             $0.font = .systemFont(ofSize: 8)
             $0.textColor = .black
-            $0.text = "자바프로그래밍"
+            $0.text = "cjs1399@office.skhu.ac.kr"
         }
         
         majorNameLabel2.do {
@@ -244,13 +244,37 @@ extension RecommendTableViewCell {
         let creationDate = review.createAt.split(separator: "T")
         creationDateLabel.text = String(creationDate[0])
         
-        let lectureIndex = indexPath.row % (review.preLectures.count)
-        
-        majorNameLabel.text = review.preLectures[lectureIndex].lecNames[0]
-        
-        // 주어진 배열 범위 내에 있는지 확인합니다.
-        if lectureIndex + 1 < review.preLectures.count {
-            majorNameLabel2.text = review.preLectures[lectureIndex + 1].lecNames[0]
+        if review.preLectures.isEmpty {
+            majorNameLabel.text = "No lectures available"
+            majorNameLabel2.text = ""
+        } else {
+            // 주어진 배열 범위 내에 있는지 확인합니다.
+            let lectureIndex = indexPath.row % (review.preLectures.count)
+            majorNameLabel.text = review.preLectures[lectureIndex].lecNames[0]
+            
+            if lectureIndex + 1 < review.preLectures.count {
+                majorNameLabel2.text = review.preLectures[lectureIndex + 1].lecNames[0]
+                majorNameLabel3.text = review.preLectures[lectureIndex + 2].lecNames[0]
+            } else {
+                majorNameLabel2.text = "" // 다음 강의가 없는 경우 빈 문자열로 설정
+                majorNameLabel3.text = ""
+            }
         }
     }
+
+//    func configureUpdate(with review: RootRecommendDataModel, at indexPath: IndexPath) {
+//        recommendTitle.text = review.title
+//        recommendContent.text = review.recommendation
+//        let creationDate = review.createAt.split(separator: "T")
+//        creationDateLabel.text = String(creationDate[0])
+//        
+//        let lectureIndex = indexPath.row % (review.preLectures.count)
+//        
+//        majorNameLabel.text = review.preLectures[lectureIndex].lecNames[0]
+//        
+//        // 주어진 배열 범위 내에 있는지 확인합니다.
+//        if lectureIndex + 1 < review.preLectures.count {
+//            majorNameLabel2.text = review.preLectures[lectureIndex + 1].lecNames[0]
+//        }
+//    }
 }
