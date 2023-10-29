@@ -43,6 +43,7 @@ final class EssentialViewController: UIViewController {
     private var shouldChangeBackgroundColor: Bool = false
     private let semesterArray: [String] = ["1학년 2학기", "2학년 1학기", "2학년 2학기", "3학년 1학기", "3학년 2학기", "4학년 1학기", "4학년 2학기"]
     private var selectedSemesterIndex: Int = 0
+    private var isSave: Bool = false
     var selectedSubjectIDs: [Int] = []
     
     // MARK: - View Life Cycle
@@ -105,7 +106,7 @@ extension EssentialViewController {
             }
             
             topSectionLabel.do {
-                $0.text = "임의로 넣은 텍스트입니다"
+                $0.text = "학기별 선수과목제도"
                 $0.textColor = UIColor(hex: "#FFFFFF")
                 $0.font = .systemFont(ofSize: 13)
                 $0.textAlignment = .center
@@ -152,7 +153,7 @@ extension EssentialViewController {
             }
             
             topSectionLabel.do {
-                $0.text = "임의로 넣은 텍스트입니다"
+                $0.text = "선수과목 리스트"
                 $0.textColor = UIColor(hex: "#FFFFFF")
                 $0.font = .systemFont(ofSize: 13)
                 $0.textAlignment = .center
@@ -371,7 +372,6 @@ extension EssentialViewController {
             }
         }
         if selectedSubjectIDs.isEmpty {
-            print("배열이 비었습니다")
             postEnd()
         } else {
             userCheckYN = UserCheckYnRequestBody(subjectIDS: selectedSubjectIDs)
@@ -400,10 +400,14 @@ extension EssentialViewController {
                 }
             }
         }
-        let bottomSheetVC = EssentialBottomSheetViewController()
-        bottomSheetVC.delegates = self // 델리게이트 설정
-        self.present(bottomSheetVC, animated: true)
-        bottomSheetVC.dataToSave = data // 데이터를 전달
+        if isSave {
+            let bottomSheetVC = EssentialBottomSheetViewController()
+            bottomSheetVC.delegates = self // 델리게이트 설정
+            self.present(bottomSheetVC, animated: true)
+            bottomSheetVC.dataToSave = data // 데이터를 전달
+        } else {
+            showToast(message: "4학년 2학기까지 선택해주세요")
+        }
     }
 }
 
@@ -508,8 +512,10 @@ extension EssentialViewController {
     // 1. User 학기별 선수과목 리스트 조회
     
     func postSelctLec(requestBody: SelectLecRequestBody) {
+        if requestBody.semester == "4학년 2학기" {
+            self.isSave = true
+        }
         UserPreLectureAPI.shared.postUserSelectLec(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", requestBody: requestBody) { result in
-            
             switch result {
             case .success(let data):
                 if let data = data as? SelectLecDTO {
