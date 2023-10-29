@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
 
@@ -130,113 +129,79 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     // MARK: - Layout Helper
-    private func setLayout() {
-        scrollContainer.addSubviews(importRecommendListView)
-         view.addSubviews(recommendView,scrollContainer)
-         
-         
-         importRecommendListView.snp.makeConstraints {
-             $0.leading.equalToSuperview().offset(150)
-             $0.width.equalTo(600)
-             $0.height.equalTo(370)
-         }
-
-         recommendView.snp.makeConstraints {
-             $0.top.equalTo(view.safeAreaLayoutGuide)
-             $0.centerX.equalToSuperview()
-             $0.height.equalTo(300)
-             $0.width.equalTo(UIScreen.main.bounds.width)
-         }
-
-         scrollContainer.snp.makeConstraints {
-             $0.top.equalTo(recommendView.snp.bottom).offset(10)
-             $0.bottom.equalToSuperview().offset(-10)
-             $0.centerX.equalToSuperview()
-             $0.width.equalTo(400)
-             $0.height.equalTo(1000)
-         }
-    }
-    
 //    private func setLayout() {
-//        view.addSubviews(recommendView,scrollContainer)
-////        view.addSubviews(mainImage, recommendView, backButton, saveButton,scrollContainer, editButton, deleteButton)
-//        scrollContainer.addSubview(importRecommendListView)
-////        view.addSubviews(mainImage, recommendView, editButton, deleteButton, modifyButton, importRecommendListView)
-//        
-////        mainImage.snp.makeConstraints {
-////            $0.top.equalToSuperview().offset(50)
-////            $0.leading.equalToSuperview().offset(19)
-////            $0.width.equalTo(168)
-////            $0.height.equalTo(43)
-////        }
-//        
-//        recommendView.snp.makeConstraints {
-//            $0.top.equalTo(view.safeAreaLayoutGuide)
-//            $0.centerX.equalToSuperview()
-//            $0.height.equalTo(690)
-//            $0.width.equalTo(UIScreen.main.bounds.width)
-//        }
-//        
-////        backButton.snp.makeConstraints {
-////            $0.bottom.equalToSuperview().inset(20)
-////            $0.leading.equalToSuperview().offset(20)
-////            $0.width.equalTo(83)
-////            $0.height.equalTo(39)
-////        }
-////    
-////        saveButton.snp.makeConstraints {
-////            $0.bottom.equalToSuperview().inset(20)
-////            $0.trailing.equalToSuperview().inset(20)
-////            $0.width.equalTo(83)
-////            $0.height.equalTo(39)
-////        }
-//        
-//        importRecommendListView.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//            $0.width.equalTo(400)
-//            $0.height.equalTo(370) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
-//        }
-////        importRecommendListView.snp.makeConstraints {
-////            $0.top.equalToSuperview().offset(10)
-//////            $0.centerX.equalToSuperview()
-////            $0.leading.equalToSuperview()
-////            $0.width.equalTo(400)
-////            $0.height.equalTo(370) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
-////        }
-//        
-//        scrollContainer.snp.makeConstraints {
-//             $0.top.equalToSuperview().offset(420)
-////            $0.bottom.equalTo(saveButton.snp.top).offset(-10)
+//        scrollContainer.addSubviews(importRecommendListView)
+//         view.addSubviews(recommendView,scrollContainer)
+//         
+//         
+//         importRecommendListView.snp.makeConstraints {
+//             $0.leading.equalToSuperview().offset(150)
+//             $0.width.equalTo(600)
+//             $0.height.equalTo(370)
+//         }
+//
+//         recommendView.snp.makeConstraints {
+//             $0.top.equalTo(view.safeAreaLayoutGuide)
+//             $0.centerX.equalToSuperview()
+//             $0.height.equalTo(300)
+//             $0.width.equalTo(UIScreen.main.bounds.width)
+//         }
+//
+//         scrollContainer.snp.makeConstraints {
+//             $0.top.equalTo(recommendView.snp.bottom).offset(10)
+//             $0.bottom.equalToSuperview().offset(-10)
 //             $0.centerX.equalToSuperview()
 //             $0.width.equalTo(400)
-//            $0.height.equalTo(1000)
+//             $0.height.equalTo(1000)
 //         }
-//        
-////        editButton.snp.makeConstraints {
-////            $0.bottom.equalToSuperview().inset(20)
-////            $0.leading.equalToSuperview().offset(20)
-////            $0.width.equalTo(83)
-////            $0.height.equalTo(39)
-////        }
-//////        
-////        deleteButton.snp.makeConstraints {
-////            $0.bottom.equalToSuperview().inset(20)
-////            $0.trailing.equalToSuperview().inset(20)
-////            $0.width.equalTo(83)
-////            $0.height.equalTo(39)
-////        }
-////        
-////        modifyButton.snp.makeConstraints {
-////            $0.top.equalTo(deleteButton.snp.top)
-////            $0.centerX.equalToSuperview()
-////            $0.width.equalTo(100)
-////            $0.height.equalTo(39)
-////        }
 //    }
     
-//    private func setNavigation() {
-//        navigationController?.setNavigationBarHidden(false, animated: true)
-//    }
+    private func setLayout() {
+        view.addSubviews(recommendView, editButton, deleteButton, modifyButton, scrollContainer)
+        scrollContainer.addSubview(importRecommendListView)
+        
+        recommendView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(690)
+            $0.width.equalTo(UIScreen.main.bounds.width)
+        }
+        
+        importRecommendListView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+            $0.width.equalTo(400)
+            $0.height.equalTo(370) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
+        }
+        
+        scrollContainer.snp.makeConstraints {
+             $0.top.equalToSuperview().offset(410)
+            $0.bottom.equalTo(editButton.snp.top).offset(-20)
+             $0.centerX.equalToSuperview()
+             $0.width.equalTo(400)
+         }
+        
+        editButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(20)
+            $0.leading.equalToSuperview().offset(20)
+            $0.width.equalTo(83)
+            $0.height.equalTo(39)
+        }
+//        
+        deleteButton.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.width.equalTo(83)
+            $0.height.equalTo(39)
+        }
+        
+        modifyButton.snp.makeConstraints {
+            $0.top.equalTo(deleteButton.snp.top)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(100)
+            $0.height.equalTo(39)
+        }
+    }
+    
     private func setNavigationBar() {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.tintColor = UIColor(hex: "#9AC1D1")

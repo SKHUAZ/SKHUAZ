@@ -202,10 +202,10 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
                     if pushBringButtonFlag == true {
                         bringButton.removeFromSuperview()
                         scrollContainer.isHidden = false
-//                        for i in data.data {
-//                            getpreLectureId.append(i.preLectureID)
-//                            print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 getpreLectureId : \(getpreLectureId)🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊")
-//                        }
+                        for i in data.data {
+                            getpreLectureId.append(i.preLectureID)
+                            print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 getpreLectureId : \(getpreLectureId)🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊")
+                        }
                         self.importReviewList = [data] // API 응답을 저장합니다.
                         print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 importReviewList\(self.importReviewList)🌊🌊🌊🌊🌊🌊🌊🌊🌊")
                         importRecommendListView.reloadData()

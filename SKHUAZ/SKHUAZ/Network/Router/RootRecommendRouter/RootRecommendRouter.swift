@@ -11,6 +11,8 @@ enum RootRecommendRouter {
     case getAllRootRecommend(token: String)
     case getDetailRootRecommend(token: String, rootrecommendID: Int)
     case postCreateRootRecommend(token: String, requestBody: CreateRecommendRequestBody)
+    case delRootRecommend(token: String, recommendId: Int)
+    case editRootRecommend(token: String, evaluationId: Int, requestBody: CreateRecommendRequestBody)
 }
 
 extension RootRecommendRouter: BaseTargetType {
@@ -27,7 +29,14 @@ extension RootRecommendRouter: BaseTargetType {
             
         case .postCreateRootRecommend:
             return .post
+            
+        case .delRootRecommend:
+            return .delete
+            
+        case .editRootRecommend:
+            return .put
         }
+        
     }
 
     var path: String {
@@ -40,6 +49,12 @@ extension RootRecommendRouter: BaseTargetType {
             
         case .postCreateRootRecommend:
             return "/route/create"
+            
+        case .delRootRecommend(_,let recommendId):
+            return "/evaluation/delete/\(recommendId)"
+            
+        case .editRootRecommend(_, let recommendId, _):
+            return "/evaluation/edit/\(recommendId)"
         }
     }
 
@@ -53,6 +68,12 @@ extension RootRecommendRouter: BaseTargetType {
             
         case .postCreateRootRecommend:
             return .none
+            
+        case .delRootRecommend:
+            return .none
+            
+        case .editRootRecommend(_, _, let requestBody):
+            return .body(requestBody)
         }
     }
 
@@ -63,6 +84,12 @@ extension RootRecommendRouter: BaseTargetType {
         case .getDetailRootRecommend(let token, _):
             return ["Authorization": "Bearer \(token)"]
         case .postCreateRootRecommend(let token, _):
+            return ["Authorization": "Bearer \(token)"]
+            
+        case .delRootRecommend(let token, _):
+            return ["Authorization": "Bearer \(token)"]
+            
+        case .editRootRecommend(let token, _, _):
             return ["Authorization": "Bearer \(token)"]
         }
     }

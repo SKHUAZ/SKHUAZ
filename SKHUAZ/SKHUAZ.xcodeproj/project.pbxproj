@@ -119,6 +119,7 @@
 		9ECFA9422AAA15AD0060D12F /* CreateRecommendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */; };
 		9EDDF7BC2AE9052200DF2926 /* DetailRootRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */; };
 		9EDDF7BE2AEB95A000DF2926 /* CreateRecommendRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7BD2AEB95A000DF2926 /* CreateRecommendRequestBody.swift */; };
+		9EDDF7C02AEBA96C00DF2926 /* DelRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7BF2AEBA96C00DF2926 /* DelRecommendDTO.swift */; };
 		E3546DDA2A8DF6EF00ACFF3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */; };
 		E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE42A8E15CC00ACFF3C /* LoginView.swift */; };
 		E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */; };
@@ -256,6 +257,7 @@
 		9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendView.swift; sourceTree = "<group>"; };
 		9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRootRecommendDTO.swift; sourceTree = "<group>"; };
 		9EDDF7BD2AEB95A000DF2926 /* CreateRecommendRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendRequestBody.swift; sourceTree = "<group>"; };
+		9EDDF7BF2AEBA96C00DF2926 /* DelRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelRecommendDTO.swift; sourceTree = "<group>"; };
 		E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3546DE42A8E15CC00ACFF3C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
@@ -808,6 +810,7 @@
 				9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */,
 				9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */,
 				9EDDF7BD2AEB95A000DF2926 /* CreateRecommendRequestBody.swift */,
+				9EDDF7BF2AEBA96C00DF2926 /* DelRecommendDTO.swift */,
 			);
 			path = RootRecommend;
 			sourceTree = "<group>";
@@ -1112,6 +1115,7 @@
 				E3546DDA2A8DF6EF00ACFF3C /* LoginViewController.swift in Sources */,
 				25D46EF52AAF6ABD008FA088 /* RecommendDataModel.swift in Sources */,
 				2539B9712A8CA5D100E939AA /* URLConst.swift in Sources */,
+				9EDDF7C02AEBA96C00DF2926 /* DelRecommendDTO.swift in Sources */,
 				2539B9492A8CA48300E939AA /* AppDelegate.swift in Sources */,
 				E36525012AC14F0F002D1BC2 /* UserAPI.swift in Sources */,
 				25ACBA322AE80FE900A34B29 /* AdminPreLectureDTO.swift in Sources */,
