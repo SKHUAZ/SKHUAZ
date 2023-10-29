@@ -105,46 +105,7 @@ extension importRootTableViewCell {
     
     //MARK: - configure
     
-    private func renderLectureContainer() {
-        mainContainer.subviews.forEach { $0.removeFromSuperview() }
-        
-        guard let preLecture = self.preLecture else { return }
-        
-        let lectureContainers = UIStackView()
-        lectureContainers.axis = .vertical
-        lectureContainers.spacing = 10
-        
-        let lecCount = preLecture.lecNames.count
-        
-        recommendListContainer.snp.removeConstraints() // 기존 제약조건 삭제
 
-        recommendListContainer.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(345)
-            
-            switch lecCount {
-                case 1...2:
-                    $0.height.equalTo(160)
-                case 3:
-                    $0.height.equalTo(200)
-                default:
-                    $0.height.equalTo(250)
-            }
-         }
-
-         for lectureName in preLecture.lecNames {
-             let lectureContainer = CustomRootContainer(lectureName: lectureName)
-             lectureContainers.addArrangedSubview(lectureContainer)
-
-             lectureContainer.snp.makeConstraints { make in
-                 make.height.equalTo(38)
-             }
-         }
-
-         mainContainer.addArrangedSubview(lectureContainers)
-
-    }
 
     
 //    private func renderLectureContainer() {
@@ -206,19 +167,52 @@ extension importRootTableViewCell {
             
             renderLectureContainer()  // 위치 변경됨
         }
-    
-//    func importRootModelConfigure2(with review: DetailPreLecture, at indexPath: IndexPath) {
-//            let reviewCount = indexPath.row
-////            self.preLecture2 = review.preLectures[reviewCount]  // 변경된 코드
-//        self.preLecture2 = importReviewList[reviewCount]
-//            courseYear.text = self.preLecture?.semester  // 변경된 코드
-//            
-//            renderLectureContainer()  // 위치 변경됨
-//        }
+
     func importRootModelConfigure2(with review: DetailPreLecture, at indexPath: IndexPath, importReviewList: [DetailPreLecture]) {
         let reviewCount = indexPath.row
         self.preLecture2 = importReviewList[reviewCount]
         courseYear.text = self.preLecture2?.semester
         renderLectureContainer()
+    }
+    
+    private func renderLectureContainer() {
+        mainContainer.subviews.forEach { $0.removeFromSuperview() }
+        
+        guard let preLecture = self.preLecture else { return }
+        
+        let lectureContainers = UIStackView()
+        lectureContainers.axis = .vertical
+        lectureContainers.spacing = 10
+        
+        let lecCount = preLecture.lecNames.count
+        
+        recommendListContainer.snp.removeConstraints() // 기존 제약조건 삭제
+
+        recommendListContainer.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(345)
+            
+            switch lecCount {
+                case 1...2:
+                    $0.height.equalTo(160)
+                case 3:
+                    $0.height.equalTo(200)
+                default:
+                    $0.height.equalTo(250)
+            }
+         }
+
+         for lectureName in preLecture.lecNames {
+             let lectureContainer = CustomRootContainer(lectureName: lectureName)
+             lectureContainers.addArrangedSubview(lectureContainer)
+
+             lectureContainer.snp.makeConstraints { make in
+                 make.height.equalTo(38)
+             }
+         }
+
+         mainContainer.addArrangedSubview(lectureContainers)
+
     }
 }

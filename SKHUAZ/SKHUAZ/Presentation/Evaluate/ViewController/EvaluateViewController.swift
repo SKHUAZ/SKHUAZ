@@ -96,7 +96,7 @@ extension EvaluateViewController {
                          tableView, wroteMeButton, createButton)
         
         mainLogo.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(47)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(43)
             $0.width.equalTo(168)

@@ -12,7 +12,7 @@ import Foundation
 struct PreLectureDTO: Codable {
     let statusCode: Int
     let message: String
-    let data: [preLectureData]
+    var data: [preLectureData]
 }
 
 // MARK: - Datum
