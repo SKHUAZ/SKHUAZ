@@ -160,66 +160,7 @@ extension RecommendViewController {
         searchTextField.delegate = self
     }
     
-    func getAllRootRecommend() {
-        RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
-            switch result {
-            case .success(let data):
-                if let data = data as? AllRootRecommendResponseDTO {
-                    // 서버에서 받은 데이터를 EvaluateDataModel로 매핑
-                    let serverData = data.data
-                    var mappedData: [RootRecommendDataModel] = []
-                    
-                    for serverItem in serverData {
-                        
-                        var mappedPreLecturesItems: [PreLectures] = []
-                        
-                        for prelectureItem in serverItem.preLectures {
-                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureId,
-                                                            semester: prelectureItem.semester,
-                                                            lecNames: prelectureItem.lecNames)
-                            
-                            mappedPreLecturesItems.append(newMappedItem)
-                        }
-                        
-                        let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
-                                                                                   recommendation : serverItem.recommendation,
-                                                                                   createAt :serverItem.createAt ,
-                                                                                    email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId)
-                        
-                        mappedData.append(mappedRootRecommendDataModel)
-                    }
-                    
-                    // 매핑된 데이터를 배열에 저장
-                    self.reviews = mappedData
-                    self.filteredReviews = self.reviews
-                    
-                    
-                    
-                    
-                    // 테이블 뷰 업데이트
-                    self.recommendListView.reloadData()
-                } else {
-                    print("Failed to decode the response.")
-                }
-            case .requestErr(let message):
-                // Handle request error here.
-                print("Request error: \(message)")
-            case .pathErr:
-                // Handle path error here.
-                print("Path error")
-            case .serverErr:
-                // Handle server error here.
-                print("Server error")
-            case .networkFail:
-                // Handle network failure here.
-                print("Network failure")
-            default:
-                break
-            }
-            
-        }
-    }
+
     
     //내가 쓴 글 눌렀을 때 검색창에 본 계정주의 닉네임을 검색하여 내 글이 나오도록 함.
     @objc
@@ -359,5 +300,68 @@ extension RecommendViewController: UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         recommendListView.isUserInteractionEnabled = true
+    }
+}
+
+
+extension RecommendViewController {
+    func getAllRootRecommend() {
+        RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? AllRootRecommendResponseDTO {
+                    let serverData = data.data
+                    var mappedData: [RootRecommendDataModel] = []
+                    
+                    for serverItem in serverData {
+                        
+                        var mappedPreLecturesItems: [PreLectures] = []
+                        
+                        for prelectureItem in serverItem.preLectures {
+                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureId,
+                                                            semester: prelectureItem.semester,
+                                                            lecNames: prelectureItem.lecNames)
+                            
+                            mappedPreLecturesItems.append(newMappedItem)
+                        }
+                        
+                        let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
+                                                                                   recommendation : serverItem.recommendation,
+                                                                                   createAt :serverItem.createAt ,
+                                                                                    email :serverItem.email ,
+                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId)
+                        
+                        mappedData.append(mappedRootRecommendDataModel)
+                    }
+                    
+                    // 매핑된 데이터를 배열에 저장
+                    self.reviews = mappedData
+                    self.filteredReviews = self.reviews
+                    
+                    
+                    
+                    
+                    // 테이블 뷰 업데이트
+                    self.recommendListView.reloadData()
+                } else {
+                    print("Failed to decode the response.")
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
+        }
     }
 }
