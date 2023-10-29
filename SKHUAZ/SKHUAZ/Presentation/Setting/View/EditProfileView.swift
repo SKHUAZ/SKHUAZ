@@ -106,6 +106,7 @@ class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
         addTarget()
         graduateRadioButton.delegate = self
         majorRadioButton.delegate = self
+        setUserData()
     }
 
     required init?(coder: NSCoder) {
@@ -254,21 +255,14 @@ extension EditProfileView {
             $0.centerX.equalToSuperview()
         }
         
-        nameTextField.snp.makeConstraints {
-            $0.top.equalTo(profileImage.snp.bottom).offset(25)
-            $0.height.equalTo(50)
-            $0.leading.equalToSuperview().inset(28)
-            $0.trailing.equalToSuperview().inset(29)
-        }
-        
         nicknameTextField.snp.makeConstraints {
-            $0.top.equalTo(nameTextField.snp.bottom).offset(13)
+            $0.top.equalTo(profileImage.snp.bottom).offset(50)
             $0.leading.equalToSuperview().inset(28)
             $0.height.equalTo(50)
         }
         
         nicknameCheckButton.snp.makeConstraints {
-            $0.top.equalTo(nameTextField.snp.bottom).offset(13)
+            $0.top.equalTo(profileImage.snp.bottom).offset(50)
             $0.leading.equalTo(nicknameTextField.snp.trailing).offset(9)
             $0.trailing.equalToSuperview().inset(29)
             $0.width.equalTo(113)
@@ -351,6 +345,11 @@ extension EditProfileView {
         mainMajorButton.addTarget(self, action: #selector(mainMajorButtonTapped), for: .touchUpInside)
         subMajorButton.addTarget(self, action: #selector(subMajorButtonTapped), for: .touchUpInside)
         saveButton.addTarget(self, action: #selector(pushSecondViewController), for: .touchUpInside)
+    }
+    
+    private func setUserData() {
+        nicknameTextField.text = UserDefaults.standard.string(forKey: "Nickname")
+//        semesterButton.titleLabel?.text = UserDefaults.standard.string(forKey: "Semester")
     }
     
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
