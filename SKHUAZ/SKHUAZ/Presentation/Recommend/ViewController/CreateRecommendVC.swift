@@ -155,14 +155,14 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
         }
         
         importRecommendListView.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(300)
+            $0.top.equalTo(logoImage.snp.bottom).offset(330)
+            $0.width.equalTo(350)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(400)
-            $0.height.equalTo(370) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
+            $0.bottom.equalTo(saveButton.snp.top).offset(-15)
         }
         
         scrollContainer.snp.makeConstraints {
-             $0.top.equalTo(logoImage.snp.bottom).offset(300)
+             $0.top.equalTo(logoImage.snp.bottom).offset(310)
             $0.bottom.equalTo(saveButton.snp.top).offset(-10)
              $0.centerX.equalToSuperview()
              $0.width.equalTo(400)
@@ -292,9 +292,17 @@ extension CreateRecommendViewController: UITableViewDataSource, UITableViewDeleg
             case 1...2:
                 return 170
             case 3:
-                return 220
+                return 210
+            case 4:
+                return 255
+            case 5:
+                return 300
+            case 6:
+                return 345
+            case 7:
+                return 390
             default:
-                return 265
+                return 435
         }
     }
 

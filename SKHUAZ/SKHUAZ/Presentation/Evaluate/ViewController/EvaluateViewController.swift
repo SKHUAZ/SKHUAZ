@@ -67,7 +67,7 @@ extension EvaluateViewController {
         
         searchTextField.do {
             $0.placeholder = "검색어를 입력해주세요"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 11)
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
             $0.borderStyle = .roundedRect
             $0.clearButtonMode = .whileEditing
@@ -108,9 +108,9 @@ extension EvaluateViewController {
         }
         
         searchTextField.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(39)
-            $0.height.equalTo(30)
+            $0.height.equalTo(33)
         }
         
         colorNotifyView.snp.makeConstraints {
@@ -242,7 +242,7 @@ extension EvaluateViewController: UITextFieldDelegate{
 extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
+        return 210
     }
     
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int {

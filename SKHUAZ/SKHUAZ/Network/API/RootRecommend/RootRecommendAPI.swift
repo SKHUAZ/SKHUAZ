@@ -24,13 +24,6 @@ extension RootRecommendAPI {
                                 completion: completion)
         }
     }
-
-    // MARK: - 루트추천 생성
-    
-    public func createRootRecommend(token: String, completion: @escaping(NetworkResult<Any>) -> Void) {
-        
-
-    }
     
     // MARK: - 루트추천 상세보기
     
@@ -52,6 +45,40 @@ extension RootRecommendAPI {
         AFManager.request(RootRecommendRouter.postCreateRootRecommend(token: token, requestBody: requestBody)).responseData { response in
             self.disposeNetwork(response,
                                 dataModel: CreateRootRecommendDTO.self,
+                                completion: completion)
+        }
+    }
+    
+    // MARK: - 루트추천 삭제하기
+    
+    public func delRootRecommend(token: String,
+                            recommendId: Int,
+                            completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(RootRecommendRouter.delRootRecommend(token: token, recommendId: recommendId)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: DelRecommendDTO.self,
+                                completion: completion)
+            
+        }
+    }
+    
+    // MARK: - 루트추천 수정하기
+    
+    public func editRootRecommend(token: String,
+                                  recommendId: Int,
+                             requestBody: EditRootRecommendRequestBody,
+                             completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(RootRecommendRouter.editRootRecommend(token: token, evaluationId: recommendId, requestBody: requestBody)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: EditRootRecommendDTO.self,
+                                completion: completion)
+        }
+    }
+    
+    public func getMyRootRecommend(token: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(RootRecommendRouter.getMyRootRecommend(token: token)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: MyRecommendsDTO.self,
                                 completion: completion)
         }
     }

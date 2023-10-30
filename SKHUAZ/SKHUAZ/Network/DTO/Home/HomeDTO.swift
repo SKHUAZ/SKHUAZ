@@ -25,3 +25,4 @@ struct HomeData: Codable {
         case doubleMajor = "double_major"
     }
 }
+

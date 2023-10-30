@@ -19,7 +19,6 @@ class importRootTableViewCell: UITableViewCell {
     
     private let recommendContent = UILabel()
     private let courseYear = UILabel()
-//    private var recommendDataModel: [RecommendDataModel] = []
     private var currentIndex: Int = 0 // 현재 표시 중인 배열의 인덱스
     
     private var preLecture: preLectureData? // 추가된 코드
@@ -64,7 +63,12 @@ extension importRootTableViewCell {
         courseYear.do {
             $0.font = .systemFont(ofSize: 16, weight: .bold)
             $0.textColor = .white
+            $0.numberOfLines = 0 // 여러 줄의 텍스트 지원
         }
+//        courseYear.do {
+//            $0.font = .systemFont(ofSize: 16, weight: .bold)
+//            $0.textColor = .white
+//        }
     }
     
     // MARK: - Layout Helper
@@ -76,17 +80,11 @@ extension importRootTableViewCell {
             
             topSpace.addSubviews(courseYear)
             
-    //        recommendListContainer.snp.makeConstraints {
-    //            $0.top.equalToSuperview().offset(10)
-    //            $0.centerX.equalToSuperview()
-    //            $0.width.equalTo(345)
-    //            $0.height.equalTo(250)
-    //        }
-            
             topSpace.snp.makeConstraints {
                 $0.top.equalToSuperview()
                 $0.leading.trailing.equalToSuperview()
                 $0.height.equalTo(35)
+//                $0.width.equalTo(344)
             }
             
             courseYear.snp.makeConstraints {
@@ -94,72 +92,17 @@ extension importRootTableViewCell {
                 $0.centerY.equalTo(topSpace)
             }
             
-            mainContainer.snp.makeConstraints {
-                $0.top.equalTo(topSpace.snp.bottom).offset(12)
-    //            $0.leading.trailing.equalToSuperview()
-                $0.centerX.equalToSuperview()
-                $0.width.equalTo(310)
-                $0.height.greaterThanOrEqualTo(38)  // 여기서 38은 CustomRootContainer의 높이입니다.
-            }
+        mainContainer.snp.makeConstraints {
+            $0.top.equalTo(topSpace.snp.bottom).offset(12)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(310)
+            // 주요 변경: 높이 제약 조건 수정
+            $0.height.greaterThanOrEqualTo(38)
         }
+    }
     
     //MARK: - configure
-    
 
-
-    
-//    private func renderLectureContainer() {
-//        mainContainer.subviews.forEach { $0.removeFromSuperview() }
-//        
-//        guard let preLecture = self.preLecture else { return }  // 추가된 코드
-//        
-//        let lectureContainers = UIStackView()
-//        lectureContainers.axis = .vertical
-//        lectureContainers.spacing = 10
-//        
-//        let lecCount = preLecture.lecNames.count
-//        
-//        contentView.addSubviews(recommendListContainer)
-//        if lecCount == 1 || lecCount == 2 {
-//            contentView.addSubviews(recommendListContainer)
-//            recommendListContainer.snp.makeConstraints {
-//                $0.top.equalToSuperview().offset(10)
-//                $0.centerX.equalToSuperview()
-//                $0.width.equalTo(345)
-//                $0.height.equalTo(160)
-//            }
-//        } else if lecCount == 3 {
-//            contentView.addSubviews(recommendListContainer)
-//            recommendListContainer.snp.makeConstraints {
-//                $0.top.equalToSuperview().offset(10)
-//                $0.centerX.equalToSuperview()
-//                $0.width.equalTo(345)
-//                $0.height.equalTo(200)
-//            }
-//        } else {
-//            recommendListContainer.snp.makeConstraints {
-//                $0.top.equalToSuperview().offset(10)
-//                $0.centerX.equalToSuperview()
-//                $0.width.equalTo(345)
-//                $0.height.equalTo(250)
-//            }
-//        }
-//            
-//        
-//                    
-//       for lectureName in preLecture.lecNames {
-//            let lectureContainer = CustomRootContainer(lectureName: lectureName)
-//            lectureContainers.addArrangedSubview(lectureContainer)
-//                    
-//            lectureContainer.snp.makeConstraints { make in
-//                make.height.equalTo(38)
-//            }
-//       }
-//                
-//       mainContainer.addArrangedSubview(lectureContainers)
-//
-//    }
-    
     func importRootModelConfigure(with review: PreLectureDTO, at indexPath: IndexPath) {
             let reviewCount = indexPath.row
             self.preLecture = review.data[reviewCount]  // 변경된 코드
@@ -168,12 +111,18 @@ extension importRootTableViewCell {
             renderLectureContainer()  // 위치 변경됨
         }
 
-    func importRootModelConfigure2(with review: DetailPreLecture, at indexPath: IndexPath, importReviewList: [DetailPreLecture]) {
+    func importRootModelConfigure2(with review: DetailRecommendDTO, at indexPath: IndexPath) {
         let reviewCount = indexPath.row
-        self.preLecture2 = importReviewList[reviewCount]
+        self.preLecture2 = review.data.preLectures[reviewCount]
         courseYear.text = self.preLecture2?.semester
         renderLectureContainer()
     }
+//    func importRootModelConfigure2(with review: DetailPreLecture, at indexPath: IndexPath, importReviewList: [DetailPreLecture]) {
+//        let reviewCount = indexPath.row
+//        self.preLecture2 = importReviewList[reviewCount]
+//        courseYear.text = self.preLecture2?.semester
+//        renderLectureContainer()
+//    }
     
     private func renderLectureContainer() {
         mainContainer.subviews.forEach { $0.removeFromSuperview() }
@@ -198,8 +147,16 @@ extension importRootTableViewCell {
                     $0.height.equalTo(160)
                 case 3:
                     $0.height.equalTo(200)
+                case 4:
+                    $0.height.equalTo(245)
+                case 5:
+                    $0.height.equalTo(290)
+                case 6:
+                    $0.height.equalTo(335)
+                case 7:
+                    $0.height.equalTo(380)
                 default:
-                    $0.height.equalTo(250)
+                    $0.height.equalTo(425)
             }
          }
 
