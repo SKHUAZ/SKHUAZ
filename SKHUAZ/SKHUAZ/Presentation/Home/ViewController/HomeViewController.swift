@@ -403,7 +403,7 @@ extension HomeViewController {
                                                                                    recommendation : serverItem.recommendation,
                                                                                    createAt :serverItem.createAt ,
                                                                                    email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems, id: serverItem.id )
+                                                                                   preLectures:mappedPreLecturesItems )
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
