@@ -158,6 +158,7 @@ extension HomeViewController {
     
     func setupLayout() {
         view.addSubview(scrollView)
+        
         scrollView.addSubviews(logoImage, contentView)
         profileView.addSubviews(profileTextContainer)
         profileTextContainer.addSubviews(nameLabel, studentNumberLabel, departmentLabel)
@@ -165,22 +166,16 @@ extension HomeViewController {
         rootRecommendReviewContainer.addSubviews(rootRecommendReviewIWroteTableView, rootRecommendReviewGuideTitle)
         contentView.addSubviews(profileView, bringButton, lectureReviewContainer, rootRecommendReviewContainer)
         
-        
-        
-        
         scrollView.snp.makeConstraints {
             $0.leading.trailing.edges.equalTo(view.safeAreaLayoutGuide) // safe area를 고려하여 설정합니다.
             $0.width.equalTo(view.safeAreaLayoutGuide) // width를 화면 너비에 맞게 설정합니다.
-            // height는 contentView에 의해 결정됩니다.
-            //            $0.height.equalTo(1000)
         }
         
-        contentView.snp.makeConstraints { make in
-            make.edges.equalTo(scrollView)
-            make.width.equalTo(scrollView)
-            make.height.equalTo(900)
-            // height는 내부 요소들에 의해 결정됩니다. 따라서 따로 설정하지 않습니다.
-        }
+//        contentView.snp.makeConstraints { make in
+//            make.edges.equalTo(scrollView)
+//            make.width.equalTo(scrollView)
+//            make.height.equalTo(745)
+//        }
         
         logoImage.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -189,7 +184,8 @@ extension HomeViewController {
         
         profileView.snp.makeConstraints {
             $0.top.equalTo(logoImage.snp.bottom).offset(15)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalToSuperview()
+//            $0.centerX.equalToSuperview()
             $0.height.equalTo(120)
         }
         
@@ -220,40 +216,6 @@ extension HomeViewController {
             $0.width.equalTo(345)
             $0.height.equalTo(50)
         }
-        
-        lectureReviewContainer.snp.makeConstraints {
-            $0.top.equalTo(bringButton.snp.bottom).offset(15)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(380)
-        }
-        
-        lectureReviewGuideTitle.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(5)
-            $0.leading.equalToSuperview().offset(24)
-        }
-        
-        lectureReviewIWroteTableView.snp.makeConstraints {
-            //            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(lectureReviewGuideTitle.snp.bottom).offset(10)
-        }
-        
-        
-        rootRecommendReviewContainer.snp.makeConstraints {
-            $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.greaterThanOrEqualTo(contentView)
-        }
-        
-        rootRecommendReviewGuideTitle.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(5)
-            $0.leading.equalToSuperview().offset(24)
-        }
-        
-        rootRecommendReviewIWroteTableView.snp.makeConstraints {
-            $0.top.equalTo(rootRecommendReviewGuideTitle.snp.bottom).offset(15)
-            $0.leading.trailing.bottom.equalToSuperview()
-        }
     }
     
     private func setRegister() {
@@ -273,12 +235,75 @@ extension HomeViewController {
         bringButton.addTarget(self, action: #selector(pushBringButton), for: .touchUpInside)
     }
     
+    
+    
+    
+    func handleEvaluateYes(num: Int) {
+        print("강의평 불러온거 있다~ \(num)")
+        
+        switch num {
+            
+        case 2:
+            lectureReviewContainer.addSubviews(lectureReviewGuideTitle, lectureReviewIWroteTableView)
+            contentView.addSubview(lectureReviewContainer)
+            
+            contentView.snp.makeConstraints { make in
+                make.edges.equalTo(scrollView)
+                make.width.equalTo(scrollView)
+                make.height.equalTo(990)
+            }
+            
+            lectureReviewContainer.snp.makeConstraints {
+                $0.top.equalTo(bringButton.snp.bottom).offset(15)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(480)
+            }
+            
+            lectureReviewGuideTitle.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(5)
+                $0.leading.equalToSuperview().offset(24)
+            }
+            
+            lectureReviewIWroteTableView.snp.makeConstraints {
+                //            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+                $0.leading.trailing.bottom.equalToSuperview()
+                $0.top.equalTo(lectureReviewGuideTitle.snp.bottom).offset(10)
+            }
+        default:
+            lectureReviewContainer.addSubviews(lectureReviewGuideTitle, lectureReviewIWroteTableView)
+            contentView.addSubview(lectureReviewContainer)
+            
+            contentView.snp.makeConstraints { make in
+                make.edges.equalTo(scrollView)
+                make.width.equalTo(scrollView)
+                make.height.equalTo(760)
+            }
+            
+            lectureReviewContainer.snp.makeConstraints {
+                $0.top.equalTo(bringButton.snp.bottom).offset(15)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(250)
+            }
+            
+            lectureReviewGuideTitle.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(5)
+                $0.leading.equalToSuperview().offset(24)
+            }
+            
+            lectureReviewIWroteTableView.snp.makeConstraints {
+                //            $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+                $0.leading.trailing.bottom.equalToSuperview()
+                $0.top.equalTo(lectureReviewGuideTitle.snp.bottom).offset(10)
+            }
+        }
+    }
+    
 
     func handleEvaluateReviews() {
         print("강의평 불러온거 없다~")
-        lectureReviewContainer.removeFromSuperview()
-        lectureReviewGuideTitle.removeFromSuperview()
-        lectureReviewIWroteTableView.removeFromSuperview()
+//        lectureReviewContainer.removeFromSuperview()
+//        lectureReviewGuideTitle.removeFromSuperview()
+//        lectureReviewIWroteTableView.removeFromSuperview()
         
         // 새로운 UIView 생성
         let emptyView = UIView()
@@ -300,11 +325,10 @@ extension HomeViewController {
         lectureReviewContainer.addSubviews(lectureReviewGuideTitle, emptyView)
         contentView.addSubview(lectureReviewContainer)
         
-        
         lectureReviewContainer.snp.makeConstraints {
-            $0.top.equalTo(bringButton.snp.bottom).offset(30)
+            $0.top.equalTo(bringButton.snp.bottom).offset(15)
             $0.leading.trailing.equalToSuperview()
-            //            $0.height.equalTo(600)
+            $0.height.equalTo(220)
         }
         
         lectureReviewGuideTitle.snp.makeConstraints {
@@ -326,81 +350,130 @@ extension HomeViewController {
         }
     }
     
-    func handleEmptyRootRecommendReviews() {
-        print("루트추천 불러온거 없다~")
-        rootRecommendReviewContainer.removeFromSuperview()
-        rootRecommendReviewGuideTitle.removeFromSuperview()
-        rootRecommendReviewIWroteTableView.removeFromSuperview()
+    func handleEmptyRootRecommendReviews(num: Int) {
+        print("루트추천 불러온거 확인해라~ \(num)")
+        
+        
+        
+        switch num {
+        case 1...:
+            
+            rootRecommendReviewContainer.addSubviews(rootRecommendReviewGuideTitle, rootRecommendReviewIWroteTableView)
+            contentView.addSubview(rootRecommendReviewContainer)
+            
+            rootRecommendReviewContainer.snp.makeConstraints {
+                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(260)
+            }
+            
+            rootRecommendReviewGuideTitle.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(5)
+                $0.leading.equalToSuperview().offset(24)
+            }
+            rootRecommendReviewIWroteTableView.snp.makeConstraints {
+                $0.top.equalTo(rootRecommendReviewGuideTitle.snp.bottom).offset(15)
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
+            
+        default:
+            print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊지금 루트추천글 0개의 상황🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊")
+            // MARK: - SetUI
+            
+            let emptyView = UIView()
+            emptyView.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderWidth = 1
+                $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
+            }
+            
+            // "선수과목제도를 추천해보세요"라는 UILabel 생성 및 설정
+            let titleLabel = UILabel()
+            titleLabel.text = "선수과목제도를 추천해보세요"
+            titleLabel.textColor = .black
+            titleLabel.font = .systemFont(ofSize: 18)
+            
+            // MARK: - SetLayout
+            
+            rootRecommendReviewContainer.addSubviews(rootRecommendReviewGuideTitle, emptyView)
+            emptyView.addSubview(titleLabel)
+            contentView.addSubview(rootRecommendReviewContainer)
+            
+            emptyView.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.top.equalTo(rootRecommendReviewGuideTitle.snp.bottom).offset(15)
+                $0.width.equalTo(315)
+                $0.height.equalTo(180)
+            }
+            
+            titleLabel.snp.makeConstraints {
+                $0.centerX.equalToSuperview()
+                $0.centerY.equalToSuperview()
+            }
+            
+            rootRecommendReviewContainer.snp.makeConstraints {
+                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
+                $0.leading.trailing.equalToSuperview()
+                $0.height.equalTo(220)
+            }
+            
+            rootRecommendReviewGuideTitle.snp.makeConstraints {
+                $0.top.equalToSuperview().offset(5)
+                $0.leading.equalToSuperview().offset(24)
+            }
+        }
+        
+//        rootRecommendReviewContainer.removeFromSuperview()
+//        rootRecommendReviewGuideTitle.removeFromSuperview()
+//        rootRecommendReviewIWroteTableView.removeFromSuperview()
+        
         
         // 새로운 UIView 생성
-        let emptyView = UIView()
-        emptyView.do {
-            $0.layer.cornerRadius = 6
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor(hex: "#EFEFEF").cgColor
-        }
         
-        // "선수과목제도를 추천해보세요"라는 UILabel 생성 및 설정
-        let titleLabel = UILabel()
-        titleLabel.text = "선수과목제도를 추천해보세요"
-        titleLabel.textColor = .black
-        titleLabel.font = .systemFont(ofSize: 18)
         
         // emptyView에 titleLabel 추가
-        emptyView.addSubview(titleLabel)
         
-        rootRecommendReviewContainer.addSubviews(rootRecommendReviewGuideTitle, emptyView)
-        contentView.addSubview(rootRecommendReviewContainer)
         
-        rootRecommendReviewGuideTitle.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(5)
-            $0.leading.equalToSuperview().offset(24)
-        }
+//        rootRecommendReviewGuideTitle.snp.makeConstraints {
+//            $0.top.equalToSuperview().offset(5)
+//            $0.leading.equalToSuperview().offset(24)
+//        }
+        
         
         // MARK: - 앞서 분기처리를 위하여 evaluateReviewCount에 할당하였기에, 그에 상응하는 레이아웃 각 처리
         
         // 강의평 개수가 0~1개일 때
-        if evaluateReviewCount == 0 {
-            print("---------강의평 개수 0~1개 루트추천 레이아웃 발동---------")
-            rootRecommendReviewContainer.snp.makeConstraints {
-                //                $0.top.equalToSuperview().offset(485)
-                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
-                $0.leading.trailing.equalToSuperview()
-                $0.bottom.equalTo(contentView)
-                $0.height.equalTo(400)
-            }
-            
-            // 강의평 개수가 2개일 때
-        } else {
-            print("---------강의평 개수 2개 루트추천 레이아웃 발동---------")
-            rootRecommendReviewContainer.snp.makeConstraints {
-                //                $0.top.equalToSuperview().offset(650)// 내가 쓴 강의평 2개일 때 레이아웃
-                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
-                $0.leading.trailing.equalToSuperview()
-                $0.bottom.equalTo(contentView)
-            }
-            
-            contentView.snp.makeConstraints {
-                $0.edges.equalTo(scrollView)
-                $0.width.equalTo(scrollView)
-            }
-            
-        }
+//        if evaluateReviewCount == 0 {
+//            print("---------강의평 개수 0~1개 루트추천 레이아웃 발동---------")
+//            rootRecommendReviewContainer.snp.makeConstraints {
+//                //                $0.top.equalToSuperview().offset(485)
+//                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
+//                $0.leading.trailing.equalToSuperview()
+//                $0.bottom.equalTo(contentView)
+//                $0.height.equalTo(400)
+//            }
+//            
+//            // 강의평 개수가 2개일 때
+//        } else {
+//            print("---------강의평 개수 2개 루트추천 레이아웃 발동---------")
+//            rootRecommendReviewContainer.snp.makeConstraints {
+//                //                $0.top.equalToSuperview().offset(650)// 내가 쓴 강의평 2개일 때 레이아웃
+//                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
+//                $0.leading.trailing.equalToSuperview()
+//                $0.bottom.equalTo(contentView)
+//            }
+//            
+//            contentView.snp.makeConstraints {
+//                $0.edges.equalTo(scrollView)
+//                $0.width.equalTo(scrollView)
+//            }
+//            
+//        }
         
         
         
         // Auto Layout 설정
-        emptyView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(rootRecommendReviewGuideTitle.snp.bottom).offset(15)
-            $0.width.equalTo(315)
-            $0.height.equalTo(180)
-        }
         
-        titleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-        }
     }
     
     
@@ -416,7 +489,7 @@ extension HomeViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
+        return 210
     }
     
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int {
@@ -433,10 +506,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
         if tableView == lectureReviewIWroteTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier:"evaluateCell",for:indexPath) as! EvaluateTableViewCell
-//            let adjustedIndex = (evaluatefilteredReviews?.count ?? 0) - indexPath.row - 1
-//            if let review = evaluatefilteredReviews?[adjustedIndex] {
-//                cell.configure(with: review)
-//            }
             let review = evaluateReviews[indexPath.row]
             cell.configure(with: review)
             
@@ -510,10 +579,11 @@ extension HomeViewController {
     }
     
     func getAllRootRecommend() {
-        RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
+        RootRecommendAPI.shared.getMyRootRecommend(token: token) { [self] result in
             switch result {
             case .success(let data):
-                if let data = data as? AllRootRecommendResponseDTO {
+                if let data = data as? MyRecommendsDTO {
+                    print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
                     // 서버에서 받은 데이터를 EvaluateDataModel로 매핑
                     let serverData = data.data
                     var mappedData: [RootRecommendDataModel] = []
@@ -523,7 +593,7 @@ extension HomeViewController {
                         var mappedPreLecturesItems: [PreLectures] = []
                         
                         for prelectureItem in serverItem.preLectures {
-                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureId,
+                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureID,
                                                             semester: prelectureItem.semester,
                                                             lecNames: prelectureItem.lecNames)
                             
@@ -533,27 +603,19 @@ extension HomeViewController {
                         let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
                                                                                    recommendation : serverItem.recommendation,
                                                                                    createAt :serverItem.createAt ,
-                                                                                   email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId )
+                                                                                   email : "" ,
+                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeID )
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
                     
                     // 매핑된 데이터를 배열에 저장
                     self.reviews = mappedData
-                    if self.reviews.isEmpty {
-                        // 리뷰가 없는 경우 rootRecommendReviewContainer와 관련된 UI 및 레이아웃 변경을 수행합니다.
-                        self.handleEmptyRootRecommendReviews()
-                        
-                        return
-                    }
                     self.filteredReviews = self.reviews
-                    
-                    
-                    
-                    
                     // 테이블 뷰 업데이트
                     self.lectureReviewIWroteTableView.reloadData()
+                    self.handleEmptyRootRecommendReviews(num: reviews.count)
+                    
                 } else {
                     print("Failed to decode the response.")
                 }
@@ -613,18 +675,22 @@ extension HomeViewController {
                     
                     // MARK: - 불러온 내가 쓴 강의평 개수에 따른 내가 쓴 루트추천 레이아웃 분기처리 위한 변수에 값 할당
                     
-                    if evaluateReviews.count <= 1 {
-                        evaluateReviewCount = 0
-                    } else {
-                        evaluateReviewCount = 2
-                    }
+                    
                     
                     if self.evaluateReviews.isEmpty {
                         self.handleEvaluateReviews()
                         return
                     }
+                    
+                    if evaluateReviews.count <= 1 {
+                        evaluateReviewCount = 1
+                    } else {
+                        evaluateReviewCount = 2
+                    }
+                    
                     self.evaluatefilteredReviews = self.evaluateReviews
                     self.lectureReviewIWroteTableView.reloadData()
+                    handleEvaluateYes(num: evaluateReviewCount)
                 } else {
                     print("Failed to decode the response.")
                 }
