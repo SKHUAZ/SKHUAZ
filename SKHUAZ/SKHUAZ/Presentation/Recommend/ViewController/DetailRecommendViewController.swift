@@ -15,7 +15,7 @@ class DetailRecommendViewController: UIViewController {
     
     private let recommendView = CreateRecommendView(frame: .zero, recommendType: .detailsRecommend)
     private let mainImage = UIImageView()
-//    private let recommendDetailView = DetailRecommendView()
+    //    private let recommendDetailView = DetailRecommendView()
     private let backButton = UIButton()
     private let saveButton = UIButton()
     private let importRecommendListView = UITableView()
@@ -132,7 +132,7 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     private func setLayout() {
         view.addSubviews(recommendView, editButton, deleteButton, modifyButton, importRecommendListView)
         
-//        scrollContainer.addSubview(importRecommendListView)
+        //        scrollContainer.addSubview(importRecommendListView)
         
         recommendView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -154,7 +154,7 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
             $0.width.equalTo(83)
             $0.height.equalTo(39)
         }
-//        
+        //
         deleteButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
@@ -278,24 +278,24 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
         let lecCount = review.lecNames.count
         
         switch lecCount {
-            case 1...2:
-                return 170
-            case 3:
-                return 210
-            case 4:
-                return 255
-            case 5:
-                return 300
-            case 6:
-                return 345
-            case 7:
-                return 390
-            default:
-                return 435
+        case 1...2:
+            return 170
+        case 3:
+            return 210
+        case 4:
+            return 255
+        case 5:
+            return 300
+        case 6:
+            return 345
+        case 7:
+            return 390
+        default:
+            return 435
         }
     }
-
-
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard !importReviewList.isEmpty else {
             return 0 // importReviewList가 비어있으면 0을 반환합니다.
@@ -317,43 +317,51 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
 }
 
 extension DetailRecommendViewController {
-
+    
     private func loadDetailRoot() {
         
         RootRecommendAPI.shared.getDetailRootRecommend(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", rootrecommendID: recommendID) { result in
-                 switch result {
-                 case .success(let detailrootDTO):
-                     if let detailrootDTO = detailrootDTO as? DetailRecommendDTO {
-//                         print(detailrootDTO.data)
-                         self.writerEmail = detailrootDTO.data.preLectures.first?.email ?? ""
-                         print("")
-                         self.importReviewList = [detailrootDTO]
-//                         self.importReviewList = detailrootDTO.data.preLectures
- // 또는 다른 방식으로 필요한 데이터를 가져옵니다.
-                         print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 importReviewList\(self.importReviewList)🌊🌊🌊🌊🌊🌊🌊🌊🌊")
-                             DispatchQueue.main.async {
-                                 self.importRecommendListView.reloadData()
-//                                 self.scrollContainer.addSubview(self.importRecommendListView)
-                                 self.recommendView.setDetailRecommendView(title: detailrootDTO.data.title, content: detailrootDTO.data.recommendation)
-                             }
-                         
-                     }
-                 case .requestErr(let message):
-                     print("Request error: \(message)")
-                     
-                 case .pathErr:
-                     print("Path error")
-                     
-                 case .serverErr:
-                     print("Server error")
-                     
-                 case .networkFail:
-                     print("Network failure")
-                     
-                 default:
-                     break
-                 }
+            switch result {
+            case .success(let detailrootDTO):
+                if let detailrootDTO = detailrootDTO as? DetailRecommendDTO {
+                    //                         print(detailrootDTO.data)
+                    self.writerEmail = detailrootDTO.data.preLectures.first?.email ?? ""
+                    print(self.writerEmail)
+                    print(self.writerEmail)
+
+                    print(self.writerEmail)
+
+                    print(self.writerEmail)
+
+                    print(self.writerEmail)
+
+                    
+                    self.importReviewList = [detailrootDTO]
+
+                    print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 importReviewList\(self.importReviewList)🌊🌊🌊🌊🌊🌊🌊🌊🌊")
+                    DispatchQueue.main.async {
+                        self.importRecommendListView.reloadData()
+                        //                                 self.scrollContainer.addSubview(self.importRecommendListView)
+                        self.recommendView.setDetailRecommendView(title: detailrootDTO.data.title, content: detailrootDTO.data.recommendation)
+                    }
+                    
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+                
+            case .pathErr:
+                print("Path error")
+                
+            case .serverErr:
+                print("Server error")
+                
+            case .networkFail:
+                print("Network failure")
+                
+            default:
+                break
             }
+        }
     }
     
     private func deleteRootRecommend(recommendID: Int) {
@@ -386,7 +394,7 @@ extension DetailRecommendViewController {
     
     private func putRootRecommend(putRootRecommendRequestBody: EditRootRecommendRequestBody) {
         self.deleteButtonUnEnabled()
-
+        
         RootRecommendAPI.shared.editRootRecommend(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", recommendId: recommendID, requestBody: putRootRecommendRequestBody) { result in
             switch result {
             case .success(let data):
@@ -394,7 +402,7 @@ extension DetailRecommendViewController {
                     self?.navigationController?.popViewController(animated: true)
                 }
                 self.deleteButtonUnEnabled()
-
+                
                 if let response = data as? EditRootRecommendDTO {
                     print("EditRoot successfully with message: \(response.message)")
                     print("====================================================================")
