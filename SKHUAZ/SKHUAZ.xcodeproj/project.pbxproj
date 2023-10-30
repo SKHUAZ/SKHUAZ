@@ -115,6 +115,8 @@
 		9E2D63922AC331AB00708673 /* CreateRootRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */; };
 		9E2D63952AC331E200708673 /* RootRecommendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D63942AC331E200708673 /* RootRecommendAPI.swift */; };
 		9E2D63992AC3322B00708673 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2D63982AC3322B00708673 /* HomeViewController.swift */; };
+		9E68A9D72AEEC47400D0E308 /* EditRootRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68A9D62AEEC47400D0E308 /* EditRootRecommendDTO.swift */; };
+		9E68A9D92AEEC4A300D0E308 /* EditRootRecommendRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E68A9D82AEEC4A300D0E308 /* EditRootRecommendRequestBody.swift */; };
 		9EC5E2DB2A9458070047E6E7 /* RecommendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */; };
 		9EC5E2DF2A99B5400047E6E7 /* RecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */; };
 		9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */; };
@@ -122,6 +124,8 @@
 		9EDDF7BC2AE9052200DF2926 /* DetailRootRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */; };
 		9EDDF7BE2AEB95A000DF2926 /* CreateRecommendRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7BD2AEB95A000DF2926 /* CreateRecommendRequestBody.swift */; };
 		9EDDF7C02AEBA96C00DF2926 /* DelRecommendDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7BF2AEBA96C00DF2926 /* DelRecommendDTO.swift */; };
+		9EDDF7C22AEE65AC00DF2926 /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7C12AEE65AC00DF2926 /* DetailTableViewCell.swift */; };
+		9EDDF7C42AEE79A900DF2926 /* MyRecommendsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDDF7C32AEE79A900DF2926 /* MyRecommendsDTO.swift */; };
 		E3546DDA2A8DF6EF00ACFF3C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */; };
 		E3546DE52A8E15CC00ACFF3C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE42A8E15CC00ACFF3C /* LoginView.swift */; };
 		E3546DE72A9EC86A00ACFF3C /* CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */; };
@@ -254,6 +258,8 @@
 		9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRootRecommendDTO.swift; sourceTree = "<group>"; };
 		9E2D63942AC331E200708673 /* RootRecommendAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRecommendAPI.swift; sourceTree = "<group>"; };
 		9E2D63982AC3322B00708673 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		9E68A9D62AEEC47400D0E308 /* EditRootRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRootRecommendDTO.swift; sourceTree = "<group>"; };
+		9E68A9D82AEEC4A300D0E308 /* EditRootRecommendRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRootRecommendRequestBody.swift; sourceTree = "<group>"; };
 		9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendTableViewCell.swift; sourceTree = "<group>"; };
 		9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendVC.swift; sourceTree = "<group>"; };
 		9EC5E2E02A99EBF40047E6E7 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -262,6 +268,8 @@
 		9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRootRecommendDTO.swift; sourceTree = "<group>"; };
 		9EDDF7BD2AEB95A000DF2926 /* CreateRecommendRequestBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecommendRequestBody.swift; sourceTree = "<group>"; };
 		9EDDF7BF2AEBA96C00DF2926 /* DelRecommendDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelRecommendDTO.swift; sourceTree = "<group>"; };
+		9EDDF7C12AEE65AC00DF2926 /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
+		9EDDF7C32AEE79A900DF2926 /* MyRecommendsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecommendsDTO.swift; sourceTree = "<group>"; };
 		E3546DD92A8DF6EF00ACFF3C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E3546DE42A8E15CC00ACFF3C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E3546DE62A9EC86A00ACFF3C /* CustomColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomColor.swift; sourceTree = "<group>"; };
@@ -814,9 +822,12 @@
 			children = (
 				9E2D638F2AC3319500708673 /* AllRootRecommendResponseDTO.swift */,
 				9E2D63912AC331AB00708673 /* CreateRootRecommendDTO.swift */,
-				9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */,
 				9EDDF7BD2AEB95A000DF2926 /* CreateRecommendRequestBody.swift */,
+				9EDDF7BB2AE9052200DF2926 /* DetailRootRecommendDTO.swift */,
 				9EDDF7BF2AEBA96C00DF2926 /* DelRecommendDTO.swift */,
+				9EDDF7C32AEE79A900DF2926 /* MyRecommendsDTO.swift */,
+				9E68A9D62AEEC47400D0E308 /* EditRootRecommendDTO.swift */,
+				9E68A9D82AEEC4A300D0E308 /* EditRootRecommendRequestBody.swift */,
 			);
 			path = RootRecommend;
 			sourceTree = "<group>";
@@ -871,6 +882,7 @@
 				9EC5E2DA2A9458070047E6E7 /* RecommendTableViewCell.swift */,
 				9ECFA9412AAA15AD0060D12F /* CreateRecommendView.swift */,
 				2544196D2ABD505B00207250 /* importRootTableViewCell.swift */,
+				9EDDF7C12AEE65AC00DF2926 /* DetailTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -881,8 +893,8 @@
 				9EC5E2DE2A99B5400047E6E7 /* RecommendVC.swift */,
 				9ECFA93F2AAA13C40060D12F /* CreateRecommendVC.swift */,
 				254419672ABD4FD500207250 /* DetailRecommendViewController.swift */,
-				254419692ABD501600207250 /* CreateRecommendBottomSheetViewController.swift */,
 				2544196B2ABD502A00207250 /* AlertViewOfRecommendController.swift */,
+				254419692ABD501600207250 /* CreateRecommendBottomSheetViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1089,6 +1101,7 @@
 				25FA1D7F2AA585F50044B38F /* UILabelPadding.swift in Sources */,
 				25E3EB522AC27AA300165B9D /* preLectureDTO.swift in Sources */,
 				25E3EB5A2AC27C5F00165B9D /* preLectureAPI.swift in Sources */,
+				9E68A9D92AEEC4A300D0E308 /* EditRootRecommendRequestBody.swift in Sources */,
 				251A74D82AC2CC7A0091C7B3 /* DelEvaluateDTO.swift in Sources */,
 				2544196E2ABD505B00207250 /* importRootTableViewCell.swift in Sources */,
 				25E3EB572AC27B7700165B9D /* preLectureRouter.swift in Sources */,
@@ -1110,6 +1123,7 @@
 				254763172AE96F29007D4438 /* UserCheckYnRequestBody.swift in Sources */,
 				25D46EE92AAEC5E6008FA088 /* CustomSlider.swift in Sources */,
 				25FA1D8D2AA820090044B38F /* CreateEvaluateViewController.swift in Sources */,
+				9EDDF7C42AEE79A900DF2926 /* MyRecommendsDTO.swift in Sources */,
 				25FA1D852AA61BEC0044B38F /* CircleGraph.swift in Sources */,
 				2539B9792A8CA63D00E939AA /* BaseViewController.swift in Sources */,
 				25D46EFC2AB07E8C008FA088 /* throwEssentialViewController.swift in Sources */,
@@ -1130,6 +1144,7 @@
 				25D46EEB2AAEE531008FA088 /* UIButton++.swift in Sources */,
 				25ACBA2C2AE8052500A34B29 /* HomeRouter.swift in Sources */,
 				25FA1D892AA80A290044B38F /* EvaluateTextFieldView.swift in Sources */,
+				9EDDF7C22AEE65AC00DF2926 /* DetailTableViewCell.swift in Sources */,
 				259435D12AB15E2F00B03EBF /* EssentialSideView.swift in Sources */,
 				258A71DA2AA89C1D001E8A5B /* UITextField++.swift in Sources */,
 				25E3EB3E2AC1893C00165B9D /* SemestersDTO.swift in Sources */,
@@ -1194,6 +1209,7 @@
 				2547631B2AE98459007D4438 /* UserPreLectureDTO.swift in Sources */,
 				25E3EB5E2AC28F7A00165B9D /* AllLectureDTO.swift in Sources */,
 				254419722ABD50BA00207250 /* CustomRootContainer.swift in Sources */,
+				9E68A9D72AEEC47400D0E308 /* EditRootRecommendDTO.swift in Sources */,
 				25ACBA352AE8103A00A34B29 /* AdminPreLectureRouter.swift in Sources */,
 				25E3EB372AC0B07200165B9D /* SaveEssentialContainerView.swift in Sources */,
 				9ECFA9402AAA13C40060D12F /* CreateRecommendVC.swift in Sources */,
