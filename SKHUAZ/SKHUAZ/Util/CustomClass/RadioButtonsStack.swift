@@ -52,26 +52,32 @@ class RadioButtonsStack: UIView {
         ])
     }
 
-    func set(_ options: [String]) {
-        radioViews.removeAll()
-        stackView.removeAllArrangedSubviews()
-        for (index, text) in options.enumerated() {
-            let radioView: RadioButtonView = {
-                let view = RadioButtonView()
-                view.radioButton.tag = index
-                view.radioButton.addTarget(self, action: #selector(radioSelected(_:)), for: .valueChanged)
-                view.set(text)
-                return view
-            }()
-            stackView.addArrangedSubview(radioView)
-            radioViews.append(radioView)
+    func set(_ options: [String], defaultSelection: String?) {
+            radioViews.removeAll()
+            stackView.removeAllArrangedSubviews()
+            for (index, text) in options.enumerated() {
+                let radioView: RadioButtonView = {
+                    let view = RadioButtonView()
+                    view.radioButton.tag = index
+                    view.radioButton.addTarget(self, action: #selector(radioSelected(_:)), for: .valueChanged)
+                    view.set(text)
+                    
+                    if let defaultSelection = defaultSelection, text == defaultSelection {
+                                    selectedIndex = index
+                                    view.select(true)
+                                }
+                    
+                    return view
+                }()
+                stackView.addArrangedSubview(radioView)
+                radioViews.append(radioView)
+            }
         }
-    }
 
     @objc private func radioSelected(_ sender: RadioButton?) {
         guard let sender else { return }
         selectedIndex = sender.tag
-        var desiredTag = sender.tag
+        let desiredTag = sender.tag
         if let radioButtonView = radioViews.first(where: { $0.radioButton.tag == desiredTag }) {
             let labelText = radioButtonView.label.text ?? ""
             print("Label Text: \(labelText)")

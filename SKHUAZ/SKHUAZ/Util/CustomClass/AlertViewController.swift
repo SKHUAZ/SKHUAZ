@@ -19,6 +19,7 @@ enum CustomAlertType {
     case save
     case logout
     case admin
+    case editAdmin
     case writer
     case unWriter
     case softwareCheck
@@ -298,6 +299,82 @@ extension AlertViewController {
                 $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
                 $0.layer.borderWidth = 1
                 $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("수정 완료", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
+            warringLabel.do {
+                $0.text = "모든 입력 항목을 입력해주세요"
+                $0.textColor = UIColor(hex: "#FF0000")
+                $0.font = .systemFont(ofSize: 10)
+                $0.isHidden = true
+            }
+            
+        case .editAdmin:
+            mainLabel.do {
+                $0.text = "선수과목 추가"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+            }
+            
+            cancelButton.do {
+                $0.setTitle("x 닫기", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
+            lectureNameTextField.do {
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.attributedPlaceholder = NSAttributedString(string: "강의명을 입력해주세요", attributes: attributes)
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            professorNameTextField.do {
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.attributedPlaceholder = NSAttributedString(string: "해당 강의의 학기를 입력해주세요", attributes: attributes)
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            semesterTextField.do {
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.attributedPlaceholder = NSAttributedString(string: "선수과목명을 입력해주세요", attributes: attributes)
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            essentialNameTextField.do {
+                $0.font = .systemFont(ofSize: 15)
+                $0.textColor = .black
+                $0.backgroundColor = UIColor(hex: "#EFEFEF")
+                $0.layer.cornerRadius = 6
+                $0.attributedPlaceholder = NSAttributedString(string: "선수과목의 학기를 입력해주세요", attributes: attributes)
+                let paddingView = UIView(frame:CGRect(x:0, y:0, width:13, height:$0.frame.height))
+                $0.leftViewMode = .always
+                $0.leftView = paddingView
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
                 $0.setTitle("확인", for: .normal)
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
@@ -496,7 +573,7 @@ extension AlertViewController {
                 $0.width.equalTo(87)
                 $0.height.equalTo(34)
             }
-        case .admin:
+        case .admin, .editAdmin:
             view.addSubviews(alertView, cancelButton)
             
             alertView.addSubviews(
@@ -575,7 +652,7 @@ extension AlertViewController {
             checkButton.addTarget(self, action: #selector(touchLogoutComplete), for: .touchUpInside)
         case .writer:
             cancelButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
-        case .admin:
+        case .admin, .editAdmin:
             checkButton.addTarget(self, action: #selector(touchSaveButton), for: .touchUpInside)
             cancelButton.addTarget(self, action: #selector(touchdeleteButton), for: .touchUpInside)
 

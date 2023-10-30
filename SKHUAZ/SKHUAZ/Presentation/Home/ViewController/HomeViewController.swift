@@ -554,9 +554,15 @@ extension HomeViewController {
                     print(serverData.nickname)
                     print(serverData.major1)
                     print(serverData.major2)
+                    print(serverData.graduate)
                     UserDefaults.standard.set(serverData.nickname, forKey: "Nickname")
                     UserDefaults.standard.set(serverData.major1, forKey: "Major1")
                     UserDefaults.standard.set(serverData.major2, forKey: "Major2")
+                    UserDefaults.standard.set(serverData.graduate, forKey: "Graduate") // 졸업유무
+                    UserDefaults.standard.set(serverData.semester, forKey: "Semester") // 학기
+                    UserDefaults.standard.set(serverData.department, forKey: "department") // 전공미선택
+                    UserDefaults.standard.set(serverData.majorMinor, forKey: "MajorMinor") // 주부전공
+                    UserDefaults.standard.set(serverData.doubleMajor, forKey: "DoubleMajor") // 복수전공
                     print("====================================")
                 }
             case .requestErr(let message):
@@ -583,11 +589,8 @@ extension HomeViewController {
             switch result {
             case .success(let data):
                 if let data = data as? MyRecommendsDTO {
-                    print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
-                    // 서버에서 받은 데이터를 EvaluateDataModel로 매핑
                     let serverData = data.data
                     var mappedData: [RootRecommendDataModel] = []
-                    
                     for serverItem in serverData {
                         
                         var mappedPreLecturesItems: [PreLectures] = []
@@ -663,9 +666,7 @@ extension HomeViewController {
                             createdAt: serverItem.createdAt, // createdAt 필드 추가
                             nickname: serverItem.nickname
                         )
-                        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
                         print(mappedItem)
-                        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
                         
                         mappedData.append(mappedItem)
                     }

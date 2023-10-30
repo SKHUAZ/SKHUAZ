@@ -152,9 +152,7 @@ extension DetailTableViewCell {
                     $0.height.equalTo(425)
             }
          }
-//        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\(preLecture.lecNames)🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
          for lectureName in preLecture.lecNames {
-//             print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥현재 렉쳐네임 \(lectureName)🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
              let lectureContainer = CustomRootContainer(lectureName: lectureName)
              lectureContainers.addArrangedSubview(lectureContainer)
             
@@ -177,7 +175,6 @@ extension DetailTableViewCell {
         lectureContainers.spacing = 10
         
         let lecCount = preLecture.lecNames.count
-        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\(preLecture.lecNames)🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
         
         recommendListContainer.snp.removeConstraints() // 기존 제약조건 삭제
 
@@ -203,15 +200,12 @@ extension DetailTableViewCell {
                     $0.height.equalTo(425)
             }
          }
-//        print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\(preLecture.lecNames)🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
          for lectureName in preLecture.lecNames {
-//             print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥현재 렉쳐네임 \(lectureName)🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
              let lectureContainer = CustomRootContainer(lectureName: lectureName)
              lectureContainers.addArrangedSubview(lectureContainer)
             
              lectureContainer.snp.makeConstraints { make in
                  make.height.equalTo(38)
-//                 make.width.equalTo(100)
              }
          }
 
