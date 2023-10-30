@@ -13,7 +13,7 @@ class DetailRecommendViewController: UIViewController {
     
     // MARK: - UI Components
     
-    private let recommendView = CreateRecommendView(frame: .zero, recommendType: .datailsRecommend)
+    private let recommendView = CreateRecommendView(frame: .zero, recommendType: .detailsRecommend)
     private let mainImage = UIImageView()
 //    private let recommendDetailView = DetailRecommendView()
     private let backButton = UIButton()
@@ -30,9 +30,9 @@ class DetailRecommendViewController: UIViewController {
     var recommendID: Int = 0
     var loginEmail = UserDefaults.standard.string(forKey: "LoginEmail")
     private var writerEmail: String = ""
+    var importReviewList: [DetailRecommendDTO] = []
+    private var putData = EditRootRecommendRequestBody()
     
-//    var importReviewList: [RecommendDataModel] = []
-    var importReviewList: [DetailPreLecture] = []
     
     // MARK: - View Life Cycle
     
@@ -58,11 +58,10 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
         view.backgroundColor = .white
         
         importRecommendListView.do {
-                $0.backgroundColor = UIColor(hex: "#FFFFFF")
-                $0.separatorStyle = .none
-                $0.register(importRootTableViewCell.self, forCellReuseIdentifier: "Cell")
-                $0.showsVerticalScrollIndicator = false
-                $0.isHidden = false // 이 부분을 추가하여 importRecommendListView를 활성화합니다.
+            $0.backgroundColor = UIColor(hex: "#FFFFFF")
+            $0.separatorStyle = .none
+            $0.register(DetailTableViewCell.self, forCellReuseIdentifier: "Cell")
+            $0.showsVerticalScrollIndicator = false
         }
         
         mainImage.do {
@@ -129,56 +128,25 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     // MARK: - Layout Helper
-//    private func setLayout() {
-//        scrollContainer.addSubviews(importRecommendListView)
-//         view.addSubviews(recommendView,scrollContainer)
-//         
-//         
-//         importRecommendListView.snp.makeConstraints {
-//             $0.leading.equalToSuperview().offset(150)
-//             $0.width.equalTo(600)
-//             $0.height.equalTo(370)
-//         }
-//
-//         recommendView.snp.makeConstraints {
-//             $0.top.equalTo(view.safeAreaLayoutGuide)
-//             $0.centerX.equalToSuperview()
-//             $0.height.equalTo(300)
-//             $0.width.equalTo(UIScreen.main.bounds.width)
-//         }
-//
-//         scrollContainer.snp.makeConstraints {
-//             $0.top.equalTo(recommendView.snp.bottom).offset(10)
-//             $0.bottom.equalToSuperview().offset(-10)
-//             $0.centerX.equalToSuperview()
-//             $0.width.equalTo(400)
-//             $0.height.equalTo(1000)
-//         }
-//    }
     
     private func setLayout() {
-        view.addSubviews(recommendView, editButton, deleteButton, modifyButton, scrollContainer)
-        scrollContainer.addSubview(importRecommendListView)
+        view.addSubviews(recommendView, editButton, deleteButton, modifyButton, importRecommendListView)
+        
+//        scrollContainer.addSubview(importRecommendListView)
         
         recommendView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(690)
+            $0.height.equalTo(310)
             $0.width.equalTo(UIScreen.main.bounds.width)
         }
         
         importRecommendListView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.width.equalTo(400)
-            $0.height.equalTo(370) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
+            $0.top.equalTo(recommendView.snp.bottom).offset(10)
+            $0.width.equalTo(350)
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(editButton.snp.top).offset(-15)
         }
-        
-        scrollContainer.snp.makeConstraints {
-             $0.top.equalToSuperview().offset(410)
-            $0.bottom.equalTo(editButton.snp.top).offset(-20)
-             $0.centerX.equalToSuperview()
-             $0.width.equalTo(400)
-         }
         
         editButton.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(20)
@@ -211,10 +179,9 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     // MARK: - Methods
     
     private func addTarget() {
-        editButton.addTarget(self, action: #selector(editEvaluate), for: .touchUpInside)
-        deleteButton.addTarget(self, action: #selector(deleteEvaluate), for: .touchUpInside)
-//        modifyButton.addTarget(self, action: #selector(modify), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(popToRecommendViewController), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editRootRecommend), for: .touchUpInside)
+        deleteButton.addTarget(self, action: #selector(delRootRecommend), for: .touchUpInside)
+        modifyButton.addTarget(self, action: #selector(modifyRootRecommend), for: .touchUpInside)
     }
     
     private func deleteButtonisEnabled() {
@@ -243,13 +210,19 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     // MARK: - @objc Methods
     
     @objc
-    private func deleteReview() {
-//        delEvaluate(evaluateId: evaluationId)
-//        dismiss(animated: false, completion: nil)
+    private func modifyRootRecommend() {
+        editRootRecommendDataBind()
+        putRootRecommend(putRootRecommendRequestBody: putData)
     }
     
     @objc
-    private func editEvaluate() {
+    private func deleteReview() {
+        deleteRootRecommend(recommendID: recommendID)
+        dismiss(animated: false, completion: nil)
+    }
+    
+    @objc
+    private func editRootRecommend() {
         
         if loginEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
             print("작성자가와 로그인 한 사람이 같습니다")
@@ -270,7 +243,7 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     @objc
-    private func deleteEvaluate() {
+    private func delRootRecommend() {
         if loginEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
             print("작성자와 로그인 한 사람이 같습니다.")
             let customAlertVC = AlertViewController(alertType: .writer)
@@ -299,23 +272,26 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard !importReviewList.isEmpty else { return 0 }
+        let dto = importReviewList[0]
         
-//        let dto = importReviewList[0] // 이 부분을 수정하세요.
-        let dto = importReviewList
-        
-        
-        // 아래의 i를 indexPath.row로 변경합니다.
-        let review = dto[indexPath.row]
-//        print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 review\(review)🌊🌊🌊🌊🌊🌊🌊🌊🌊")
+        let review = dto.data.preLectures[indexPath.row]
         let lecCount = review.lecNames.count
         
         switch lecCount {
             case 1...2:
                 return 170
             case 3:
-                return 220
+                return 210
+            case 4:
+                return 255
+            case 5:
+                return 300
+            case 6:
+                return 345
+            case 7:
+                return 390
             default:
-                return 265
+                return 435
         }
     }
 
@@ -324,52 +300,23 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
         guard !importReviewList.isEmpty else {
             return 0 // importReviewList가 비어있으면 0을 반환합니다.
         }
-        
-        let t = importReviewList
-        print("@@@@@@@@@@",t.count)
+        let dto = importReviewList[0]
+        let t = dto.data.preLectures
         
         return t.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! importRootTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! DetailTableViewCell
         guard !importReviewList.isEmpty else { return cell }
-        let dto = importReviewList // 이 부분을 수정하세요.
-        
-//        cell.importRootModelConfigure2(with: dto, at: indexPath)
-        cell.importRootModelConfigure2(with: dto[indexPath.row], at: indexPath, importReviewList: importReviewList)
-
+        let dto = importReviewList[0]// 이 부분을 수정하세요.
+        cell.importRootModelConfigure2(with: dto, at: indexPath)
         
         return cell
     }
 }
 
 extension DetailRecommendViewController {
-//    private func loadDetailRoot() {
-//        RootRecommendAPI.shared.getDetailRootRecommend(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", rootrecommendID: recommendID) { result in
-//            switch result {
-//            case .success(let detailrootDTO):
-//                if let detailrootDTO = detailrootDTO as? DetailRecommendDTO {
-//                    self.writerEmail = detailrootDTO.data.preLectures.first?.email ?? ""
-//                    self.importReviewList = detailrootDTO.data.preLectures
-//                    DispatchQueue.main.async {
-//                        self.importRecommendListView.reloadData()
-//                        self.recommendView.setDetailRecommendView(title: detailrootDTO.data.title, content: detailrootDTO.data.recommendation)
-//                    }
-//                }
-//            case .requestErr(let message):
-//                print("Request error: \(message)")
-//            case .pathErr:
-//                print("Path error")
-//            case .serverErr:
-//                print("Server error")
-//            case .networkFail:
-//                print("Network failure")
-//            default:
-//                break
-//            }
-//        }
-//    }
 
     private func loadDetailRoot() {
         
@@ -377,10 +324,11 @@ extension DetailRecommendViewController {
                  switch result {
                  case .success(let detailrootDTO):
                      if let detailrootDTO = detailrootDTO as? DetailRecommendDTO {
-                         print(detailrootDTO.data)
+//                         print(detailrootDTO.data)
                          self.writerEmail = detailrootDTO.data.preLectures.first?.email ?? ""
                          print("")
-                         self.importReviewList = detailrootDTO.data.preLectures
+                         self.importReviewList = [detailrootDTO]
+//                         self.importReviewList = detailrootDTO.data.preLectures
  // 또는 다른 방식으로 필요한 데이터를 가져옵니다.
                          print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 importReviewList\(self.importReviewList)🌊🌊🌊🌊🌊🌊🌊🌊🌊")
                              DispatchQueue.main.async {
@@ -406,5 +354,75 @@ extension DetailRecommendViewController {
                      break
                  }
             }
+    }
+    
+    private func deleteRootRecommend(recommendID: Int) {
+        RootRecommendAPI.shared.delRootRecommend(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", recommendId: recommendID) { result in
+            switch result {
+            case .success(let data):
+                if let response = data as? DelRecommendDTO {
+                    print("Deleted successfully with message: \(response.message)")
+                    DispatchQueue.main.async { [weak self] in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+                
+            case .pathErr:
+                print("Path error")
+                
+            case .serverErr:
+                print("Server error")
+                
+            case .networkFail:
+                print("Network failure")
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    private func putRootRecommend(putRootRecommendRequestBody: EditRootRecommendRequestBody) {
+        self.deleteButtonUnEnabled()
+
+        RootRecommendAPI.shared.editRootRecommend(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "", recommendId: recommendID, requestBody: putRootRecommendRequestBody) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async { [weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                }
+                self.deleteButtonUnEnabled()
+
+                if let response = data as? EditRootRecommendDTO {
+                    print("EditRoot successfully with message: \(response.message)")
+                    print("====================================================================")
+                    DispatchQueue.main.async { [weak self] in
+                        self?.navigationController?.popViewController(animated: true)
+                    }
+                    self.deleteButtonUnEnabled()
+                }
+            case .requestErr(let message):
+                print("Request error: \(message)")
+                
+            case .pathErr:
+                print("Path error")
+                
+            case .serverErr:
+                print("Server error")
+                
+            case .networkFail:
+                print("Network failure")
+                
+            default:
+                break
+            }
+        }
+    }
+    
+    private func editRootRecommendDataBind() {
+        self.putData.title = recommendView.titleTextFieldText ?? ""
+        self.putData.recommendation = recommendView.contentTextFieldText ?? "''"
     }
 }
