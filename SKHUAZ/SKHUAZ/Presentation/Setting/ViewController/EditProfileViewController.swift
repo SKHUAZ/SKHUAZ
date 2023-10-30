@@ -19,6 +19,7 @@ final class EditProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
     override func loadView() {
@@ -42,4 +43,12 @@ extension EditProfileViewController {
         }
     
     // MARK: - @objc Methods
+}
+
+
+extension EditProfileViewController: EditProfileViewDelegate {
+    func editProfileViewDidSave() {
+        navigationController?.popViewController(animated: true)
+        print("::::::")
+    }
 }

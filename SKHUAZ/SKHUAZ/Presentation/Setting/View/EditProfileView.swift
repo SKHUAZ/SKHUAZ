@@ -10,6 +10,10 @@ import UIKit
 import SnapKit
 import Then
 
+protocol EditProfileViewDelegate: class {
+    func editProfileViewDidSave()
+}
+
 class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
 
     func sendData(mydata: String, groupId: Int) {
@@ -86,6 +90,7 @@ class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
     private var semesterDropdownMenu: CustomDropdownMenuView?
     private var mainMajorDropdownMenu: CustomDropdownMenuView?
     private var subMajorDropdownMenu: CustomDropdownMenuView?
+    weak var delegate: EditProfileViewDelegate?
 
     private var graduate: Bool?
     private var department: Bool?
@@ -98,6 +103,7 @@ class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
 
     private let profileImage = UIImageView()
     private let nameTextField = UITextField()
+    private let nicknameLabel = UILabel()
     private let nicknameTextField = UITextField()
     private let nicknameCheckButton = UIButton()
     private let semesterLabel = UILabel()
@@ -194,19 +200,28 @@ extension EditProfileView {
             $0.layer.cornerRadius = 5
             $0.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 16.0, height: 0.0))
             $0.leftViewMode = .always
+            $0.isEnabled = false
+
         }
         
-        nicknameCheckButton.do {
-            $0.setTitle("중복확인", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 14)
-            $0.setTitleColor(.black, for: .normal)
-            $0.layer.cornerRadius = 6
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor.black.cgColor
-            $0.addTarget(self,
-                         action: #selector(nicknameCheckButtonTapped),
-                         for: .touchUpInside)
+        nicknameLabel.do {
+            $0.text = "닉네임"
+            $0.font = .systemFont(ofSize: 14)
+            $0.textColor = .black
+            $0.textAlignment = .center
         }
+        
+//        nicknameCheckButton.do {
+//            $0.setTitle("중복확인", for: .normal)
+//            $0.titleLabel?.font = .systemFont(ofSize: 14)
+//            $0.setTitleColor(.black, for: .normal)
+//            $0.layer.cornerRadius = 6
+//            $0.layer.borderWidth = 1
+//            $0.layer.borderColor = UIColor.black.cgColor
+//            $0.addTarget(self,
+//                         action: #selector(nicknameCheckButtonTapped),
+//                         for: .touchUpInside)
+//        }
         
         semesterLabel.do {
             $0.text = "학기입력 *"
@@ -283,7 +298,7 @@ extension EditProfileView {
     
     private func setLayout() {
         
-        addSubviews(profileImage, nameTextField, nicknameTextField, nicknameCheckButton, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, saveButton)
+        addSubviews(profileImage, nameTextField, nicknameLabel, nicknameTextField, nicknameCheckButton, semesterLabel, semesterButton, graduateLabel, graduateRadioButton, majorLabel, majorRadioButton, saveButton)
         
         profileImage.snp.makeConstraints {
             $0.top.equalToSuperview().offset(100)
@@ -292,17 +307,25 @@ extension EditProfileView {
             $0.centerX.equalToSuperview()
         }
         
-        nicknameTextField.snp.makeConstraints {
-            $0.top.equalTo(profileImage.snp.bottom).offset(50)
-            $0.leading.equalToSuperview().inset(28)
-            $0.height.equalTo(50)
+//        nicknameCheckButton.snp.makeConstraints {
+//            $0.top.equalTo(profileImage.snp.bottom).offset(50)
+//            $0.leading.equalTo(nicknameTextField.snp.trailing).offset(9)
+//            $0.trailing.equalToSuperview().inset(29)
+//            $0.width.equalTo(113)
+//            $0.height.equalTo(50)
+//        }
+        
+        nicknameLabel.snp.makeConstraints {
+            $0.centerY.equalTo(nicknameTextField)
+            $0.leading.equalToSuperview().offset(28)
+            $0.height.equalTo(17)
+            $0.width.equalTo(50)
         }
         
-        nicknameCheckButton.snp.makeConstraints {
+        nicknameTextField.snp.makeConstraints {
             $0.top.equalTo(profileImage.snp.bottom).offset(50)
-            $0.leading.equalTo(nicknameTextField.snp.trailing).offset(9)
+            $0.leading.equalTo(nicknameLabel.snp.trailing).offset(12)
             $0.trailing.equalToSuperview().inset(29)
-            $0.width.equalTo(113)
             $0.height.equalTo(50)
         }
         
@@ -528,6 +551,7 @@ extension EditProfileView {
             switch result {
             case .success:
                 print("Sign Up Success")
+                self.delegate?.editProfileViewDidSave()
             case .requestErr(let message):
                 // Handle request error here.
                 print("Request error: \(message)")
