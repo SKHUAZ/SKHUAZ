@@ -235,7 +235,7 @@ extension RecommendTableViewCell {
         recommendTitle.text = review.title
         recommendContent.text = review.recommendation
         let creationDate = review.createAt.split(separator: "T")
-        creationDateLabel.text = String(creationDate[0])
+        creationDateLabel.text = "[\(String(creationDate[0]))]"
         
         if review.preLectures.isEmpty {
             majorNameLabel.text = "No lectures available"
@@ -256,3 +256,4 @@ extension RecommendTableViewCell {
         }
     }
 }
+
