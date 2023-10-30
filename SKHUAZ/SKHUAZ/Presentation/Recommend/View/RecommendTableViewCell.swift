@@ -120,7 +120,7 @@ extension RecommendTableViewCell {
         }
         
         recommendContent.do {
-            $0.font = .systemFont(ofSize: 15)
+            $0.font = .systemFont(ofSize: 12)
             $0.textColor = .black
             $0.numberOfLines = 0
         }
@@ -176,7 +176,7 @@ extension RecommendTableViewCell {
         recommendContent.snp.makeConstraints {
             $0.top.equalToSuperview().offset(5)
             $0.leading.equalToSuperview().offset(8)
-            $0.width.equalTo(166)
+            $0.width.equalTo(160)
         }
         
         lectureContainer1.snp.makeConstraints {
@@ -235,7 +235,7 @@ extension RecommendTableViewCell {
         recommendTitle.text = review.title
         recommendContent.text = review.recommendation
         let creationDate = review.createAt.split(separator: "T")
-        creationDateLabel.text = String(creationDate[0])
+        creationDateLabel.text = "[\(String(creationDate[0]))]"
         
         if review.preLectures.isEmpty {
             majorNameLabel.text = "No lectures available"
