@@ -596,6 +596,7 @@ extension HomeViewController {
             switch result {
             case .success(let data):
                 if let data = data as? MyRecommendsDTO {
+                    print("getAllRootRecommend 입장")
                     let serverData = data.data
                     var mappedData: [RootRecommendDataModel] = []
                     for serverItem in serverData {

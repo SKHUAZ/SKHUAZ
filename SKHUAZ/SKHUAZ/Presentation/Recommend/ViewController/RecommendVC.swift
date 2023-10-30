@@ -320,7 +320,6 @@ extension RecommendViewController {
         RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
             switch result {
             case .success(let data):
-                print("getAllRootRecommend 입장")
                 if let data = data as? AllRootRecommendResponseDTO {
                     let serverData = data.data
                     var mappedData: [RootRecommendDataModel] = []
