@@ -66,11 +66,19 @@ extension RootRecommendAPI {
     
     public func editRootRecommend(token: String,
                                   recommendId: Int,
-                             requestBody: CreateRecommendRequestBody,
+                             requestBody: EditRootRecommendRequestBody,
                              completion: @escaping(NetworkResult<Any>) -> Void) {
         AFManager.request(RootRecommendRouter.editRootRecommend(token: token, evaluationId: recommendId, requestBody: requestBody)).responseData { response in
             self.disposeNetwork(response,
-                                dataModel: EditEvaluateDTO.self,
+                                dataModel: EditRootRecommendDTO.self,
+                                completion: completion)
+        }
+    }
+    
+    public func getMyRootRecommend(token: String, completion: @escaping(NetworkResult<Any>) -> Void) {
+        AFManager.request(RootRecommendRouter.getMyRootRecommend(token: token)).responseData { response in
+            self.disposeNetwork(response,
+                                dataModel: MyRecommendsDTO.self,
                                 completion: completion)
         }
     }
