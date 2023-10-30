@@ -60,6 +60,9 @@ extension SettingViewController {
             mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
         }
         logOut()
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            UserDefaults.standard.removeObject(forKey: key.description)
+        }
     }
     
     func signOutButtonTapped() {
