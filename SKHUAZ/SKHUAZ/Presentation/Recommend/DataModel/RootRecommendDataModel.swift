@@ -12,16 +12,18 @@ struct RootRecommendDataModel {
     var createAt: String
     var email: String
     var routeId: Int
+    var nickname: String
     var preLectures: [PreLectures]
 
     // 이니셜라이저 추가
-    init(title: String, recommendation: String, createAt: String, email: String, preLectures: [PreLectures], routeId: Int) {
+    init(title: String, recommendation: String, createAt: String, email: String, preLectures: [PreLectures], routeId: Int, nickname: String) {
         self.title = title
         self.recommendation = recommendation
         self.createAt = createAt
         self.email = email
         self.preLectures = preLectures
         self.routeId = routeId
+        self.nickname = nickname
     }
 }
 

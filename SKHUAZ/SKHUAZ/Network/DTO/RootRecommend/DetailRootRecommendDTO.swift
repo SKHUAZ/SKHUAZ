@@ -23,7 +23,7 @@ struct DetailRecommendDTO: Codable {
 
 // MARK: - DataClass
 struct DetailDataClass: Codable {
-    let title, recommendation: String
+    let title, recommendation, nickname: String
     let preLectures: [DetailPreLecture]
 }
 

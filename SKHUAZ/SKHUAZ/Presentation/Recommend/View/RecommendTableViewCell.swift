@@ -120,7 +120,7 @@ extension RecommendTableViewCell {
         }
         
         recommendContent.do {
-            $0.font = .systemFont(ofSize: 15)
+            $0.font = .systemFont(ofSize: 12)
             $0.textColor = .black
             $0.numberOfLines = 0
         }
@@ -176,7 +176,7 @@ extension RecommendTableViewCell {
         recommendContent.snp.makeConstraints {
             $0.top.equalToSuperview().offset(5)
             $0.leading.equalToSuperview().offset(8)
-            $0.width.equalTo(166)
+            $0.width.equalTo(160)
         }
         
         lectureContainer1.snp.makeConstraints {

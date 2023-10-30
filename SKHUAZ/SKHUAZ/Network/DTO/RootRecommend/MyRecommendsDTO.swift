@@ -19,11 +19,12 @@ struct MyRecommend: Codable {
     let routeID: Int
     let title, recommendation, createAt: String
     let email: String
+    let nickname: String
     let preLectures: [MyRecommendPreLecture]
 
     enum CodingKeys: String, CodingKey {
         case routeID = "routeId"
-        case title, recommendation, createAt, email, preLectures
+        case title, recommendation, createAt, email, preLectures, nickname
     }
 }
 
