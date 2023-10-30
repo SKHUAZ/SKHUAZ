@@ -68,7 +68,7 @@ extension EvaluateTableViewCell {
         }
         
         evaluateReview.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 12)
             $0.numberOfLines = 6
         }
         
@@ -77,17 +77,17 @@ extension EvaluateTableViewCell {
         }
         
         evaluateTitle.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 15)
             $0.textColor = UIColor(hex: "#FFFFFF")
         }
         
         lectureNameLabel.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 12)
             $0.textColor = .black
         }
         
         professorNameLabel.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 12)
             $0.textColor = .black
         }
         
@@ -113,7 +113,7 @@ extension EvaluateTableViewCell {
             $0.top.equalToSuperview().offset(16)
             $0.leading.equalToSuperview().offset(36)
             $0.width.equalTo(315)
-            $0.height.equalTo(147)
+            $0.height.equalTo(194)
         }
         
         evaluateReview.snp.makeConstraints {
@@ -139,25 +139,25 @@ extension EvaluateTableViewCell {
         topSpace.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(20)
+            $0.height.equalTo(26)
         }
         
         mainContainer.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(15)
             $0.top.equalTo(topSpace.snp.bottom).offset(10)
-            $0.width.equalTo(150)
-            $0.height.equalTo(30)
+            $0.width.equalTo(160)
+            $0.height.equalTo(35)
         }
         
         subContainer.snp.makeConstraints {
             $0.top.equalTo(mainContainer.snp.bottom).offset(7)
             $0.leading.equalToSuperview().offset(15)
-            $0.width.equalTo(150)
-            $0.height.equalTo(72)
+            $0.width.equalTo(160)
+            $0.height.equalTo(105)
         }
         
         evaluateGraph.snp.makeConstraints {
-            $0.top.equalTo(topSpace.snp.bottom).offset(10)
+            $0.top.equalTo(topSpace.snp.bottom).offset(30)
             $0.trailing.equalToSuperview().inset(19)
             $0.width.height.equalTo(104)
         }

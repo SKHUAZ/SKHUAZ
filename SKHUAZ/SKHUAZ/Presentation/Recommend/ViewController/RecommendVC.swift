@@ -48,6 +48,11 @@ final class RecommendViewController: UIViewController {
         getAllRootRecommend()
         self.hideKeyboardWhenTappedAround()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllRootRecommend()
+    }
 }
 
 //RecommendViewController 의 확장기능들
@@ -71,7 +76,7 @@ extension RecommendViewController {
         
         searchTextField.do {
             $0.placeholder = "제목 혹은 강의명을 입력해주세요"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 11)
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
             $0.borderStyle = .roundedRect
             $0.clearButtonMode = .whileEditing
@@ -114,9 +119,9 @@ extension RecommendViewController {
         }
         
         searchTextField.snp.makeConstraints {
-            $0.top.equalTo(recommendTitleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(recommendTitleLabel.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(30)
+            $0.height.equalTo(33)
             $0.width.equalTo(315)
         }
         
@@ -221,7 +226,7 @@ extension RecommendViewController {
 extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
+        return 196
     }
 
 
@@ -232,7 +237,7 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier:"Cell",for:indexPath) as! RecommendTableViewCell
             let adjustedIndex = (filteredReviews?.count ?? 0) - indexPath.row - 1
-            if let review = filteredReviews?[adjustedIndex] {
+        if let review = filteredReviews?[adjustedIndex] {
                 cell.configureUpdate(with: review, at: indexPath)
             }
             
@@ -261,17 +266,6 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
-    
-    
-
-
-//    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-//        print("You selected cell #\(reviews[indexPath.row].routeId)")
-//        let detailVC = DetailRecommendViewController()
-//        detailVC.recommendID = reviews[indexPath.row].routeId
-//        self.navigationController?.pushViewController(detailVC, animated: true)
-//    }
-    
     
     // MARK: - @objc Methods
     
@@ -348,6 +342,7 @@ extension RecommendViewController {
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
+                    mappedData.sort { $0.routeId < $1.routeId }
                     
                     // 매핑된 데이터를 배열에 저장
                     self.reviews = mappedData
