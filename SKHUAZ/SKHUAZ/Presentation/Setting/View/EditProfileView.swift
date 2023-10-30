@@ -349,7 +349,8 @@ extension EditProfileView {
     
     private func setUserData() {
         nicknameTextField.text = UserDefaults.standard.string(forKey: "Nickname")
-//        semesterButton.titleLabel?.text = UserDefaults.standard.string(forKey: "Semester")
+        semesterButton.setTitleWithLeftPadding(UserDefaults.standard.string(forKey: "Semester"), for: .normal, leftPadding: 13)
+        semesterButton.setTitleColor(UIColor(hex: "#000000"), for: .normal)
     }
     
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {

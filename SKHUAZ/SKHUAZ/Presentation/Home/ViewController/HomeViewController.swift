@@ -493,9 +493,6 @@ extension HomeViewController {
                     UserDefaults.standard.set(serverData.department, forKey: "department") // 학기
                     UserDefaults.standard.set(serverData.majorMinor, forKey: "MajorMinor") // 학기
                     UserDefaults.standard.set(serverData.doubleMajor, forKey: "DoubleMajor") // 학기
-                    
-
-
                     print("====================================")
                 }
             case .requestErr(let message):
