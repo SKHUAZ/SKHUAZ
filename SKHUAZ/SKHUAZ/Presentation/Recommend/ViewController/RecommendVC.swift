@@ -26,6 +26,7 @@ final class RecommendViewController: UIViewController {
     // Recommend for filter
     private var filteredReviews: [RootRecommendDataModel]!
     var reviews: [RootRecommendDataModel]!
+//    private var userNickName = UserDefaults.standard.string(forKey: "Nickname") ?? ""
     
     
     // MARK: - Properties
@@ -172,8 +173,9 @@ extension RecommendViewController {
     private func wroteMeButtonTapped() {
         isTouch.toggle()
         if isTouch {
+            print("--------------------------현재 usernickname : \(UserDefaults.standard.string(forKey: "Nickname") ?? "")-------------------------------")
             writeByMeButton.setImage(Image.WritingOn, for: .normal)
-            searchTextField.text = "박신영"
+            searchTextField.text = "\(UserDefaults.standard.string(forKey: "Nickname") ?? "")"
             searchTextChanged()
         } else {
             writeByMeButton.setImage(Image.WritingOff, for: .normal)
@@ -318,9 +320,11 @@ extension RecommendViewController {
         RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
             switch result {
             case .success(let data):
+                print("getAllRootRecommend 입장")
                 if let data = data as? AllRootRecommendResponseDTO {
                     let serverData = data.data
                     var mappedData: [RootRecommendDataModel] = []
+                    
                     
                     for serverItem in serverData {
                         
@@ -338,7 +342,7 @@ extension RecommendViewController {
                                                                                    recommendation : serverItem.recommendation,
                                                                                    createAt :serverItem.createAt ,
                                                                                     email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId)
+                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId, nickname: serverItem.nickname)
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
@@ -347,7 +351,10 @@ extension RecommendViewController {
                     // 매핑된 데이터를 배열에 저장
                     self.reviews = mappedData
                     self.filteredReviews = self.reviews
-                    
+                    print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊")
+                    print("현재 self.reviews : ", self.reviews)
+                    print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊")
+                                       
                     
                     
                     

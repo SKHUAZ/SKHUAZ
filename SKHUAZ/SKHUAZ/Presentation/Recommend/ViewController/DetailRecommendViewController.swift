@@ -24,12 +24,13 @@ class DetailRecommendViewController: UIViewController {
     private let modifyButton = UIButton()
     
     private let scrollContainer = UIScrollView()
+    private var loginUserEmail = UserDefaults.standard.string(forKey: "LoginEmail") ?? ""
+    private var writerUserEmail: String = ""
     
     // MARK: - Properties
     
     var recommendID: Int = 0
-    var loginEmail = UserDefaults.standard.string(forKey: "LoginEmail")
-    private var writerEmail: String = ""
+//    var loginEmail = UserDefaults.standard.string(forKey: "LoginEmail")
     var importReviewList: [DetailRecommendDTO] = []
     private var putData = EditRootRecommendRequestBody()
     
@@ -223,16 +224,16 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     
     @objc
     private func editRootRecommend() {
-        
-        if loginEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
-            print("작성자가와 로그인 한 사람이 같습니다")
+        if loginUserEmail == writerUserEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
+            print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊작성자가와 로그인 한 사람이 같습니다\n 현재 writerEmail : \(writerUserEmail) \n 현재 loginEmail : \(loginUserEmail) \n\n🌊🌊🌊🌊🌊🌊🌊🌊🌊")
             recommendView.setEditable(true)
             deleteButtonisEnabled()
             editButton.isHidden = true
             deleteButton.isHidden = true
             modifyButton.isHidden = false
         } else {
-            print("작성자와 로그인 한 사람이 다릅니다")
+            
+            print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n작성자와 로그인 한 사람이 다릅니다\n\n 현재 writerEmail : \(writerUserEmail) \n 현재 loginEmail : \(loginUserEmail) \n\n🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
             let customAlertVC = AlertViewController(alertType: .unWriter)
             customAlertVC.modalPresentationStyle = .overFullScreen
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -244,8 +245,8 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
     
     @objc
     private func delRootRecommend() {
-        if loginEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
-            print("작성자와 로그인 한 사람이 같습니다.")
+        if loginUserEmail == writerUserEmail || UserDefaults.standard.string(forKey: "Nickname") == "" {
+            print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊작성자가와 로그인 한 사람이 같습니다\n 현재 writerEmail : \(writerUserEmail) \n 현재 loginEmail : \(loginUserEmail) \n\n🌊🌊🌊🌊🌊🌊🌊🌊🌊")
             let customAlertVC = AlertViewController(alertType: .writer)
             customAlertVC.setCheckButtonAction(target: self, action: #selector(deleteReview))
             
@@ -255,7 +256,8 @@ extension DetailRecommendViewController: UITableViewDataSource, UITableViewDeleg
                 mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
             }
         } else {
-            print("작성자와 로그인 한 사람이 일치하지 않습니다")
+            print("🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥\n작성자와 로그인 한 사람이 다릅니다\n\n 현재 writerEmail : \(writerUserEmail) \n 현재 loginEmail : \(loginUserEmail) \n\n🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥")
+            
             let customAlertVC = AlertViewController(alertType: .unWriter)
             customAlertVC.modalPresentationStyle = .overFullScreen
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -325,23 +327,11 @@ extension DetailRecommendViewController {
             case .success(let detailrootDTO):
                 if let detailrootDTO = detailrootDTO as? DetailRecommendDTO {
                     //                         print(detailrootDTO.data)
-                    self.writerEmail = detailrootDTO.data.preLectures.first?.email ?? ""
-                    print(self.writerEmail)
-                    print(self.writerEmail)
-
-                    print(self.writerEmail)
-
-                    print(self.writerEmail)
-
-                    print(self.writerEmail)
-
-                    
+                    self.writerUserEmail = detailrootDTO.data.preLectures.first?.email ?? ""
                     self.importReviewList = [detailrootDTO]
 
-                    print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 importReviewList\(self.importReviewList)🌊🌊🌊🌊🌊🌊🌊🌊🌊")
                     DispatchQueue.main.async {
                         self.importRecommendListView.reloadData()
-                        //                                 self.scrollContainer.addSubview(self.importRecommendListView)
                         self.recommendView.setDetailRecommendView(title: detailrootDTO.data.title, content: detailrootDTO.data.recommendation)
                     }
                     
