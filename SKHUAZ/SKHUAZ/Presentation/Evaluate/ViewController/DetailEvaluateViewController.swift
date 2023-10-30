@@ -164,7 +164,7 @@ extension DetailEvaluateViewController {
     @objc
     private func editEvaluate() {
         
-        if loginUserEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
+        if loginUserEmail == writerEmail {
             print("작성자가와 로그인 한 사람이 같습니다")
             detailEvaluateView.setEditable(true)
             deleteButtonisEnabled()
@@ -184,7 +184,7 @@ extension DetailEvaluateViewController {
     
     @objc
     private func deleteEvaluate() {
-        if loginUserEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "admin" {
+        if loginUserEmail == writerEmail || UserDefaults.standard.string(forKey: "Nickname") == "" {
             print("작성자와 로그인 한 사람이 같습니다.")
             let customAlertVC = AlertViewController(alertType: .writer)
             customAlertVC.setCheckButtonAction(target: self, action: #selector(deleteReview))
