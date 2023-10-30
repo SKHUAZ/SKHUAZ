@@ -269,6 +269,7 @@ extension HomeViewController {
                 $0.leading.trailing.bottom.equalToSuperview()
                 $0.top.equalTo(lectureReviewGuideTitle.snp.bottom).offset(10)
             }
+            
         default:
             lectureReviewContainer.addSubviews(lectureReviewGuideTitle, lectureReviewIWroteTableView)
             contentView.addSubview(lectureReviewContainer)
@@ -324,6 +325,12 @@ extension HomeViewController {
         
         lectureReviewContainer.addSubviews(lectureReviewGuideTitle, emptyView)
         contentView.addSubview(lectureReviewContainer)
+        
+        contentView.snp.makeConstraints { make in
+            make.edges.equalTo(scrollView)
+            make.width.equalTo(scrollView)
+            make.height.equalTo(760)
+        }
         
         lectureReviewContainer.snp.makeConstraints {
             $0.top.equalTo(bringButton.snp.bottom).offset(15)
@@ -607,7 +614,7 @@ extension HomeViewController {
                                                                                    recommendation : serverItem.recommendation,
                                                                                    createAt :serverItem.createAt ,
                                                                                    email : "" ,
-                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeID )
+                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeID, nickname: serverItem.nickname)
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
