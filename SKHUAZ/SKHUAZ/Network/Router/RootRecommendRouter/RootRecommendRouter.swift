@@ -11,6 +11,9 @@ enum RootRecommendRouter {
     case getAllRootRecommend(token: String)
     case getDetailRootRecommend(token: String, rootrecommendID: Int)
     case postCreateRootRecommend(token: String, requestBody: CreateRecommendRequestBody)
+    case delRootRecommend(token: String, recommendId: Int)
+    case editRootRecommend(token: String, evaluationId: Int, requestBody: EditRootRecommendRequestBody)
+    case getMyRootRecommend(token: String)
 }
 
 extension RootRecommendRouter: BaseTargetType {
@@ -27,7 +30,17 @@ extension RootRecommendRouter: BaseTargetType {
             
         case .postCreateRootRecommend:
             return .post
+            
+        case .delRootRecommend:
+            return .delete
+            
+        case .editRootRecommend:
+            return .put
+            
+        case .getMyRootRecommend:
+            return .get
         }
+        
     }
 
     var path: String {
@@ -40,6 +53,15 @@ extension RootRecommendRouter: BaseTargetType {
             
         case .postCreateRootRecommend:
             return "/route/create"
+            
+        case .delRootRecommend(_,let recommendId):
+            return "/route/delete/\(recommendId)"
+            
+        case .editRootRecommend(_, let recommendId, _):
+            return "/route/edit/\(recommendId)"
+            
+        case .getMyRootRecommend:
+            return "/route/MyRoutes"
         }
     }
 
@@ -51,7 +73,16 @@ extension RootRecommendRouter: BaseTargetType {
         case .getDetailRootRecommend:
             return .none
             
-        case .postCreateRootRecommend:
+        case .postCreateRootRecommend(_, let requestBody):
+            return .body(requestBody)
+            
+        case .delRootRecommend:
+            return .none
+            
+        case .editRootRecommend(_, _, let requestBody):
+            return .body(requestBody)
+            
+        case .getMyRootRecommend:
             return .none
         }
     }
@@ -60,9 +91,20 @@ extension RootRecommendRouter: BaseTargetType {
         switch self{
         case .getAllRootRecommend(let token):
             return ["Authorization": "Bearer \(token)"]
+            
         case .getDetailRootRecommend(let token, _):
             return ["Authorization": "Bearer \(token)"]
+            
         case .postCreateRootRecommend(let token, _):
+            return ["Authorization": "Bearer \(token)"]
+            
+        case .delRootRecommend(let token, _):
+            return ["Authorization": "Bearer \(token)"]
+            
+        case .editRootRecommend(let token, _, _):
+            return ["Authorization": "Bearer \(token)"]
+            
+        case .getMyRootRecommend(let token):
             return ["Authorization": "Bearer \(token)"]
         }
     }
