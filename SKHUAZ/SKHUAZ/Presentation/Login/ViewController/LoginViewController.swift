@@ -110,6 +110,7 @@ extension LoginViewController {
                         // 서버에서 받은 데이터를 LogInDTo로 매핑
                         UserDefaults.standard.set(data.accessToken, forKey: "AuthToken")
                         UserDefaults.standard.set(self.rootView.emailTextFieldText ?? "", forKey: "LoginEmail")
+                        self.getUserInfo()
                     } else {
                         print("Failed to decode the response.")
                     }
@@ -138,6 +139,46 @@ extension LoginViewController {
             return logInDTO
         } catch {
             throw YourErrorType.parsingError(description: "Failed to parse LogIn response")
+        }
+    }
+    
+    func getUserInfo() {
+        HomeAPI.shared.getUserInfo(token: UserDefaults.standard.string(forKey: "AuthToken") ?? "") { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? HomeDTO {
+                    let serverData = data.data
+                    print("====================================")
+                    print(serverData.nickname)
+                    print(serverData.major1)
+                    print(serverData.major2)
+                    print(serverData.graduate)
+                    UserDefaults.standard.set(serverData.nickname, forKey: "Nickname")
+                    UserDefaults.standard.set(serverData.major1, forKey: "Major1")
+                    UserDefaults.standard.set(serverData.major2, forKey: "Major2")
+                    UserDefaults.standard.set(serverData.graduate, forKey: "Graduate") // 졸업유무
+                    UserDefaults.standard.set(serverData.semester, forKey: "Semester") // 학기
+                    UserDefaults.standard.set(serverData.department, forKey: "department") // 전공미선택
+                    UserDefaults.standard.set(serverData.majorMinor, forKey: "MajorMinor") // 주부전공
+                    UserDefaults.standard.set(serverData.doubleMajor, forKey: "DoubleMajor") // 복수전공
+                    print("====================================")
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
         }
     }
 }

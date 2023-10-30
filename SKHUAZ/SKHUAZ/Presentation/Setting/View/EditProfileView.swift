@@ -16,6 +16,12 @@ class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
         if groupId == 1{
             firstValue = mydata
             print("first value =\(firstValue!)")
+            if firstValue == "미졸업" {
+                graduate = false
+            }
+            else if firstValue == "졸업" {
+                graduate = true
+            }
         }
         else {
             secondValue = mydata
@@ -27,26 +33,53 @@ class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
             else if secondValue == "전공 미선택"{
                 mainMajorButton.removeFromSuperview()
                 subMajorButton.removeFromSuperview()
+                department = true
+                major_minor = false
+                double_major = false
             }
-            else {
+            else if secondValue == "주/부전공" {
                 addSubviews(mainMajorButton, subMajorButton)
                 
                 mainMajorButton.snp.makeConstraints {
-                    $0.top.equalTo(majorLabel.snp.bottom).offset(27)
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(37)
                     $0.leading.equalToSuperview().inset(28)
                     $0.width.equalTo(140)
                     $0.height.equalTo(50)
                 }
                 
                 subMajorButton.snp.makeConstraints {
-                    $0.top.equalTo(majorLabel.snp.bottom).offset(27)
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(37)
                     $0.trailing.equalToSuperview().inset(29)
                     $0.width.equalTo(140)
                     $0.height.equalTo(50)
                 }
+                department = false
+                major_minor = true
+                double_major = false
+            }
+            else if secondValue == "복수전공"{
+                addSubviews(mainMajorButton, subMajorButton)
+                
+                mainMajorButton.snp.makeConstraints {
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(37)
+                    $0.leading.equalToSuperview().inset(28)
+                    $0.width.equalTo(140)
+                    $0.height.equalTo(50)
+                }
+                
+                subMajorButton.snp.makeConstraints {
+                    $0.top.equalTo(majorLabel.snp.bottom).offset(37)
+                    $0.trailing.equalToSuperview().inset(29)
+                    $0.width.equalTo(140)
+                    $0.height.equalTo(50)
+                }
+                department = false
+                major_minor = false
+                double_major = true
             }
         }
     }
+
     
     // MARK: - Delegate Property
 
@@ -54,6 +87,10 @@ class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
     private var mainMajorDropdownMenu: CustomDropdownMenuView?
     private var subMajorDropdownMenu: CustomDropdownMenuView?
 
+    private var graduate: Bool?
+    private var department: Bool?
+    private var major_minor: Bool?
+    private var double_major: Bool?
     private var firstValue: String?
     private var secondValue: String?
     
@@ -106,6 +143,7 @@ class EditProfileView: UIView, SendStringData, DropdownMenuDelegate{
         addTarget()
         graduateRadioButton.delegate = self
         majorRadioButton.delegate = self
+        setUserData()
     }
 
     required init?(coder: NSCoder) {
@@ -194,7 +232,7 @@ extension EditProfileView {
         
         graduateRadioButton.do {
             let options = ["미졸업", "졸업"]
-            $0.set(options)
+            $0.set(options, defaultSelection: "미졸업")
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -207,7 +245,7 @@ extension EditProfileView {
         
         majorRadioButton.do {
             let options = ["전공 미선택", "주/부전공", "복수전공"]
-            $0.set(options)
+            $0.set(options, defaultSelection: "전공 미선택")
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -254,21 +292,14 @@ extension EditProfileView {
             $0.centerX.equalToSuperview()
         }
         
-        nameTextField.snp.makeConstraints {
-            $0.top.equalTo(profileImage.snp.bottom).offset(25)
-            $0.height.equalTo(50)
-            $0.leading.equalToSuperview().inset(28)
-            $0.trailing.equalToSuperview().inset(29)
-        }
-        
         nicknameTextField.snp.makeConstraints {
-            $0.top.equalTo(nameTextField.snp.bottom).offset(13)
+            $0.top.equalTo(profileImage.snp.bottom).offset(50)
             $0.leading.equalToSuperview().inset(28)
             $0.height.equalTo(50)
         }
         
         nicknameCheckButton.snp.makeConstraints {
-            $0.top.equalTo(nameTextField.snp.bottom).offset(13)
+            $0.top.equalTo(profileImage.snp.bottom).offset(50)
             $0.leading.equalTo(nicknameTextField.snp.trailing).offset(9)
             $0.trailing.equalToSuperview().inset(29)
             $0.width.equalTo(113)
@@ -353,6 +384,47 @@ extension EditProfileView {
         saveButton.addTarget(self, action: #selector(pushSecondViewController), for: .touchUpInside)
     }
     
+    private func setUserData() {
+        nicknameTextField.text = UserDefaults.standard.string(forKey: "Nickname")
+        semesterButton.setTitleWithLeftPadding(UserDefaults.standard.string(forKey: "Semester"), for: .normal, leftPadding: 13)
+        semesterButton.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+        setGraduateRadioButton()
+        setMajorRadioButton()
+    }
+    
+    private func setGraduateRadioButton() {
+        let options = ["미졸업", "졸업"]
+        if UserDefaults.standard.bool(forKey: "Graduate") {
+            graduateRadioButton.set(options, defaultSelection: "졸업")
+        } else {
+            graduateRadioButton.set(options, defaultSelection: "미졸업")
+        }
+    }
+    
+    private func setMajorRadioButton() {
+        let options = ["전공 미선택", "주/부전공", "복수전공"]
+        if UserDefaults.standard.bool(forKey: "department") {
+            majorRadioButton.set(options, defaultSelection: "전공 미선택")
+            sendData(mydata: "전공 미선택", groupId: 2)
+        } else if UserDefaults.standard.bool(forKey: "MajorMinor") {
+            majorRadioButton.set(options, defaultSelection: "주/부전공")
+            sendData(mydata: "복수전공", groupId: 2)
+            mainMajorButton.setTitleWithLeftPadding(UserDefaults.standard.string(forKey: "Major1"), for: .normal, leftPadding: 13)
+            mainMajorButton.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+            subMajorButton.setTitleWithLeftPadding(UserDefaults.standard.string(forKey: "Major2"), for: .normal, leftPadding: 13)
+            subMajorButton.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+        } else if UserDefaults.standard.bool(forKey: "DoubleMajor") {
+            majorRadioButton.set(options, defaultSelection: "복수전공")
+            sendData(mydata: "복수전공", groupId: 2)
+            mainMajorButton.setTitleWithLeftPadding(UserDefaults.standard.string(forKey: "Major1"), for: .normal, leftPadding: 13)
+            mainMajorButton.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+            subMajorButton.setTitleWithLeftPadding(UserDefaults.standard.string(forKey: "Major2"), for: .normal, leftPadding: 13)
+            subMajorButton.setTitleColor(UIColor(hex: "#000000"), for: .normal)
+        }
+        
+        
+    }
+    
     func dropdownMenuDidSelectOption(_ option: String, for button: UIButton) {
         print("Selected Option for button is:", option)
     }
@@ -426,6 +498,7 @@ extension EditProfileView {
         semesterDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
         mainMajorDropdownMenu?.removeFromSuperview() // 다른 드롭다운 메뉴가 열려있으면 닫음
     }
+    
     func nicknameCheck() {
         UserAPI.shared.nicknameCheck(nickname: nicknameTextField.text ?? "") { result in
             switch result {
@@ -448,8 +521,9 @@ extension EditProfileView {
             }
         }
     }
+    
     func EditProfile() {
-        UserAPI.shared.editProfile(request: EditProfileRequest.init(nickname: nicknameTextField.text ?? "", semester: semesterButtonTitle ?? "", graduate: false, major1: mainMajorButtonTitle ?? "", major2: subMajorButtonTitle ?? "", department: false, majorMinor: true, doubleMajor: false), token: token)
+        UserAPI.shared.editProfile(request: EditProfileRequest.init(nickname: nicknameTextField.text ?? "", semester: semesterButtonTitle ?? "", graduate: graduate ?? false, major1: mainMajorButtonTitle ?? "", major2: subMajorButtonTitle ?? "", department: department ?? false, majorMinor: major_minor ?? false, doubleMajor: double_major ?? false), token: token)
         { result in
             switch result {
             case .success:

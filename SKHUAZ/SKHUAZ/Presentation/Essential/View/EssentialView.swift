@@ -86,7 +86,7 @@ extension EssentialView {
             }
             
             titleLabel.do {
-                $0.text = "선수과목제도 확인"
+                $0.text = "학기별 선수과목제도"
                 $0.textColor = UIColor(hex: "#000000")
                 $0.font = .systemFont(ofSize: 20)
             }
