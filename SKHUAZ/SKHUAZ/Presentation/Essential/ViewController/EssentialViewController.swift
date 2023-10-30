@@ -165,8 +165,6 @@ extension EssentialViewController {
                 $0.register(EssentialTableViewCell.self, forCellReuseIdentifier: "Cell")
                 $0.separatorStyle = .none
                 $0.showsVerticalScrollIndicator = false
-                $0.allowsSelection = false
-                
             }
             
             saveButton.do {
@@ -402,9 +400,9 @@ extension EssentialViewController {
         }
         if isSave {
             let bottomSheetVC = EssentialBottomSheetViewController()
-            bottomSheetVC.delegates = self // 델리게이트 설정
+            bottomSheetVC.delegates = self
             self.present(bottomSheetVC, animated: true)
-            bottomSheetVC.dataToSave = data // 데이터를 전달
+            bottomSheetVC.dataToSave = data
         } else {
             showToast(message: "4학년 2학기까지 선택해주세요")
         }
@@ -412,10 +410,21 @@ extension EssentialViewController {
 }
 
 
-extension EssentialViewController : AlertViewDelegate{
+extension EssentialViewController : AlertViewDelegate {
     
     @objc func presentAlertView() {
-        let customAlertVC = AlertViewController(alertType:.admin)
+        let customAlertVC = AlertViewController(alertType: .admin)
+        customAlertVC.modalPresentationStyle = .overFullScreen
+        customAlertVC.delegate = self
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let keyWindow = windowScene.windows.first,
+           let rootViewController = keyWindow.rootViewController {
+            rootViewController.present(customAlertVC, animated: false, completion: nil)
+        }
+    }
+    
+    @objc func presentEidtAlertView() {
+        let customAlertVC = AlertViewController(alertType: .editAdmin)
         customAlertVC.modalPresentationStyle = .overFullScreen
         customAlertVC.delegate = self
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
@@ -477,28 +486,37 @@ extension EssentialViewController: UITableViewDataSource, UITableViewDelegate, E
         selectedCellIndexPath = indexPath
         shouldChangeBackgroundColor = true
         if (UserDefaults.standard.string(forKey: "LoginEmail") == "admin"){
+            presentEidtAlertView()
+
             let cellID = data[indexPath.row]
             print("Selected Cell ID:", cellID)
+        } else {
+            let cellID = userData[indexPath.row]
+            print("Selected Cell SubjectID:", cellID.subjectID)
+            getUserCheckLec(path: cellID.subjectID)
+            if !selectedSubjectIDs.contains(cellID.subjectID) {
+                selectedSubjectIDs.append(cellID.subjectID)
+            }
         }
-        let cellID = userData[indexPath.row]
-        print("Selected Cell SubjectID:", cellID.subjectID)
-        getUserCheckLec(path: cellID.subjectID)
         
-        if !selectedSubjectIDs.contains(cellID.subjectID) {
-            selectedSubjectIDs.append(cellID.subjectID)
-        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? EssentialTableViewCell {
-            var cellID = userData[indexPath.row]
-            cellID.clickYn = false
-            print(cellID)
-            cell.isSelected = false
-            cell.updateUI(isSelected: false)
             
-            if let index = selectedSubjectIDs.firstIndex(of: cellID.subjectID) {
-                selectedSubjectIDs.remove(at: index)
+            if (UserDefaults.standard.string(forKey: "LoginEmail") == "admin"){
+                print("얄랄루")
+            } else {
+                
+                var cellID = userData[indexPath.row]
+                cellID.clickYn = false
+                print(cellID)
+                cell.isSelected = false
+                cell.updateUI(isSelected: false)
+                
+                if let index = selectedSubjectIDs.firstIndex(of: cellID.subjectID) {
+                    selectedSubjectIDs.remove(at: index)
+                }
             }
         }
     }
