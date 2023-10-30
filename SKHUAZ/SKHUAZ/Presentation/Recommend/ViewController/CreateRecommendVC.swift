@@ -23,6 +23,8 @@ final class CreateRecommendViewController: UIViewController {
     
     private let bringRootRecommend = UIImageView()
     private let scrollContainer = UIScrollView()
+    var getpreLectureId = [Int]()
+    var createData = CreateRecommendRequestBody()
     
     
     var pushBringButtonFlag: Bool = false
@@ -114,7 +116,7 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     // MARK: - Layout Helper
     
     private func setLayout() {
-        view.addSubviews(logoImage, recommendView, backButton, saveButton, bringButton, scrollContainer, scrollContainer)
+        view.addSubviews(logoImage, recommendView, backButton, saveButton, bringButton, scrollContainer)
         scrollContainer.addSubview(importRecommendListView)
         
         
@@ -153,14 +155,14 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
         }
         
         importRecommendListView.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(300)
+            $0.top.equalTo(logoImage.snp.bottom).offset(330)
+            $0.width.equalTo(350)
             $0.centerX.equalToSuperview()
-            $0.width.equalTo(400)
-            $0.height.equalTo(370) // 예: 화면 크기에서 일정 값을 차감한 값으로 설정
+            $0.bottom.equalTo(saveButton.snp.top).offset(-15)
         }
         
         scrollContainer.snp.makeConstraints {
-             $0.top.equalTo(logoImage.snp.bottom).offset(300)
+             $0.top.equalTo(logoImage.snp.bottom).offset(310)
             $0.bottom.equalTo(saveButton.snp.top).offset(-10)
              $0.centerX.equalToSuperview()
              $0.width.equalTo(400)
@@ -189,6 +191,8 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
         importRecommendListView.dataSource = self
     }
     
+    
+    
     func getPreLecture() {
         preLectureAPI.shared.getPreLecture(token: token) { [self] result in
             switch result {
@@ -198,8 +202,12 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
                     if pushBringButtonFlag == true {
                         bringButton.removeFromSuperview()
                         scrollContainer.isHidden = false
-                        
+                        for i in data.data {
+                            getpreLectureId.append(i.preLectureID)
+                            print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 getpreLectureId : \(getpreLectureId)🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊")
+                        }
                         self.importReviewList = [data] // API 응답을 저장합니다.
+                        print("🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊🌊현재 importReviewList\(self.importReviewList)🌊🌊🌊🌊🌊🌊🌊🌊🌊")
                         importRecommendListView.reloadData()
                         
                         scrollContainer.addSubview(importRecommendListView)
@@ -223,47 +231,6 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
             }
         }
     }
-
-//    func getPreLecture() {
-//        preLectureAPI.shared.getPreLecture(token: token) { [self] result in
-//            switch result {
-//            case .success(let data):
-//                if data is PreLectureDTO {
-//                    pushBringButtonFlag.toggle()
-//                    if pushBringButtonFlag == true {
-//                        
-//                        bringButton.removeFromSuperview()
-//                        scrollContainer.isHidden = false
-//                        importRecommendListView.reloadData()
-//                        
-//                        
-//                        scrollContainer.addSubview(importRecommendListView)
-//                        
-//                    } else {
-//                        bringButton.setTitle("선수과목제도 불러오기", for: .normal)
-////                        importRecommendListView.isHidden = true
-//                        scrollContainer.isHidden = true
-//                    }
-//                    print(pushBringButtonFlag)
-//                }
-//            case .requestErr(let message):
-//                // Handle request error here.
-//                print("Request error: \(message)")
-//            case .pathErr:
-//                // Handle path error here.
-//                print("Path error")
-//            case .serverErr:
-//                // Handle server error here.
-//                print("Server error")
-//            case .networkFail:
-//                // Handle network failure here.
-//                print("Network failure")
-//            default:
-//                break
-//            }
-//            
-//        }
-//    }
     
     // MARK: - @objc Methods
     
@@ -290,10 +257,16 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
             customAlertVC.modalPresentationStyle = .overFullScreen
             UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
         } else {
+            self.createData.title = recommendView.titleTextFieldText ?? ""
+            self.createData.recommendation = recommendView.contentTextFieldText ?? ""
+            self.createData.preLectureList = getpreLectureId
+            print(self.createData)
+            
             print("titleTextField : \(String(describing: recommendView.titleTextFieldText))")
             print("contentTextField : \(recommendView.contentTextFieldText ?? "")")
             
             let bottomSheetVC = CreateRecommendBottomSheetViewController()
+            bottomSheetVC.dataBind(data: self.createData)
             bottomSheetVC.delegate = self
             present(bottomSheetVC, animated: true, completion: nil)
         }
@@ -319,9 +292,17 @@ extension CreateRecommendViewController: UITableViewDataSource, UITableViewDeleg
             case 1...2:
                 return 170
             case 3:
-                return 220
+                return 210
+            case 4:
+                return 255
+            case 5:
+                return 300
+            case 6:
+                return 345
+            case 7:
+                return 390
             default:
-                return 265
+                return 435
         }
     }
 

@@ -17,6 +17,7 @@ class EvaluateViewController: UIViewController {
     private let mainLogo = UIImageView()
     private let titleLabel = UILabel()
     private let searchTextField = UITextField()
+    private let colorNotifyView = ColorNotifyView()
     private lazy var tableView = UITableView(frame:.zero, style:.plain)
     private let createButton = UIButton()
     private let wroteMeButton = UIButton()
@@ -32,7 +33,6 @@ class EvaluateViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getAllEvaluate()
-        setupData()
         setUI()
         setLayout()
         setRegister()
@@ -67,7 +67,7 @@ extension EvaluateViewController {
         
         searchTextField.do {
             $0.placeholder = "검색어를 입력해주세요"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 11)
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
             $0.borderStyle = .roundedRect
             $0.clearButtonMode = .whileEditing
@@ -92,11 +92,11 @@ extension EvaluateViewController {
 
     private func setLayout() {
         
-        view.addSubviews(mainLogo, titleLabel, searchTextField,
+        view.addSubviews(mainLogo, titleLabel, searchTextField, colorNotifyView,
                          tableView, wroteMeButton, createButton)
         
         mainLogo.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(47)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(43)
             $0.width.equalTo(168)
@@ -108,13 +108,20 @@ extension EvaluateViewController {
         }
         
         searchTextField.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(39)
-            $0.height.equalTo(30)
+            $0.height.equalTo(33)
+        }
+        
+        colorNotifyView.snp.makeConstraints {
+            $0.top.equalTo(searchTextField.snp.bottom).offset(16)
+            $0.leading.equalTo(searchTextField.snp.leading)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(20)
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(searchTextField.snp.bottom).offset(16)
+            $0.top.equalTo(colorNotifyView.snp.bottom).offset(10)
             $0.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
@@ -132,10 +139,6 @@ extension EvaluateViewController {
     }
     
     // MARK: - Methods
-
-    private func setupData() {
-//        reviews = evaluateDataModels
-    }
     
     private func setRegister() {
         tableView.register(EvaluateTableViewCell.self,
@@ -182,7 +185,6 @@ extension EvaluateViewController {
     private func movewroteMeButton() {
         isMove.toggle()
         if isMove {
-            print("지금은 이동 못 해")
             self.wroteMeButtonBottomConstraint?.update(inset: 168)
             createButton.setImage(Image.edit, for: .normal)
             UIView.animate(withDuration: 0.3) { [weak self] in
@@ -190,7 +192,6 @@ extension EvaluateViewController {
             }
         }
         else if !isMove {
-            print("지금은 이동해")
             let vc = CreateEvaluateViewController()
             self.navigationController?.pushViewController(vc, animated: true)
             createButton.setImage(Image.createbutton, for: .normal)
@@ -199,7 +200,6 @@ extension EvaluateViewController {
                 self?.view.layoutIfNeeded()
             }
         }
-        print(isMove)
     }
     
     @objc
@@ -242,7 +242,7 @@ extension EvaluateViewController: UITextFieldDelegate{
 extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
+        return 210
     }
     
     func tableView(_ tableView:UITableView, numberOfRowsInSection section:Int) -> Int {
@@ -250,19 +250,33 @@ extension EvaluateViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 
-    func tableView(_ tableView:UITableView, cellForRowAt indexPath:IndexPath) -> UITableViewCell {
-       let cell = tableView.dequeueReusableCell(withIdentifier:"evaluateCell",for:indexPath) as! EvaluateTableViewCell
-       let review = filteredReviews[indexPath.row]
-       cell.configure(with:review)
-
-       return cell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "evaluateCell", for: indexPath) as! EvaluateTableViewCell
+        let review: EvaluateDataModel
+        
+        if indexPath.row < filteredReviews.count {
+            review = filteredReviews[indexPath.row]
+        } else {
+            review = reviews[indexPath.row]
+        }
+        
+        cell.configure(with: review)
+        return cell
     }
     
-    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-        print("You selected cell #\(reviews[indexPath.row].evaluationId)")
-        let detailVC = DetailEvaluateViewController()
-        detailVC.evaluationId = reviews[indexPath.row].evaluationId
-        self.navigationController?.pushViewController(detailVC, animated: true)
+    func tableView(_ tableview:UITableView, didSelectRowAt indexPath:IndexPath) {
+        
+        if indexPath.row < filteredReviews.count {
+            print(filteredReviews[indexPath.row].nickname)
+            let detailVC = DetailEvaluateViewController()
+            detailVC.evaluationId = filteredReviews[indexPath.row].evaluationId
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        } else {
+            print("Invalid index")
+            let detailVC = DetailEvaluateViewController()
+            detailVC.evaluationId = reviews[indexPath.row].evaluationId
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
     }
 }
 

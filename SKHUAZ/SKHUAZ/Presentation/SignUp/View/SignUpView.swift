@@ -376,7 +376,7 @@ extension SignUpView {
         
         graduateRadioButton.do {
             let options = ["미졸업", "졸업"]
-            $0.set(options)
+            $0.set(options, defaultSelection: "미졸업")
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -389,7 +389,7 @@ extension SignUpView {
         
         majorRadioButton.do {
             let options = ["전공 미선택", "주/부전공", "복수전공"]
-            $0.set(options)
+            $0.set(options, defaultSelection: "전공 미선택")
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
         

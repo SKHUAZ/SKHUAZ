@@ -39,7 +39,6 @@ final class RecommendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
         setUI()
         setLayout()
         setupData()
@@ -48,6 +47,11 @@ final class RecommendViewController: UIViewController {
         setupKeyboardEvent()
         getAllRootRecommend()
         self.hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getAllRootRecommend()
     }
 }
 
@@ -72,7 +76,7 @@ extension RecommendViewController {
         
         searchTextField.do {
             $0.placeholder = "제목 혹은 강의명을 입력해주세요"
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 11)
             $0.backgroundColor = UIColor(red: 0.937, green: 0.937, blue: 0.937, alpha: 1)
             $0.borderStyle = .roundedRect
             $0.clearButtonMode = .whileEditing
@@ -115,9 +119,9 @@ extension RecommendViewController {
         }
         
         searchTextField.snp.makeConstraints {
-            $0.top.equalTo(recommendTitleLabel.snp.bottom).offset(4)
+            $0.top.equalTo(recommendTitleLabel.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
-            $0.height.equalTo(30)
+            $0.height.equalTo(33)
             $0.width.equalTo(315)
         }
         
@@ -161,66 +165,7 @@ extension RecommendViewController {
         searchTextField.delegate = self
     }
     
-    func getAllRootRecommend() {
-        RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
-            switch result {
-            case .success(let data):
-                if let data = data as? AllRootRecommendResponseDTO {
-                    // 서버에서 받은 데이터를 EvaluateDataModel로 매핑
-                    let serverData = data.data
-                    var mappedData: [RootRecommendDataModel] = []
-                    
-                    for serverItem in serverData {
-                        
-                        var mappedPreLecturesItems: [PreLectures] = []
-                        
-                        for prelectureItem in serverItem.preLectures {
-                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureId,
-                                                            semester: prelectureItem.semester,
-                                                            lecNames: prelectureItem.lecNames)
-                            
-                            mappedPreLecturesItems.append(newMappedItem)
-                        }
-                        
-                        let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
-                                                                                   recommendation : serverItem.recommendation,
-                                                                                   createAt :serverItem.createAt ,
-                                                                                    email :serverItem.email ,
-                                                                                   preLectures:mappedPreLecturesItems, id: serverItem.id)
-                        
-                        mappedData.append(mappedRootRecommendDataModel)
-                    }
-                    
-                    // 매핑된 데이터를 배열에 저장
-                    self.reviews = mappedData
-                    self.filteredReviews = self.reviews
-                    
-                    
-                    
-                    
-                    // 테이블 뷰 업데이트
-                    self.recommendListView.reloadData()
-                } else {
-                    print("Failed to decode the response.")
-                }
-            case .requestErr(let message):
-                // Handle request error here.
-                print("Request error: \(message)")
-            case .pathErr:
-                // Handle path error here.
-                print("Path error")
-            case .serverErr:
-                // Handle server error here.
-                print("Server error")
-            case .networkFail:
-                // Handle network failure here.
-                print("Network failure")
-            default:
-                break
-            }
-            
-        }
-    }
+
     
     //내가 쓴 글 눌렀을 때 검색창에 본 계정주의 닉네임을 검색하여 내 글이 나오도록 함.
     @objc
@@ -281,7 +226,7 @@ extension RecommendViewController {
 extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 170
+        return 196
     }
 
 
@@ -292,11 +237,23 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier:"Cell",for:indexPath) as! RecommendTableViewCell
             let adjustedIndex = (filteredReviews?.count ?? 0) - indexPath.row - 1
-            if let review = filteredReviews?[adjustedIndex] {
+        if let review = filteredReviews?[adjustedIndex] {
                 cell.configureUpdate(with: review, at: indexPath)
             }
             
             return cell
+    }
+    
+    // MARK: - 페이지네이션에 맞춘 역순 정렬
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let reversedIndex = filteredReviews.count - indexPath.row - 1
+        if reversedIndex >= 0 && reversedIndex < filteredReviews.count {
+            let selectedReview = filteredReviews[reversedIndex]
+            let detailVC = DetailRecommendViewController()
+            detailVC.recommendID = selectedReview.routeId
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        }
     }
     
     private func setupKeyboardEvent() {
@@ -309,14 +266,6 @@ extension RecommendViewController: UITableViewDataSource, UITableViewDelegate {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
-    
-    func tableView(_ tableview:UITableView,didSelectRowAt indexPath:IndexPath) {
-        print("You selected cell #\(reviews[indexPath.row].id)")
-        let detailVC = DetailRecommendViewController()
-        detailVC.recommendID = reviews[indexPath.row].id
-        self.navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
     
     // MARK: - @objc Methods
     
@@ -360,5 +309,69 @@ extension RecommendViewController: UITextFieldDelegate{
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         recommendListView.isUserInteractionEnabled = true
+    }
+}
+
+
+extension RecommendViewController {
+    func getAllRootRecommend() {
+        RootRecommendAPI.shared.getAllRootRecommend(token: token) { result in
+            switch result {
+            case .success(let data):
+                if let data = data as? AllRootRecommendResponseDTO {
+                    let serverData = data.data
+                    var mappedData: [RootRecommendDataModel] = []
+                    
+                    for serverItem in serverData {
+                        
+                        var mappedPreLecturesItems: [PreLectures] = []
+                        
+                        for prelectureItem in serverItem.preLectures {
+                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureId,
+                                                            semester: prelectureItem.semester,
+                                                            lecNames: prelectureItem.lecNames)
+                            
+                            mappedPreLecturesItems.append(newMappedItem)
+                        }
+                        
+                        let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
+                                                                                   recommendation : serverItem.recommendation,
+                                                                                   createAt :serverItem.createAt ,
+                                                                                    email :serverItem.email ,
+                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeId)
+                        
+                        mappedData.append(mappedRootRecommendDataModel)
+                    }
+                    mappedData.sort { $0.routeId < $1.routeId }
+                    
+                    // 매핑된 데이터를 배열에 저장
+                    self.reviews = mappedData
+                    self.filteredReviews = self.reviews
+                    
+                    
+                    
+                    
+                    // 테이블 뷰 업데이트
+                    self.recommendListView.reloadData()
+                } else {
+                    print("Failed to decode the response.")
+                }
+            case .requestErr(let message):
+                // Handle request error here.
+                print("Request error: \(message)")
+            case .pathErr:
+                // Handle path error here.
+                print("Path error")
+            case .serverErr:
+                // Handle server error here.
+                print("Server error")
+            case .networkFail:
+                // Handle network failure here.
+                print("Network failure")
+            default:
+                break
+            }
+            
+        }
     }
 }

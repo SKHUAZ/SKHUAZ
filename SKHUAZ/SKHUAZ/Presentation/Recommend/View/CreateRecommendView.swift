@@ -13,7 +13,7 @@ class CreateRecommendView: UIView {
     
     enum RecommendType {
         case createRecommend
-        case datailsRecommend
+        case detailsRecommend
     }
     
     // MARK: - UI Components
@@ -40,6 +40,10 @@ class CreateRecommendView: UIView {
         return contentTextView.text
     }
     
+//    var dddd: String? {
+//        return contentTextView.text
+//    }
+    
     // MARK: - Initializer
     
     init(frame: CGRect, recommendType: RecommendType) {
@@ -63,6 +67,7 @@ extension CreateRecommendView {
     private func setUI(){
         
         switch recommendType {
+            
         case .createRecommend:
             pageName.do {
                 $0.text = "루트 추천 작성"
@@ -84,14 +89,14 @@ extension CreateRecommendView {
             
             contentTextView.do {
                 $0.text = placeholderTextView
-                $0.font = .systemFont(ofSize: 11)
+                $0.font = .systemFont(ofSize: 15)
                 $0.textColor = placeholderColor
                 $0.backgroundColor = UIColor(hex: "#EFEFEF")
                 $0.textContainerInset = UIEdgeInsets(top: 9, left: 8, bottom: 0, right: 0)
                 $0.layer.cornerRadius = 6
             }
             
-        case .datailsRecommend:
+        case .detailsRecommend:
             titleTextField.do {
                 $0.font = .systemFont(ofSize: 15)
                 $0.textColor = UIColor(hex: "#737373")
@@ -148,9 +153,12 @@ extension CreateRecommendView {
     
     // MARK: - Methods
     
+    func setEditable(_ isEditable: Bool) {
+        titleTextField.isEnabled = isEditable
+        contentTextView.isEditable = isEditable
+    }
+    
     private func setupData() {
-//        importReviewList = [ImportRootReview1, ImportRootReview2, ImportRootReview3]
-//        testTableListView.reloadData()
     }
     
     private func setDelegate() {
@@ -161,35 +169,42 @@ extension CreateRecommendView {
         titleTextField.text = title
         contentTextView.text = content
     }
-    
-//    func setDetailRecommend(title: String, rootrecommend: String) {
-//        
-//        titleTextField.text = title
-//        contentTextView.text = 
-//    }
 }
 
 extension CreateRecommendView: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == placeholderColor {
-            textView.text = nil
-            textView.textColor = .black
+            if textView.text == placeholderTextView {
+                textView.text = ""
+                textView.textColor = .black
+            }
         }
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-        if textView.text == placeholderTextView {
-            textView.text = ""
-            textView.textColor = .black
+
+        func textViewDidEndEditing(_ textView: UITextView) {
+            if textView.text.isEmpty {
+                textView.text = placeholderTextView
+                textView.textColor = placeholderColor
+            }
         }
-    }
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = placeholderTextView
-            textView.textColor = placeholderColor
-        }
-    }
+//    func textViewDidBeginEditing(_ textView: UITextView) {
+//        if textView.textColor == placeholderColor {
+//            textView.text = nil
+//            textView.textColor = .black
+//        }
+//    }
+//    
+//    func textViewDidChange(_ textView: UITextView) {
+//        if textView.text == placeholderTextView {
+//            textView.text = ""
+//            textView.textColor = .black
+//        }
+//    }
+//    
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        if textView.text.isEmpty {
+//            textView.text = placeholderTextView
+//            textView.textColor = placeholderColor
+//        }
+//    }
 
 }

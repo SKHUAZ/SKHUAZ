@@ -26,14 +26,12 @@ class RecommendTableViewCell: UITableViewCell {
     private let recommendTitle = UILabel()
     
     private let nickname = UILabel()
-//    private let courseYear = UILabel()
     private let titleLabel = UILabel()
     private let lectureNameLabel = UILabel()
     private let majorNameLabel = UILabel()
     private let majorNameLabel2 = UILabel()
     private let majorNameLabel3 = UILabel()
     private let creationDateLabel = UILabel()
-//    var reviewList: [RecommendDataModel] = []
     
     // MARK: - Initializer
     
@@ -94,35 +92,35 @@ extension RecommendTableViewCell {
         }
         
         recommendTitle.do {
-            $0.font = .systemFont(ofSize: 10)
+            $0.font = .systemFont(ofSize: 15)
             $0.textColor = .white
         }
         
         creationDateLabel.do {
-            $0.font = .systemFont(ofSize: 10)
+            $0.font = .systemFont(ofSize: 15)
             $0.textColor = .white
         }
 
         majorNameLabel.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 10)
             $0.textColor = .black
-            $0.text = "자바프로그래밍"
+            $0.text = "cjs1399@office.skhu.ac.kr"
         }
         
         majorNameLabel2.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 10)
             $0.textColor = .black
             $0.text = "자료구조"
         }
         
         majorNameLabel3.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 10)
             $0.textColor = .black
             $0.text = "알고리즘"
         }
         
         recommendContent.do {
-            $0.font = .systemFont(ofSize: 8)
+            $0.font = .systemFont(ofSize: 15)
             $0.textColor = .black
             $0.numberOfLines = 0
         }
@@ -148,7 +146,8 @@ extension RecommendTableViewCell {
             $0.top.equalToSuperview().offset(10)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(315)
-            $0.height.equalTo(147)
+//            $0.height.equalTo(147)
+            $0.height.equalTo(177)
         }
         
         recommendTitle.snp.makeConstraints {
@@ -163,31 +162,25 @@ extension RecommendTableViewCell {
         topSpace.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(24)
+//            $0.height.equalTo(24)
+            $0.height.equalTo(30)
         }
         
         mainContainer.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(10)
             $0.top.equalTo(topSpace.snp.bottom).offset(10)
             $0.width.equalTo(168)
-            $0.height.equalTo(105)
+            $0.height.equalTo(121)
         }
-        
-//        recommendSubListView.snp.makeConstraints {
-//            $0.top.equalToSuperview().offset(30)
-//            $0.bottom.equalToSuperview()
-//            $0.leading.equalTo(mainContainer.snp.trailing).offset(10)
-//            $0.width.equalTo(100)
-//        }
         
         recommendContent.snp.makeConstraints {
             $0.top.equalToSuperview().offset(5)
             $0.leading.equalToSuperview().offset(8)
-            $0.width.equalTo(150)
+            $0.width.equalTo(166)
         }
         
         lectureContainer1.snp.makeConstraints {
-            $0.top.equalTo(topSpace.snp.bottom).offset(10)
+            $0.top.equalTo(topSpace.snp.bottom).offset(12)
             $0.trailing.equalToSuperview().inset(12)
             $0.width.equalTo(112)
             $0.height.equalTo(28)
@@ -199,7 +192,7 @@ extension RecommendTableViewCell {
         }
         
         lectureContainer2.snp.makeConstraints {
-            $0.top.equalTo(lectureContainer1.snp.bottom).offset(10)
+            $0.top.equalTo(lectureContainer1.snp.bottom).offset(16)
             $0.trailing.equalToSuperview().inset(12)
             $0.width.equalTo(112)
             $0.height.equalTo(28)
@@ -211,7 +204,7 @@ extension RecommendTableViewCell {
         }
         
         lectureContainer3.snp.makeConstraints {
-            $0.top.equalTo(lectureContainer2.snp.bottom).offset(10)
+            $0.top.equalTo(lectureContainer2.snp.bottom).offset(16)
             $0.trailing.equalToSuperview().inset(12)
             $0.width.equalTo(112)
             $0.height.equalTo(28)
@@ -242,15 +235,25 @@ extension RecommendTableViewCell {
         recommendTitle.text = review.title
         recommendContent.text = review.recommendation
         let creationDate = review.createAt.split(separator: "T")
-        creationDateLabel.text = String(creationDate[0])
+        creationDateLabel.text = "[\(String(creationDate[0]))]"
         
-        let lectureIndex = indexPath.row % (review.preLectures.count)
-        
-        majorNameLabel.text = review.preLectures[lectureIndex].lecNames[0]
-        
-        // 주어진 배열 범위 내에 있는지 확인합니다.
-        if lectureIndex + 1 < review.preLectures.count {
-            majorNameLabel2.text = review.preLectures[lectureIndex + 1].lecNames[0]
+        if review.preLectures.isEmpty {
+            majorNameLabel.text = "No lectures available"
+            majorNameLabel2.text = "No lectures available"
+            majorNameLabel3.text = "No lectures available"
+        } else {
+            // 주어진 배열 범위 내에 있는지 확인합니다.
+            let lectureIndex = indexPath.row % (review.preLectures.count)
+            majorNameLabel.text = review.preLectures[lectureIndex].lecNames[0]
+            
+            if lectureIndex + 1 < review.preLectures.count {
+                majorNameLabel2.text = review.preLectures[lectureIndex + 1].lecNames[0]
+                majorNameLabel3.text = review.preLectures[lectureIndex + 2].lecNames[0]
+            } else {
+                majorNameLabel2.text = "" // 다음 강의가 없는 경우 빈 문자열로 설정
+                majorNameLabel3.text = ""
+            }
         }
     }
 }
+

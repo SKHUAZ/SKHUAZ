@@ -3,7 +3,8 @@
 //  SKHUAZ
 //
 //  Created by 천성우 on 2023/09/26.
-//
+// 
+
 
 import Foundation
 
@@ -11,7 +12,7 @@ import Foundation
 struct PreLectureDTO: Codable {
     let statusCode: Int
     let message: String
-    let data: [preLectureData]
+    var data: [preLectureData]
 }
 
 // MARK: - Datum
