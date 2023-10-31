@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
     private let rootRecommendReviewGuideTitle = UILabel()
     
     var token = UserDefaults.standard.string(forKey: "AuthToken") ?? ""
-    var s = UserDefaults.standard.string(forKey: "LoginEmail")
+    var s = UserDefaults.standard.string(forKey: "Nickname")
     var evaluationId = 0
     private var evaluatefilteredReviews: [EvaluateDataModel]!
     var evaluateReviews: [EvaluateDataModel]!
@@ -56,6 +56,11 @@ class HomeViewController: UIViewController {
     var reviewList: [RootRecommendDataModel] = []
     var filteredReviewList: [RootRecommendDataModel] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadUserDefaults()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setupUI()
@@ -70,11 +75,10 @@ class HomeViewController: UIViewController {
         setRegister()
         setDelegate()
         addTarget()
-//        getUserInfo()
-        
-        
-        
+        setupUI()
     }
+    
+
 }
 
 extension HomeViewController {
@@ -96,8 +100,6 @@ extension HomeViewController {
         }
         
         nameLabel.do {
-            let nickname = UserDefaults.standard.string(forKey: "Nickname") ?? "기본 닉네임"
-            $0.text = "이름  :  \(nickname)"
             $0.textColor = .black
             $0.font = .systemFont(ofSize: 16)
         }
@@ -109,9 +111,6 @@ extension HomeViewController {
         }
         
         departmentLabel.do {
-            let major1 = UserDefaults.standard.string(forKey: "Major1") ?? "소프트웨어공학과"
-            let major2 = UserDefaults.standard.string(forKey: "Major2") ?? "정보통신공학과"
-            $0.text = "IT융합자율학부  :  \(major1)  \(major2)"
             $0.textColor = .black
             $0.font = .systemFont(ofSize: 16)
         }
@@ -152,10 +151,6 @@ extension HomeViewController {
             $0.separatorStyle = .none
             $0.isScrollEnabled = false
         }
-        
-        //        rootRecommendReviewContainer.do {
-        //            $0.backgroundColor = .blue
-        //        }
     }
     
     func setupLayout() {
@@ -172,12 +167,6 @@ extension HomeViewController {
             $0.leading.trailing.edges.equalTo(view.safeAreaLayoutGuide) // safe area를 고려하여 설정합니다.
             $0.width.equalTo(view.safeAreaLayoutGuide) // width를 화면 너비에 맞게 설정합니다.
         }
-        
-//        contentView.snp.makeConstraints { make in
-//            make.edges.equalTo(scrollView)
-//            make.width.equalTo(scrollView)
-//            make.height.equalTo(745)
-//        }
         
         logoImage.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -432,57 +421,14 @@ extension HomeViewController {
             }
         }
         
-//        rootRecommendReviewContainer.removeFromSuperview()
-//        rootRecommendReviewGuideTitle.removeFromSuperview()
-//        rootRecommendReviewIWroteTableView.removeFromSuperview()
-        
-        
-        // 새로운 UIView 생성
-        
-        
-        // emptyView에 titleLabel 추가
-        
-        
-//        rootRecommendReviewGuideTitle.snp.makeConstraints {
-//            $0.top.equalToSuperview().offset(5)
-//            $0.leading.equalToSuperview().offset(24)
-//        }
-        
-        
-        // MARK: - 앞서 분기처리를 위하여 evaluateReviewCount에 할당하였기에, 그에 상응하는 레이아웃 각 처리
-        
-        // 강의평 개수가 0~1개일 때
-//        if evaluateReviewCount == 0 {
-//            print("---------강의평 개수 0~1개 루트추천 레이아웃 발동---------")
-//            rootRecommendReviewContainer.snp.makeConstraints {
-//                //                $0.top.equalToSuperview().offset(485)
-//                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
-//                $0.leading.trailing.equalToSuperview()
-//                $0.bottom.equalTo(contentView)
-//                $0.height.equalTo(400)
-//            }
-//            
-//            // 강의평 개수가 2개일 때
-//        } else {
-//            print("---------강의평 개수 2개 루트추천 레이아웃 발동---------")
-//            rootRecommendReviewContainer.snp.makeConstraints {
-//                //                $0.top.equalToSuperview().offset(650)// 내가 쓴 강의평 2개일 때 레이아웃
-//                $0.top.equalTo(lectureReviewContainer.snp.bottom).offset(10)
-//                $0.leading.trailing.equalToSuperview()
-//                $0.bottom.equalTo(contentView)
-//            }
-//            
-//            contentView.snp.makeConstraints {
-//                $0.edges.equalTo(scrollView)
-//                $0.width.equalTo(scrollView)
-//            }
-//            
-//        }
-        
-        
-        
-        // Auto Layout 설정
-        
+    }
+    
+    func loadUserDefaults() {
+        let major1 = UserDefaults.standard.string(forKey: "Major1") ?? ""
+        let major2 = UserDefaults.standard.string(forKey: "Major2") ?? ""
+        nameLabel.text = "닉네임 :  \(UserDefaults.standard.string(forKey: "Nickname") ?? "")"
+        departmentLabel.text = "IT융합자율학부  :  \(major1)  \(major2)"
+
     }
     
     
@@ -567,43 +513,29 @@ extension HomeViewController {
                         var mappedPreLecturesItems: [PreLectures] = []
                         
                         for prelectureItem in serverItem.preLectures {
-                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureID,
-                                                            semester: prelectureItem.semester,
-                                                            lecNames: prelectureItem.lecNames)
-                            
+                            let newMappedItem = PreLectures(preLectureId: prelectureItem.preLectureID, semester: prelectureItem.semester, lecNames: prelectureItem.lecNames)
                             mappedPreLecturesItems.append(newMappedItem)
                         }
-                        
-                        let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title,
-                                                                                   recommendation : serverItem.recommendation,
-                                                                                   createAt :serverItem.createAt ,
-                                                                                   email : "" ,
-                                                                                   preLectures:mappedPreLecturesItems, routeId: serverItem.routeID, nickname: serverItem.nickname)
+
+                        let mappedRootRecommendDataModel  = RootRecommendDataModel(title: serverItem.title, recommendation : serverItem.recommendation, createAt :serverItem.createAt, email : "" , preLectures:mappedPreLecturesItems, routeId: serverItem.routeID, nickname: serverItem.nickname)
                         
                         mappedData.append(mappedRootRecommendDataModel)
                     }
                     
-                    // 매핑된 데이터를 배열에 저장
                     self.reviews = mappedData
                     self.filteredReviews = self.reviews
-                    // 테이블 뷰 업데이트
                     self.lectureReviewIWroteTableView.reloadData()
                     self.handleEmptyRootRecommendReviews(num: reviews.count)
-                    
                 } else {
                     print("Failed to decode the response.")
                 }
             case .requestErr(let message):
-                // Handle request error here.
                 print("Request error: \(message)")
             case .pathErr:
-                // Handle path error here.
                 print("Path error")
             case .serverErr:
-                // Handle server error here.
                 print("Server error")
             case .networkFail:
-                // Handle network failure here.
                 print("Network failure")
             default:
                 break
@@ -641,19 +573,12 @@ extension HomeViewController {
                         
                         mappedData.append(mappedItem)
                     }
-                    
-                    
                     self.evaluateReviews = mappedData
-                    
-                    // MARK: - 불러온 내가 쓴 강의평 개수에 따른 내가 쓴 루트추천 레이아웃 분기처리 위한 변수에 값 할당
-                    
-                    
-                    
                     if self.evaluateReviews.isEmpty {
                         self.handleEvaluateReviews()
                         return
                     }
-                    
+            
                     if evaluateReviews.count <= 1 {
                         evaluateReviewCount = 1
                     } else {
@@ -667,16 +592,12 @@ extension HomeViewController {
                     print("Failed to decode the response.")
                 }
             case .requestErr(let message):
-                // Handle request error here.
                 print("Request error: \(message)")
             case .pathErr:
-                // Handle path error here.
                 print("Path error")
             case .serverErr:
-                // Handle server error here.
                 print("Server error")
             case .networkFail:
-                // Handle network failure here.
                 print("Network failure")
             default:
                 break

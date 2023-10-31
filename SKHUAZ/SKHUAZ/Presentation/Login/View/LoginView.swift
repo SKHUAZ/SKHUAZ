@@ -46,6 +46,9 @@ final class LoginView: UIView {
         super.init(frame: frame)
         setUI()
         setLayout()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.addGestureRecognizer(tapGesture)
     }
     
     required init?(coder: NSCoder) {
@@ -158,5 +161,10 @@ extension LoginView {
     @objc
     func signUpButtonTapped() {
         self.delegate?.signUpButtonTapped()
+    }
+    
+    @objc 
+    private func dismissKeyboard() {
+        self.endEditing(true)
     }
 }
