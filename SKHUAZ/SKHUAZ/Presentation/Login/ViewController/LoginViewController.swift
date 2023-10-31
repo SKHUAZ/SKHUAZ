@@ -47,6 +47,9 @@ final class LoginViewController: UIViewController, LoginViewDelegate {
     override func loadView() {
         self.view = rootView
         rootView.delegate = self
+        for key in UserDefaults.standard.dictionaryRepresentation().keys {
+            UserDefaults.standard.removeObject(forKey: key.description)
+        }
     }
 }
 
@@ -105,7 +108,6 @@ extension LoginViewController {
         UserAPI.shared.LogIn(request: LogInRequest.init(email: rootView.emailTextFieldText ?? "", password: rootView.passwordReturn ?? "")) { result in
                 switch result {
                 case .success(let data):
-                    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️")
                     if let data = data as? LogInDTO {
                         // 서버에서 받은 데이터를 LogInDTo로 매핑
                         UserDefaults.standard.set(data.accessToken, forKey: "AuthToken")
@@ -114,18 +116,13 @@ extension LoginViewController {
                     } else {
                         print("Failed to decode the response.")
                     }
-                    self.pushToTabbarView()
                 case .requestErr(let message):
-                    // Handle request error here.
                     print("Request error: \(message)")
                 case .pathErr:
-                    // Handle path error here.
                     print("Path error")
                 case .serverErr:
-                    // Handle server error here.
                     print("Server error")
                 case .networkFail:
-                    // Handle network failure here.
                     print("Network failure")
                 default:
                     break
@@ -162,6 +159,7 @@ extension LoginViewController {
                     UserDefaults.standard.set(serverData.majorMinor, forKey: "MajorMinor") // 주부전공
                     UserDefaults.standard.set(serverData.doubleMajor, forKey: "DoubleMajor") // 복수전공
                     print("====================================")
+                    self.pushToTabbarView()
                 }
             case .requestErr(let message):
                 // Handle request error here.

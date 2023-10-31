@@ -60,9 +60,6 @@ extension SettingViewController {
             mainWindow.rootViewController?.present(customAlertVC, animated: false, completion: nil)
         }
         logOut()
-        for key in UserDefaults.standard.dictionaryRepresentation().keys {
-            UserDefaults.standard.removeObject(forKey: key.description)
-        }
     }
     
     func signOutButtonTapped() {
@@ -82,18 +79,16 @@ extension SettingViewController {
         UserAPI.shared.LogOut(token: token) { result in
             switch result {
             case .success:
-                print("로그아웃했대요")
+                for key in UserDefaults.standard.dictionaryRepresentation().keys {
+                    UserDefaults.standard.removeObject(forKey: key.description)
+                }
             case .requestErr(let message):
-                // Handle request error here.
                 print("Request error: \(message)")
             case .pathErr:
-                // Handle path error here.
                 print("Path error")
             case .serverErr:
-                // Handle server error here.
                 print("Server error")
             case .networkFail:
-                // Handle network failure here.
                 print("Network failure")
             default:
                 break
