@@ -251,12 +251,17 @@ extension CreateRecommendViewController: CreateEvaluateBottomSheetViewController
     @objc
     func presnetToCreateRecommendBottomSheetViewController() {
         
-        if (recommendView.titleTextFieldText == nil || recommendView.contentTextFieldText == "본문을 입력해주세요") {
+        if (recommendView.titleTextFieldText == "" || recommendView.contentTextFieldText == "본문을 작성해주세요") {
             print("입력을 다 해주세요")
             let customAlertVC = AlertViewOfRecommendController(alertType: .notEnteredCreateRootView)
             customAlertVC.modalPresentationStyle = .overFullScreen
             UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
-        } else {
+        } else if getpreLectureId.count < 6 {
+            let customAlertVC = AlertViewOfRecommendController(alertType: .notPreLecturesRootView)
+            customAlertVC.modalPresentationStyle = .overFullScreen
+            UIApplication.shared.windows.first?.rootViewController?.present(customAlertVC, animated: false, completion: nil)
+        }
+        else {
             self.createData.title = recommendView.titleTextFieldText ?? ""
             self.createData.recommendation = recommendView.contentTextFieldText ?? ""
             self.createData.preLectureList = getpreLectureId
