@@ -424,14 +424,14 @@ extension EssentialViewController : AlertViewDelegate {
     }
     
     @objc func presentEidtAlertView() {
-        let customAlertVC = AlertViewController(alertType: .editAdmin)
-        customAlertVC.modalPresentationStyle = .overFullScreen
-        customAlertVC.delegate = self
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let keyWindow = windowScene.windows.first,
-           let rootViewController = keyWindow.rootViewController {
-            rootViewController.present(customAlertVC, animated: false, completion: nil)
-        }
+//        let customAlertVC = AlertViewController(alertType: .editAdmin)
+//        customAlertVC.modalPresentationStyle = .overFullScreen
+//        customAlertVC.delegate = self
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let keyWindow = windowScene.windows.first,
+//           let rootViewController = keyWindow.rootViewController {
+//            rootViewController.present(customAlertVC, animated: false, completion: nil)
+//        }
     }
     
     func didConfirmAction(lectureName: String, professorName: String, semester: String, essentialName: String) {
