@@ -13,6 +13,7 @@ import Then
 enum RecommendAlertType {
     case saveCompleteCreateRootView
     case notEnteredCreateRootView
+    case notPreLecturesRootView
 }
 
 final class AlertViewOfRecommendController: UIViewController {
@@ -67,9 +68,9 @@ extension AlertViewOfRecommendController {
             }
             checkButton.do {
                 $0.layer.cornerRadius = 6
-                $0.layer.borderColor = UIColor(hex: "#ED7A7A").cgColor
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
                 $0.layer.borderWidth = 1
-                $0.backgroundColor = UIColor(hex: "#ED7A7A")
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
                 $0.setTitle("확인", for: .normal)
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
@@ -77,7 +78,7 @@ extension AlertViewOfRecommendController {
             
         case .notEnteredCreateRootView:
             mainLabel.do {
-                $0.text = "강의평 작성하기를\n모두 입력해주세요"
+                $0.text = "루트추천 작성하기를\n모두 입력해주세요"
                 $0.textAlignment = .center
                 $0.textColor = UIColor(hex: "#000000")
                 $0.font = .systemFont(ofSize: 15)
@@ -86,9 +87,28 @@ extension AlertViewOfRecommendController {
             
             checkButton.do {
                 $0.layer.cornerRadius = 6
-                $0.layer.borderColor = UIColor(hex: "#000000").cgColor
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
                 $0.layer.borderWidth = 1
-                $0.backgroundColor = UIColor(hex: "#000000")
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
+                $0.setTitle("확인", for: .normal)
+                $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
+                $0.titleLabel?.font = .systemFont(ofSize: 15)
+            }
+            
+        case .notPreLecturesRootView:
+            mainLabel.do {
+                $0.text = "선수과목을 저장한\n이후 작성해주세요"
+                $0.textAlignment = .center
+                $0.textColor = UIColor(hex: "#000000")
+                $0.font = .systemFont(ofSize: 15)
+                $0.numberOfLines = 2
+            }
+            
+            checkButton.do {
+                $0.layer.cornerRadius = 6
+                $0.layer.borderColor = UIColor(hex: "#9AC1D1").cgColor
+                $0.layer.borderWidth = 1
+                $0.backgroundColor = UIColor(hex: "#9AC1D1")
                 $0.setTitle("확인", for: .normal)
                 $0.setTitleColor(UIColor(hex: "#FFFFFF"), for: .normal)
                 $0.titleLabel?.font = .systemFont(ofSize: 15)
