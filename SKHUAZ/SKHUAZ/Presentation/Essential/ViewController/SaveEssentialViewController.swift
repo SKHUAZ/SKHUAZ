@@ -24,6 +24,7 @@ final class SaveEssentialViewController: UIViewController {
 
     // MARK: - Properties
     var saveData: [adminPreLecture] = []
+    var modifiedData: [String] = []
 
 //        var data: [adminPreLecture] = [
 //            adminPreLecture(subjectName: "과목1", subjectSemester: "2023-1"),
@@ -192,16 +193,21 @@ extension SaveEssentialViewController {
             case .success(let data):
                 if let data = data as? UserPreLectureDTO {
                     let serverData = data.data
-                    var saveData = [adminPreLecture]() // 새로운 데이터를 저장할 배열
+
+                    // 새로운 데이터를 저장할 배열
+                    var saveData = [adminPreLecture]()
 
                     for preLectureData in serverData {
-                        let adminPreLectureData = adminPreLecture(subjectName: preLectureData.lecNames[0], subjectSemester: preLectureData.semester)
-                        saveData.append(adminPreLectureData)
+                        // 각 학기의 강의명을 모두 가져와서 배열에 추가
+                        for lecName in preLectureData.lecNames {
+                            let adminPreLectureData = adminPreLecture(subjectName: lecName, subjectSemester: preLectureData.semester)
+                            saveData.append(adminPreLectureData)
+                        }
                     }
+
                     self.saveData = saveData
+                    print(self.saveData)
                     self.tableView.reloadData()
-
-
                 }
             case .requestErr(let message):
                 print("Request error: \(message)")
@@ -216,4 +222,6 @@ extension SaveEssentialViewController {
             }
         }
     }
+
+
 }
